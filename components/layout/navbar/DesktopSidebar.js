@@ -5,12 +5,14 @@ import useIsCurrentPage from '../../../hooks/useIsCurrentPage';
 import { sectionOrder } from '..';
 import Logo from '../../ui/svg/Logo';
 
+import { navColorClasses } from '.';
+
 const DesktopSidebar = () => {
   const sectionDetails = useSectionDetails();
   const isCurrentPage = useIsCurrentPage();
 
   return (
-    <div className='hidden w-28 bg-indigo-700 overflow-y-auto md:block'>
+    <div className={`hidden w-28 overflow-y-auto md:block ${navColorClasses.background}`}>
       <div className='w-full py-6 flex flex-col items-center'>
         <div className='flex-shrink-0 flex items-center'>
           <div className='w-8 h-8'>
@@ -26,16 +28,16 @@ const DesktopSidebar = () => {
                   className={`group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium
                     ${
                       isCurrentPage(sectionName)
-                        ? 'bg-indigo-800 text-white'
-                        : 'text-indigo-100 hover:bg-indigo-800 hover:text-white'
+                        ? `${navColorClasses.activeBackground} ${navColorClasses.activeText}`
+                        : `${navColorClasses.text} hover:${navColorClasses.activeBackground} hover:${navColorClasses.activeText}`
                     }`}
                   aria-current={isCurrentPage(sectionName) ? 'page' : undefined}
                 >
                   <section.icon
                     className={`h-6 w-6 ${
                       isCurrentPage(sectionName)
-                        ? 'text-white'
-                        : 'text-indigo-300 group-hover:text-white'
+                        ? navColorClasses.activeIcon
+                        : `group-hover:${navColorClasses.activeIcon} ${navColorClasses.icon}`
                     }`}
                     aria-hidden='true'
                   />

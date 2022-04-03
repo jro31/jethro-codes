@@ -7,6 +7,7 @@ import useSectionDetails from '../../../hooks/useSectionDetails';
 import useIsCurrentPage from '../../../hooks/useIsCurrentPage';
 import { sectionOrder } from '..';
 import Logo from '../../ui/svg/Logo';
+import { navColorClasses } from '.';
 
 const MobileNavbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,14 +18,16 @@ const MobileNavbar = () => {
     <>
       <div className='flex-1 min-w-0 flex flex-col overflow-hidden'>
         <div className='md:hidden'>
-          <div className='bg-indigo-600 py-2 px-4 flex items-center justify-between sm:px-6 lg:px-8'>
+          <div
+            className={`py-2 px-4 flex items-center justify-between sm:px-6 lg:px-8 ${navColorClasses.background}`}
+          >
             <div className='h-8 w-8'>
               <Logo />
             </div>
             <div>
               <button
                 type='button'
-                className='-mr-3 h-12 w-12 inline-flex items-center justify-center bg-indigo-600 rounded-md text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
+                className={`-mr-3 h-12 w-12 inline-flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:${navColorClasses.ring} ${navColorClasses.background} hover:${navColorClasses.activeBackground} ${navColorClasses.activeIcon}`}
                 onClick={() => setMobileMenuOpen(true)}
               >
                 <span className='sr-only'>Open sidebar</span>
@@ -59,7 +62,9 @@ const MobileNavbar = () => {
               leaveFrom='translate-x-0'
               leaveTo='-translate-x-full'
             >
-              <div className='relative max-w-xs w-full bg-indigo-700 pt-5 pb-4 flex-1 flex flex-col'>
+              <div
+                className={`relative max-w-xs w-full pt-5 pb-4 flex-1 flex flex-col ${navColorClasses.background}`}
+              >
                 <Transition.Child
                   as={Fragment}
                   enter='ease-in-out duration-300'
@@ -72,10 +77,13 @@ const MobileNavbar = () => {
                   <div className='absolute top-1 right-0 -mr-14 p-1'>
                     <button
                       type='button'
-                      className='h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white'
+                      className={`h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:${navColorClasses.ring}`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      <XIcon className='h-6 w-6 text-white' aria-hidden='true' />
+                      <XIcon
+                        className={`h-6 w-6 ${navColorClasses.activeIcon}`}
+                        aria-hidden='true'
+                      />
                       <span className='sr-only'>Close sidebar</span>
                     </button>
                   </div>
@@ -96,16 +104,16 @@ const MobileNavbar = () => {
                               onClick={() => setMobileMenuOpen(false)}
                               className={`group py-2 px-3 rounded-md flex items-center text-sm font-medium ${
                                 isCurrentPage(sectionName)
-                                  ? 'bg-indigo-800 text-white'
-                                  : 'text-indigo-100 hover:bg-indigo-800 hover:text-white'
+                                  ? `${navColorClasses.activeBackground} ${navColorClasses.activeText}`
+                                  : `${navColorClasses.text} hover:${navColorClasses.activeBackground} hover:${navColorClasses.activeText}`
                               }`}
                               aria-current={isCurrentPage(sectionName) ? 'page' : undefined}
                             >
                               <section.icon
                                 className={`mr-3 h-6 w-6 ${
                                   isCurrentPage(sectionName)
-                                    ? 'text-white'
-                                    : 'text-indigo-300 group-hover:text-white'
+                                    ? navColorClasses.activeIcon
+                                    : `group-hover:${navColorClasses.activeIcon} ${navColorClasses.icon}`
                                 }`}
                                 aria-hidden='true'
                               />

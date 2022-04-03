@@ -6,6 +6,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import useSectionDetails from '../../../hooks/useSectionDetails';
 import useIsCurrentPage from '../../../hooks/useIsCurrentPage';
 import { sectionOrder } from '..';
+import Logo from '../../ui/svg/Logo';
 
 const MobileNavbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,12 +18,8 @@ const MobileNavbar = () => {
       <div className='flex-1 min-w-0 flex flex-col overflow-hidden'>
         <div className='md:hidden'>
           <div className='bg-indigo-600 py-2 px-4 flex items-center justify-between sm:px-6 lg:px-8'>
-            <div>
-              <img
-                className='h-8 w-auto'
-                src='https://tailwindui.com/img/logos/workflow-mark.svg?color=white'
-                alt='Workflow'
-              />
+            <div className='h-8 w-8'>
+              <Logo />
             </div>
             <div>
               <button
@@ -84,11 +81,9 @@ const MobileNavbar = () => {
                   </div>
                 </Transition.Child>
                 <div className='flex-shrink-0 px-4 flex items-center'>
-                  <img
-                    className='h-8 w-auto'
-                    src='https://tailwindui.com/img/logos/workflow-mark.svg?color=white'
-                    alt='Workflow'
-                  />
+                  <div className='h-8 w-8'>
+                    <Logo />
+                  </div>
                 </div>
                 <div className='mt-5 flex-1 h-0 px-2 overflow-y-auto'>
                   <nav className='h-full flex flex-col'>

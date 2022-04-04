@@ -1,22 +1,33 @@
-import useProjectCardDetails from '../../hooks/useProjectCardDetails';
+import { getArticles } from '../../lib/api';
 import Card from '../../components/ui/Card';
 
-export const blocksFalling = 'blocks-falling';
-export const mealsOfChange = 'meals-of-change';
-export const wheresJethro = 'wheres-jethro';
+export const projectsContainingFolder = 'projects';
 
-const projectCardOrder = [mealsOfChange, wheresJethro, blocksFalling];
-
-const Projects = () => {
-  const projectCardDetails = useProjectCardDetails();
+const Projects = ({ allProjects }) => {
+  console.log(allProjects);
 
   return (
     <div className='flex flex-col gap-4'>
-      {projectCardOrder.map(projectCard => (
-        <Card key={`${projectCard}-card`} cardDetails={projectCardDetails(projectCard)} />
+      {allProjects.map(project => (
+        <Card
+          key={`${project}-card`}
+          cardDetails={project}
+          containingFolder={projectsContainingFolder}
+        />
       ))}
     </div>
   );
 };
 
 export default Projects;
+
+export const getStaticProps = async () => {
+  const allProjects = getArticles(
+    ['title', 'description', 'slug', 'coverImage'],
+    projectsContainingFolder
+  ); // NICETOHAVE - Is there a way to generate the containing folder ('projects') programatically?
+
+  return {
+    props: { allProjects },
+  };
+};

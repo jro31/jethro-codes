@@ -4,7 +4,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Dialog, Transition } from '@headlessui/react';
 
 import useSectionDetails from '../../../hooks/useSectionDetails';
-import useIsCurrentPage from '../../../hooks/useIsCurrentPage';
+import useIsActiveSection from '../../../hooks/useIsActiveSection';
 import { sectionOrder } from '..';
 import Logo from '../../ui/svg/Logo';
 import { navColorClasses } from '.';
@@ -12,7 +12,7 @@ import { navColorClasses } from '.';
 const MobileNavbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const sectionDetails = useSectionDetails();
-  const isCurrentPage = useIsCurrentPage();
+  const isActiveSection = useIsActiveSection();
 
   return (
     <>
@@ -103,15 +103,15 @@ const MobileNavbar = () => {
                             <a
                               onClick={() => setMobileMenuOpen(false)}
                               className={`group py-2 px-3 rounded-md flex items-center text-sm font-medium ${
-                                isCurrentPage(sectionName)
+                                isActiveSection(sectionName)
                                   ? `${navColorClasses.activeBackground} ${navColorClasses.activeText}`
                                   : `${navColorClasses.text} hover:${navColorClasses.activeBackground} hover:${navColorClasses.activeText}`
                               }`}
-                              aria-current={isCurrentPage(sectionName) ? 'page' : undefined}
+                              aria-current={isActiveSection(sectionName) ? 'page' : undefined}
                             >
                               <section.icon
                                 className={`mr-3 h-6 w-6 ${
-                                  isCurrentPage(sectionName)
+                                  isActiveSection(sectionName)
                                     ? navColorClasses.activeIcon
                                     : `group-hover:${navColorClasses.activeIcon} ${navColorClasses.icon}`
                                 }`}

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import useSectionDetails from '../../../hooks/useSectionDetails';
-import useIsCurrentPage from '../../../hooks/useIsCurrentPage';
+import useIsActiveSection from '../../../hooks/useIsActiveSection';
 import { sectionOrder } from '..';
 import Logo from '../../ui/svg/Logo';
 
@@ -9,7 +9,7 @@ import { navColorClasses } from '.';
 
 const DesktopSidebar = () => {
   const sectionDetails = useSectionDetails();
-  const isCurrentPage = useIsCurrentPage();
+  const isActiveSection = useIsActiveSection();
 
   return (
     <div className={`hidden w-28 overflow-y-auto md:block ${navColorClasses.background}`}>
@@ -27,15 +27,15 @@ const DesktopSidebar = () => {
                 <a
                   className={`group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium
                     ${
-                      isCurrentPage(sectionName)
+                      isActiveSection(sectionName)
                         ? `${navColorClasses.activeBackground} ${navColorClasses.activeText}`
                         : `${navColorClasses.text} hover:${navColorClasses.activeBackground} hover:${navColorClasses.activeText}`
                     }`}
-                  aria-current={isCurrentPage(sectionName) ? 'page' : undefined}
+                  aria-current={isActiveSection(sectionName) ? 'page' : undefined}
                 >
                   <section.icon
                     className={`h-6 w-6 ${
-                      isCurrentPage(sectionName)
+                      isActiveSection(sectionName)
                         ? navColorClasses.activeIcon
                         : `group-hover:${navColorClasses.activeIcon} ${navColorClasses.icon}`
                     }`}

@@ -4,8 +4,6 @@ import Card from '../../components/ui/Card';
 export const projectsContainingFolder = 'projects';
 
 const Projects = ({ allProjects }) => {
-  console.log(allProjects);
-
   return (
     <div className='flex flex-col gap-4'>
       {allProjects.map(project => (

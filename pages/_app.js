@@ -1,4 +1,5 @@
 // TODO - Update favicon
+// TODO - Update navbar logo
 
 import { Provider } from 'react-redux';
 

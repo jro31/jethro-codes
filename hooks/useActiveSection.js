@@ -8,7 +8,9 @@ const useActiveSection = () => {
   const sectionDetails = useSectionDetails();
 
   const activeSection = () =>
-    sectionOrder.find(sectionName => sectionDetails(sectionName).route === router.pathname);
+    sectionOrder.find(
+      sectionName => sectionDetails(sectionName).route === `/${router.pathname.split('/')[1]}`
+    );
 
   return activeSection;
 };

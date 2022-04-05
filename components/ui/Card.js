@@ -1,7 +1,10 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 import Button from './Button';
 
 const Card = props => {
+  const router = useRouter();
+
   const { title, description, slug, coverImage, tags } = props.cardDetails;
 
   return (
@@ -15,9 +18,9 @@ const Card = props => {
               <span key={`${tag}-tag`}>{tag}</span>
             ))}
           </div>
-          <Link href={`${props.containingFolder}/${slug}`} passHref>
-            <Button>Anatomy of a project</Button>
-          </Link>
+          <Button onClick={() => router.push(`${props.containingFolder}/${slug}`)}>
+            Anatomy of a project
+          </Button>
         </div>
         <div className='basis-2/3 rounded-lg border'>
           <img src={coverImage} alt={title} className='rounded-lg' />

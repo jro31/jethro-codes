@@ -2,7 +2,8 @@
 title: 'Meals of Change'
 description: 'This is the Meals of Change description' # TODO - Update this
 coverImage: '/images/meals-of-change.png'
-date: '2020-03-16T05:35:07.322Z' # TODO - Probably change this from 'date' to have two fields 'published' and 'lastUpdated'
+published: '2020-03-16T05:35:07.322Z'
+lastUpdated: '2020-03-16T05:35:07.322Z'
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
 ---
 

@@ -21,7 +21,7 @@ export default Project;
 export const getStaticProps = async ({ params }) => {
   const project = getArticleBySlug(
     params.slug,
-    ['title', 'date', 'slug', 'content', 'coverImage', 'tags'],
+    ['title', 'lastUpdated', 'slug', 'content', 'coverImage', 'tags'],
     projectsContainingFolder
   );
   const content = await markdownToHtml(project.content || '');

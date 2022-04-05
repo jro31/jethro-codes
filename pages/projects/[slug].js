@@ -1,28 +1,11 @@
 import { getArticleBySlug, getArticles } from '../../lib/api';
-import Head from 'next/head';
 import markdownToHtml from '../../lib/markdownToHtml';
 
 import { projectsContainingFolder } from '.';
-import ArticleHeader from '../../components/layout/main-content/articles/ArticleHeader';
-import ArticleBody from '../../components/layout/main-content/articles/ArticleBody';
+import Article from '../../components/layout/main-content/article';
 
 const Project = ({ project }) => {
-  return (
-    <article>
-      <Head>
-        {/* TODO - Add meta tags; use tags as keywords */}
-        <title>{project.title} | Anatomy of a Project</title>
-      </Head>
-      <ArticleHeader
-        title={project.title}
-        description={project.description}
-        lastUpdated={project.lastUpdated}
-        coverImage={project.coverImage}
-        tagsArray={project.tags.split(', ')}
-      />
-      <ArticleBody content={project.content} />
-    </article>
-  );
+  return <Article article={project} />;
 };
 
 export default Project;
@@ -40,6 +23,7 @@ export const getStaticProps = async ({ params }) => {
       project: {
         ...project,
         content,
+        subtitle: 'Anatomy of a Project',
       },
     },
   };

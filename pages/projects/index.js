@@ -1,20 +1,23 @@
 import { getArticles } from '../../lib/api';
 import Card from '../../components/ui/Card';
 import CardsContainer from '../../components/ui/CardsContainer';
+import SectionHome from '../../components/layout/main-content/section-home';
 
 export const projectsContainingFolder = 'projects';
 
 const Projects = ({ allProjects }) => {
   return (
-    <CardsContainer>
-      {allProjects.map(project => (
-        <Card
-          key={`${project}-card`}
-          cardDetails={project}
-          containingFolder={projectsContainingFolder}
-        />
-      ))}
-    </CardsContainer>
+    <SectionHome>
+      <CardsContainer>
+        {allProjects.map(project => (
+          <Card
+            key={`${project}-card`}
+            cardDetails={project}
+            containingFolder={projectsContainingFolder}
+          />
+        ))}
+      </CardsContainer>
+    </SectionHome>
   );
 };
 

@@ -6,7 +6,7 @@ const useSectionDetails = () => {
     switch (sectionName) {
       case home:
         return {
-          title: '',
+          title: 'jethro.codes',
           linkText: 'Home',
           route: '/',
           icon: HomeIcon,

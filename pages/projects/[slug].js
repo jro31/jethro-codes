@@ -8,7 +8,7 @@ const Project = ({ project }) => {
   return (
     <article>
       <Head>
-        {/* TODO - Add meta tags */}
+        {/* TODO - Add meta tags; use tags as keywords */}
         <title>{project.title} | Anatomy of a Project</title>
       </Head>
       <div dangerouslySetInnerHTML={{ __html: project.content }} />
@@ -21,7 +21,7 @@ export default Project;
 export const getStaticProps = async ({ params }) => {
   const project = getArticleBySlug(
     params.slug,
-    ['title', 'date', 'slug', 'content', 'ogImage', 'coverImage'],
+    ['title', 'date', 'slug', 'content', 'coverImage', 'tags'],
     projectsContainingFolder
   );
   const content = await markdownToHtml(project.content || '');

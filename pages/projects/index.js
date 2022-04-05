@@ -21,7 +21,7 @@ export default Projects;
 
 export const getStaticProps = async () => {
   const allProjects = getArticles(
-    ['title', 'description', 'slug', 'coverImage'],
+    ['title', 'description', 'slug', 'coverImage', 'tags'],
     projectsContainingFolder
   ); // NICETOHAVE - Is there a way to generate the containing folder ('projects') programatically?
 

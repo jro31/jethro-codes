@@ -19,8 +19,7 @@ const useSectionDetails = () => {
           icon: PaperClipIcon,
         };
       default:
-        return {};
-      // throw new Error(`Unrecognised section name '${sectionName}' passed to useSectionDetails`);
+        throw new Error(`Unrecognised section name '${sectionName}' passed to useSectionDetails`);
     }
   };
 

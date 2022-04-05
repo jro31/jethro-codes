@@ -3,6 +3,8 @@ import Head from 'next/head';
 import markdownToHtml from '../../lib/markdownToHtml';
 
 import { projectsContainingFolder } from '.';
+import ArticleHeader from '../../components/layout/main-content/articles/ArticleHeader';
+import ArticleBody from '../../components/layout/main-content/articles/ArticleBody';
 
 const Project = ({ project }) => {
   return (
@@ -11,7 +13,14 @@ const Project = ({ project }) => {
         {/* TODO - Add meta tags; use tags as keywords */}
         <title>{project.title} | Anatomy of a Project</title>
       </Head>
-      <div dangerouslySetInnerHTML={{ __html: project.content }} />
+      <ArticleHeader
+        title={project.title}
+        description={project.description}
+        lastUpdated={project.lastUpdated}
+        coverImage={project.coverImage}
+        tagsArray={project.tags.split(', ')}
+      />
+      <ArticleBody content={project.content} />
     </article>
   );
 };
@@ -21,7 +30,7 @@ export default Project;
 export const getStaticProps = async ({ params }) => {
   const project = getArticleBySlug(
     params.slug,
-    ['title', 'lastUpdated', 'slug', 'content', 'coverImage', 'tags'],
+    ['title', 'description', 'lastUpdated', 'slug', 'content', 'coverImage', 'tags'],
     projectsContainingFolder
   );
   const content = await markdownToHtml(project.content || '');

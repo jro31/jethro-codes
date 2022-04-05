@@ -2,7 +2,7 @@
 title: 'Meals of Change'
 description: 'This is the Meals of Change description' # TODO - Update this
 coverImage: '/images/meals-of-change.png'
-published: '2020-03-16T05:35:07.322Z'
+published: '2020-03-16T05:35:07.322Z' # TODO - Can these be simplified to just the date, e.g '2020-03-16'?
 lastUpdated: '2020-03-16T05:35:07.322Z'
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
 ---

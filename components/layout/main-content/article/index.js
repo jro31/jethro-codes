@@ -1,3 +1,5 @@
+// TODO - Add social media links to share this article
+
 import Head from 'next/head';
 import ArticleBody from './ArticleBody';
 import ArticleHeader from './ArticleHeader';
@@ -16,8 +18,9 @@ const Article = ({ article }) => {
         title={article.title}
         description={article.description}
         lastUpdated={article.lastUpdated}
-        coverImage={article.coverImage}
+        // coverImage={article.coverImage}
         tagsArray={article.tags.split(', ')}
+        type={article.type}
       />
       <ArticleBody content={article.content} />
     </article>

@@ -23,6 +23,7 @@ export const getStaticProps = async ({ params }) => {
       project: {
         ...project,
         content,
+        type: 'Project',
         subtitle: 'Anatomy of a Project',
       },
     },

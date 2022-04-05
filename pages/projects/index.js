@@ -1,11 +1,12 @@
 import { getArticles } from '../../lib/api';
 import Card from '../../components/ui/Card';
+import CardsContainer from '../../components/ui/CardsContainer';
 
 export const projectsContainingFolder = 'projects';
 
 const Projects = ({ allProjects }) => {
   return (
-    <div className='flex flex-col gap-4'>
+    <CardsContainer>
       {allProjects.map(project => (
         <Card
           key={`${project}-card`}
@@ -13,7 +14,7 @@ const Projects = ({ allProjects }) => {
           containingFolder={projectsContainingFolder}
         />
       ))}
-    </div>
+    </CardsContainer>
   );
 };
 

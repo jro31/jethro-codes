@@ -2,9 +2,9 @@
 title: 'Meals of Change'
 description: 'This is the Meals of Change description' # TODO - Update this
 coverImage: '/images/meals-of-change.png'
-date: '2020-03-16T05:35:07.322Z'
+date: '2020-03-16T05:35:07.322Z' # TODO - Probably change this from 'date' to have two fields 'published' and 'lastUpdated'
 ogImage:
-  url: '/assets/blog/dynamic-routing/cover.jpg' # TODO - Update this
+  url: '/assets/blog/dynamic-routing/cover.jpg' # TODO - Update this (or perhaps delete this section and just use the 'coverImage')
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus. Praesent elementum facilisis leo vel fringilla. Congue mauris rhoncus aenean vel. Egestas sed tempus urna et pharetra pharetra massa massa ultricies.

@@ -27,7 +27,7 @@ const MobileNavbar = () => {
             <div>
               <button
                 type='button'
-                className={`-mr-3 h-12 w-12 inline-flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:${navColorClasses.ring} ${navColorClasses.background} hover:${navColorClasses.activeBackground} ${navColorClasses.activeIcon}`}
+                className={`-mr-3 h-12 w-12 inline-flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-inset ${navColorClasses.ring} ${navColorClasses.background} ${navColorClasses.hamburgerHover} ${navColorClasses.activeIcon}`}
                 onClick={() => setMobileMenuOpen(true)}
               >
                 <span className='sr-only'>Open sidebar</span>
@@ -77,7 +77,7 @@ const MobileNavbar = () => {
                   <div className='absolute top-1 right-0 -mr-14 p-1'>
                     <button
                       type='button'
-                      className={`h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:${navColorClasses.ring}`}
+                      className={`h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 ${navColorClasses.ring}`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <XIcon
@@ -104,8 +104,8 @@ const MobileNavbar = () => {
                               onClick={() => setMobileMenuOpen(false)}
                               className={`group py-2 px-3 rounded-md flex items-center text-sm font-medium ${
                                 isActiveSection(sectionName)
-                                  ? `${navColorClasses.activeBackground} ${navColorClasses.activeText}`
-                                  : `${navColorClasses.text} hover:${navColorClasses.activeBackground} hover:${navColorClasses.activeText}`
+                                  ? navColorClasses.activePanel
+                                  : navColorClasses.passivePanel
                               }`}
                               aria-current={isActiveSection(sectionName) ? 'page' : undefined}
                             >
@@ -113,7 +113,7 @@ const MobileNavbar = () => {
                                 className={`mr-3 h-6 w-6 ${
                                   isActiveSection(sectionName)
                                     ? navColorClasses.activeIcon
-                                    : `group-hover:${navColorClasses.activeIcon} ${navColorClasses.icon}`
+                                    : navColorClasses.passiveIcon
                                 }`}
                                 aria-hidden='true'
                               />

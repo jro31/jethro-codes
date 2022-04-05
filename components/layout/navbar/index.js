@@ -3,12 +3,12 @@ import MobileNavbar from './MobileNavbar';
 
 export const navColorClasses = {
   background: 'bg-indigo-700',
-  activeBackground: 'bg-indigo-800',
-  icon: 'text-indigo-300', // Restart the server on changing this
-  activeIcon: 'text-white', // Restart the server on changing this
-  text: 'text-indigo-100',
-  activeText: 'text-white',
-  ring: 'ring-white',
+  activePanel: 'bg-indigo-800 text-white',
+  passivePanel: 'text-indigo-100 hover:bg-indigo-800 hover:text-white',
+  activeIcon: 'text-white',
+  passiveIcon: 'group-hover:text-white text-indigo-300',
+  ring: 'focus:ring-white',
+  hamburgerHover: 'hover:bg-indigo-800',
 };
 
 const Navbar = () => {

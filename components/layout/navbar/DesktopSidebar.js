@@ -28,8 +28,8 @@ const DesktopSidebar = () => {
                   className={`group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium
                     ${
                       isActiveSection(sectionName)
-                        ? `${navColorClasses.activeBackground} ${navColorClasses.activeText}`
-                        : `${navColorClasses.text} hover:${navColorClasses.activeBackground} hover:${navColorClasses.activeText}`
+                        ? navColorClasses.activePanel
+                        : navColorClasses.passivePanel
                     }`}
                   aria-current={isActiveSection(sectionName) ? 'page' : undefined}
                 >
@@ -37,7 +37,7 @@ const DesktopSidebar = () => {
                     className={`h-6 w-6 ${
                       isActiveSection(sectionName)
                         ? navColorClasses.activeIcon
-                        : `group-hover:${navColorClasses.activeIcon} ${navColorClasses.icon}`
+                        : navColorClasses.passiveIcon
                     }`}
                     aria-hidden='true'
                   />

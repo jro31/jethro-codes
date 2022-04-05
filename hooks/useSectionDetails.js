@@ -7,6 +7,7 @@ const useSectionDetails = () => {
       case home:
         return {
           title: 'jethro.codes',
+          description: 'My home for everything code.',
           linkText: 'Home',
           route: '/',
           icon: HomeIcon,
@@ -14,6 +15,7 @@ const useSectionDetails = () => {
       case projects:
         return {
           title: 'Projects',
+          description: 'Going in depth on my latest personal projects.',
           linkText: 'Projects',
           route: '/projects',
           icon: PaperClipIcon,

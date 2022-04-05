@@ -5,7 +5,7 @@ import Title from '../../../ui/text/Title';
 
 const ArticleHeader = props => {
   return (
-    <div className='bg-gray-800 rounded-b-lg text-center'>
+    <div className='bg-gray-800 text-center'>
       <div className='max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8'>
         {props.type && (
           <div className='text-base font-semibold text-indigo-700 tracking-wide uppercase'>

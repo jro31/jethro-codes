@@ -16,13 +16,16 @@ const SectionHomeHeader = () => {
         <div className='absolute inset-0 bg-gray-800 mix-blend-multiply' aria-hidden='true' />
       </div>
       <div className='relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8'>
-        <h1 className='text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl'>
-          {sectionDetails(activeSection()).title}
-        </h1>
-        <p className='mt-6 max-w-3xl text-xl text-gray-300'>
-          Varius facilisi mauris sed sit. Non sed et duis dui leo, vulputate id malesuada non. Cras
-          aliquet purus dui laoreet diam sed lacus, fames. Dui, amet, nec sit pulvinar.
-        </p>
+        {sectionDetails(activeSection()).title && (
+          <h1 className='text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl'>
+            {sectionDetails(activeSection()).title}
+          </h1>
+        )}
+        {sectionDetails(activeSection()).description && (
+          <p className='mt-6 max-w-3xl text-xl text-gray-300'>
+            {sectionDetails(activeSection()).description}
+          </p>
+        )}
       </div>
     </div>
   );

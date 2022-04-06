@@ -4,7 +4,7 @@ import Head from 'next/head';
 import ArticleBody from './ArticleBody';
 import ArticleHeader from './ArticleHeader';
 
-const Article = ({ article }) => {
+const ArticleContainer = ({ article }) => {
   return (
     <article>
       <Head>
@@ -27,4 +27,4 @@ const Article = ({ article }) => {
   );
 };
 
-export default Article;
+export default ArticleContainer;

@@ -6,10 +6,11 @@ const useActiveSection = () => {
   const router = useRouter();
   const sectionDetails = useSectionDetails();
 
-  const activeSection = () =>
-    sectionOrder.find(
-      sectionName => sectionDetails(sectionName).route === `/${router.pathname.split('/')[1]}`
+  const activeSection = () => {
+    return sectionOrder.find(
+      sectionName => sectionDetails(sectionName).route === `/${router.asPath.split('/')[1]}`
     );
+  };
 
   return activeSection;
 };

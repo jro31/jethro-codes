@@ -5,6 +5,7 @@ const projects = 'projects';
 const templates = 'templates';
 
 export const sectionOrder = [home, projects, templates];
+export const articleSections = [projects, templates];
 
 const useSectionDetails = () => {
   const sectionDetails = sectionName => {

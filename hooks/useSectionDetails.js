@@ -1,10 +1,12 @@
-import { HomeIcon, PaperClipIcon, TemplateIcon } from '@heroicons/react/outline'; // TODO - Save these icons locally
+import { HomeIcon, PaperClipIcon, TemplateIcon, TrendingUpIcon } from '@heroicons/react/outline'; // TODO - Save these icons locally
 
 const home = 'home';
+const myStory = 'my-story';
 const projects = 'projects';
 const templates = 'templates';
 
-export const sectionOrder = [home, projects, templates];
+export const sectionOrder = [home, projects, templates, myStory];
+export const articleSections = [projects, templates];
 
 const useSectionDetails = () => {
   const sectionDetails = sectionName => {
@@ -12,25 +14,33 @@ const useSectionDetails = () => {
       case home:
         return {
           title: 'jethro.codes',
-          description: 'My home for everything code.',
+          description: 'My home for everything code',
           linkText: 'Home',
           route: '/',
           icon: HomeIcon,
         };
+      case myStory:
+        return {
+          title: 'My Story',
+          description: 'How I came to be',
+          linkText: 'My Story',
+          route: `/${myStory}`,
+          icon: TrendingUpIcon,
+        };
       case projects:
         return {
           title: 'Projects',
-          description: 'Going in depth on my latest personal projects.',
+          description: 'Going in depth on my latest personal projects',
           linkText: 'Projects',
-          route: '/projects',
+          route: `/${projects}`,
           icon: PaperClipIcon,
         };
       case templates:
         return {
           title: 'Templates',
-          description: 'Project templates to save time starting from scratch.',
+          description: 'Project templates to save time starting from scratch',
           linkText: 'Templates',
-          route: '/templates',
+          route: `/${templates}`,
           icon: TemplateIcon,
         };
       default:

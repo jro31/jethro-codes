@@ -19,6 +19,7 @@ const Card = props => {
             ))}
           </div>
           <Button onClick={() => router.push(`${props.containingFolder}/${slug}`)}>
+            {/* TODO - Update this text */}
             Anatomy of a project
           </Button>
         </div>

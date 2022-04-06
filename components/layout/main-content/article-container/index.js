@@ -19,8 +19,8 @@ const ArticleContainer = ({ article }) => {
         description={article.description}
         lastUpdated={article.lastUpdated}
         // coverImage={article.coverImage}
-        tagsArray={article.tags.split(', ')}
-        type={article.type}
+        tagsArray={article.tags ? article.tags.split(', ') : []}
+        type={article.type || ''}
       />
       <ArticleBody content={article.content} />
     </article>

@@ -9,6 +9,10 @@ const MainContent = props => {
     const scrollToTop = () => (mainRef.current.scrollTop = 0);
 
     router.events.on('routeChangeComplete', scrollToTop);
+
+    return () => {
+      router.events.off('routeChangeComplete', scrollToTop);
+    };
   }, [router.events]);
 
   return (

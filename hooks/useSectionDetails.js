@@ -1,16 +1,30 @@
-import { HomeIcon, PaperClipIcon, TemplateIcon, TrendingUpIcon } from '@heroicons/react/outline'; // TODO - Save these icons locally
+import {
+  ChatIcon,
+  HomeIcon,
+  PaperClipIcon,
+  TemplateIcon,
+  TrendingUpIcon,
+} from '@heroicons/react/outline'; // TODO - Save these icons locally
 
+const contact = 'contact';
 const home = 'home';
 const myStory = 'my-story';
 const projects = 'projects';
 const templates = 'templates';
 
-export const sectionOrder = [home, projects, templates, myStory];
+export const sectionOrder = [home, projects, templates, myStory, contact];
 export const articleSections = [projects, templates];
 
 const useSectionDetails = () => {
   const sectionDetails = sectionName => {
     switch (sectionName) {
+      case contact:
+        return {
+          title: 'Contact',
+          linkText: 'Contact',
+          route: `/${contact}`,
+          icon: ChatIcon,
+        };
       case home:
         return {
           title: 'jethro.codes',
@@ -22,7 +36,6 @@ const useSectionDetails = () => {
       case myStory:
         return {
           title: 'My Story',
-          description: 'How I came to be',
           linkText: 'My Story',
           route: `/${myStory}`,
           icon: TrendingUpIcon,

@@ -1,4 +1,5 @@
 // TODO - Add 'coverImage'
+// TODO - Add 'published' date
 // TODO - Add 'lastUpdated' date
 
 import Title from '../../../ui/text/Title';

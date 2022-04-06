@@ -6,7 +6,8 @@ const useSectionDetails = () => {
     switch (sectionName) {
       case home:
         return {
-          title: '',
+          title: 'jethro.codes',
+          description: 'My home for everything code.',
           linkText: 'Home',
           route: '/',
           icon: HomeIcon,
@@ -14,13 +15,13 @@ const useSectionDetails = () => {
       case projects:
         return {
           title: 'Projects',
+          description: 'Going in depth on my latest personal projects.',
           linkText: 'Projects',
           route: '/projects',
           icon: PaperClipIcon,
         };
       default:
-        return {};
-      // throw new Error(`Unrecognised section name '${sectionName}' passed to useSectionDetails`);
+        throw new Error(`Unrecognised section name '${sectionName}' passed to useSectionDetails`);
     }
   };
 

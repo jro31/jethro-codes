@@ -1,4 +1,7 @@
 // TODO - Update favicon
+// TODO - Update navbar logo
+// TODO - Add sitemap (is it possible to have one that updates dynamically?)
+// TODO - Update readme
 
 import { Provider } from 'react-redux';
 

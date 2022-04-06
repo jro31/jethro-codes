@@ -1,12 +1,9 @@
-import { useRouter } from 'next/router';
-
-import useSectionDetails from './useSectionDetails';
+import useActiveSection from './useActiveSection';
 
 const useIsActiveSection = () => {
-  const router = useRouter();
-  const sectionDetails = useSectionDetails();
+  const activeSection = useActiveSection();
 
-  const isActiveSection = sectionName => sectionDetails(sectionName).route === router.pathname;
+  const isActiveSection = sectionName => sectionName === activeSection();
 
   return isActiveSection;
 };

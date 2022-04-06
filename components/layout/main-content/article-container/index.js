@@ -4,7 +4,7 @@ import Head from 'next/head';
 import ArticleBody from './ArticleBody';
 import ArticleHeader from './ArticleHeader';
 
-const Article = ({ article }) => {
+const ArticleContainer = ({ article }) => {
   return (
     <article>
       <Head>
@@ -19,12 +19,12 @@ const Article = ({ article }) => {
         description={article.description}
         lastUpdated={article.lastUpdated}
         // coverImage={article.coverImage}
-        tagsArray={article.tags.split(', ')}
-        type={article.type}
+        tagsArray={article.tags ? article.tags.split(', ') : []}
+        type={article.type || ''}
       />
       <ArticleBody content={article.content} />
     </article>
   );
 };
 
-export default Article;
+export default ArticleContainer;

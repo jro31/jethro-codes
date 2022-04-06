@@ -23,6 +23,7 @@ const Card = props => {
           </Button>
         </div>
         <div className='basis-2/3 rounded-lg border'>
+          {/* TODO - Add a default image (as in 'src={coverImage || 'images/defaultImage.png'}) in case no cover image exists */}
           <img src={coverImage} alt={title} className='rounded-lg' />
         </div>
       </div>

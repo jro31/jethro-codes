@@ -3,17 +3,17 @@ import Card from '../../components/ui/Card';
 import CardsContainer from '../../components/ui/CardsContainer';
 import SectionHome from '../../components/layout/main-content/section-home';
 
-export const projectsContainingFolder = 'projects';
+export const templatesContainingFolder = 'templates';
 
-const Projects = ({ allProjects }) => {
+const Templates = ({ allTemplates }) => {
   return (
     <SectionHome>
       <CardsContainer>
-        {allProjects.map(project => (
+        {allTemplates.map(template => (
           <Card
-            key={`${project}-card`}
-            cardDetails={project}
-            containingFolder={projectsContainingFolder}
+            key={`${template}-card`}
+            cardDetails={template}
+            containingFolder={templatesContainingFolder}
           />
         ))}
       </CardsContainer>
@@ -21,15 +21,15 @@ const Projects = ({ allProjects }) => {
   );
 };
 
-export default Projects;
+export default Templates;
 
 export const getStaticProps = async () => {
-  const allProjects = getArticles(
+  const allTemplates = getArticles(
     ['title', 'description', 'slug', 'coverImage', 'tags'],
-    projectsContainingFolder
-  ); // NICETOHAVE - Is there a way to generate the containing folder ('projects') programatically? (same on other similar pages)
+    templatesContainingFolder
+  );
 
   return {
-    props: { allProjects },
+    props: { allTemplates },
   };
 };

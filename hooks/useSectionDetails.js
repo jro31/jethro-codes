@@ -1,9 +1,10 @@
-import { HomeIcon, PaperClipIcon } from '@heroicons/react/outline';
+import { HomeIcon, PaperClipIcon, TemplateIcon } from '@heroicons/react/outline'; // TODO - Save these icons locally
 
 const home = 'home';
 const projects = 'projects';
+const templates = 'templates';
 
-export const sectionOrder = [home, projects];
+export const sectionOrder = [home, projects, templates];
 
 const useSectionDetails = () => {
   const sectionDetails = sectionName => {
@@ -23,6 +24,14 @@ const useSectionDetails = () => {
           linkText: 'Projects',
           route: '/projects',
           icon: PaperClipIcon,
+        };
+      case templates:
+        return {
+          title: 'Templates',
+          description: 'Project templates to save time starting from scratch.',
+          linkText: 'Templates',
+          route: '/templates',
+          icon: TemplateIcon,
         };
       default:
         throw new Error(`Unrecognised section name '${sectionName}' passed to useSectionDetails`);

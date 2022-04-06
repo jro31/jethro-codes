@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
-import useSectionDetails from './useSectionDetails';
-import { sectionOrder } from '../components/layout';
+import useSectionDetails, { sectionOrder } from './useSectionDetails';
 
 const useActiveSection = () => {
   const router = useRouter();

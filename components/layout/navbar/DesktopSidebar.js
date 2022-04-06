@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import useSectionDetails from '../../../hooks/useSectionDetails';
 import useIsActiveSection from '../../../hooks/useIsActiveSection';
-import { sectionOrder } from '..';
+import { sectionOrder } from '../../../hooks/useSectionDetails';
 import Logo from '../../ui/svg/Logo';
 
 import { navColorClasses } from '.';

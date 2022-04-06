@@ -1,5 +1,9 @@
 import { HomeIcon, PaperClipIcon } from '@heroicons/react/outline';
-import { home, projects } from '../components/layout';
+
+const home = 'home';
+const projects = 'projects';
+
+export const sectionOrder = [home, projects];
 
 const useSectionDetails = () => {
   const sectionDetails = sectionName => {

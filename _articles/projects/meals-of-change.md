@@ -216,9 +216,122 @@ Rails.application.routes.draw do
 end
 ```
 
-The first of these actions is to allow a user to register
+The first of these actions is to allow a user to register.
 
-<!-- ADD THE registrations#create spiel here -->
+From the front-end we want to recieve an `email`, a `password`, and a `password_confirmation` field.
+
+Thanks to `has_secure_password`, a validation exists that a password must be present when a user is created. I have separately validated that a user must have a unique email:
+
+```rb
+# app/models/user.rb
+
+class User < ApplicationRecord
+  has_secure_password
+  ...
+  validates_presence_of :email, :display_name
+  validates_uniqueness_of :email, :display_name, case_sensitive: false
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  ...
+end
+```
+
+However, as there is no `password_confirmation` field on the `User` model, we cannot add a presence validation for it. So to ensure that a password confirmation is recived from the front-end, the first thing to do in the `registration#create` action, is to raise an exception if the `password_confirmation` field is not included:
+
+```rb
+raise 'Password confirmation not included' unless params['user']['password_confirmation']
+```
+
+We then want to create the user, and will do so with strong params:
+
+```rb
+def create
+  raise 'Password confirmation not included' unless params['user']['password_confirmation']
+
+  user = User.create!(user_params)
+end
+
+private
+
+def user_params
+  params.require(:user).permit(:email, :password, :password_confirmation)
+end
+```
+
+And should the user be created successfully, we first want to create a cookie and set the user to the session:
+
+```rb
+session[:user_id] = user.id
+```
+
+We'll then tell the front-end that this was done successfully, by returning a status of `:created`, and rendering a json with `logged_in: true` and returning the user.
+
+```rb
+render json: {
+  logged_in: true,
+  user: user
+}, status: :created
+```
+
+However, we also want to let the user know if this was unsuccessful, so we can wrap the whole thing in a `begin/rescue` block, and add a couple of rescue conditions.
+
+If validations failed, which throw the `ActiveRecord::RecordInvalid` exception, we want to return just one message in a human-readable format (I find it better to give the user one error at a time, rather than telling them that their email is invalid, and it's already taken, and the password isn't long enough all at once). We can do that with:
+
+```rb
+rescue ActiveRecord::RecordInvalid => e
+  render json: {
+    error_message: e.message.split(':')&.last&.strip || 'Something went wrong'
+  }, status: :unprocessable_entity
+```
+
+For all other exceptions, including our `raise 'Password confirmation not included' unless params['user']['password_confirmation']` from earlier, we can just return the message:
+
+```rb
+rescue => e
+  render json: {
+    error_message: e.message
+  }, status: :unprocessable_entity
+```
+
+When all put together, the registrations controller will be:
+
+```rb
+# app/controllers/api/v1/registrations_controller.rb
+
+module Api
+  module V1
+    class RegistrationsController < Api::V1::BaseController
+      def create
+        begin
+          raise 'Password confirmation not included' unless params['user']['password_confirmation']
+
+          user = User.create!(user_params)
+
+          session[:user_id] = user.id
+          render json: {
+            logged_in: true,
+            user: user
+          }, status: :created
+        rescue ActiveRecord::RecordInvalid => e
+          render json: {
+            error_message: e.message.split(':')&.last&.strip || 'Something went wrong'
+          }, status: :unprocessable_entity
+        rescue => e
+          render json: {
+            error_message: e.message
+          }, status: :unprocessable_entity
+        end
+      end
+
+      private
+
+      def user_params
+        params.require(:user).permit(:email, :password, :password_confirmation, :display_name)
+      end
+    end
+  end
+end
+
+```
 
 Now that users can register, we need to allow them to create a session, or to login, and we do this with the `sessions#create` action.
 
@@ -239,7 +352,7 @@ module Api
 end
 ```
 
-The `authenticate` method is given to us by `has_secure_password`. Once you've found the user, it will check if the given password matches the user's password. If they match, it will return the user. If they don't, it will return `false`.
+The `authenticate` method is given to us by `has_secure_password`. Once you've found the user using the given email, it will check if the given password matches this user's password. If they match, it will return the user. If they don't, it will return `false`.
 
 If the user is returned, what we then want to do is create a cookie, which we do by setting the user to the session:
 

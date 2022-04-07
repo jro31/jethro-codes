@@ -75,6 +75,34 @@ After spending a day learning about it and playing around with it, I jumped righ
 
 Having worked with Rails for three years at this point, my Rails stack was far more established:
 
-PostgreSQL database, RSpec for testing, Pundit for authorization.
+PostgreSQL database, RSpec for testing, Pundit for authorization (I'll go into authentication later).
+
+## Issues
+
+Building for the first time, an app made-up of two serparate services, there were two issues that I anticipated being stumbling blocks:
+
+### Authentication
+
+Authentication while working on a Rails monolith is easy. Generally it involves the Devise gem, but regardless, having the user login in the same place that you verify them makes things simple. Having these two parts in serparate services adds some complexity.
+
+Fighting my instinct was to again use Devise, I ultimately decided to use Rails' built-in _'has_secure_password'_.
+
+Although I used multiple sources to help me understand how to do this, I have to give props to edutechional (try saying that quickly) for posting [this tutorial playlist](https://youtube.com/playlist?list=PLgYiyoyNPrv_yNp5Pzsx0A3gQ8-tfg66j) on YouTube, as it helped immensely.
+
+Coming soon will be a blog that goes over this in detail.
+
+### Photo uploading
+
+The other issue which exceeded my knowledge at the start of this project, was allowing users to upload photos of their recipes.
+
+In Rails monolith apps that I'd worked on, this was no issue. You upload the photo from Rails to a third-party service, and fetch it again when you need it.
+
+Now though, with separate services, do you want to go from the front-end, to the API, to the third-party service and back again, every time you want to upload of fetch a photo?
+
+No, that's madness. Sending large files to the backend to just act as an intermediary to send them on again is a huge waste of resources. You want the front-end and the storage service to communicate with each other. But when you store that data for the photos in the backend, how exactly do you do that?
+
+That's what I didn't know either. And again, I used multiple sources to eventually solve this quandry, the most useful of which was this article by [Elliott King](https://elliott-king.github.io/2020/09/s3-heroku-rails/).
+
+Again, going into the finer details of this is a little out of the scope of this article, but coming soon will be a blog post with the exact code that I used.
 
 <!-- ![Meals of Change screenshot](/images/meals-of-change.png) -->

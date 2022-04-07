@@ -55,4 +55,26 @@ And so was spawned, Plant as Usual version 3, although going through a rebrand, 
 
 ## Tools
 
+Given my skillset at this point, there was only really two options for building this app. Either it would be a Rails monolith that included a React frontend. Or it would be two separate services, with a Rails API as the backend, and a React frontend.
+
+I opted for the latter of these, partly for the technical challenge. This project was more of a learning experience than anything else, and I hadn't built a Rails API before. But also, I philosophically like having services broken-up as much as possible. I think it makes them easier to work on and easier to maintain.
+
+At a later date, if I wanted to, I could build a completely new front-end. Or I could build an iOS app, or an Android app, and all would be able to work with this backend right away. Building a monolith you don't have that flexibility, so I knew that going forward, this would be the kind of path I'd want to take.
+
+### Frontend
+
+This was to be my first time working with React, where I actually had any knowledge of React. And based on the tools I'd found to be most intuitive whilst learning React, I opted to use **Next.js** rather than pure React. I'd been turned onto Next.js by this point because of it's intuitive routing, and for its search engine friendliness.
+
+I knew the app had the potential to grow, so wanted some app-wide state management, and of the tools I'd used so far, found **Redux Toolkit** to be the best to work with.
+
+For styling, I started off with CSS modules, but at some point in the early stages of development, became aware of and ultimately intrigued by **Tailwind CSS**.
+
+After spending a day learning about it and playing around with it, I jumped right onto the Tailwind hype-train, and spent another day converting what styling existed in Meals of Change at that point, to Tailwind CSS.
+
+### API
+
+Having worked with Rails for three years at this point, my Rails stack was far more established:
+
+PostgreSQL database, RSpec for testing, Pundit for authorization.
+
 <!-- ![Meals of Change screenshot](/images/meals-of-change.png) -->

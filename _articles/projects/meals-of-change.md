@@ -831,23 +831,284 @@ And with this, we have both the front-end and the back-end in place to allow our
 
 ### Photo uploading
 
-<!--
-
 The other issue which exceeded my knowledge at the start of this project, was allowing users to upload photos of their recipes.
 
-In Rails monolith apps that I'd worked on, this was no issue. You upload the photo from Rails to a third-party service, and fetch it again when you need it.
+In Rails monolith apps that I'd built, this was no issue. You upload the photo from Rails to a third-party service, and fetch it again when you need it.
 
 Now though, with separate services, do you want to go from the front-end, to the API, to the third-party service and back again, every time you want to upload of fetch a photo?
 
 No, that's madness. Sending large files to the backend to just act as an intermediary to send them on again is a huge waste of resources. You want the front-end and the storage service to communicate with each other. But when you store that data for the photos in the backend, how exactly do you do that?
 
-That's what I didn't know either. And again, I used multiple sources to eventually solve this quandry, the most useful of which was this article by [Elliott King](https://elliott-king.github.io/2020/09/s3-heroku-rails/).
+That's what I didn't know either.
 
-Again, going into the finer details of this is a little out of the scope of this article, but coming soon will be a blog post with the exact code that I used. -->
+As with authentication, I used multiple sources to solve this quandry, but by far the most useful of these was this article by [Elliott King](https://elliott-king.github.io/2020/09/s3-heroku-rails/).
 
-<!-- ## Build process
+And to steal a quote from this article, the flow to do this is:
 
-### API
+> 1. The frontend sends a request to the Rails server for an authorized url to upload to.
+> 2. The server (using Active Storage) creates an authorized url for S3, then passes that back to the frontend.
+> 3. The frontend uploads the file to S3 using the authorized url.
+> 4. The frontend confirms the upload, and makes a request to the backend to create an object that tracks the needed metadata.
+
+Having used, and not been a huge fan of S3 in the past, I spent a while looking at other services, and was most intruged by [Wasabi](https://wasabi.com/). However, after struggling to get it working, I even got in touch with Wasabi, and to quote their own technical support:
+
+> Wasabi does not support CORS so this solution would not work for you.
+
+So I reluctanty went back to using S3.
+
+I'll skip the part of setting-up S3 in this article, and just focus on the code I used, starting with the Rails API.
+
+#### API
+
+The first step here was to run `rails active_storage:install`, and then to run `rails db:migrate` which created and then ran the following migration:
+
+```rb
+class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
+  def change
+    create_table :active_storage_blobs do |t|
+      t.string   :key,        null: false
+      t.string   :filename,   null: false
+      t.string   :content_type
+      t.text     :metadata
+      t.bigint   :byte_size,  null: false
+      t.string   :checksum,   null: false
+      t.datetime :created_at, null: false
+
+      t.index [ :key ], unique: true
+    end
+
+    create_table :active_storage_attachments do |t|
+      t.string     :name,     null: false
+      t.references :record,   null: false, polymorphic: true, index: false
+      t.references :blob,     null: false
+
+      t.datetime :created_at, null: false
+
+      t.index [ :record_type, :record_id, :name, :blob_id ], name: "index_active_storage_attachments_uniqueness", unique: true
+      t.foreign_key :active_storage_blobs, column: :blob_id
+    end
+  end
+end
+```
+
+It was then necessary to update `storage.yml` with our S3 credentials, stored under the key `amazon` (I'll assume here that you know how to store these values in `.env`):
+
+```yml
+# config/storage.yml
+
+amazon:
+  service: S3
+  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  region: <%= ENV['S3_BUCKET_REGION'] %>
+  bucket: <%= ENV['S3_BUCKET'] %>
+```
+
+We then needed to set our active storage service as `amazon` by adding the following line to both `config/environments/development.rb` and `config/environments/production.rb`:
+
+```rb
+config.active_storage.service = :amazon
+```
+
+Then lastly in the initial setup, I needed to initialise the S3 service, so added the following to `aws.rb`:
+
+```rb
+# config/initializers/aws.rb
+
+require 'aws-sdk-s3'
+
+Aws.config.update({
+  region: ENV['S3_BUCKET_REGION'],
+  credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY']),
+})
+
+S3_BUCKET = Aws::S3::Resource.new.bucket(ENV['S3_BUCKET'])
+```
+
+For a while I played around with how many photos I needed, and of what size in order to reach a balance of speed and quality when displaying them, and ultimately settled on needed just two photos, one large and one small, for each recipe.
+
+That meant that in the recipe model, I needed to add a `has_one_attached` association for each photo:
+
+```rb
+# app/models/recipe.rb
+
+class Recipe < ApplicationRecord
+  ...
+  has_one_attached :small_photo
+  has_one_attached :large_photo
+
+  ...
+
+  def small_photo_url
+    if small_photo.attached?
+      small_photo.blob.service_url
+    end
+  end
+
+  def large_photo_url
+    if large_photo.attached?
+      large_photo.blob.service_url
+    end
+  end
+  ...
+end
+```
+
+The methods `small_photo_url` and `large_photo_url` share each photo's public URL.
+
+Next I created a controller to handle authentication (note that with some minor updates, this file was copied from [Elliott King's guide](https://gist.github.com/elliott-king/12bc6c9ff9a69b5f04d74ebb263ba702)):
+
+```rb
+# app/controllers/api/v1/direct_upload_controller.rb
+
+module Api
+  module V1
+    class DirectUploadController < Api::V1::BaseController
+      def create
+        response = generate_direct_upload(blob_params)
+        render json: response
+      end
+
+      private
+
+      def blob_params
+        params.require(:file).permit(:filename, :byte_size, :checksum, :content_type, metadata: {})
+      end
+
+      def generate_direct_upload(blob_args)
+        blob = create_blob(blob_args)
+        response = signed_url(blob)
+        response[:blob_signed_id] = blob.signed_id
+        response
+      end
+
+      def create_blob(blob_args)
+        blob = ActiveStorage::Blob.create_before_direct_upload!(blob_args.to_h.deep_symbolize_keys)
+        photo_id = SecureRandom.uuid
+        blob.update_attribute(:key, "photos/recipes/#{params[:file][:image_size]}/#{photo_id}")
+        blob
+      end
+
+      def signed_url(blob)
+        expiration_time = 10.minutes
+        response_signature(
+          blob.service_url_for_direct_upload(expires_in: expiration_time),
+          headers: blob.service_headers_for_direct_upload
+        )
+      end
+
+      def response_signature(url, **params)
+        {
+          direct_upload: {
+            url: url
+          }.merge(params)
+        }
+      end
+    end
+  end
+end
+```
+
+The `blob.update_attribute(:key, "photos/recipes/#{params[:file][:image_size]}/#{photo_id}")` line says where on S3 the photo will be stored. So for me, the filename is whatever ID was randomly generated with `SecureRandom.uuid`, contained within a folder determined by `params[:file][:image_size]` as passed from the front-end. This will either be `large` or `small`. Contained within `photos/recipes`.
+
+The key method in this controller is `ActiveStorage::Blob.create_before_direct_upload!`.
+
+A `blob` (I don't know why it's named as such) is a record that contains metadata about a file (in this case, a photo), and the key for where it resides on S3.
+
+The `create_before_direct_upload!` method creates this blob, without uploading the photo to S3, so it will point to where the photo is going to be stored.
+
+The `service_url_for_direct_upload` method then returns the URL for this blob.
+
+The `blob.signed_id` line returnes the signed ID that can be used by the front-end, so what we end up returning to the front-end with `render json: response`, is the URL to upload a photo to, and the signed ID that allows us to do so.
+
+Lastly, don't forget to add the route to hit this endpoint:
+
+```rb
+# config/routes.rb
+
+Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      ...
+      post :presigned_url, to: 'direct_upload#create'
+      ...
+    end
+  end
+end
+```
+
+The photos get added to a recipe as the recipe gets created, so we still need to amend the `recipes#create` action. Assuming that the recipes controller and corresponding routes already exist, the `create` action would be updated as follows (for simplicity I'll omit the irrelevant parts here):
+
+```rb
+# app/controllers/api/v1/recipes_controller.rb
+
+module Api
+  module V1
+    class RecipesController < Api::V1::BaseController
+      ...
+      def create
+        begin
+        @recipe = Recipe.new(recipe_params)
+        ...
+
+        attach_photo
+        ...
+
+        @recipe.save!
+
+        render json: {
+          recipe: {
+            ...
+            small_photo: recipe.small_photo_url,
+            large_photo: recipe.large_photo_url,
+          }
+        }, status: :created
+        ...
+        rescue => e
+          ...
+        end
+      end
+
+      private
+
+      ...
+
+      def attach_photo
+        @recipe.small_photo.attach(params[:recipe][:small_photo_blob_signed_id]) if params[:recipe][:small_photo_blob_signed_id].present?
+        @recipe.large_photo.attach(params[:recipe][:large_photo_blob_signed_id]) if params[:recipe][:large_photo_blob_signed_id].present?
+      end
+
+      ...
+    end
+  end
+end
+```
+
+`@recipe.small_photo.attach` is where the blob is attached to the recipe, then `recipe.small_photo_url` calls the method that we created in the recipe model earlier (`small_photo.blob.service_url`) which returns the photo's public URL.
+
+And if that's all working, the back-end is done, so time to move onto the front-end.
+
+#### Front-end
+
+The point where this process gets slightly mind-boggling, is that S3 requires a checksum in order to verify that it received an uncorrupted file.
+
+A checksum is a way to check that two files are identical. When you generate a checksum for a file, a string is created for that file. Alter that file in any way, and that string will change.
+
+So you generate the checksum for a file, and send it to S3 with the file. Amazon will then generate a checksum, and only accept the file if they match.
+
+I find S3 documentation to usually be more confusing than helpful, but the first couple of paragraphs of [this blog](https://aws.amazon.com/blogs/aws/new-additional-checksum-algorithms-for-amazon-s3/) do a pretty good job of making this clearer.
+
+The checksum that S3 expects, is the MD5 hash of the file, which can be generated with the [crypto-js](https://www.npmjs.com/package/crypto-js) package, so run:
+
+```
+npm install crypto-js
+```
+
+<!--
+
+### Database
+
+Build from the ground up...
 
 I wanted to keep everything as simple as possible.
 

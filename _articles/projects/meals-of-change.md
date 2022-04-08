@@ -15,17 +15,17 @@ During those jobs, I'd never been given any time to learn React, and in the firs
 
 I had a similar experience in my next job where, despite being hired as a backend Rails dev, I was again put onto React projects despite my insistance that we had devs in the team better-suited to the task, and again, I was able to scrape by, just by trying to replicate, even while not understanding the existing code.
 
-These experiences gave me a real aversion to React, as I was just thrown into these occasional React projects, often with tight deadlines, with zero time to actually learn even the basics.
+These experiences gave me a real aversion to React, as I was just thrown into these occasional React projects, often with tight deadlines, with zero time to actually learn the basics.
 
 All of that being said, when I came to the end of my time in the latter of these jobs, I was acutely aware that while very talented as a Rails dev, the gaping hole in my skillset was the lack of a front-end library.
 
 On my personal projects up to this time, I'd got by with jQuery, and even vanilla JavaScript. But if I really wanted to consider myself a fullstack dev, and to be able to build modern projects from start to deployment, I needed the knowledge of a front-end library. So on leaving this job, and even slightly before, I focussed all of my energy onto learning React.
 
-And you know what? When you actually have the time learn it properly, and aren't just thrown into projects with zero knowledge and given tight deadlines, React is really a joy to work with.
+And you know what? When you actually have the time learn it properly, React is really a joy to work with.
 
 I try to be as receptive as I can to all sources of knowledge, although there's no doubting that my primary resource for learning React was Academind's excellent course, [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/).
 
-I spent about a month working through this course as if it was my full-time job. But as with any skill, it's only useful and only sharpened so much as you put it into practice. I wanted a project that would utilise everything that I'd learned, and put it into practice.
+I spent about a month working through this course as if it was my full-time job. But as with any skill, it's only useful and only gets sharpened so much as you put it into practice. I wanted a project that would utilise everything that I'd learned.
 
 That's where Meals of Change comes in.
 
@@ -33,17 +33,17 @@ I've always been a fan of recipes apps as a means of learning, because they ask 
 
 When I'd finished the Rails bootcamp that largely introduced me to coding, the first project I made, starting the day after graduation while still drunk from the night before, was another recipes app called 'Plant as Usual'.
 
-It was an app for plant-based recipes, and the rationale behind the name was how some people think of plant-based meals as very bland. 'Plant as Usual' was an ironic play on the phrase 'bland as usual', where the app would try to show that plant-based recipes were anything but bland.
+It was an app for plant-based recipes, and the rationale behind the name was how some people think of plant-based meals as very bland. 'Plant as Usual' was an ironic play on the phrase 'bland as usual', where the app would try to show that plant-based recipes were anything but.
 
 It was also that the domain only cost £6 per year. Had I been able to afford it, I'd have gone for something much more generic.
 
-That app, Plant as Usual version 1, was the first app that I built and hosted from scratch, and it led to me getting my first coding job. But alas, a year or so later, now with some experience under my belt, I looked back at this app with a bit of shame for how bad the code now looked to me.
+That app, [Plant as Usual version 1](https://github.com/jro31/plantasusual), was a Rails monolith, and the first app that I built and hosted from scratch, and it led to me getting my first coding job. But alas, a year or so later, now with some experience under my belt, I looked back at this app with a bit of shame for how bad the code now looked to me.
 
-That spawned Plant as Usual version 2; a much improved, from the ground up rebuild of Plant as Usual version 1.
+That spawned [Plant as Usual version 2](https://github.com/jro31/Plant-as-Usual-2); a much improved, from the ground up rebuild of Plant as Usual.
 
 But for however improved the Rails code within it was, the front-end was built with jQuery.
 
-At this point, never having the time to grasp the basic workings of React, I found jQuery far easier to work with, despite the way that people spoke about it online as some archaic language.
+At this point, never having taken the time to grasp the basic workings of React, I found jQuery far easier to work with, despite the way that people spoke about it online as some archaic language.
 
 _"Hey... it works for me"_, I thought to myself.
 
@@ -75,7 +75,7 @@ After spending a day learning about it and playing around with it, I jumped righ
 
 Having worked with Rails for three years at this point, my Rails stack was far more established:
 
-PostgreSQL database, RSpec for testing, Pundit for authorization (I'll go into authentication later).
+PostgreSQL database, RSpec for testing, Pundit for authorization (I'll go into authentication below).
 
 ## Build process
 
@@ -83,7 +83,7 @@ For the first time building an app made of two serparate services, there were tw
 
 ### Authentication
 
-Authentication while working on a Rails monolith is easy. Generally it involves the Devise gem, but regardless, having the user login in the same place that you verify them makes things simple. Having these two parts in serparate services adds some complexity.
+Authentication while working on a Rails monolith is fairly straight forward. Often it involves the Devise gem, but regardless, having the user login in the same place that you verify them makes things simple. Having these two parts in serparate services adds some complexity.
 
 Fighting my instinct was to again use Devise, I ultimately decided to use Rails' built-in `has_secure_password`.
 
@@ -101,7 +101,7 @@ gem 'rack-cors', :require => 'rack/cors'
 ...
 ```
 
-From their own [documentation](https://github.com/cyu/rack-cors), Rack::Cors _"provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications,"_ which is just a fancy way of saying that it allows you to white-list external domains. So if, as is the case here, I have the API hosted in one place, and it's receiving requests from a front-end hosted in another place, Rack::Cors allows you to white-list the domain of the front-end.
+From their own [documentation](https://github.com/cyu/rack-cors), Rack::Cors _"provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications,"_ which is just a fancy way of saying that it allows you to white-list external domains. So if, as was the case here, I have the API hosted in one place, and it's receiving requests from a front-end hosted in another place, Rack::Cors allows you to white-list the domain of the front-end.
 
 And to that end, it was necessary to white-list two URLs:
 
@@ -125,7 +125,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 end
 ```
 
-The methods `[:get, :post, :put, :patch, :delete, :options, :head]` are all the methods which I could call from the front-end. `credentials: true` is what allows you to pass your cookie (created below) between the front-end and the back-end.
+The methods `[:get, :post, :put, :patch, :delete, :options, :head]` are all the methods which I could call from the front-end. `credentials: true` is what allows you to pass the cookie (created below) between the front-end and the back-end.
 
 Next I needed to define the cookie, and did this in _'session_store.rb'_.
 
@@ -145,7 +145,7 @@ I created a subdomain `api`, which once up on Heroku, I pointed to this api, so 
 
 ![Meals of Change API](/images/meals-of-change/api-home.png)
 
-To see the cookie `Rails.application.config.session_store :cookie_store, key: "_meals_of_change", domain: "api.mealsofchange.com"`, go to [mealsofchange.com](https://mealsofchange.com/) and sign-up/login.
+To see the cookie, go to [mealsofchange.com](https://mealsofchange.com/) and sign-up/login.
 
 Then open up the inspector (on Chrome it's `right click -> Inspect`, or press `option + command + I` on a mac), navigate to `Application`, then in the left pane go to `Storage -> Cookies -> https://mealsofchange.com`.
 
@@ -164,7 +164,7 @@ gem 'rack-cors', :require => 'rack/cors'
 ...
 ```
 
-This gem allows us to use the `has_secure_password` method (see the ['has_secure_password' docs](https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password)), which _"requires you to have a `XXX_digest` attribute. Where `XXX` is the attribute name of your desired password."_
+This gem allows us to use the `has_secure_password` method ([docs](https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password)), which _"requires you to have a `XXX_digest` attribute. Where `XXX` is the attribute name of your desired password."_
 
 In other words, assuming that you want your authentication to be on the `User` model, you need to have, for example, a `password_digest` field on `User`.
 
@@ -228,8 +228,8 @@ Thanks to `has_secure_password`, a validation exists that a password must be pre
 class User < ApplicationRecord
   has_secure_password
   ...
-  validates_presence_of :email, :display_name
-  validates_uniqueness_of :email, :display_name, case_sensitive: false
+  validates_presence_of :email
+  validates_uniqueness_of :email, case_sensitive: false
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   ...
 end
@@ -333,7 +333,7 @@ end
 
 ```
 
-One more thing to add, is `skip_before_action :verify_authenticity_token`, because the user will be typing into a form in a separate place to our API.
+One more thing to add, is `skip_before_action :verify_authenticity_token`, because the user will be typing into a form in a separate place from our API.
 
 We want this in all our controllers, however to keep our API versioning in tact, I didn't want to add it to the application controller, so instead added an `API::V1::BaseController` to be inherited into all V1 controllers, as follows:
 
@@ -352,7 +352,7 @@ end
 
 ```
 
-Now that users can register, it's necessary to allow them to create a session, or to login, and we do this with the `sessions#create` action.
+And that's all we need to do to allow users to register, so next it's necessary to allow them to create a session, or to login, and we do this with the `sessions#create` action.
 
 So in the sessions controller, I started by adding:
 
@@ -383,7 +383,7 @@ Then we want to communicate that the user is logged-in, so we return a json of `
 
 We can also return the user.
 
-However, as we don't want to do this if the `authenticate` method returned false, we can wrap the whole thing in a `begin/rescue` block, `raise` an exception if the user is not returned, and instead render an error message with `status: :unauthorized`.
+However, as we don't want to do this if the `authenticate` method returned false, we can wrap the whole thing in a `begin/rescue` block, raise an exception if the user is not returned, and instead render an error message with `status: :unauthorized`.
 
 The full `create` action therefore becomes:
 
@@ -416,7 +416,7 @@ end
 
 Next was to create the `sessions#logged_in` action, which is a GET request to simply check whether or not a user is logged-in.
 
-However, we're going to require the functionality of checking for a logged-in user in more than just this action, so it makes sense to add this logic in a concern, and then add it our base controller.
+However, we're going to require the functionality of checking for a logged-in user in more than just this action, so it makes sense to add this logic in a concern, and then add it to our base controller.
 
 So I created a current user concern as follows:
 
@@ -598,7 +598,240 @@ module Api
 end
 ```
 
-<!-- ### Photo uploading
+#### Front-end
+
+With authentication working on the API, it was time to set up the front-end to utilise these endpoints.
+
+I was using Redux Toolkit for my app-wide state management, so it made sense to store the login status this way as well.
+
+I'm assuming that if you're reading this, you have an understanding of how both React and Redux Toolkit work; I won't go into any detail about setting up the Redux store, or login/sign-up forms or component styling. I'll just look at how the API endpoints are called, and how the returned login status is used by the front-end.
+
+To start with, I set-up a Redux Toolkit `loginStatusSlice` as follows:
+
+```js
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  loggedInStatus: 'NOT_LOGGED_IN',
+  user: {},
+};
+
+const loginStatusSlice = createSlice({
+  name: 'login-status',
+  initialState,
+  reducers: {
+    login(state, action) {
+      state.loggedInStatus = 'LOGGED_IN';
+      state.user = action.payload;
+    },
+    logout(state) {
+      state.loggedInStatus = 'NOT_LOGGED_IN';
+      state.user = initialState.user;
+    },
+  },
+});
+
+export const loginStatusActions = loginStatusSlice.actions;
+
+export default loginStatusSlice.reducer;
+```
+
+Very simply, the `login` action allows us to set the `loggedInStatus` state as `'LOGGED_IN'`, and the `logout` action allows us to set the `loggedInStatus` as `'NOT_LOGGED_IN'`.
+
+With this in place, we can easily check whether or not a user is logged-in by using `useSelector` from anywhere in our app, for example:
+
+```js
+const isLoggedIn = useSelector(state => state.loginStatus.loggedInStatus === 'LOGGED_IN');
+```
+
+This is utilised in several places within the app, for example in the navbar. A logged-in user will see the profile menu icon:
+
+![Profile menu icon](/images/meals-of-change/profile-menu-icon.png)
+
+But a logged-out user will see the login button:
+
+![Login button](/images/meals-of-change/login-button.png)
+
+With this in place, we just need to make sure that this `loggedInStatus` in kept current to the user's status.
+
+In the component structure that I used within the app, all components are wrapped within a `Layout` component:
+
+```js
+// pages/_app.js
+
+const MyApp = ({ Component, pageProps }) => {
+  return (
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>
+  );
+};
+```
+
+And within this layout component lives a `checkLoginStatus` function:
+
+```js
+// components/layout/Layout.js
+
+import { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { loginStatusActions } from '../../store/login-status';
+...
+
+const Layout = props => {
+  const dispatch = useDispatch();
+
+  const checkLoginStatus = useCallback(async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/logged_in`, {
+      credentials: 'include',
+    });
+    const data = await response.json();
+
+    if (data.logged_in) {
+      dispatch(loginStatusActions.login(data.user));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
+
+  return (
+    ...
+  );
+};
+
+export default Layout;
+```
+
+Everytime the app loads, `checkLoginStatus()` is called from within `useEffect`. This calls our `sessions#logged_in` action in our API, which returns either `logged_in: true` or `logged_in: false`. And it's only on returning `logged_in: true` do we then change the user's `loggedInStatus` to `LOGGED_IN`, by calling the `login` action in the `loginStatusSlice`:
+
+```js
+dispatch(loginStatusActions.login(data.user));
+```
+
+If the user is not logged-in, `loggedInStatus` will retain its initial status of `'NOT_LOGGED_IN'`.
+
+To allow a new user to register, there is a registration modal:
+
+![Meals of Change screenshot](/images/meals-of-change/registration-modal.png)
+
+On completing this form and hitting the 'sign-up' button, a `submitHandler` function is called:
+
+```js
+const submitHandler = async event => {
+  event.preventDefault();
+
+  try {
+    if (formIsValid()) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/registrations`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: {
+            email: enteredEmail.trim(),
+            password: enteredPassword.trim(),
+            password_confirmation: enteredPasswordConfirmation.trim(),
+          },
+        }),
+        credentials: 'include',
+      });
+      const data = await response.json();
+
+      if (data && data.logged_in) {
+        dispatch(loginStatusActions.login(data.user));
+      } else {
+        throw new Error(data.error_message || 'Something went wrong');
+      }
+    } else {
+      throw new Error('Something went wrong');
+    }
+  } catch (error) {
+    setError(error.message);
+  }
+};
+```
+
+This function hits our API's `registrations#create` endpoint, and passes the user-entered email, password, and password confirmation.
+
+This endpoint returns `logged_in: true` if a user successfully registers, so we check whether or not this is returned. If it is, we call the `login` action in our `loginStatusSlice`, so that our `loggedInStatus` state is set to `LOGGED_IN`.
+
+Otherwise, we throw an error, and display that message to the user.
+
+![Meals of Change screenshot](/images/meals-of-change/login-modal.png)
+
+The login modal works in much the same way, except we hit the `sessions#create` endpoint on the API instead.
+
+```js
+const submitHandler = async event => {
+  event.preventDefault();
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/sessions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: {
+          email: enteredEmail.trim(),
+          password: enteredPassword.trim(),
+        },
+      }),
+      credentials: 'include',
+    });
+    const data = await response.json();
+
+    if (data && data.logged_in) {
+      dispatch(loginStatusActions.login(data.user));
+    } else {
+      throw new Error(data.error_message || 'Something went wrong');
+    }
+  } catch (error) {
+    setError(error.message);
+  }
+};
+```
+
+And finally, to allow a user to logout, there's a `Logout` link within the profile menu of logged-in users.
+
+Clicking this link calls a `logoutHandler` function, which hits our `sessions#logout` endpoint.
+
+```js
+const logoutHandler = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/logout`, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Unable to logout');
+    }
+
+    const data = await response.json();
+
+    if (data.logged_out) {
+      dispatch(loginStatusActions.logout());
+    } else {
+      throw new Error('Unable to logout');
+    }
+  } catch (error) {
+    setError(error);
+  }
+};
+```
+
+And with this, we have both the front-end and the back-end in place to allow our users to sign-up, to login, and to logout, and to check their login status from anywhere within the app, and display content to them depending on this.
+
+### Photo uploading
+
+<!--
 
 The other issue which exceeded my knowledge at the start of this project, was allowing users to upload photos of their recipes.
 

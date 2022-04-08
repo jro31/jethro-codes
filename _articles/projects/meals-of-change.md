@@ -1104,6 +1104,367 @@ The checksum that S3 expects, is the MD5 hash of the file, which can be generate
 npm install crypto-js
 ```
 
+I ultimately broke the photo uploading code into four custom hooks to make it all a little more manageable. The `useChecksum` hook was as follows (again, props to [Elliott King](https://gist.github.com/elliott-king/77cf0809c6abae892eb7c911692d87f4) here):
+
+```js
+// hooks/use-checksum.js
+
+import CryptoJS from 'crypto-js';
+
+const useChecksum = () => {
+  const md5FromFile = file => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = fileEvent => {
+        const binary = CryptoJS.lib.WordArray.create(fileEvent.target.result);
+        const md5 = CryptoJS.MD5(binary);
+        resolve(md5);
+      };
+      reader.onerror = () => {
+        reject('Something went wrong with the file reader');
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  const checksum = async file => {
+    const md5 = await md5FromFile(file);
+    return md5.toString(CryptoJS.enc.Base64);
+  };
+  return checksum;
+};
+
+export default useChecksum;
+```
+
+The file that we pass into `const checksum = async file` will be the photo that we're going to upload. We then call `md5FromFile(file)`, passing-in the photo, and ultimately return the md5 of the photo. This is the checksum which we'll send to S3.
+
+I here added-in an extra step where we resize the photos before uploading them.
+
+I toyed with whether to do this client-side, or whether to upload the photos to S3 and figure it out from there so that the user could get on with their life.
+
+Ultimately though, I found the package [react-image-file-resizer](https://www.npmjs.com/package/react-image-file-resizer) was able to resize the photos to the two sizes that I wanted very quickly. And after spending ~20 minutes writing the steps/ingredients of a recipe, I decided that they wouldn't mind waiting three seconds to make sure it uploaded.
+
+With that in mind, let's go over the entire process of uploading a recipe from the front-end perspective.
+
+As with authentication, I won't go over the form that the user completed with their recipe (I'll get to that later in this article), and will start after they click `Submit recipe`, and the submit handler is called within the `NewRecipePreview` component:
+
+```js
+// components/pages/recipes/new/NewRecipePreview.js
+
+...
+import usePhotoUploader from '../../../../hooks/use-photo-uploader';
+
+  ...
+  const photoUploader = usePhotoUploader();
+  ...
+
+  const submitHandler = async () => {
+    ...
+    try {
+      const blobSignedIdArray = await photoUploader(props.chosenPhoto);
+
+      if (props.chosen_photo && blobSignedIdArray.length !== 2) {
+        throw new Error('Unable to save photo');
+      }
+
+      const recipeOptions = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          recipe: {
+            ...
+            small_photo_blob_signed_id: blobSignedIdArray[0],
+            large_photo_blob_signed_id: blobSignedIdArray[1],
+          },
+        }),
+        credentials: 'include',
+      };
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/recipes`,
+        recipeOptions
+      );
+
+      if (response.status !== 201) {
+        throw new Error('response status not :created');
+      }
+
+      const data = await response.json();
+
+      ...
+    } catch (error) {
+      ...
+    }
+    ...
+  };
+```
+
+The first thing that we do within the `try` block is to call the `usePhotoUploader`, passing-in the photo (set in `props.chosenPhoto`).
+
+The `usePhotoUploader` hook is essentially the parent hook for the three actions we need to take for the photo: Calculating the checksum, getting the pre-signed URL, and resizing the photos. It is as follows:
+
+```js
+// hooks/use-photo-uploader.js
+
+import useChecksum from './use-checksum';
+import usePresignedUrl from './use-presigned-url';
+import useResizeImage from './use-resize-image';
+
+const usePhotoUploader = () => {
+  const resizeImage = useResizeImage();
+  const calculateChecksum = useChecksum();
+  const getPresignedUrl = usePresignedUrl();
+
+  const photoUploader = async photo => {
+    if (photo) {
+      let checksum = null;
+      let presignedUrl = null;
+      let blobSignedIdArray = [];
+
+      const uploadPhoto = async (photo, imageSize) => {
+        checksum = await calculateChecksum(photo);
+        presignedUrl = await getPresignedUrl(photo, photo.size, checksum, imageSize);
+
+        const s3Options = {
+          method: 'PUT',
+          headers: presignedUrl.direct_upload.headers,
+          body: photo,
+        };
+
+        const s3Response = await fetch(presignedUrl.direct_upload.url, s3Options);
+
+        if (!s3Response.ok) {
+          throw new Error('unable to upload photo');
+        }
+        blobSignedIdArray.push(presignedUrl.blob_signed_id);
+      };
+
+      const [smallPhoto, largePhoto] = await resizeImage(photo);
+      await uploadPhoto(smallPhoto, 'small');
+      await uploadPhoto(largePhoto, 'large');
+
+      return blobSignedIdArray;
+    }
+    return [];
+  };
+
+  return photoUploader;
+};
+
+export default usePhotoUploader;
+```
+
+After a simple check that a photo is passed-in (`if (photo)`), the first thing that we do here is we call the `useResizeImage` hook, passing-in the photo (`resizeImage(photo)`).
+
+The `useResizeImage` hook uses the `react-image-file-resizer` package that I mentioned earlier, and returns the photo, resized into two photos:
+
+```js
+// hooks/use-resize-image.js
+
+import Resizer from 'react-image-file-resizer';
+
+const useResizeImage = () => {
+  const resizePhoto = (photo, maxWidth) =>
+    new Promise(resolve => {
+      Resizer.imageFileResizer(
+        photo,
+        maxWidth, // maxWidth of the new image
+        maxWidth * 2, // maxHeight of the new image
+        'JPEG', // Format of the new image
+        100, // Quality of the new image
+        0, // Rotation
+        uri => {
+          resolve(uri);
+        },
+        'file' // Output type
+      );
+    });
+
+  const resizeImage = async photo => {
+    try {
+      const smallPhoto = await resizePhoto(photo, 450);
+      const largePhoto = await resizePhoto(photo, 1200);
+      return [smallPhoto, largePhoto];
+    } catch (error) {
+      throw new Error(`unable to resize photo - ${error}`);
+    }
+  };
+
+  return resizeImage;
+};
+
+export default useResizeImage;
+```
+
+Looking back to the `usePhotoUploader` hook, these two photos are set to variables aptly named `smallPhoto` and `largePhoto`.
+
+We then call the `uploadPhoto` function on each of these photos:
+
+```js
+await uploadPhoto(smallPhoto, 'small');
+await uploadPhoto(largePhoto, 'large');
+```
+
+This `uploadPhoto` function is where we call the other two hooks, starting with `useChecksum`, called with `calculateChecksum(photo)`, and passing-in the photo.
+
+I pasted-in the `useChecksum` hook earlier, so I won't add it again here, but this will return the checksum that we need to send to S3 to keep Amazon happy that our file wasn't corrupted.
+
+We then pass this checksum as one of arguments to the `usePresignedUrl` hook, which hits the `presigned_url` endpoint that we created earlier in our API (that calls the `direct_upload#create` action).
+
+```js
+// hooks/use-presigned-url.js
+
+const usePresignedUrl = () => {
+  const presignedUrl = async (file, byte_size, checksum, image_size) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        file: {
+          filename: file.name,
+          byte_size: byte_size,
+          checksum: checksum,
+          content_type: file.type,
+          image_size: image_size,
+          metadata: {
+            message: 'resume for parsing',
+          },
+        },
+      }),
+      credentials: 'include',
+    };
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/presigned_url`,
+      options
+    );
+    if (!response.ok) {
+      return response;
+    }
+    return await response.json();
+  };
+  return presignedUrl;
+};
+
+export default usePresignedUrl;
+```
+
+Assigned to the `presignedUrl` variable (`presignedUrl = await getPresignedUrl(photo, photo.size, checksum, imageSize);`), this now contains the URL and the headers that we need, to upload our photo. So continuing down the `uploadPhoto` function of the `usePhotoUploader` hook, we set this data to the `s3Options` variable, and finally... finally upload our photo:
+
+```js
+const s3Options = {
+  method: 'PUT',
+  headers: presignedUrl.direct_upload.headers,
+  body: photo,
+};
+
+const s3Response = await fetch(presignedUrl.direct_upload.url, s3Options);
+```
+
+After checking that the upload was successful, we then push the `blob_signed_id` to the `blobSignedIdArray`:
+
+```js
+blobSignedIdArray.push(presignedUrl.blob_signed_id);
+```
+
+We then repeat this process for the large photo, calling `uploadPhoto(largePhoto, 'large')`, before returning the `blobSignedIdArray` from the `usePhotoUploader` hook.
+
+Back in the `NewRecipePreview` `submitHandler` function, we check that the `blobSignedIdArray` has a length of 2, and if it doesn't, throw an error, because... well something went wrong.
+
+```js
+if (props.chosen_photo && blobSignedIdArray.length !== 2) {
+  throw new Error('Unable to save photo');
+}
+```
+
+But assuming all went well, we can finally create the recipe, including passing-in the blob signed ID for both the small and large photos:
+
+```js
+const recipeOptions = {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    recipe: {
+      ...
+      small_photo_blob_signed_id: blobSignedIdArray[0],
+      large_photo_blob_signed_id: blobSignedIdArray[1],
+    },
+  }),
+  credentials: 'include',
+};
+
+const response = await fetch(
+  `${process.env.NEXT_PUBLIC_API_URL}/api/v1/recipes`,
+  recipeOptions
+);
+```
+
+Phew.
+
+Thankfully viewing our photos doesn't take as much work as uploading them.
+
+If you remember right at the beginning, we added these two methods to the recipe model of the API:
+
+```rb
+def small_photo_url
+  if small_photo.attached?
+    small_photo.blob.service_url
+  end
+end
+
+def large_photo_url
+  if large_photo.attached?
+    large_photo.blob.service_url
+  end
+end
+```
+
+These methods return the each photo's public URL, so to get the photo, it's simply a case of returning the result of each method with the recipe:
+
+```rb
+render json: {
+  recipe: {
+    ...
+    small_photo: recipe.small_photo_url,
+    large_photo: recipe.large_photo_url,
+  }
+}, status: :created
+```
+
+The photo can then be accessed on the front-end by placing this URL as the `src` in any `img` tag. For example, the `RecipePhoto` component (which is responsible for displaying the photo on any recipe show page) is as follows:
+
+```js
+// components/pages/recipes/[recipeId]/RecipePhoto.js
+
+const RecipePhoto = props => {
+  return (
+    <img
+      src={props.photo || '/images/fork-large.jpg'}
+      alt={`${props.recipeName} photo`}
+      objectPosition={props.photo ? '50% 50%' : '50% top'}
+      className={`w-full h-full object-cover rounded-t-2xl ${
+        props.photo ? 'object-center' : 'object-top'
+      }`}
+    />
+  );
+};
+
+export default RecipePhoto;
+```
+
+`props.photo` here is `recipe.large_photo` as returned from the API.
+
 <!--
 
 ### Database
@@ -1125,3 +1486,5 @@ That's it.
 And in keeping with this theme of simplicity, I wanted to keep the models and controllers as lean as possible. -->
 
 <!-- ![Meals of Change screenshot](/images/meals-of-change.png) -->
+
+<!-- TODO - Recipe new form -->

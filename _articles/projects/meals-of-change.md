@@ -85,7 +85,7 @@ For the first time building an app made of two serparate services, there were tw
 
 Authentication while working on a Rails monolith is easy. Generally it involves the Devise gem, but regardless, having the user login in the same place that you verify them makes things simple. Having these two parts in serparate services adds some complexity.
 
-Fighting my instinct was to again use Devise, I ultimately decided to use Rails' built-in _'has_secure_password'_.
+Fighting my instinct was to again use Devise, I ultimately decided to use Rails' built-in `has_secure_password`.
 
 Although I used multiple sources to help me understand how to do this, I have to give props to edutechional (try saying that quickly) for posting [this tutorial playlist](https://youtube.com/playlist?list=PLgYiyoyNPrv_yNp5Pzsx0A3gQ8-tfg66j) on YouTube, as it helped immensely.
 
@@ -125,9 +125,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 end
 ```
 
-The methods `[:get, :post, :put, :patch, :delete, :options, :head]` are all the methods which I could call from the front-end (so basically white-listing every possible method for the given URL). `credentials: true` is what allows you to pass your cookie (created below) between the front-end and the back-end.
+The methods `[:get, :post, :put, :patch, :delete, :options, :head]` are all the methods which I could call from the front-end. `credentials: true` is what allows you to pass your cookie (created below) between the front-end and the back-end.
 
-Next we need to define our cookie, and we do that in _'session_store.rb'_.
+Next I needed to define the cookie, and did this in _'session_store.rb'_.
 
 ```rb
 # config/initializers/session_store.rb
@@ -139,9 +139,9 @@ else
 end
 ```
 
-`Rails.application.config.session_store` says that for our sessions, we are going to use cookies (`:cookie_store`). The `key:` is the name of the cookie. This could be anything, but would typically be the name of your app, starting with an underscore: `"_meals_of_change"`. The `domain:` is the domain where this API is hosted.
+`Rails.application.config.session_store` says that for our sessions, we are going to use cookies (`:cookie_store`). The `key:` is the name of the cookie. This can be anything, but convention says to use the name of your app, starting with an underscore: `"_meals_of_change"`. The `domain:` is the domain where this API is hosted.
 
-I created a subdomain `api`, which once up on Heroku, I pointed to this api, so my domain (for production) is `"api.mealsofchange.com"` (and if you visit [http://api.mealsofchange.com/](http://api.mealsofchange.com/) you should see the returned json `{"status":"It's working"}`).
+I created a subdomain `api`, which once up on Heroku, I pointed to this api, so my domain (for production) is `"api.mealsofchange.com"` (and if you visit [https://api.mealsofchange.com/](https://api.mealsofchange.com/) you should see the returned json `{"status":"It's working"}`).
 
 ![Meals of Change API](/images/meals-of-change/api-home.png)
 
@@ -153,7 +153,7 @@ You should see a cookie with the 'Name' `_meals_of_change` (as we set the `key:`
 
 ![Meals of Change cookie](/images/meals-of-change/cookie.png)
 
-With the config now set, it's necessary to add another gem `bcrypt`, so again update your Gemfile as below and run `bundle`.
+With the config now set, it was necessary to add another gem, `bcrypt`, so I updated the Gemfile as below and ran `bundle`.
 
 ```
 # Gemfile
@@ -198,7 +198,7 @@ So if at this point, I was to create a user in the console, the `password_digest
 
 With this all (hopefully) working, what's left is to add the registrations controller (to allow a new user to register/sign-up), and the sessions controller (to allow a registered user to login/logout).
 
-So firstly we need to add the routes for these two controllers:
+So firstly I added the routes for these two controllers:
 
 ```rb
 # config/routes.rb
@@ -220,7 +220,7 @@ The first of these actions is to allow a user to register.
 
 From the front-end we want to recieve an `email`, a `password`, and a `password_confirmation` field.
 
-Thanks to `has_secure_password`, a validation exists that a password must be present when a user is created. I have separately validated that a user must have a unique email:
+Thanks to `has_secure_password`, a validation exists that a password must be present when a user is created. I separately validated that a user must have a unique (and valid) email:
 
 ```rb
 # app/models/user.rb
@@ -235,7 +235,7 @@ class User < ApplicationRecord
 end
 ```
 
-However, as there is no `password_confirmation` field on the `User` model, we cannot add a presence validation for it. So to ensure that a password confirmation is recived from the front-end, the first thing to do in the `registration#create` action, is to raise an exception if the `password_confirmation` field is not included:
+However, as there is no `password_confirmation` field on the `User` model, we cannot add a presence validation for it. So to ensure that a password confirmation is recived from the front-end, the first thing to do in the `registration#create` action (in the registrations controller), is to raise an exception if the `password_confirmation` field is not included:
 
 ```rb
 raise 'Password confirmation not included' unless params['user']['password_confirmation']
@@ -263,7 +263,7 @@ And should the user be created successfully, we first want to create a cookie an
 session[:user_id] = user.id
 ```
 
-We'll then tell the front-end that this was done successfully, by returning a status of `:created`, and rendering a json with `logged_in: true` and returning the user.
+We'll then tell the front-end that this was done successfully, by returning a status of `:created`, and render a json with `logged_in: true` and return the user.
 
 ```rb
 render json: {
@@ -274,7 +274,7 @@ render json: {
 
 However, we also want to let the user know if this was unsuccessful, so we can wrap the whole thing in a `begin/rescue` block, and add a couple of rescue conditions.
 
-If validations failed, which throw the `ActiveRecord::RecordInvalid` exception, we want to return just one message in a human-readable format (I find it better to give the user one error at a time, rather than telling them that their email is invalid, and it's already taken, and the password isn't long enough all at once). We can do that with:
+If validations fail, which throws the `ActiveRecord::RecordInvalid` exception, we want to return just one message in a human-readable format (I find it better to give the user one error at a time, rather than telling them that their email is invalid, and it's already taken, and the password isn't long enough all at once). We can do that with:
 
 ```rb
 rescue ActiveRecord::RecordInvalid => e
@@ -292,7 +292,7 @@ rescue => e
   }, status: :unprocessable_entity
 ```
 
-When all put together, the registrations controller will be:
+When all put together, the registrations controller becomes:
 
 ```rb
 # app/controllers/api/v1/registrations_controller.rb
@@ -333,9 +333,28 @@ end
 
 ```
 
-Now that users can register, we need to allow them to create a session, or to login, and we do this with the `sessions#create` action.
+One more thing to add, is `skip_before_action :verify_authenticity_token`, because the user will be typing into a form in a separate place to our API.
 
-So in the sessions controller, we add:
+We want this in all our controllers, however to keep our API versioning in tact, I didn't want to add it to the application controller, so instead added an `API::V1::BaseController` to be inherited into all V1 controllers, as follows:
+
+```rb
+# app/controllers/api/v1/base_controller.rb
+
+module Api
+  module V1
+    class BaseController < ApplicationController
+      ...
+      skip_before_action :verify_authenticity_token
+      ...
+    end
+  end
+end
+
+```
+
+Now that users can register, it's necessary to allow them to create a session, or to login, and we do this with the `sessions#create` action.
+
+So in the sessions controller, I started by adding:
 
 ```rb
 # app/controllers/api/v1/sessions_controller.rb
@@ -366,7 +385,7 @@ We can also return the user.
 
 However, as we don't want to do this if the `authenticate` method returned false, we can wrap the whole thing in a `begin/rescue` block, `raise` an exception if the user is not returned, and instead render an error message with `status: :unauthorized`.
 
-The full `create` action would now be:
+The full `create` action therefore becomes:
 
 ```rb
 # app/controllers/api/v1/sessions_controller.rb
@@ -395,7 +414,191 @@ module Api
 end
 ```
 
-### Photo uploading
+Next was to create the `sessions#logged_in` action, which is a GET request to simply check whether or not a user is logged-in.
+
+However, we're going to require the functionality of checking for a logged-in user in more than just this action, so it makes sense to add this logic in a concern, and then add it our base controller.
+
+So I created a current user concern as follows:
+
+```rb
+# app/controllers/concerns/current_user_concern.rb
+
+module CurrentUserConcern
+  extend ActiveSupport::Concern
+
+  included do
+    before_action :set_current_user
+  end
+
+  def set_current_user
+    @current_user = session[:user_id] ? User.find(session[:user_id]) : nil
+  end
+
+  private
+
+  attr_reader :current_user
+end
+
+```
+
+The `before_action :set_current_user` requires that the `set_current_user` method is called _before_ the action, in any controller which inherits this concern.
+
+The `set_current_user` method checks if the session has a `user_id`. If it does, it finds the user and sets it to `@current_user`, if it doesn't, it sets `@current_user` to nil.
+
+As we want to add this functionality in (almost) all of our actions, we can include this concern in our base controller, which now becomes:
+
+```rb
+# app/controllers/api/v1/base_controller.rb
+
+module Api
+  module V1
+    class BaseController < ApplicationController
+      ...
+      include CurrentUserConcern
+
+      skip_before_action :verify_authenticity_token
+      ...
+    end
+  end
+end
+```
+
+The one exception, where we don't want to set the user, is in the registrations controller. So here we can skip this action by adding `skip_before_action :set_current_user`:
+
+```rb
+# app/controllers/api/v1/registrations_controller.rb
+
+module Api
+  module V1
+    class RegistrationsController < Api::V1::BaseController
+      skip_before_action :set_current_user
+
+      def create
+        begin
+          raise 'Password confirmation not included' unless params['user']['password_confirmation']
+
+          user = User.create!(user_params)
+
+          session[:user_id] = user.id
+          render json: {
+            logged_in: true,
+            user: user
+          }, status: :created
+        rescue ActiveRecord::RecordInvalid => e
+          render json: {
+            error_message: e.message.split(':')&.last&.strip || 'Something went wrong'
+          }, status: :unprocessable_entity
+        rescue => e
+          render json: {
+            error_message: e.message
+          }, status: :unprocessable_entity
+        end
+      end
+
+      private
+
+      def user_params
+        params.require(:user).permit(:email, :password, :password_confirmation, :display_name)
+      end
+    end
+  end
+end
+```
+
+And as we now know in our sessions controller whether or not a current user exists, the `sessions#logged_in` action simply has to check this, and return true if a user exists, or false otherwise. The updated sessions controller therefore becomes:
+
+```rb
+# app/controllers/api/v1/sessions_controller.rb
+
+module Api
+  module V1
+    class SessionsController < Api::V1::BaseController
+      def create
+        begin
+          user = User.find_by(email: params['user']['email'])
+                     .try(:authenticate, params['user']['password'])
+
+          raise 'Incorrect username/password' unless user
+
+          session[:user_id] = user.id
+          render json: {
+            logged_in: true,
+            user: user
+          }, status: :created
+        rescue => e
+          render json: { error_message: e.message }, status: :unauthorized
+        end
+      end
+
+      def logged_in
+        if @current_user
+          render json: {
+            logged_in: true,
+            user: @current_user
+          }, status: :ok
+        else
+          render json: {
+            logged_in: false
+          }, status: :ok
+        end
+      end
+    end
+  end
+end
+```
+
+The last action we need to consider, is `sessions#logout` which, as you might be able to guess, allows the user to logout. And to do that, we simply need to run `reset_session`.
+
+We then want to feedback to the front-end that the user was logged-out, which we can do with `render json: { logged_out: true }, status: :ok`.
+
+So our completed sessions controller looks as follows:
+
+```rb
+# app/controllers/api/v1/sessions_controller.rb
+
+module Api
+  module V1
+    class SessionsController < Api::V1::BaseController
+      def create
+        begin
+          user = User.find_by(email: params['user']['email'])
+                     .try(:authenticate, params['user']['password'])
+
+          raise 'Incorrect username/password' unless user
+
+          session[:user_id] = user.id
+          render json: {
+            logged_in: true,
+            user: user
+          }, status: :created
+        rescue => e
+          render json: { error_message: e.message }, status: :unauthorized
+        end
+      end
+
+      def logged_in
+        if @current_user
+          render json: {
+            logged_in: true,
+            user: @current_user
+          }, status: :ok
+        else
+          render json: {
+            logged_in: false
+          }, status: :ok
+        end
+      end
+
+      def logout
+        reset_session
+        render json: { logged_out: true }, status: :ok
+      end
+    end
+  end
+end
+```
+
+<!-- ### Photo uploading
 
 The other issue which exceeded my knowledge at the start of this project, was allowing users to upload photos of their recipes.
 
@@ -407,7 +610,7 @@ No, that's madness. Sending large files to the backend to just act as an interme
 
 That's what I didn't know either. And again, I used multiple sources to eventually solve this quandry, the most useful of which was this article by [Elliott King](https://elliott-king.github.io/2020/09/s3-heroku-rails/).
 
-Again, going into the finer details of this is a little out of the scope of this article, but coming soon will be a blog post with the exact code that I used.
+Again, going into the finer details of this is a little out of the scope of this article, but coming soon will be a blog post with the exact code that I used. -->
 
 <!-- ## Build process
 

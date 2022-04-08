@@ -1465,26 +1465,126 @@ export default RecipePhoto;
 
 `props.photo` here is `recipe.large_photo` as returned from the API.
 
-<!--
-
 ### Database
 
-Build from the ground up...
+The two issues covered so far (authentication and photo uploading) were the two areas that I really felt a deficit in knowledge heading into this project. But with both painstakingly resolved, the rest of the process of building this app went fairly smoothly.
 
-I wanted to keep everything as simple as possible.
+My philosphy for building an application, is that you start with the data.
 
-I say that every project, before ending up with a database structure looking like Spaghetti Junction.
+That database is the foundation of any app (assuming that it's an app that has a database).
 
-On this project I was determined to keep my word, and really balance-out the benefit of a feature compared to the complexity it would add, so I ended up with a database of just seven tables (discounting those for ActiveStorage):
+One change in the back-end code means ten changes for the front-end, and one change to the database, means ten changes for the back-end. So any change in the database is magnified throughout the app, so it's important to build from the ground up, and get the database right as early as possible.
 
-![Meals of Change database](/images/meals-of-change-database-structure.png)
+And to make life easier, sometimes keeping things as simple as possible is key.
+
+When I first started coding, I used to build any feature I wanted, complexity be damned. Now slightly longer in the tooth, I'm more prone to weighing-up whether the benefit of a feature is worth the complexity it adds.
+
+And where as in those early apps I might end up with a database schema looking like Spaghetti Junction, for this project I wanted to keep things as simple as possible.
+
+Meals of Change therefore is an app of just seven database tables (discounting those used for ActiveStorage):
+
+![Meals of Change database](/images/meals-of-change/database-structure.png)
 
 A user has many recipes, as well as many recipe bookmarks. A recipe also has many recipe bookmarks, as well as many ingredients, steps and recipe tags. A tag has many recipe tags.
 
 That's it.
 
-And in keeping with this theme of simplicity, I wanted to keep the models and controllers as lean as possible. -->
+As I was intending to host the API on Heroku, I used PostgreSQL.
 
-<!-- ![Meals of Change screenshot](/images/meals-of-change.png) -->
+<!-- Start from here - Your brain was failing by the time you wrote the below -->
 
-<!-- TODO - Recipe new form -->
+### Models
+
+Keeping the database so simple allowed me to keep the backend code very lean, adding little but assocations and validations.
+
+For example, the two 'main' models in this app are the user and the recipe model:
+
+```rb
+# app/models/user.rb
+
+class User < ApplicationRecord
+  has_secure_password
+
+  has_many :recipes, dependent: :destroy
+  has_many :user_recipe_bookmarks, dependent: :destroy
+  has_many :bookmarked_recipes, through: :user_recipe_bookmarks, source: :recipe
+
+  validates_presence_of :email, :display_name
+  validates_uniqueness_of :email, :display_name, case_sensitive: false
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, length: { minimum: 8 }, if: :password_digest_changed?
+  validates :display_name, length: { minimum: 4, maximum: 20 }
+  validates :twitter_handle, length: { minimum: 4, maximum: 15 }, allow_nil: true
+  validates :twitter_handle, format: { with: /\A[\w]*\z/, message: 'only allows letters, numbers and underscores' }
+  validates :instagram_username, length: { minimum: 1, maximum: 30 }, allow_nil: true
+  validates :instagram_username, format: { with: /\A[\w.]*\z/, message: 'only allows letters, numbers, full stops and underscores' }
+end
+```
+
+The recipe model is slightly more complex, just because it has the search logic:
+
+```rb
+# app/models/recipe.rb
+
+class Recipe < ApplicationRecord
+  include PgSearch::Model
+
+  belongs_to :user
+  has_many :ingredients, dependent: :destroy
+  has_many :steps, dependent: :destroy
+  has_many :recipe_tags, dependent: :destroy
+  has_many :tags, through: :recipe_tags
+  has_many :user_recipe_bookmarks, dependent: :destroy
+  has_many :bookmarked_users, through: :user_recipe_bookmarks, source: :user
+
+  has_one_attached :small_photo
+  has_one_attached :large_photo
+
+  accepts_nested_attributes_for :ingredients, :steps
+
+  validates_presence_of :name
+  validates_length_of :preface, maximum: 2500
+  validate :validate_number_of_tags
+
+  pg_search_scope :search_by_recipe_name_ingredient_food_and_tag_name,
+    against: { name: 'A' },
+    associated_against: {
+      ingredients: { food: 'C' },
+      tags: { name: 'B' }
+    },
+    using: {
+      tsearch: { prefix: true, dictionary: 'english' }
+    }
+
+  def small_photo_url
+    if small_photo.attached?
+      small_photo.blob.service_url
+    end
+  end
+
+  def large_photo_url
+    if large_photo.attached?
+      large_photo.blob.service_url
+    end
+  end
+
+  private
+
+  def validate_number_of_tags
+    return if tags.count <= 9
+
+    errors.add(:base, 'cannot have more than 9 tags')
+  end
+end
+```
+
+<!-- API: -->
+<!-- Controllers -->
+<!-- Search -->
+<!-- Specs -->
+
+<!-- Frontend: -->
+<!-- New recipe form -->
+<!-- Tailwind -->
+
+<!-- Hosting (Heroku and Vercel) -->

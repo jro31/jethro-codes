@@ -9,19 +9,19 @@ tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Verce
 
 ## Background
 
-At the time I started this project, I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React very reluctantly.
+At the time I started this project, I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
 
-During those jobs, I'd never been given any time to learn React, and in the first, it was React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, by looking at and trying to replicate the existing code, but not really understanding what was going on.
+I'd never had any time to learn React at this point, and in the first of these jobs, it was the era of React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, looking at and trying to replicate the existing code, but not really understanding what was going on.
 
-I had a similar experience in my next job where, despite being hired as a backend Rails dev, I was again put onto React projects despite my insistance that we had devs in the team better-suited to the task, and again, I was able to scrape by, just by trying to replicate, even while not understanding the existing code.
+I had a similar experience in my next job where, despite being hired as a backend Rails dev, I was again put onto occasional React projects despite my insistance that we had devs in the team better-suited to the task, and again, I was able to scrape by, just by trying to replicate, even while not understanding the existing code.
 
-These experiences gave me a real aversion to React, as I was just thrown into these occasional React projects, often with tight deadlines, with zero time to actually learn the basics.
+These experiences gave me a real aversion to React, as I was just thrown into these occasional React projects, often with tight deadlines, with zero time to actually learn the basics. So I just came to associate React with a lot of stress and confusion.
 
 All of that being said, when I came to the end of my time in the latter of these jobs, I was acutely aware that while very talented as a Rails dev, the gaping hole in my skillset was the lack of a front-end library.
 
-On my personal projects up to this time, I'd got by with jQuery, and even vanilla JavaScript. But if I really wanted to consider myself a fullstack dev, and to be able to build modern projects from start to deployment, I needed the knowledge of a front-end library. So on leaving this job, and even slightly before, I focussed all of my energy onto learning React.
+On my personal projects up to this time, I'd got by with jQuery, and even vanilla JavaScript. But if I really wanted to consider myself a full-stack dev, and to be able to build modern projects from start to deployment, I needed the knowledge of a front-end library. So on leaving this job, and even slightly before, I focussed all of my energy onto learning React.
 
-And you know what? When you actually have the time learn it properly, React is really a joy to work with.
+And you know what? When you actually learn the basics before undertaking a project, React is really a joy to work with.
 
 I try to be as receptive as I can to all sources of knowledge, although there's no doubting that my primary resource for learning React was Academind's excellent course, [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/).
 
@@ -43,7 +43,7 @@ That spawned [Plant as Usual version 2](https://github.com/jro31/Plant-as-Usual-
 
 But for however improved the Rails code within it was, the front-end was built with jQuery.
 
-At this point, never having taken the time to grasp the basic workings of React, I found jQuery far easier to work with, despite the way that people spoke about it online as some archaic language.
+At this point, having never had the time to grasp the basic workings of React, I found jQuery far easier to work with, despite the way that people spoke about it online as some archaic language.
 
 _"Hey... it works for me"_, I thought to myself.
 
@@ -55,7 +55,7 @@ And so was spawned, Plant as Usual version 3, although going through a rebrand, 
 
 ## Tools
 
-Given my skillset at this point, there was only really two options for building this app. Either it would be a Rails monolith that included a React frontend. Or it would be two separate services, with a Rails API as the backend, and a React frontend.
+Given my skillset at this point, there were only really two options for building this app. Either it would be a Rails monolith that included a React frontend. Or it would be two separate services, with a Rails API as the backend, and a React frontend.
 
 I opted for the latter of these, partly for the technical challenge. This project was more a learning experience than anything else, and I hadn't built a Rails API before. But also, I philosophically like having services broken-up as much as possible. I think it makes them easier to work on and easier to maintain.
 
@@ -69,7 +69,7 @@ I knew the app had the potential to grow, so wanted some app-wide state manageme
 
 For styling, I started off with CSS modules, but at some point in the early stages of development, became aware of and ultimately intrigued by **Tailwind CSS**.
 
-After spending a day learning about it and playing around with it, I jumped right onto the Tailwind bandwagon, and spent another day converting what styling existed in Meals of Change at that point, to Tailwind CSS.
+After spending a day learning about it and playing around with it, I jumped right onto the Tailwind bandwagon, and spent another day converting what styling existed in Meals of Change by then, to Tailwind CSS.
 
 ### API
 
@@ -85,7 +85,7 @@ For the first time building an app made of two serparate services, there were tw
 
 Authentication while working on a Rails monolith is fairly straight forward. Often it involves the Devise gem, but regardless, having the user login in the same place that you verify them makes things simple. Having these two parts in serparate services adds some complexity.
 
-Fighting my instinct was to again use Devise, I ultimately decided to use Rails' built-in `has_secure_password`.
+Fighting my instinct to again use Devise, I ultimately decided to use Rails' built-in `has_secure_password`.
 
 Although I used multiple sources to help me understand how to do this, I have to give props to edutechional (try saying that quickly) for posting [this tutorial playlist](https://youtube.com/playlist?list=PLgYiyoyNPrv_yNp5Pzsx0A3gQ8-tfg66j) on YouTube, as it helped immensely.
 
@@ -141,11 +141,7 @@ end
 
 `Rails.application.config.session_store` says that for our sessions, we are going to use cookies (`:cookie_store`). The `key:` is the name of the cookie. This can be anything, but convention says to use the name of your app, starting with an underscore: `"_meals_of_change"`. The `domain:` is the domain where this API is hosted.
 
-I created a subdomain `api`, which once up on Heroku, I pointed to this api, so my domain (for production) is `"api.mealsofchange.com"` (and if you visit [https://api.mealsofchange.com/](https://api.mealsofchange.com/) you should see the returned json `{"status":"It's working"}`).
-
-![Meals of Change API](/images/meals-of-change/api-home.png)
-
-To see the cookie, go to [mealsofchange.com](https://mealsofchange.com/) and sign-up/login.
+To see the cookie created here in action, go to [mealsofchange.com](https://mealsofchange.com/) and sign-up/login.
 
 Then open up the inspector (on Chrome it's `right click -> Inspect`, or press `option + command + I` on a mac), navigate to `Application`, then in the left pane go to `Storage -> Cookies -> https://mealsofchange.com`.
 
@@ -216,7 +212,7 @@ Rails.application.routes.draw do
 end
 ```
 
-The first of these actions is to allow a user to register.
+The first of these actions is `registrations#create`.
 
 From the front-end we want to recieve an `email`, a `password`, and a `password_confirmation` field.
 
@@ -235,7 +231,7 @@ class User < ApplicationRecord
 end
 ```
 
-However, as there is no `password_confirmation` field on the `User` model, we cannot add a presence validation for it. So to ensure that a password confirmation is recived from the front-end, the first thing to do in the `registration#create` action (in the registrations controller), is to raise an exception if the `password_confirmation` field is not included:
+However, as there is no `password_confirmation` field on the `User` model, we cannot add a presence validation for it. So to ensure that a password confirmation is recived from the front-end, the first thing to do in the `registrations#create` action (in the registrations controller), is to raise an exception if the `password_confirmation` field is not included:
 
 ```rb
 raise 'Password confirmation not included' unless params['user']['password_confirmation']
@@ -414,7 +410,7 @@ module Api
 end
 ```
 
-Next was to create the `sessions#logged_in` action, which is a GET request to simply check whether or not a user is logged-in.
+Next was to create the `sessions#logged_in` action, which is a `GET` request to simply check whether or not a user is logged-in.
 
 However, we're going to require the functionality of checking for a logged-in user in more than just this action, so it makes sense to add this logic in a concern, and then add it to our base controller.
 
@@ -670,7 +666,7 @@ const MyApp = ({ Component, pageProps }) => {
 };
 ```
 
-And within this layout component lives a `checkLoginStatus` function:
+And within this `Layout` component lives a `checkLoginStatus` function:
 
 ```js
 // components/layout/Layout.js
@@ -707,7 +703,7 @@ const Layout = props => {
 export default Layout;
 ```
 
-Everytime the app loads, `checkLoginStatus()` is called from within `useEffect`. This calls our `sessions#logged_in` action in our API, which returns either `logged_in: true` or `logged_in: false`. And it's only on returning `logged_in: true` do we then change the user's `loggedInStatus` to `LOGGED_IN`, by calling the `login` action in the `loginStatusSlice`:
+Everytime the app loads, `checkLoginStatus()` is called from within `useEffect`. This calls our `sessions#logged_in` action in our API, which returns either `logged_in: true` or `logged_in: false`. And only on returning `logged_in: true` do we then change the user's `loggedInStatus` to `LOGGED_IN`, by calling the `login` action in the `loginStatusSlice`:
 
 ```js
 dispatch(loginStatusActions.login(data.user));
@@ -765,7 +761,7 @@ Otherwise, we throw an error, and display that message to the user.
 
 ![Meals of Change screenshot](/images/meals-of-change/login-modal.png)
 
-The login modal works in much the same way, except we hit the `sessions#create` endpoint on the API instead.
+The login modal (above) works in much the same way, except we hit the `sessions#create` endpoint on the API instead:
 
 ```js
 const submitHandler = async event => {
@@ -827,11 +823,11 @@ const logoutHandler = async () => {
 };
 ```
 
-And with this, we have both the front-end and the back-end in place to allow our users to sign-up, to login, and to logout, and to check their login status from anywhere within the app, and display content to them depending on this.
+And with this, we have both the front-end and the back-end in place to allow our users to sign-up, login, and logout, and we are able to check their login status from anywhere within the app, and display content depending on this.
 
 ### Photo uploading
 
-The other issue which exceeded my knowledge at the start of this project, was allowing users to upload photos of their recipes.
+The other issue which exceeded my knowledge at the start of this project, was allowing users to upload photos of their recipes, and subsequently fetching these.
 
 In Rails monolith apps that I'd built, this was no issue. You upload the photo from Rails to a third-party service, and fetch it again when you need it.
 
@@ -925,7 +921,7 @@ Aws.config.update({
 S3_BUCKET = Aws::S3::Resource.new.bucket(ENV['S3_BUCKET'])
 ```
 
-For a while I played around with how many photos I needed, and of what size in order to reach a balance of speed and quality when displaying them, and ultimately settled on needed just two photos, one large and one small, for each recipe.
+For a while I played around with how many photos I needed, and of what size in order to reach a balance of speed and quality when displaying them, and ultimately settled on needing just two photos, one large and one small, for each recipe.
 
 That meant that in the recipe model, I needed to add a `has_one_attached` association for each photo:
 
@@ -1009,7 +1005,7 @@ module Api
 end
 ```
 
-The `blob.update_attribute(:key, "photos/recipes/#{params[:file][:image_size]}/#{photo_id}")` line says where on S3 the photo will be stored. So for me, the filename is whatever ID was randomly generated with `SecureRandom.uuid`, contained within a folder determined by `params[:file][:image_size]` as passed from the front-end. This will either be `large` or `small`. Contained within `photos/recipes`.
+The `blob.update_attribute(:key, "photos/recipes/#{params[:file][:image_size]}/#{photo_id}")` line says where on S3 the photo will be stored. So for me, the filename is whatever ID was randomly generated with `SecureRandom.uuid`, contained within a folder determined by `params[:file][:image_size]` as passed from the front-end. This will either be `large` or `small`, and contained within `photos/recipes`.
 
 The key method in this controller is `ActiveStorage::Blob.create_before_direct_upload!`.
 
@@ -1037,7 +1033,7 @@ Rails.application.routes.draw do
 end
 ```
 
-The photos get added to a recipe as the recipe gets created, so we still need to amend the `recipes#create` action. Assuming that the recipes controller and corresponding routes already exist, the `create` action would be updated as follows (for simplicity I'll omit the irrelevant parts here):
+The photos get added to a recipe as the recipe gets created, so we still need to amend the `recipes#create` action. Assuming that the recipes controller and corresponding routes already exist, the `create` action would be updated as follows (for simplicity I'll omit irrelevant parts here):
 
 ```rb
 # app/controllers/api/v1/recipes_controller.rb
@@ -1045,40 +1041,26 @@ The photos get added to a recipe as the recipe gets created, so we still need to
 module Api
   module V1
     class RecipesController < Api::V1::BaseController
-      ...
       def create
-        begin
         @recipe = Recipe.new(recipe_params)
-        ...
-
         attach_photo
-        ...
 
         @recipe.save!
 
         render json: {
           recipe: {
-            ...
             small_photo: recipe.small_photo_url,
             large_photo: recipe.large_photo_url,
           }
         }, status: :created
-        ...
-        rescue => e
-          ...
-        end
       end
 
       private
-
-      ...
 
       def attach_photo
         @recipe.small_photo.attach(params[:recipe][:small_photo_blob_signed_id]) if params[:recipe][:small_photo_blob_signed_id].present?
         @recipe.large_photo.attach(params[:recipe][:large_photo_blob_signed_id]) if params[:recipe][:large_photo_blob_signed_id].present?
       end
-
-      ...
     end
   end
 end
@@ -1094,7 +1076,7 @@ The point where this process gets slightly mind-boggling, is that S3 requires a 
 
 A checksum is a way to check that two files are identical. When you generate a checksum for a file, a string is created for that file. Alter that file in any way, and that string will change.
 
-So you generate the checksum for a file, and send it to S3 with the file. Amazon will then generate a checksum, and only accept the file if they match.
+So you generate the checksum for a file, and send it to S3 with the file. Amazon will then generate a checksum on their end, and only accept the file if they match.
 
 I find S3 documentation to usually be more confusing than helpful, but the first couple of paragraphs of [this blog](https://aws.amazon.com/blogs/aws/new-additional-checksum-algorithms-for-amazon-s3/) do a pretty good job of making this clearer.
 
@@ -1144,7 +1126,7 @@ I here added-in an extra step where we resize the photos before uploading them.
 
 I toyed with whether to do this client-side, or whether to upload the photos to S3 and figure it out from there so that the user could get on with their life.
 
-Ultimately though, I found the package [react-image-file-resizer](https://www.npmjs.com/package/react-image-file-resizer) was able to resize the photos to the two sizes that I wanted very quickly. And after spending ~20 minutes writing the steps/ingredients of a recipe, I decided that they wouldn't mind waiting three seconds to make sure it uploaded.
+Ultimately though, I found the package [react-image-file-resizer](https://www.npmjs.com/package/react-image-file-resizer) was able to resize the photos to the two sizes that I wanted very quickly. And after spending ~20 minutes writing the steps/ingredients of a recipe, I decided a user wouldn't mind waiting three seconds to make sure it uploaded.
 
 With that in mind, let's go over the entire process of uploading a recipe from the front-end perspective.
 
@@ -1204,9 +1186,9 @@ import usePhotoUploader from '../../../../hooks/use-photo-uploader';
   };
 ```
 
-The first thing that we do within the `try` block is to call the `usePhotoUploader`, passing-in the photo (set in `props.chosenPhoto`).
+The first thing that we do within the `try` block is to call the `usePhotoUploader` hook, passing-in the photo (set in `props.chosenPhoto`).
 
-The `usePhotoUploader` hook is essentially the parent hook for the three actions we need to take for the photo: Calculating the checksum, getting the pre-signed URL, and resizing the photos. It is as follows:
+The `usePhotoUploader` hook is essentially the parent hook for the three actions we need to take for the photo before uploading it: Calculating the checksum, getting the pre-signed URL, and resizing the photo. It is as follows:
 
 ```js
 // hooks/use-photo-uploader.js
@@ -1357,7 +1339,7 @@ const usePresignedUrl = () => {
 export default usePresignedUrl;
 ```
 
-Assigned to the `presignedUrl` variable (`presignedUrl = await getPresignedUrl(photo, photo.size, checksum, imageSize);`), this now contains the URL and the headers that we need, to upload our photo. So continuing down the `uploadPhoto` function of the `usePhotoUploader` hook, we set this data to the `s3Options` variable, and finally... finally upload our photo:
+Assigned to the `presignedUrl` variable (`presignedUrl = await getPresignedUrl(photo, photo.size, checksum, imageSize);`), is the URL and the headers that we need, to upload our photo. So continuing down the `uploadPhoto` function of the `usePhotoUploader` hook, we set this data to the `s3Options` variable, and finally... finally upload our photo:
 
 ```js
 const s3Options = {
@@ -1430,7 +1412,7 @@ def large_photo_url
 end
 ```
 
-These methods return the each photo's public URL, so to get the photo, it's simply a case of returning the result of each method with the recipe:
+These methods return each photo's public URL, so to get the photo, it's simply a case of returning the result of each method with the recipe:
 
 ```rb
 render json: {
@@ -1467,7 +1449,7 @@ export default RecipePhoto;
 
 ### Database
 
-The two issues covered so far (authentication and photo uploading) were the two areas that I really felt a deficit in knowledge heading into this project. But with both painstakingly resolved, the rest of the process of building this app went fairly smoothly.
+The two issues covered so far (authentication and photo uploading) were the two areas that I really felt a deficit in knowledge heading into this project. But with both resolved, the rest of the process of building this app went fairly smoothly.
 
 My philosphy for building an application, is that you start with the data.
 
@@ -1491,100 +1473,36 @@ That's it.
 
 As I was intending to host the API on Heroku, I used PostgreSQL.
 
-<!-- Start from here - Your brain was failing by the time you wrote the below -->
+### Returning the recipes
 
-### Models
+Having such a simple database allowed me to keep the backend code incredibly simple as well.
 
-Keeping the database so simple allowed me to keep the backend code very lean, adding little but assocations and validations.
+The models contain little more than associations and validations, and the controller code that we've been over already is the as complicated as it gets.
 
-For example, the two 'main' models in this app are the user and the recipe model:
+I don't want to go over every single file, because if you've made it this far, then I assume that your knowledge of Rails is sufficient to understand the rest of the code yourself.
 
-```rb
-# app/models/user.rb
+However, the last part of the API I think worth going over, is the `recipes#index` action.
 
-class User < ApplicationRecord
-  has_secure_password
+I try to stick with RESTful routes (I know that I didn't with the `sessions#logged_in` and `sessions#logout` actions from earlier). And to that end, I prefer to have one `#index` action that handles all cases of returning multiple records, rather than having, for example, a `#bookmarked_recipes` action for when we need to return a user's bookmarked recipes, or a `#search` action for when a user searches for a recipe.
 
-  has_many :recipes, dependent: :destroy
-  has_many :user_recipe_bookmarks, dependent: :destroy
-  has_many :bookmarked_recipes, through: :user_recipe_bookmarks, source: :recipe
+I want the `#index` action to handle all of these cases, so how can I do that?
 
-  validates_presence_of :email, :display_name
-  validates_uniqueness_of :email, :display_name, case_sensitive: false
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, length: { minimum: 8 }, if: :password_digest_changed?
-  validates :display_name, length: { minimum: 4, maximum: 20 }
-  validates :twitter_handle, length: { minimum: 4, maximum: 15 }, allow_nil: true
-  validates :twitter_handle, format: { with: /\A[\w]*\z/, message: 'only allows letters, numbers and underscores' }
-  validates :instagram_username, length: { minimum: 1, maximum: 30 }, allow_nil: true
-  validates :instagram_username, format: { with: /\A[\w.]*\z/, message: 'only allows letters, numbers, full stops and underscores' }
-end
-```
+<!-- TODO - Finish this section -->
 
-The recipe model is slightly more complex, just because it has the search logic:
+### Adding a recipe
 
-```rb
-# app/models/recipe.rb
+As with the API, in the name of simplicity I won't go over every single part of the front-end. If you've made it this far, then I commend you, and I assume that your React knowledge is sufficient to understand what's going on from the code.
 
-class Recipe < ApplicationRecord
-  include PgSearch::Model
+However, there are a couple of front-end feature that I think are worth touching on, starting with the form to add a new recipe.
 
-  belongs_to :user
-  has_many :ingredients, dependent: :destroy
-  has_many :steps, dependent: :destroy
-  has_many :recipe_tags, dependent: :destroy
-  has_many :tags, through: :recipe_tags
-  has_many :user_recipe_bookmarks, dependent: :destroy
-  has_many :bookmarked_users, through: :user_recipe_bookmarks, source: :user
+<!-- TODO - Finish this section -->
 
-  has_one_attached :small_photo
-  has_one_attached :large_photo
+### Horizontal recipe list
 
-  accepts_nested_attributes_for :ingredients, :steps
+The other feature I think worth going over is the horizontal recipe list.
 
-  validates_presence_of :name
-  validates_length_of :preface, maximum: 2500
-  validate :validate_number_of_tags
+<!-- TODO - Finish this section -->
 
-  pg_search_scope :search_by_recipe_name_ingredient_food_and_tag_name,
-    against: { name: 'A' },
-    associated_against: {
-      ingredients: { food: 'C' },
-      tags: { name: 'B' }
-    },
-    using: {
-      tsearch: { prefix: true, dictionary: 'english' }
-    }
+### Hosting
 
-  def small_photo_url
-    if small_photo.attached?
-      small_photo.blob.service_url
-    end
-  end
-
-  def large_photo_url
-    if large_photo.attached?
-      large_photo.blob.service_url
-    end
-  end
-
-  private
-
-  def validate_number_of_tags
-    return if tags.count <= 9
-
-    errors.add(:base, 'cannot have more than 9 tags')
-  end
-end
-```
-
-<!-- API: -->
-<!-- Controllers -->
-<!-- Search -->
-<!-- Specs -->
-
-<!-- Frontend: -->
-<!-- New recipe form -->
-<!-- Tailwind -->
-
-<!-- Hosting (Heroku and Vercel) -->
+<!-- TODO - Finish this section -->

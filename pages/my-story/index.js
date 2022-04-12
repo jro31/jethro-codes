@@ -25,7 +25,7 @@ export const getStaticProps = async () => {
       article: {
         ...article,
         content,
-        subtitle: 'How I became a software engineer',
+        subtitle: 'Why I became a software engineer',
       },
     },
   };

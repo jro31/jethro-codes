@@ -309,13 +309,13 @@ I learned that in the US, when someone gets released from prison, they give them
 
 Also like hitchhiking in Canada, this way of travelling took me to some great places that I probably would have avoided otherwise.
 
-Charleston in South Carolina had a reputation as the murder capital of the US at this time. I didn't know that when in Washington DC, I couldn't find a bed for less than $20 per night, so off the to the bus station I went, and up on the board there was a bus to Charleston that was about to leave and would take long enough to give me a night's sleep.
+Charleston in South Carolina had a reputation as the murder capital of the US at this time. I didn't know that when in Washington DC, I couldn't find a bed for less than $20, so off the to the bus station I went, and up on the board there was a bus to Charleston that was about to leave and would take long enough to give me a night's sleep.
 
 It was one of my favourite places in the country.
 
 In fact, there seems to be a correlation between how likely you are to get murdered somewhere, and how nice of a place it is to visit.
 
-The expiration of my Freedom Pass also marked the end of my time in the US. And what I'd done, was go onto Spirit Airlines' website, and look for the cheapest flight I could get out of the country from Miami, where I was right now.
+In these two months, I'd found my way to all four corners of the country, and many places in between. But the expiration of my Freedom Pass also marked the end of my time in the US. And what I'd done, was go onto Spirit Airlines' website, and look for the cheapest flight I could get out of the country from Miami, where I was right now.
 
 "Bogota."
 
@@ -339,8 +339,47 @@ I stayed there for six weeks, even learning to dive. And when it came time to le
 
 Six weeks wasn't enough. It was the greatest place I'd ever been.
 
-![Meals of Change screenshot](/images/my-story/diving-in-colombia.jpeg)
+![Diving in Taganga](/images/my-story/diving-in-colombia.jpeg)
 _Diving in Taganga, January 2010_
+
+I spent the better part of a year in South America, meandering my way south through the continent.
+
+As well as Colombia, there's no doubt that the other highlight was Bolivia. I stayed there for everyday of the 90 that they permitted me on entry, even stopping to spend a month learning Spanish.
+
+I couldn't pick just one, but if you asked me to name the happiest moment in my life, it would probably something from these few months.
+
+![Quito](/images/my-story/quito.jpeg)
+_Quito, January 2010_
+
+And on getting as far south as Argentina, my plan was to head back north again, keeping my promise to return to Colombia.
+
+After this long backpacking though, money was a little tight, and on arriving in Buenos Aires I secured my next income, again working as a lifty, although this time in the US.
+
+I figured that by the time I'd made it back to Colombia, winter would just be starting, so it would all align perfectly.
+
+![La Paz](/images/my-story/la-paz.jpeg)
+_La Paz, Bolivia, April 2010_
+
+Unfortunately, a short time later as I arrived in Paraguay, I was greeted by the news of a family bereavement that would mean my first visit to the UK on this trip.
+
+My knee was still causing me a lot of discomfort, and back in a land of free healthcare, I took the opportunity to get it properly looked at.
+
+When the injury had first happened back in Canada, I'd got nothing but an x-ray, because I didn't want to have to pay for anything more. The doctor had told me that there was likely some ligament damage, but I'd never had any confirmation of this.
+
+Except it hurt.
+
+![Samaipata](/images/my-story/samaipata.jpeg)
+_Samaipata, Bolivia, May 2010_
+
+You can become numb to anything if you experience it enough, and I'd had two continents to get used to the pain. But seeing as I was back on UK soil, I stayed long enough to get an MRI and get my knee diagnosed.
+
+And thankfully there was no ligament damage, just cartilage.
+
+I was told I'd need surgery at some point, but it wasn't urgent. So I did what anyone smart would do in that situation:
+
+I went and worked another ski season.
+
+The time this had taken made flying back to South America and continuing my trip north illogical. So instead, my girlfriend at that time, who'd I'd met backpacking in South America, came over and we spent some time travelling in Europe before I flew off to the US.
 
 <!-- Want the world to be a better place because I was on it. -->
 

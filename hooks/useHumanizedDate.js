@@ -1,8 +1,8 @@
 const useHumanizedDate = () => {
-  const daySuffix = numericDay => {
-    if (parseInt(numericDay) >= 4 && parseInt(numericDay) <= 20) return 'th';
+  const daySuffix = numericDayInt => {
+    if (numericDayInt >= 4 && numericDayInt <= 20) return 'th';
 
-    switch (parseInt(String(numericDay).split('').slice(-1)[0])) {
+    switch (parseInt(String(numericDayInt).split('').slice(-1)[0])) {
       case 1:
         return 'st';
       case 2:
@@ -14,15 +14,18 @@ const useHumanizedDate = () => {
     }
   };
 
+  const day = date => {
+    const numericDay = date.toLocaleDateString('en-GB', { day: 'numeric' });
+    return `${numericDay}${daySuffix(parseInt(numericDay))}`;
+  };
+
+  const month = date => date.toLocaleDateString('en-GB', { month: 'short' });
+
+  const year = date => date.toLocaleDateString('en-GB', { year: '2-digit' });
+
   const humanizedDate = date => {
     const parsedDate = new Date(date);
-    return `
-      ${parsedDate.toLocaleDateString('en-GB', { day: 'numeric' })}${daySuffix(
-      parsedDate.toLocaleDateString('en-GB', { day: 'numeric' })
-    )} ${parsedDate.toLocaleDateString('en-GB', {
-      month: 'short',
-    })} '${parsedDate.toLocaleDateString('en-GB', { year: '2-digit' })}
-    `;
+    return `${day(parsedDate)} ${month(parsedDate)} '${year(parsedDate)}`;
   };
 
   return humanizedDate;

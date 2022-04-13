@@ -12,11 +12,9 @@ export const getStaticProps = async () => {
   const article = getArticleBySlug('my-story', [
     'title',
     'description',
+    'published',
     'lastUpdated',
-    'slug',
     'content',
-    'coverImage',
-    'tags',
   ]);
   const content = await markdownToHtml(article.content || '');
 

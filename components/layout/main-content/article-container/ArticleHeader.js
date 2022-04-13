@@ -1,10 +1,13 @@
-// TODO - Add 'coverImage'
-// TODO - Add 'published' date
+// TODO - Add 'coverImage' (if included)
 // TODO - Add 'lastUpdated' date
 
+import useHumanizedDate from '../../../../hooks/useHumanizedDate';
 import Title from '../../../ui/text/Title';
+import StringDivider from '../../../ui/StringDivider';
 
 const ArticleHeader = props => {
+  const humanizedDate = useHumanizedDate();
+
   return (
     <div className='bg-gray-800 text-center'>
       <div className='max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8'>
@@ -29,6 +32,11 @@ const ArticleHeader = props => {
             ))}
           </div>
         )}
+        <div className='text-gray-400 mt-5 flex justify-center'>
+          {props.published && <div>{humanizedDate(props.published)}</div>}
+          {props.published && props.timeToRead && <StringDivider />}
+          {props.timeToRead && <div>{props.timeToRead} min read</div>}
+        </div>
       </div>
     </div>
   );

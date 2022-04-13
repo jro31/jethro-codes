@@ -14,7 +14,7 @@ export default Article;
 export const getStaticProps = async ({ params }) => {
   const article = getArticleBySlug(
     params.slug,
-    ['title', 'description', 'lastUpdated', 'slug', 'content', 'coverImage', 'tags'],
+    ['title', 'description', 'published', 'lastUpdated', 'content', 'coverImage', 'tags'],
     params.section
   );
   const content = await markdownToHtml(article.content || '');

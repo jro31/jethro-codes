@@ -349,7 +349,7 @@ As well as Colombia, there's no doubt that the other highlight was Bolivia. I st
 I couldn't pick just one, but if you asked me to name the happiest moment in my life, it would probably something from these few months.
 
 ![Quito](/images/my-story/quito.jpeg)
-_Quito, January 2010_
+_Quito, Ecuador, January 2010_
 
 And on getting as far south as Argentina, my plan was to head back north again, keeping my promise to return to Colombia.
 
@@ -379,7 +379,120 @@ I was told I'd need surgery at some point, but it wasn't urgent. So I did what a
 
 I went and worked another ski season.
 
-The time this had taken made flying back to South America and continuing my trip north illogical. So instead, my girlfriend at that time, who'd I'd met backpacking in South America, came over and we spent some time travelling in Europe before I flew off to the US.
+The time this had taken made flying back to South America and continuing my trip north illogical. So instead, my girlfriend at that time, who'd I'd met backpacking in South America but who was going east anyway, came over and we spent some time travelling in Europe before I flew off to the US.
+
+I'd had a great time travelling in the US a year or so earlier. Sadly, my experience of working there didn't match this, and I found American workplace politics uncompromising so as to drive you to despair.
+
+For example, I worked on a ski resort. It wasn't as cold as it had been in Canada, where temperatures at the top of the mountain reached as low as -40°c. Here it was far more mild, rarely getting below -15°c. But it was still cold enough that when you were out on the mountain, you'd be covered from head to toe.
+
+It didn't stop them having a rule where you had to shave everyday before work, and they'd check.
+
+Despite the fact that the person enforcing this rule had a beard, the logic was that it looked more professional if the lifties were clean shaven.
+
+Even on the warmer spring days, where my face was uncovered, I've never heard someone go skiing and say _"well, the snow was great, and skiing was great, and the weather was great. However, I had a really bad day because one of the lifties had a bit of stubble on his chin."_
+
+It was ridiculous.
+
+I thought maybe it was just a bad job, so before the season's end, I got a summer job on the east coast, working as a bellman in a fancy hotel on Nantucket island, which might not sound too glamorous.
+
+In fact, it wasn't too glamorous, I carried people's bags for a living. However, staff accommodation was included, so I had no rent and no bills.
+
+On top of that, I made $11 an hour. But the tips. Oh, the tips. It was the kind of place where people would call us up, asking if they could land their helicopter on the hotel lawn. At one point, someone gave me $50 for carrying their quite small bag, from reception all of about 10 metres to their room.
+
+The politics here, too, drove me insane. However, I stuck with it for as long as I could, just for the money I was making.
+
+I eventually gave-in about four months into the season, and tendered my resignation. But by that point, I'd saved enough to cover everything that I'd spent in South America and then some.
+
+As I was in the US on a working visa, the moment I resigned, I legally had 10 days to leave the country. And where was I going?
+
+Where else? I've got unfinished business in South America.
+
+I had some airline credit saved from an ealier incident where I'd been asked me to change flights at the last minute, and I'd been compensated with $500 in credit for the inconvenience. Despite the direct flight they were moving me onto leaving later and arriving earlier than the route with transfer that I was initially supposed to take.
+
+I'll take that deal all day.
+
+So I used some of this credit to pay for a flight down to Fort Lauderdale, where I knew from experience there were cheap flights to Colombia.
+
+At some point down in the Florida sun though, I had an epiphony.
+
+_"What is the point in travelling if you're just going to go to the places that you've already been?"_
+
+By now I had about 2 days to leave the country, so on a moment's notice and with zero planning or research, I used the remainder of this credit to fly to Los Angeles, and the next day I was on a flight to Bangkok.
+
+I didn't initially take to Thailand if I'm honest.
+
+My knowledge of Thailand stretched about as far as I'd seen 'The Beach' once, but I didn't really know more than that. But my initial impression, was that it was incredibly touristy, and incredibly tame.
+
+South America had struck the perfect chord with me.
+
+It was just touristy enough, where you would always be able to find a backpackers hostel with people who were going out, but not so touristy that you couldn't get away from it at times either.
+
+And it had a bit of edge. I was lucky, but most people had a story about being robbed, or their bus being held-up at gunpoint somewhere, usually in Peru, or something along those lines.
+
+No one had those stories in Thailand, it was incredibly safe.
+
+I remember at the time thinking that it would be an amazing place to retire to, but that wasn't really what I was looking for.
+
+Compared to South America where every country gave me a 90-day visa on arrival, in south-east Asia, the custom is for 30 days.
+
+And when you're like me, and don't really like doing things quickly, 30 days feels like a rush.
+
+![Mae Hong Song](/images/my-story/mae-hong-song.jpeg)
+_Mae Hong Song, Thailand, September 2011_
+
+I made my way slowly north through the country, but it wasn't long before my visa was expiring, so I did what everyone else does, and crossed-over to Laos, just to come back in again for another 30 days.
+
+Ah, bureaucracy.
+
+I'm going to be honest, when I'd got off the plane in Bangkok a month earlier, I'd never even heard of Laos, but here I was.
+
+I was staying at a hostel in Vientiane, and they had a little rooftop balcony. I was sitting up there, when I happened to glance at the notice board.
+
+_"Do you want a visa for China?"_ it said.
+
+I... actually that sounds quite fun.
+
+And that's how it happened.
+
+Rather than heading straight back to Thailand, I got a visa for China, and made my way north through Laos, spending many, many hours on dirty roads in uncomfortable vans and minibuses.
+
+Laos is a country about the same size as Thailand, but with 10% of the population, so in that regard, it's similar to Canada and the US. And where as in Thailand, I'd grown frustated with all the tourism, here it was much easier to escape.
+
+At one point I was in the village of Muang Ngoi, which took an hour in a longboat just to get to.
+
+I got handed a map no bigger than my hand, by some people who told me that there was a Hmong village called Ban Kloukhan a few hours hike away.
+
+What the Hell is a Hmong village? Only one way to find out, and having a map is being pretty prepared for me, so off I wandered into the jungle.
+
+![Map](/images/my-story/map.jpeg)
+
+Turns-out there's a lot of leeches in the jungle, and they can smell you coming.
+
+No matter how diligent you were in swiping them away, you would constantly find them climbing up, and sometimes falling into your shoes. But you couldn't stop and take your shoes off, because there were so many of them, coming at you from all angles.
+
+It was like a zombie apocalpse, with really, really small worm-like zombies.
+
+I've never known fear like the moment I fell in that jungle.
+
+When I eventually arrived in this village, not long before sundown, I had blood-drenched socks from all the leech-bites, and when I tried to talk to the villagers, the first ones looked at me like I was crazy.
+
+![Blood-drenched sock](/images/my-story/sock.jpeg)
+_Turns out wearing white socks wasn't the best choice_
+
+_"Well... this is going to be a fun night,"_ I thought to myself.
+
+Thankfully I was eventually able to find a villager who let me stay in his house.
+
+I'd arrived in this village on the day of a wedding, or the day before a wedding. I never really found out. It wasn't too easy to communicate.
+
+But they did let me... or rather, made me join in the celebration, which was basically everyone sitting around in a circle taking shots of homemade rice whiskey.
+
+It was cool though. I enjoyed my night at this village.
+
+![Ban Kloukhan](/images/my-story/ban-kloukhan.jpeg)
+_Ban Kloukhan, October 2011_
+
+After initially only coming here as a means to get another Thai visa, I'd really taken to Laos, so it was again frustrating that I was only permitted to stay for 30 days. But I had my China visa, so I continued onto the town of Luang Namtha in the north of the country, where I could take a bus across the border.
 
 <!-- Want the world to be a better place because I was on it. -->
 

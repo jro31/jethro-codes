@@ -421,19 +421,19 @@ By now I had about 2 days to leave the country, so on a moment's notice and with
 
 I didn't initially take to Thailand if I'm honest.
 
-My knowledge of Thailand stretched about as far as I'd seen 'The Beach' once, but I didn't really know more than that. But my initial impression, was that it was incredibly touristy, and incredibly tame.
+My knowledge of Thailand stretched about as far as I'd seen 'The Beach' once. But my initial impression, was that it was incredibly touristy, and incredibly tame.
 
 South America had struck the perfect chord with me.
 
-It was just touristy enough, where you would always be able to find a backpackers hostel with people who were going out, but not so touristy that you couldn't get away from it at times either.
+It was just touristy enough, where you would always be able to find a backpackers hostel to stay at, but not so touristy that you couldn't get away from it at times either.
 
-And it had a bit of edge. I was lucky, but most people had a story about being robbed, or their bus being held-up at gunpoint somewhere, usually in Peru, or something along those lines.
+And it had a bit of edge. I was lucky, but many people had a story about being robbed, or their bus being held-up at gunpoint somewhere, usually in Peru, or something along those lines.
 
-No one had those stories in Thailand, it was incredibly safe.
+No one had these stories in Thailand, it was incredibly safe.
 
 I remember at the time thinking that it would be an amazing place to retire to, but that wasn't really what I was looking for.
 
-Compared to South America where every country gave me a 90-day visa on arrival, in south-east Asia, the custom is for 30 days.
+Compared to South America where every country gave me a 90-day visa on arrival, in Southeast Asia, the custom is for 30 days.
 
 And when you're like me, and don't really like doing things quickly, 30 days feels like a rush.
 
@@ -454,7 +454,7 @@ I... actually that sounds quite fun.
 
 And that's how it happened.
 
-Rather than heading straight back to Thailand, I got a visa for China, and made my way north through Laos, spending many, many hours on dirty roads in uncomfortable vans and minibuses.
+Rather than heading straight back to Thailand, I got a visa for China, and made my way north through Laos, spending many, many hours on dirt roads in uncomfortable vans and minibuses.
 
 Laos is a country about the same size as Thailand, but with 10% of the population, so in that regard, it's similar to Canada and the US. And where as in Thailand, I'd grown frustated with all the tourism, here it was much easier to escape.
 
@@ -462,13 +462,15 @@ At one point I was in the village of Muang Ngoi, which took an hour in a longboa
 
 I got handed a map no bigger than my hand, by some people who told me that there was a Hmong village called Ban Kloukhan a few hours hike away.
 
-What the Hell is a Hmong village? Only one way to find out, and having a map is being pretty prepared for me, so off I wandered into the jungle.
+What the Hell is a Hmong village?
+
+Having a map is being pretty prepared for me, so off I wandered into the jungle to find out.
 
 ![Map](/images/my-story/map.jpeg)
 
 Turns-out there's a lot of leeches in the jungle, and they can smell you coming.
 
-No matter how diligent you were in swiping them away, you would constantly find them climbing up, and sometimes falling into your shoes. But you couldn't stop and take your shoes off, because there were so many of them, coming at you from all angles.
+No matter how diligent you were in swiping them away, you would constantly find them climbing up, and sometimes falling into your shoes. But you can't stop and take your shoes off, because there are so many of them, coming at you from all angles.
 
 It was like a zombie apocalpse, with really, really small worm-like zombies.
 
@@ -476,10 +478,10 @@ I've never known fear like the moment I fell in that jungle.
 
 When I eventually arrived in this village, not long before sundown, I had blood-drenched socks from all the leech-bites, and when I tried to talk to the villagers, the first ones looked at me like I was crazy.
 
+_"Well... this is going to be a fun night,"_ I thought to myself.
+
 ![Blood-drenched sock](/images/my-story/sock.jpeg)
 _Turns out wearing white socks wasn't the best choice_
-
-_"Well... this is going to be a fun night,"_ I thought to myself.
 
 Thankfully I was eventually able to find a villager who let me stay in his house.
 
@@ -487,12 +489,148 @@ I'd arrived in this village on the day of a wedding, or the day before a wedding
 
 But they did let me... or rather, made me join in the celebration, which was basically everyone sitting around in a circle taking shots of homemade rice whiskey.
 
-It was cool though. I enjoyed my night at this village.
+It was cool. I enjoyed my night at this village.
 
 ![Ban Kloukhan](/images/my-story/ban-kloukhan.jpeg)
 _Ban Kloukhan, October 2011_
 
-After initially only coming here as a means to get another Thai visa, I'd really taken to Laos, so it was again frustrating that I was only permitted to stay for 30 days. But I had my China visa, so I continued onto the town of Luang Namtha in the north of the country, where I could take a bus across the border.
+After initially only coming here as a means to get another Thai visa, I'd really taken to Laos, so it was again frustrating that I was only permitted to stay for 30 days. But I had my China visa, so I continued on north and took a bus across the border.
+
+Well... this isn't what I was expecting.
+
+My first stop on crossing the border was a city called Jinghong. I'd never heard of it.
+
+And my assumption about China, was that it was going to be fairly rural, very underdeveloped.
+
+Yet this city of Jinghong, a place that doesn't even feature in China's 50 most populated cities (I just looked) was lit-up more than Las Vegas.
+
+Most places that I'd been prior to this had backpacker communities of some kind, and even if you went completely off the backpacker trail, you could rarely escape the tourism. The people there would still be used to tourists to some degree.
+
+China was different. Sure, you could go to Shanghai, Beijing or a few other places and feel a part of the crowd. But to deviate from these areas, you could find yourself completely isolated.
+
+With blonde hair and blue eyes, I stand-out in China, and people weren't afraid to stare.
+
+At one point I took a route through some rural villages that took about a week. I didn't meet a person who spoke a word of English the entire time. Perhaps my most vivid memory though, was getting on a bus in one of these villages.
+
+This was a stop for the bus mid-route, so when I got on, I was the only person at this stop, and the bus was already full.
+
+It felt a bit like that scene from Forest Gump, where I walked down the aisle of the bus, with everyone staring at me, but instead of saying _"seat's taken,_, there was only one free seat on the bus.
+
+In the back row. In the middle. With no seats in front of it, so in full view of everyone.
+
+The moment that I sat down in this seat, looked up, and saw every single face on this bus turned around and staring at me will haunt me forever.
+
+![Litang](/images/my-story/litang.jpeg)
+_Litang, Sichuan, December 2011_
+
+China was fascinating though. I loved it. There was always something going on, and it was the one place in the world where I had no idea how people would react to things.
+
+I spent most of the time in every place I went just people-watching.
+
+![Yangshuo](/images/my-story/yangshuo.jpeg)
+_Yangshuo, Guangxi, January 2012_
+
+I'd gone in on a 30-day visa and jumped through the bureaucratic hoops to extend it twice, a process which as I found, can take 10 minutes or 1 week on the whim of the immigration agent. I didn't fancy my chances of getting a third extension though, so very reluctantly left China, crossing south into Vietnam.
+
+After three months in China, anywhere I could go in Southest Asia was going to feel tame.
+
+Forced to border-hop because of the 30-day visas, I went from Vietnam, over to Cambodia, back to Vietnam again...
+
+For what had been only four months of work, the fact that I'd been able to afford this trip in Asia based off the money I saved working as a bellman in the US was amazing. But I was now reaching the point that I needed to garner some kind of income.
+
+My plan was to go over to Australia. I'd got a 12-month Australian working visa issued by now, and I figured I'd give myself a head-start on the job hunt.
+
+And I remember a very specific moment, where I'd found a job ad looking for someone to do data entry.
+
+That's never going to be anyone's dream, but I can type pretty quickly, and it pays well, so what the Hell?
+
+But this is data entry. It's not customer service, or some specialised field. You just copying data from paper into a computer.
+
+The moment that I saw the application form, and the ridiculous list of questions they wanted answered, for a job copying things into the computer, I just had a moment where I got this 1000 yard stare, and my mind just switched.
+
+_"I can't do this anymore,"_ I said to myself.
+
+Backpacking... travelling... it's a dream to many people, but anything, no matter what it is, stops being exciting when you do it too much.
+
+Not only could I not face another year of working unskilled jobs, this time in Australia, but I didn't really know what I was doing it for.
+
+After the ski season I'd worked in Canada, I'd "backpacked" around the country for 7 months, then 2 more in the US, then the better part of a year in South America, then Europe, now 9 months in Asia...
+
+I was just, kind of, over it.
+
+Going to new places wasn't exciting anymore. I'd stayed in backpacker hostels numbering in the hundreds. I had not motivation to spend another year working dead-end seasonal jobs, just to do it all again somewhere else.
+
+And right there, at that moment, with this data entry application form in front of me on my laptop, I decided to change everything.
+
+I'd always thought about teaching English. It's the one gift that as a native speaker, you have and the whole world wants. As a native English speaker, you can get a job pretty much anywhere in the world. I'd just always been scared of teaching. It was a completely foreign skill to me, but the choice was to face that fear, or go to Australia.
+
+I'd obviously had hundreds of conversations over these years with people travelling abroad, working abroad, living abroad, teaching abroad, so the second I decided this, I already knew what I wanted to do.
+
+The reputation of teaching English qualifications, was that TEFL was what you took if you were a backpacker who wanted to teach overseas for a few months, but if you wanted to turn teaching English into a career, you took a CELTA.
+
+That stands for 'Certificate in English Language Teaching to Adults', and in this little cafe in Vietnam, I immediately got on my laptop to look up nearby places to do a CELTA.
+
+Of all the places that I'd been in Southeast Asia, I'd really fallen in love with Saigon/Ho Chi Minh City. It was just a fun, vibrant city.
+
+I hadn't known too much about the Vietnam war on first coming to the country, so it quite cool to learn about it from the non-western perspective.
+
+Captured American helicopters and tanks and armoured vehicles were on display as trophies throughout the country.
+
+![Hue](/images/my-story/hue.jpeg)
+_Hue, Vietnam, April 2012_
+
+As one of the touristy things to do, I'd gone to the presidential palace in Saigon, and on wandering around, I found they had a little movie theatre in the basement where you had a choice of DVDs about the Vietnam war that you could put on.
+
+There was no one in there, so I put on a DVD about the fall of Saigon. And there was something very special about learning how the tanks rolled into Saigon and took over the palace, while sitting in the palace.
+
+Normally history seems like something that happened in another time in some distant land. This made it feel a bit more real.
+
+If you'd told me at that moment, that I had to pick somewhere in Asia to live, I'd have picked Saigon. And there just so happened to be 2 schools in Southeast Asia where you could do a CELTA. One was in Saigon, the in Bangkok, and so that's an easy choice, right?
+
+I chose to go to the one in Bangkok.
+
+The Saigon school had some dubious reviews about it, where as the one in Bangkok had a stellar reputation.
+
+The CELTA wasn't cheap; it was a $1,500 course and took a month to complete.
+
+Spending that kind of money when you're on a backpacker's budget is akin to a normal person buying a house, so I wasn't going to leave anything to chance.
+
+You needed to have an interview to even get onto this course, and that could be done over the phone.
+
+I told them that I'd be there in person. I wanted to see the school for myself.
+
+So I hopped over the border to Savannakhet in Laos. Unbeknownst to me, it was the Lao/Thai new year, which meant that everyone, everywhere, was throwing water at each other. Which was a lot of fun, once I'd found somewhere to stay and had stashed my belongings. Before that... not so much.
+
+The real downside though, was that I had this interview on the first day after the new year, and getting over the border again, back into Thailand, it turned-out all the buses to Bangkok were sold out.
+
+Ah great.
+
+I was able to make it to a train station about 100km south of where I'd crossed the border, knowing full well that 3rd class tickets never sell-out.
+
+I'm not really a prude when it comes to travelling. Every flight I've ever taken has been in economy class, I've had multiple bus journeys of over 50 hours, I've spent God knows how many hours cramped up in vans and minibuses on dirt roads in South America and Asia, I regularly took 3rd class trains when I was in China.
+
+This journey though, this train journey to Bangkok sticks-out in my mind as the most gruelling of all of them.
+
+Not because of the train itself; I was used to 3rd class. But because of the sheer weight of people travelling back to Bangkok at once after the holiday.
+
+There wasn't even space to sit on the floor, you had to stand, tightly pressed against the people around you. Even the toilets had people compressed together in them. I had my backpack at my feet.
+
+I think it was only 10 or 12 hours on this train, but my God it felt like a lifetime. I've never been so relieved for a journey to be over.
+
+It didn't really put me in the best headspace for an interview the next day, but I was quite impressed with this school, so... I guess I'm studying a CELTA in Bangkok.
+
+As had become the custom for Southeast Asia, I then had to leave the country again, just so I could come back with a visa long enough to complete the course.
+
+That took me back to Laos, coinciding with the Vang Vieng rocket festival, which is as much of a health and safety nightmare as you might imagine.
+
+The logic is that if they fire rockets high enough, it'll piss off God and in response he'll make it rain, and that'll mark the start of the wet season.
+
+So everyone in town, while very, very drunk, is carrying around homemade rockets that quite literally fire over mountains. It's madness, but it did make for a good party.
+
+![Rocket festival](/images/my-story/rocket.jpeg)
+_Vang Vieng rocket festival, Laos, May 2012_
+
+<!-- Cambridge university after all -->
 
 <!-- Want the world to be a better place because I was on it. -->
 

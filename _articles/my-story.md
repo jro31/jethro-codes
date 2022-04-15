@@ -605,9 +605,9 @@ The real downside though, was that I had this interview on the first day after t
 
 Ah great.
 
-I was able to make it to a train station about 100km south of where I'd crossed the border, knowing full well that 3rd class tickets never sell-out.
+I was able to make it to a train station about 100km south of where I'd crossed the border, knowing full well that 3rd class train tickets are unlimited.
 
-I'm not really a prude when it comes to travelling. Every flight I've ever taken has been in economy class, I've had multiple bus journeys of over 50 hours, I've spent God knows how many hours cramped up in vans and minibuses on dirt roads in South America and Asia, I regularly took 3rd class trains when I was in China.
+I'm not really a prude when it comes to travelling. Every flight I've ever taken has been in economy class, I've had multiple bus journeys of over 50 hours, I've spent God knows how many hours cramped up in vans and minibuses on dirt roads in South America and Asia, I regularly take 3rd class trains where they're available.
 
 This journey though, this train journey to Bangkok sticks-out in my mind as the most gruelling of all of them.
 
@@ -619,18 +619,64 @@ I think it was only 10 or 12 hours on this train, but my God it felt like a life
 
 It didn't really put me in the best headspace for an interview the next day, but I was quite impressed with this school, so... I guess I'm studying a CELTA in Bangkok.
 
-As had become the custom for Southeast Asia, I then had to leave the country again, just so I could come back with a visa long enough to complete the course.
+As had become the custom for Southeast Asia, I then had to leave the country again, just so I could come back later with a visa long enough to complete the course.
 
-That took me back to Laos, coinciding with the Vang Vieng rocket festival, which is as much of a health and safety nightmare as you might imagine.
+That took me back to Laos, coinciding with the Vang Vieng rocket festival, which is as much of a health and safety nightmare as it sounds.
 
-The logic is that if they fire rockets high enough, it'll piss off God and in response he'll make it rain, and that'll mark the start of the wet season.
+The logic is that if they fire rockets high enough, it'll piss off God and in response he'll make it rain, and that'll start of the wet season.
 
 So everyone in town, while very, very drunk, is carrying around homemade rockets that quite literally fire over mountains. It's madness, but it did make for a good party.
 
 ![Rocket festival](/images/my-story/rocket.jpeg)
 _Vang Vieng rocket festival, Laos, May 2012_
 
-<!-- Cambridge university after all -->
+I'd been warned about the intensity of the CELTA, but it definitely lived up to its reputation.
+
+They had classes of students, mostly refugees, who couldn't afford to study English in a paid school. On the first day of this course, we were told the teaching rota, on the second day, I was teaching English to a class of 30 students.
+
+I don't get nervous easily, but I was petrified before that first class. The course was a complete baptism by fire, and one of the hardest things I've ever gone through. Harder than any job I've ever had, we taught and got criticised throughout. But my God, if the goal was to get as good at teaching as you could in four weeks, it was very effective.
+
+I... survived the CELTA, a course administered by Cambridge University. So I got a graduation certificate from Cambridge University after all.
+
+And there was a careers councillor on site, or at least someone who moonlighted as one, to help graduates get started after the CELTA, so I made sure to sit down with him, and learn what I could about getting a job in Saigon.
+
+From that conversation, I somehow ended up with an interview at an adult school in Bangkok under the premise of _'it can't hurt to talk to them,'_ and they offered me a job, and I accepted and... oh, I guess I'm staying in Bangkok then.
+
+My logic for becoming a teacher had been that I was kind of tired of backpacking, and also the unskiled work in between in order to pay for it. But I didn't want to go home yet either. I wasn't done exploring the world yet, but I wanted to be more than a tourist in the places that I went.
+
+And what's the one skill that I have that can allow me to work anywhere in the world?
+
+But it was always meant to be six months here, six months there, teaching my way around the world. So when I accepted this job in Bangkok, in my mind it was no big deal, because I didn't plan on doing it forever.
+
+But then you end up getting a condo, and then you buy things for that condo, and before you know it, you're living in Bangkok.
+
+The whole time I was there, I was very conflicted.
+
+I don't want to stay here forever, but also I'm pretty comfortble. And comfort's a very dangerous thing.
+
+It's something that everyone strives for. We all want to have money, so we can be comfortable. We all work hard, in order to be comfortable. But why?
+
+If you go to the gym, and only ever lift weights that you're comfortable with, you won't get stronger. If you go for a run, and stick with a pace that you're comfortable with, you won't get fitter. In coding, if you only work on features that you're comfortable with, you won't get better.
+
+Comfort is a recipe for stagnation, and yet for some reason, we always strive to have it.
+
+Compared to a Western salary, I was earning a pittance; I could never have survived on it in London. But for Bangkok, it was three or four times the average. I was living like a king, in great comfort.
+
+It took a year and a half until I left my job, and I easily could have got another one in Bangkok, but I decided to move on somewhere else; that was why I'd become an English teacher after all. And I knew already where I was going.
+
+For better or worse, China had absolutely fascinated me when I'd had three months backpacking there. It was a place that I wanted to go back to, and to be more than just a tourist.
+
+In Bangkok, I'd been working at a private adult school, and although I met some amazing friends and have some good memories, their lust for profit, and consequently how they treated people, both students and staff, meant that I left there with some negative memories as well, and I didn't want to replicate such a job in China, so instead I looked at universities.
+
+At first I tried to find universities who were advertising for English teachers, but I quickly realised that many didn't, so I just started sending off cold emails to universities, asking for a job. And I got offered many.
+
+That's not a reflection on me in any way, rather that the number of people willing to go and live somewhere pretty much correlates to how much tourism there is there. Bangkok is one of the most visited cities in the world, so the people who like it and who decide to settle down and teach there means that English teachers are a dime a dozen.
+
+Outside of the main cities, China is the opposite, and I wanted that.
+
+I ended up accepting a job in the city of Changsha, which I'd never heard of. Although as I heard many times when I was there, the university's alumni included Chairman Mao, so... well that's one claim to fame.
+
+<!-- NO grammar to start, by the end had been asked every question/taught every grammar point -->
 
 <!-- Want the world to be a better place because I was on it. -->
 

@@ -30,12 +30,10 @@ const VerticalCard = props => {
             </a>
           </Link>
         </div>
-        <div className='mt-6 flex items-center'>
-          <div className='flex space-x-1 text-sm text-gray-500'>
-            <time dateTime={new Date(published)}>{humanizedDate(published)}</time>
-            <span aria-hidden='true'>&middot;</span>
-            <span>{minsToRead} min read</span>
-          </div>
+        <div className='mt-12 flex space-x-1 text-sm text-gray-500'>
+          <time dateTime={new Date(published)}>{humanizedDate(published)}</time>
+          <span aria-hidden='true'>&middot;</span>
+          <span>{minsToRead} min read</span>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ const VerticalCard = props => {
           <p className='text-sm font-medium text-indigo-600'>
             {section && (
               <Link href={`/${section}`}>
-                <a className='hover:underline capitalize'>{section}</a>
+                <a className='hover:underline capitalize'>{section.slice(0, -1)}</a>
               </Link>
             )}
           </p>
@@ -31,23 +31,10 @@ const VerticalCard = props => {
           </Link>
         </div>
         <div className='mt-6 flex items-center'>
-          {/* <div className='flex-shrink-0'> */}
-          {/* <a href={props.post.author.href}>
-              <span className='sr-only'>{props.post.author.name}</span>
-              <img className='h-10 w-10 rounded-full' src={props.post.author.imageUrl} alt='' />
-            </a> */}
-          {/* </div> */}
-          <div className='ml-3'>
-            {/* <p className='text-sm font-medium text-gray-900'> */}
-            {/* <a href={props.post.author.href} className='hover:underline'>
-                {props.post.author.name}
-              </a> */}
-            {/* </p> */}
-            <div className='flex space-x-1 text-sm text-gray-500'>
-              <time dateTime={new Date(published)}>{humanizedDate(published)}</time>
-              <span aria-hidden='true'>&middot;</span>
-              <span>{minsToRead} min read</span>
-            </div>
+          <div className='flex space-x-1 text-sm text-gray-500'>
+            <time dateTime={new Date(published)}>{humanizedDate(published)}</time>
+            <span aria-hidden='true'>&middot;</span>
+            <span>{minsToRead} min read</span>
           </div>
         </div>
       </div>

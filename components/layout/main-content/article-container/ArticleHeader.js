@@ -34,8 +34,8 @@ const ArticleHeader = props => {
         )}
         <div className='text-gray-400 mt-5 flex justify-center'>
           {props.published && <div>{humanizedDate(props.published)}</div>}
-          {props.published && props.timeToRead && <StringDivider />}
-          {props.timeToRead && <div>{props.timeToRead} min read</div>}
+          {props.published && props.minsToRead && <StringDivider />}
+          {props.minsToRead && <div>{props.minsToRead} min read</div>}
         </div>
       </div>
     </div>

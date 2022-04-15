@@ -55,6 +55,7 @@ export const getStaticProps = async () => {
     'coverImage',
     'section',
     'published',
+    'minsToRead',
   ]).slice(0, 3);
 
   return {

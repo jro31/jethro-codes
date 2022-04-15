@@ -3,7 +3,8 @@ import Link from 'next/link';
 import useHumanizedDate from '../../hooks/useHumanizedDate';
 
 const VerticalCard = props => {
-  const { title, description, slug, coverImage, published, section } = props.cardDetails;
+  const { title, description, slug, coverImage, published, section, minsToRead } =
+    props.cardDetails;
 
   const humanizedDate = useHumanizedDate();
 
@@ -45,7 +46,7 @@ const VerticalCard = props => {
             <div className='flex space-x-1 text-sm text-gray-500'>
               <time dateTime={new Date(published)}>{humanizedDate(published)}</time>
               <span aria-hidden='true'>&middot;</span>
-              {/* <span>{props.post.readingTime} read</span> */}
+              <span>{minsToRead} min read</span>
             </div>
           </div>
         </div>

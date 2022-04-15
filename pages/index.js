@@ -1,23 +1,15 @@
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
+
 import SectionHome from '../components/layout/main-content/section-home';
 import VerticalCardsContainer from '../components/ui/VerticalCardsContainer';
-
-import { testReducerActions } from '../store/test-reducer';
+import { getArticles } from '../lib/api';
 
 const appTitle = 'My project name'; // TODO - Update this
 const appDescription = 'This is the description about my project'; // TODO - Update this
 const baseUrl = 'https://my-url.com'; // TODO - Update this
 const socialMediaImagePath = `${baseUrl}/images/my-image-name.png`; // TODO - Update this
 
-const Home = () => {
-  const dispatch = useDispatch();
-  const testReducerState = useSelector(state => state.testReducer.testReducerState);
-
-  const testClickHandler = () => {
-    dispatch(testReducerActions.setTestReducerState());
-  };
-
+const Home = props => {
   return (
     <>
       <Head>
@@ -42,10 +34,18 @@ const Home = () => {
       </Head>
 
       <SectionHome>
-        <VerticalCardsContainer />
+        <VerticalCardsContainer title='New Content' />
       </SectionHome>
     </>
   );
 };
 
 export default Home;
+
+export const getStaticProps = async () => {
+  const allArticles = getArticles(['title', 'description', 'slug', 'coverImage', 'section']);
+
+  return {
+    props: { allArticles },
+  };
+};

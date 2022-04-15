@@ -1,17 +1,21 @@
 import { getArticles } from '../lib/api';
-import Card from '../components/ui/Card';
-import CardsContainer from '../components/ui/CardsContainer';
+import HorizontalCard from '../components/ui/HorizontalCard';
+import HorizontalCardsContainer from '../components/ui/HorizontalCardsContainer';
 import SectionHome from '../components/layout/main-content/section-home';
 import { articleSections } from '../hooks/useSectionDetails';
 
 const Section = ({ allArticles }) => {
   return (
     <SectionHome>
-      <CardsContainer>
+      <HorizontalCardsContainer>
         {allArticles.map(article => (
-          <Card key={`${article}-card`} cardDetails={article} containingFolder={article.section} />
+          <HorizontalCard
+            key={`${article}-card`}
+            cardDetails={article}
+            containingFolder={article.section}
+          />
         ))}
-      </CardsContainer>
+      </HorizontalCardsContainer>
     </SectionHome>
   );
 };

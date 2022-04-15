@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import Button from './Button';
 
-const Card = props => {
+const HorizontalCard = props => {
   const router = useRouter();
 
   const { title, description, slug, coverImage, tags } = props.cardDetails;
@@ -32,4 +32,4 @@ const Card = props => {
   );
 };
 
-export default Card;
+export default HorizontalCard;

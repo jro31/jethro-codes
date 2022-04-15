@@ -69,14 +69,13 @@ const VerticalCardsContainer = props => {
             {props.title}
           </h2>
           <p className='mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4'>
+            {/* TODO - Update this */}
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus
             atque, ducimus sed.
           </p>
         </div>
         <div className='mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none'>
-          {posts.map(post => (
-            <VerticalCard key={post.title} post={post} />
-          ))}
+          {props.children}
         </div>
       </div>
     </div>

@@ -9,11 +9,7 @@ const Section = ({ allArticles }) => {
     <SectionHome>
       <HorizontalCardsContainer>
         {allArticles.map(article => (
-          <HorizontalCard
-            key={`${article}-card`}
-            cardDetails={article}
-            containingFolder={article.section}
-          />
+          <HorizontalCard key={`${article.title}-card`} cardDetails={article} />
         ))}
       </HorizontalCardsContainer>
     </SectionHome>

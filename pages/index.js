@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import SectionHome from '../components/layout/main-content/section-home';
+import VerticalCard from '../components/ui/VerticalCard';
 import VerticalCardsContainer from '../components/ui/VerticalCardsContainer';
 import { getArticles } from '../lib/api';
 
@@ -9,7 +10,7 @@ const appDescription = 'This is the description about my project'; // TODO - Upd
 const baseUrl = 'https://my-url.com'; // TODO - Update this
 const socialMediaImagePath = `${baseUrl}/images/my-image-name.png`; // TODO - Update this
 
-const Home = props => {
+const Home = ({ featureArticles }) => {
   return (
     <>
       <Head>
@@ -34,7 +35,11 @@ const Home = props => {
       </Head>
 
       <SectionHome>
-        <VerticalCardsContainer title='New Content' />
+        <VerticalCardsContainer title='New Content'>
+          {featureArticles.map(article => (
+            <VerticalCard key={`${article.title}-card`} cardDetails={article} />
+          ))}
+        </VerticalCardsContainer>
       </SectionHome>
     </>
   );
@@ -43,9 +48,16 @@ const Home = props => {
 export default Home;
 
 export const getStaticProps = async () => {
-  const allArticles = getArticles(['title', 'description', 'slug', 'coverImage', 'section']);
+  const featureArticles = getArticles([
+    'title',
+    'description',
+    'slug',
+    'coverImage',
+    'section',
+    'published',
+  ]).slice(0, 3);
 
   return {
-    props: { allArticles },
+    props: { featureArticles },
   };
 };

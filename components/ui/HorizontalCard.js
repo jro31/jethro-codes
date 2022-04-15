@@ -5,7 +5,7 @@ import Button from './Button';
 const HorizontalCard = props => {
   const router = useRouter();
 
-  const { title, description, slug, coverImage, tags } = props.cardDetails;
+  const { title, description, slug, coverImage, tags, section } = props.cardDetails;
 
   return (
     <div className='bg-white overflow-hidden shadow rounded-lg md:min-h-[50vh]'>
@@ -18,7 +18,7 @@ const HorizontalCard = props => {
               <span key={`${tag}-tag`}>{tag}</span>
             ))}
           </div>
-          <Button onClick={() => router.push(`${props.containingFolder}/${slug}`)}>
+          <Button onClick={() => router.push(`${section}/${slug}`)}>
             {/* TODO - Update this text */}
             Anatomy of a project
           </Button>

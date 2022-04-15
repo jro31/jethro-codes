@@ -4,11 +4,8 @@
 import Head from 'next/head';
 import ArticleBody from './ArticleBody';
 import ArticleHeader from './ArticleHeader';
-import useReadingMinutes from '../../../../hooks/useReadingMinutes';
 
 const ArticleContainer = ({ article }) => {
-  const readingMinutes = useReadingMinutes();
-
   return (
     <article>
       <Head>
@@ -26,7 +23,7 @@ const ArticleContainer = ({ article }) => {
         // coverImage={article.coverImage}
         tagsArray={article.tags ? article.tags.split(', ') : []}
         type={article.type || ''}
-        timeToRead={readingMinutes(article.content)}
+        minsToRead={article.minsToRead}
       />
       <ArticleBody content={article.content} />
     </article>

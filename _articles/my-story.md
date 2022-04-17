@@ -732,7 +732,7 @@ I'd now been a teacher for more than three years, and had learned a lot about wh
 
 I'd just left a full-time job where I worked six hours per week. There was no way I could go back to forty or more.
 
-Now being more mindful of having a work/life balance, after about three weeks I hadn't been able to get an offer from anywhere that I was willing to work, and so was getting ready to leave Bangkok and head to the north of the country one morning, when my phone rang.
+After about three weeks I hadn't been able to get an offer from anywhere that I was willing to work, and so was getting ready to leave Bangkok and head to the north of the country one morning, when my phone rang.
 
 I knew other teachers in Bangkok obviously, and so I had a very good idea of the best places to work, and so the first place I'd applied to was the one school that I'd really hoped would accept me, mainly because they worked six-week terms, after which you got a week off, and they allowed you to take one term off per year.
 
@@ -876,11 +876,11 @@ If I can no longer learn to code while doing my job, then I've got to make a cho
 
 I've either got to leave my job and focus on this pipe dream of coding, or I've got to forget about this dream and focus on my job.
 
-At this point, I had 6 years of experience as an English teacher. Although thing had got worse recently, the belief around the staff room was that this manager couldn't last long; probably not even a year, because everyone hated him. So all I really had to do was wait it out.
+At this point, I had 6 years of experience as an English teacher. Although things had got worse recently, the belief around the staff room was that this manager couldn't last long; probably not even a year, because everyone hated him. So all I really had to do was wait it out.
 
 As for the teaching itself, I remember when I first started, getting stumped by what I'd now consider really, really simple grammar questions.
 
-But when you've taught a subject for six years, you've essentially taught every grammar point that you're ever going to have to teach, and been asked every question that you're ever going to be asked.
+But when you've taught a subject for six years, you've essentially taught every grammar point that you're ever going to teach, and been asked every question that you're ever going to be asked.
 
 Maybe once every three months, I'd be asked a question that I'd never thought about, and have to stumble my way through answering it. But that was about as awkward as my job ever got.
 
@@ -888,7 +888,7 @@ I was very comfortable being an English teacher.
 
 I'd now spent a total of about five years in Thailand, and earned well above the average salary. And to leave my job to focus on coding, all of this would go up in smoke.
 
-I'd no longer have my Thai visa, I'd no longer be working a job I was comfortable in, I'd no longer be earning an above average salary. I would be someone unskilled trying to break-into a skilled industry. And despite the promise I'd made myself 12 months earlier to finish as a teacher, no matter what, pulling the trigger and actually doing it, was very hard to do.
+I'd no longer have my Thai visa, I'd no longer be working a job I was comfortable in, I'd no longer be earning an above average salary. I would be someone unskilled trying to break-into a skilled industry. And despite the promise I'd made myself 12 months earlier to finish working as a teacher, no matter what, pulling the trigger and actually doing it was very hard to do.
 
 I was very aware that were I to do so, my life would get worse before it gets better. And it's a hard thing to knowingly and wilfully make your life worse.
 
@@ -896,7 +896,7 @@ And even if I did quit my job to focus on coding, how exactly would I do it?
 
 The extent of my knowledge by this point was a Udemy course that I'd only been able to sporadically dip-into as of late, and I'd started learning from the 'Hacking with Swift' book as well, as a way of filling-in some the gaps in my knowledge.
 
-Do you ever have moments that seem so insignificant at the time, but you look back and end up changing the course of your life?
+Do you ever have moments that seem so insignificant at the time, but when you look back they ended up changing the course of your life?
 
 For how bad things had become, almost every teacher was now talking openly about leaving this job, so we'd chat in the staff room about what it was we were thinking of doing instead.
 
@@ -904,15 +904,15 @@ I happened to mention to one other teacher during one of these conversations, th
 
 > Hey, just came across this article, and since we talked about this recently I thought I’d share it. Sounds very much like a cliche, but what he says about education is so true, and this might be inspiring.
 
-She then added a link to [this article](https://www.freecodecamp.org/news/how-i-landed-a-full-stack-developer-job-without-a-tech-degree-or-work-experience-6add97be2051) titled _'How I landed a full stack developer job without a tech degree or work experience,'_ and details the authors own experience of going to a bootcamp in order to get a coding job.
+She then added a link to [this article](https://www.freecodecamp.org/news/how-i-landed-a-full-stack-developer-job-without-a-tech-degree-or-work-experience-6add97be2051) titled _'How I landed a full stack developer job without a tech degree or work experience,'_ which details the author's own experience of going to a bootcamp in order to get a coding job.
 
-Up to this point, I'd never even considered a bootcamp.
+Up to that point, I'd never even considered a bootcamp.
 
-I'd been planning on self-teaching in some way. In order to stretch my savings as far as possible, I was really thinking about finding some quiet corner of the world in a cheap country, and just locking myself away and coding everyday. But this article just spoke to me.
+I'd been planning on self-teaching in some way. In order to stretch my savings as far as possible, I was really thinking about finding some quiet corner of the world in a cheap country, and just locking myself away and coding everyday. But this article spoke to me.
 
 Learning to code while working a full-time job, it didn't really matter how long it took me, but if I were to quit my job, I'd be on a timer.
 
-I'd have until my savings ran-out to make myself employable, so I was really seeking the way to find myself earning an income in the most efficient way possible.
+I'd have until my savings ran-out to make myself employable, so I was really seeking the way to earn an income from coding in the most efficient way possible.
 
 One of the initial benefits to my teaching job, was that I could take one term off per year, and thankfully I'd got my term off this year confirmed under the previous manager, because the new one was determined to stop this practice.
 
@@ -938,11 +938,14 @@ The way I was looking at it, was that as someone in their early/mid thirties, I 
 
 I didn't have the faith that would still be true at 40.
 
-I'd seen first-hand as a teacher, how the older a person get, the harder they find it to learn new things. Your brain just becomes less elastic.
+I'd seen first-hand as a teacher, how the older a person gets, the harder they find it to learn new things.
 
-In order to learn what I need to learn, and to get the subsequent opportunity to get on the career ladder, I convinced myself that it had to be now.
+In order to learn what I need to learn, and to get the subsequent opportunity at the bottom of a career ladder, I convinced myself that it had to be now.
 
 After visiting the London Le Wagon campus, I messaged my school in Bangkok and gave them my notice, but with about five weeks of holiday remaining, this meant that I would never teach there again.
+
+![Teaching in Bangkok](/images/my-story/teaching.jpeg)
+_Teaching in Bangkok, July 2017_
 
 I then had to start shutting my life of three years down into a 15kg suitcase, and that started by messaging my landlord and telling them I was moving out.
 
@@ -958,8 +961,67 @@ Seeing as I had to go back to Bangkok anyway, I ultimately decided to do this bo
 
 ## The bootcamp
 
-<!-- Want the world to be a better place because I was on it. -->
+The reason, or one of the reasons I chose Bali, was that being as stressful as I was anticipating it'd be, being a stone's throw from the beach would be a God-send in keeping you sane.
 
+Not being in London would also mean that I could find some accommodation right by the campus, and the cost of living would be so much better than the other cities I was considering (Barelona and Tel Aviv).
+
+My main fear though, was that being the holiday destination that it is, people would come to the bootcamp and to them it would be a holiday, and I'd find myself working with some very unmotivated peers.
+
+So I had a few 'come to Jesus' moments with myself before I left Bangkok, where I really focussed my mind on what I wanted from this, and how I wanted it to go, promising that I wouldn't be swayed by the actions of others.
+
+The bootcamp itself cost around £5,000 (check this). Adding on the cost of living for two months, it was more or less going to rinse my savings.
+
+While some of my peers seemed to come here on a whim, or as something to do, for me this was my future. If it went wrong, I'd be unemployable and out of money, and the best I'd be able to hope for would be teaching English again, which I was trying to escape.
+
+So where as others went out, and socialised, and learned to surf, I did none of that.
+
+I'd code from 9am to 7pm everyday as the campus was open. Then I'd take my laptop back to the room I was renting, and code until bed. I'd code on weekends.
+
+Where my attitude lay, was that if I gave it 100%, and I still failed to make it as a software engineer, then ok, I can live with that.
+
+What I would regret is failing after not giving it my all. Failing, but then thinking _"well at least I learned to surf. As least I had some fun night's out in Bali."_
+
+And I was right with my fears. As the bootcamp progressed, I saw my peers become less and less motivated, getting to class later each day, leaving earlier.
+
+I did a lot of meditation; often 30 minutes a day through the bootcamp, to really keep myself focussed on my goals, and to not grow any antipathy towards the people who were setting example that I didn't want to follow.
+
+As for the bootcamp itself, there was a curriculum to follow, lectures everyday, and teaching assistants on hand to help you.
+
+Despite this, I was determined to take responsibility for my own learning.
+
+Having spent the last six years in classrooms, I'd seen the kinds of people who learned, and those who didn't.
+
+Every class I taught would have some people in it, who took responsibility for their own learning, and other people who thought that by showing up they'd done enough, and from that point it was the teacher's job to put knowledge in their brain.
+
+For me, the bootcamp was just one tool, but success was going to be determined by the knowledge that I left here with, no matter how I got it. So any day where I didn't fully understand a concept, going online and researching it myself was my evening/weekend task.
+
+It was a very intense way of learning, but it was [effective].
+
+As one of the teacher's, who'd gone through the bootcamp themselves three years earlier, said to me, _"it's like clinging onto the side of a high-speed train."_
+
+What he meant, was the by sheer volume of knowledge that we learned in such a short space of time, you did feel at times completely panicked and overwhelmed, but if you clung-on, you ultimately you got to where you wanted to go.
+
+And that was being able to build a fully-functioning web application.
+
+The bootcamp taught Ruby on Rails.
+
+We started by learning Ruby. Then we moved onto object-oriented programming. That was followed by a module on databases, followed by front-end development. Then finally, when that was all done, we moved onto Ruby on Rails, which brought it all together.
+
+The final projects were done in groups of four, where we had to collaborate in order to build a Ruby on Rails app in time "Demo Day", where the app would be presented.
+
+In my group, we built an app called 'Buidl' (don't ask), whose goal was to use the Github API to visualise a person's Github profile in a way that you could enter someone's Github username, and be presented with graphs about the types of projects they built, the languages they used etc.
+
+If I said that this had all gone smoothly, it would have been a lie. If I'd said that I'd not felt completely overwhelmed for the last two months, it would have been a lie. But we did it. We got there.
+
+As I'll continue to say, you don't improve at anything by being comfortable. You've got to challenge yourself and to push yourself to breaking-point to know what you're capable of, and that's what this bootcamp did.
+
+But when I looked back over it, and what I'd learned in just two months, I couldn't help but think... _'well that was [effective].'_
+
+## Getting my first job
+
+<!-- TODO - Add 'le-wagon' and 'coding-with-a-view' photos -->
+
+<!-- Want the world to be a better place because I was on it. -->
 <!-- Link back to A-level computing course. -->
 
 <!-- TODO - Add any photos? -->

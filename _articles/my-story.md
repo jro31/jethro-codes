@@ -776,7 +776,7 @@ I also wasn't making a tonne of money.
 
 I was earning great money for Bangkok, and saving plenty. But converting that to pounds, I wouldn't be able to save enough to retire on in the UK; not even close. And I wasn't paying any National Insurance in the UK at this time either, so I was doing nothing to pay towards getting a state pension.
 
-If I stayed on this path, my future prospects were quite chilling, and I got to witness others who'd stayed too long, and were living exactly what I feared. Because the problem is, that when you're earning a well above average salary (for Bangkok), then it's very hard to leave, and to go home, where you have no transferrable skills; English teaching is not lucrative in England for obvious reasons. So you are going to willfully leave your comfortable job in Bangkok, to go back to London and work a minimum wage job, just to have a pension in a few years?
+If I stayed on this path, my future prospects were quite chilling, and I got to witness others who'd stayed too long, and were living exactly what I feared. Because the problem is, that when you're earning a well above average salary (for Bangkok), then it's very hard to leave, and to go home, where you have no transferrable skills; English teaching is not lucrative in England for obvious reasons. So you are going to wilfully leave your comfortable job in Bangkok, to go back to London and work a minimum wage job, just to have a pension in a few years?
 
 Plus, Thailand is a very comfortable and welcoming place. Regardless of the money, it's hard to leave that and go back to London.
 
@@ -832,7 +832,131 @@ Well... at least I've got a nice computer to plan my lessons on now.
 
 ## Swift
 
-<!-- NO grammar to start, by the end had been asked every question/taught every grammar point - comfortable -->
+As my dream was to create these iPhone apps that I wanted to exist, the logical choice was that I'd learn to code in Swift. So my introduction to coding was a Swift course on Udemy. And you know what?
+
+I loved it.
+
+If I'd said that I understood everything that I was learning, it would have been a lie. Even the most dumbed-down course is going to be taught by someone who can't put themselves on the level of someone with no coding experience.
+
+But even at this stage, I was very comfortable figuring things out for myself. And for as stressful as I found it, the ecstasy of figure-out a bug and finally getting my code working, made it all worth it.
+
+At this point, I was still working full-time as an English teacher, and would code in my free time.
+
+The unfortunate thing was that this free time wasn't always avaiable.
+
+In my time in this job, I'd had two amazing managers. They'd always been receptive, and had always done everything that the could to make you comfortable as a teacher, by giving you classes you've taught before, and giving you your preferred hours.
+
+That was what allowed me to have free time, where I wasn't too tired or stressed-out, and could study coding.
+
+Sadly, both of these managers suffered the same fate.
+
+I was working at the head-office branch of this school, which had campuses all over Thailand. And being the manager of the head office branch, means you have oversight that's not present anywhere else. And they'd both had enough of it, and transferred to other campuses to be free to do their jobs.
+
+As rumour has it, for this reason they couldn't find anyone to take on the manager's role at my branch, until they finally had to settle on the only person who wanted the job.
+
+What that meant for the teachers, were gone were the favourable schedules, without too many classes to plan, and where we were able to work the hours we wanted.
+
+Instead, this new manager seemingly went out of his way to make everyone's lives as difficult as possible.
+
+Split-shifts, where you'd have one class in the morning, and one in the evening.
+
+You could find another teacher, who had a morning class at a different time, and an evening class at a different time, and ask this manager, _"can we swap, so he only has morning classes, and I only have evening classes?"_
+
+He'd answer with a dictatorial response about how he makes the decisions.
+
+Overnight it went from being this amazing job, to one of stress, and working excessively. Even during time-off, you had so many different classes to prepare for that you never really stopped working.
+
+This was immediately reflected in teachers leaving and transferring to other branches.
+
+What it meant for me, was that I'd gone from having the time to code almost everyday, to being lucky to find one hour per week.
+
+The coding knowledge that I'd accrued was leaving my mind faster than I could put it back in, which put me in a very awkward spot.
+
+If I can no longer learn to code while doing my job, then I've got to make a choice.
+
+I've either got to leave my job and focus on this pipe dream of coding, or I've got to forget about this dream and focus on my job.
+
+At this point, I had 6 years of experience as an English teacher. Although thing had got worse recently, the belief around the staff room was that this manager couldn't last long; probably not even a year, because everyone hated him. So all I really had to do was wait it out.
+
+As for the teaching itself, I remember when I first started, getting stumped by what I'd now consider really, really simple grammar questions.
+
+But when you've taught a subject for six years, you've essentially taught every grammar point that you're ever going to have to teach, and been asked every question that you're ever going to be asked.
+
+Maybe once every three months, I'd be asked a question that I'd never thought about, and have to stumble my way through answering it. But that was about as awkward as my job ever got.
+
+I was very comfortable being an English teacher.
+
+I'd now spent a total of about five years in Thailand, and earned well above the average salary. And to leave my job to focus on coding, all of this would go up in smoke.
+
+I'd no longer have my Thai visa, I'd no longer be working a job I was comfortable in, I'd no longer be earning an above average salary. I would be someone unskilled trying to break-into a skilled industry. And despite the promise I'd made myself 12 months earlier to finish as a teacher, no matter what, pulling the trigger and actually doing it, was very hard to do.
+
+I was very aware that were I to do so, my life would get worse before it gets better. And it's a hard thing to knowingly and wilfully make your life worse.
+
+And even if I did quit my job to focus on coding, how exactly would I do it?
+
+The extent of my knowledge by this point was a Udemy course that I'd only been able to sporadically dip-into as of late, and I'd started learning from the 'Hacking with Swift' book as well, as a way of filling-in some the gaps in my knowledge.
+
+Do you ever have moments that seem so insignificant at the time, but you look back and end up changing the course of your life?
+
+For how bad things had become, almost every teacher was now talking openly about leaving this job, so we'd chat in the staff room about what it was we were thinking of doing instead.
+
+I happened to mention to one other teacher during one of these conversations, that my dream was to learn coding. A few days after that conversation, she sent me a Facebook message.
+
+> Hey, just came across this article, and since we talked about this recently I thought I’d share it. Sounds very much like a cliche, but what he says about education is so true, and this might be inspiring.
+
+She then added a link to [this article](https://www.freecodecamp.org/news/how-i-landed-a-full-stack-developer-job-without-a-tech-degree-or-work-experience-6add97be2051) titled _'How I landed a full stack developer job without a tech degree or work experience,'_ and details the authors own experience of going to a bootcamp in order to get a coding job.
+
+Up to this point, I'd never even considered a bootcamp.
+
+I'd been planning on self-teaching in some way. In order to stretch my savings as far as possible, I was really thinking about finding some quiet corner of the world in a cheap country, and just locking myself away and coding everyday. But this article just spoke to me.
+
+Learning to code while working a full-time job, it didn't really matter how long it took me, but if I were to quit my job, I'd be on a timer.
+
+I'd have until my savings ran-out to make myself employable, so I was really seeking the way to find myself earning an income in the most efficient way possible.
+
+One of the initial benefits to my teaching job, was that I could take one term off per year, and thankfully I'd got my term off this year confirmed under the previous manager, because the new one was determined to stop this practice.
+
+I used this term off to go back to the UK, and although I didn't say a word to anybody, when I left the school to take this 8-week break, I cleared-out my locker, because unlike in previous years, I didn't know if I'd be coming back.
+
+It was a slightly weird feeling walking out of the school that day, after working there for three years, and not knowing if I'd be coming back.
+
+I still hadn't handed-in my notice, I still hadn't been able to commit to giving-up on the comfort of living in Bangkok. But I knew there was a possibility that I wouldn't be coming back, so I cleared-out my locker just in case.
+
+I just had to see if, during this trip back to London, I could find the steel to once again, give up my life and pack it into a 15kg suitcase.
+
+In this article, which I very much looked-at as a blueprint for becoming a software engineer, the author had gone to Le Wagon bootcamp.
+
+That was by no means the only research into various bootcamps that I did, but I continually read good things about Le Wagon.
+
+They have a campus in London, so during my visit home, now in August 2018, I visited the campus, I talked to the teachers, I talked to the students.
+
+This was the push I needed. It just felt right. This was my future.
+
+At this point I was 32; almost 33.
+
+The way I was looking at it, was that as someone in their early/mid thirties, I was still young enough that someone would be willing to take a chance on me. That I would be able to walk into a job interview having no coding experience, and someone would give me a shot.
+
+I didn't have the faith that would still be true at 40.
+
+I'd seen first-hand as a teacher, how the older a person get, the harder they find it to learn new things. Your brain just becomes less elastic.
+
+In order to learn what I need to learn, and to get the subsequent opportunity to get on the career ladder, I convinced myself that it had to be now.
+
+After visiting the London Le Wagon campus, I messaged my school in Bangkok and gave them my notice, but with about five weeks of holiday remaining, this meant that I would never teach there again.
+
+I then had to start shutting my life of three years down into a 15kg suitcase, and that started by messaging my landlord and telling them I was moving out.
+
+With London being my hometown, family I could stay with here, and Le Wagon having a London campus, the obvious choice was that I'd attend the bootcamp here.
+
+Now was August. I needed some time to shut-down my life in Bangkok, so the next Le Wagon batch I could get onto would be November.
+
+London, in the middle of winter. Learning to code in this stressful bootcamp, about 90 minutes away from my house in each direction.
+
+Do I really want three hours per day sat on a train during this bootcamp, where the train fares would be as much as a night's accommodation somewhere cheaper?
+
+Seeing as I had to go back to Bangkok anyway, I ultimately decided to do this bootcamp in Bali.
+
+## The bootcamp
 
 <!-- Want the world to be a better place because I was on it. -->
 

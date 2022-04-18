@@ -1024,9 +1024,9 @@ But when I looked back over it, and what I'd learned in just two months, I could
 
 As a group who two months earlier, had little to no coding knowledge, and who knew little to nothing of Ruby on Rails, we'd been able to build this fully-functional Rails application.
 
-Learning to collaborate while coding was probably the most valuable skill that I took away from the bootcamp with me, but it also presented a problem.
+Learning to collaborate while coding was probably the most valuable skill that I took away from the bootcamp, but it also presented a problem.
 
-We, as a group of four, had built this application, but it also meant that I'd only built one quarter of it.
+We, as a group of four, had built this application. Which meant that I had only built one quarter of it.
 
 Now, away from the bootcamp and alone, could I still build a functioning application?
 
@@ -1034,35 +1034,37 @@ Prior to Demo Day, I hadn't drunk alcohol in nearly four years.
 
 I'd gone through a very health-conscious few years, and with hangovers getting worse as I'd got older, I'd decided that my body was telling me that the party was over.
 
-I never intended to go four years without drinking, but the longer I went without a hangover, the less I wanted to experience it again, so I just stuck with it.
+I never intended to go four years without drinking, but the longer I went without a hangover, the less I wanted to have one again, so I just stuck with it.
 
 The final day of the bootcamp was the moment where I was like... alright, screw it. After these two months, I need to have some fun.
 
-Yeah... when you haven't drunk in four years, that's a fun party.
+When you haven't drunk in four years, that's a fun party.
 
 I woke-up still drunk at about 7am the next morning, and you know what I did?
 
 I pulled-out my laptop and I started coding.
 
-As quickly as knowledge had gone into my mind over these two months, it was going to leave just as quickly, so I was determined that no matter what, I had to keep on coding. Everyday.
+For as fast as knowledge had gone into my mind over these last two months, it would leave just as quickly if I didn't continually reinforce it, so I was determined that no matter what, I had to keep on coding. Everyday.
 
-In fact, now without the structure of the bootcamp, I had to be even more disciplined, and coded like I never left.
+In fact, now without the structure of the bootcamp, I had to be even more disciplined, and I coded like I never left.
 
-Another reason that I chose coding as my post-teaching career, was that I still wasn't really determined to go back to London or anywhere else and to settle down permanently.
+Another reason that I chose coding as my post-teaching career, was that I still wasn't really resigned to going back to London or anywhere else and to settle down permanently.
 
-I was [enamoured] by the digital nomad lifestyle. And although that wasn't my immediate goal, it was something that I could work towards, and that would give me the freedom, just like teaching did, to live and work anywhere I wanted.
+I was enamoured by the digital nomad lifestyle. And although that wasn't my immediate goal, it was something that I could work towards, and that would give me the freedom, just like teaching did, to live and work anywhere I wanted.
 
 In the short-term though, I decided that this was the right time to finish this trip and to head back to London.
 
-Not because I wanted to finish this trip and head back to London, rather, knowing the hassles of getting working visas for foreigners that companies have to go through, I was pretty convinced that no one was going to be willing to go through that for someone with no experience, so why make getting a job harder on myself, when I look for a job in London and avoid remove that obstacle.
+Not because I wanted to finish this trip and head back to London, rather, knowing the hassles of getting working visas for foreigners that companies have to go through, I was pretty convinced that no one would be be willing do that for someone with no experience, so why make getting a job harder on myself?
 
 These last couple of days in Bali, I pretty much locked myself in my room and coded.
 
-The cheapest way to get back to London from here was to stop off in Singapore. At the time I'd booked my tickets, I'd thought _"why not have a couple of nights in Singapore on the way home?"_ I'd never been there after all.
+The cheapest way to get back to London from here was to stop off in Singapore. At the time I booked my tickets, I'd thought _"why not have a couple of nights in Singapore on the way home?"_
+
+I'd never been there after all.
 
 However, my excitement for travelling and seeing new places hadn't really returned, and I was more concerned with coding, so I didn't get to see too much of Singapore, instead sitting in my windowless Airbnb with my laptop.
 
-It was a discomforting but exciting thing that I now had to solve my own coding questions, when for the two months prior, I could just put my hand up and a teacher would come and help me.
+It was a discomforting but exciting thing that I now had to solve my own coding problems, when for the two months prior, I could just put my hand up and a teacher would come and help me.
 
 Now I was on my own, and I was determined that before I started looking for a job, I was going to build and host an app, by myself, from start to finish.
 
@@ -1072,7 +1074,7 @@ I needed to know that I could do it, and if I couldn't then I had to fill the ga
 
 I landed back in London on the 29th of November 2018.
 
-I'd left on what I'd said would be a 10-year trip on the 20th of November 2008. That hadn't factored remotely in my decision to come home, so it was a strange coincidence that I was only off by nine days.
+I'd left on what I'd said would be a 10-year trip on the 20th of November 2008. That hadn't factored remotely into my decision to come home, so it was a strange coincidence that I was only off by nine days.
 
 I'd woken-up drunk after the last day of the bootcamp and coded. I'd gone to Singapore, and I'd coded. I'd sat at the airport, and on the plane and I'd coded. And now that I was home...
 
@@ -1084,7 +1086,7 @@ It took about three weeks to build and host my first application, a vegan recipe
 
 The name was partly an ironic take on the phrase 'bland as usual', as people often think of vegan food as being bland. It was partly on, being aimed at vegans, them eating plants everyday, as usual. And it was partly, and most importantly, because the .com domain was available for £6 a year.
 
-Out on my own, getting this app working and online hadn't exactly been a stress-free process, but I'd done it. It was there, online. Something I could now point to, as something that _I_ had coded.
+Out on my own, getting this app working and online hadn't exactly been a stress-free process, but I'd done it. It was there, online. Something I could now point to, as something that I had coded.
 
 With that done, it was time to stop putting-off the 'rubber meets the road' moment of finding-out whether, after giving up my life in Bangkok and spending all my savings to do a bootcamp in Bali, I could now get a coding job or not.
 
@@ -1094,23 +1096,21 @@ My attitude for the job hunt was simple: If you throw enough shit at the wall, s
 
 I wasn't in a position to be choosey. I needed a job, and I needed it as quickly as possible. So I was going to apply for everything.
 
-I also saw that getting a job was going to be a learning process in itself. I'm going to have to send off many applications before I get my first phone interview, I'm probably going to flunk many phone interviews before I've got good enough at them to get through to the technical interview, and I'm probably going to fail plenty of technical interviews before I eventually get a job. So even if I don't want or expect to get a job anyway, just apply, and maybe you'll change your mind or surprise yourself, and the worst case scenario is you'll have gained some experience at applying for coding jobs.
+I also saw that getting a job was a learning process in itself. I'm going to have to send off many applications before I get my first phone interview, I'm probably going to flunk many phone interviews before I get through to a technical interview, and I'm probably going to fail plenty of technical interviews before I get a job. So even if I don't want or expect to get a job, I'll apply for it anyway, and maybe my mind could be changed, or I could surprise yourself, and the worst case scenario is I'd have gained some more experience in applying for coding jobs.
 
 If you're paying attention, you'll notice that I arrived home on the 29th of November, and it was now three weeks later.
 
 Yep, I started my job hunt about 5 days before Christmas. Always a good time to look for a job.
 
-Christmas fell on a Tuesday this year, so offices were largely closed from that exact moment until almost two weeks later. But that didn't stop me. If anything it galvanised me, because I had an excuse for not getting any responses.
+Christmas fell on a Tuesday this year, so offices were largely closed from the exact moment that I started sending off applications, until almost two weeks later. But that didn't stop me. If anything it galvanised me, because I had an excuse for not getting anywhere.
 
 Still, when you're sending-off job applications and hearing nothing back, it's a little disheartening.
 
 I was determined to continue coding everyday. A job hunt can easily become a full-time job in itself, and if I neglected coding, by the time I got anywhere, I might have forgotten how to do it, so I split my time over the Christmas period.
 
-Half of it was spent sending off job applications, the other half coding.
+Half of it was spent sending off job applications, the other half coding. Even on Christmas Day.
 
-Including on Christmas Day.
-
-I think it's important to personalise job applications, so I researched into every company that I applied for. Despite that, come the New Year, I'd sent-off 86 job applications.
+I think it's important to personalise job applications, so I researched into every company that I applied for. But come the New Year, I'd sent-off 86 job applications.
 
 And then everyone went back into the office at exactly the same time, and my phone started to ring.
 
@@ -1118,19 +1118,21 @@ Preparing for an interview takes time, and to make sure I had time to code still
 
 I quickly found that my calendar was getting full.
 
-Although I'd applied for any Rails job I felt remotely suited for, there was no doubt in my mind that if possible, I wanted to work at a start-up.
+Although I'd applied for any Rails job I felt remotely suited for, there was no doubt in my mind, I wanted to work at a start-up.
 
-I wanted to be part of a company of 20, where my work would actually mean something, rather than one of thousands where no one would notice if I wasn't there. And the first company to call me back to offer a technical interview was a start-up in Shoreditch.
+I wanted to be part of a small company, where my work would actually mean something, rather than one of thousands where no one would notice if I wasn't there. And the first company to call me back to offer a technical interview was a start-up in Shoreditch.
 
-Having never experienced one myself, my expectation for this in-person technical interview wasn't too great. I'd read some absolute horror stories online. People standing behind you, watching you code, for example.
+Having never experienced one myself, my expectation for this in-person technical interview was based on what I'd read online, and I'd read some absolute horror stories online. People standing behind you, watching you code, for example.
 
 I had been able to build and host a Rails application... just, but I wasn't remotely comfortable at this point. I had to continually look-up syntax, so I was pretty terrified at this interview, but I just tried to look at it as a learning experience.
 
 And in reality, it was nothing like as bad as some of the horror stories I'd read.
 
-I got set a coding challenge, which was to build a simple application to some certain specification, but from that point on, I was left to do it in my own way. To Google anything I needed to, to look-up anything I needed to, without anyone looking over my shoulder.
+I got set a coding challenge, which was to build a simple application to some certain specification, but from that point on, I was left to do it in my own way. To Google anything I needed to, to look-up anything I needed to, without anyone looking over my shoulder. It wasn't a terrible experience.
 
-It wasn't a terrible experience, I didn't leave this interview thinking that I'd really shown my best. And if, with no experience, I've not shown my best, then there's no way I'm getting this job. Onto the next one.
+I didn't leave this interview thinking that I'd really shown my best. And if, with no experience, I've not shown my best, then there's no way I'm getting this job.
+
+Well that sucks, but onto the next one.
 
 I continued applying for jobs, and coding as much as possible. My phone hadn't really stopped ringing since people had gone back into the office, so I was very used to it by now.
 
@@ -1144,17 +1146,77 @@ I didn't really listen to anything else.
 
 As soon as the call ended, I hung-up the phone, dropped to my knees with my arms outstretched like Jesus, and let out this primal scream, where all the deliberation and stress I'd been through for the last 12 months, almost to the day since I bought my MacBook, suddenly became worth it.
 
-I'd given up my entire life in Bangkok, based on a dream, an idea that I might be able to make my living coding. But I never knew if it was going to come to fruition. Then suddenly, in one phone call, in one moment, it did.
+I'd given up my entire life in Bangkok, based on a dream, an idea that I might be able to make my living coding. But I never knew if it was going to come true. Then suddenly, in one phone call, in one moment, it had.
 
 I was finally going to make my living through coding.
 
 ## The software engineer
 
+I didn't consider that the bootcamp had ever really ended for me.
+
+Even when it was over, I'd continued coding like it wasn't, so in terms of _how_ I was spending my day, now I was working as a software engineer, it wasn't all that different.
+
+The main difference, was now I was getting paid for it. And although that sounds like an improvement, it also added a lot of stress.
+
+I became very conscious of everything I coded, because that would determine whether or not I actually kept my job. But also, there were real work consequences for the things I was now coding.
+
+This job was at a start-up that managed and rented properties. The application that I worked on had all the tools that the tenants, property managers and letting agents used to send contracts, pay rent, submit issues etc.
+
+Everything in the process.
+
+If I'd made a coding error at the bootcamp, or when I was working on Plant as Usual then... well who cares. Suddenly it was real though.
+
+This was a modern start-up, in the sense that it had an open-plan office. There were no private offices, or even private rooms.
+
+The meeting rooms were made of glass.
+
+The only place that you could go to get any privacy, was the toilets.
+
+For about the first four months of this job, I would spend time almost everyday, sitting in one of the toilet cubicles with my head in my hands, or looking towards the sky with my palms outstretched, as my brain tried to handle both the stress and the influx of knowledge.
+
+I didn't enjoy that time, although I've said it all the way through this article, that being comfortable is the one place that you don't want to be. If you're comfortable, then it means you aren't learning. And for all I was going through internally at this time, I was convinced that I'd come out of it better the other side.
+
+We were a team of four engineers, so I didn't really have any place to hide. And it meant that I didn't really have any opportunity to be a junior. There weren't the resources to have someone shepherding me through the whole process.
+
+It was a baptism of fire, that's for sure. But I survived.
+
+I remember it being about four months into this job when I started coming into the office and feeling somewhat comfortable.
+
+That doesn't mean that the stress had gone away, or I had become complacent in what I had to learn. It just meant that occasionally, I wasn't dying inside.
+
+And as time went on, it got better and better.
+
+After about a year, with some pushing on my part, I started working remotely, which made a huge difference to being able to have a work/life balance, by saving 2 hours per day commuting.
+
+About a week after that, Covid hit and everyone else got to work remotely as well.
+
+Unfortunately, Covid restrictions completely hamstrung the business, as lockdowns effectively meant that we could no longer rent properties. In an (utlimately failed) attempt to save the business, in August of 2020, I was among a large batch of redundancies.
+
+One of the reason I'd started coding, was to be able to make my living anywhere in the world. I expected it to take about 2 years to get the experience as to where I could start working abroad again.
+
+Under other circumstances, I might have taken this opportunity of unexpected unemployment to stretch-out my wings to start to fly again. As it was, we were in the midst of a recession, people were getting laid-off right and left, and half of the world was in lockdown.
+
+I was more concerned with getting any income I could.
+
+With the time and stress of working my previous job, I hadn't really built a personal project since I'd started there.
+
+I'd started and sporadically worked on Plant as Usual version 2 by now, as I no longer thought that version 1 reflected my talent as a developer. But by the time I found myself unemployed, I hadn't got so far, so before I started the next job hunt, took the time to get the new and improved Plant as Usual, version 2 online.
+
+As with version 1, I figured it would help with the job hunt.
+
+In a separate, Brexit-related development, I had recently obtained German citizenship, meaning that unlike many other Brits, I still had the freedom to work anywhere within the EU, visa-free.
+
+My job hunt reflected this. In the midst of a recession, I was determined to secure an income, no matter where it happened to be. And had events happened in a slightly different order and an offer come in sooner, I could have found myself moving to Amsterdam.
+
+As it was, I accepted a role at an education company in London, so my dream of using coding to work overseas would have to wait a little longer.
+
 <!-- Plan to stay for 2 years, interrupted by Covid -->
 
-<!-- ## The future -->
-
+<!-- ## Why I code -->
+<!-- Want to find the right balance between living for the moment and planning for the future - Being able to save, while still having my freedom -->
 <!-- Want the world to be a better place because I was on it. -->
+<!-- No [ego] in coding; judged by what you produce -->
+
 <!-- Link back to A-level computing course. -->
 
 <!-- TODO - Add any photos? -->

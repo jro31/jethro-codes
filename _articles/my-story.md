@@ -830,7 +830,7 @@ And after weeks of contemplating and researching, I went down to this shopping c
 
 Well... at least I've got a nice computer to plan my lessons on now.
 
-## [Swift/Time is Swift]
+## Time is Swift
 
 As my dream was to create these iPhone apps that I wanted to exist, the logical choice was that I'd learn to code in Swift. So my introduction to coding was a Swift course on Udemy. And you know what?
 
@@ -838,25 +838,25 @@ I loved it.
 
 If I'd said that I understood everything that I was learning, it would have been a lie. Even the most dumbed-down course is going to be taught by someone who can't put themselves on the level of someone with no coding experience.
 
-But even at this stage, I was very comfortable figuring things out for myself. And for as stressful as I found it, the ecstasy of figure-out a bug and finally getting my code working, made it all worth it.
+However, even at this stage I was very comfortable figuring things out for myself. And for as stressful as I found it, the ecstasy of fixing a bug and finally getting my code working, made it all worth it.
 
 At this point, I was still working full-time as an English teacher, and would code in my free time.
 
-The unfortunate thing was that this free time wasn't always avaiable.
+The unfortunate thing was that this free time wasn't always available.
 
-In my time in this job, I'd had two amazing managers. They'd always been receptive, and had always done everything that the could to make you comfortable as a teacher, by giving you classes you've taught before, and giving you your preferred hours.
+In my time in this job, I'd had two amazing managers. They'd always been receptive, and had always done everything that they could to make the teachers as comfortable as possible, by giving us classes that we'd taught before, and giving us our preferred hours.
 
 That was what allowed me to have free time, where I wasn't too tired or stressed-out, and could study coding.
 
 Sadly, both of these managers suffered the same fate.
 
-I was working at the head-office branch of this school, which had campuses all over Thailand. And being the manager of the head office branch, means you have oversight that's not present anywhere else. And they'd both had enough of it, and transferred to other campuses to be free to do their jobs.
+I was working at the head-office branch of this school, which had campuses all over Thailand. And being the manager of the head office branch, meant that you had oversight that wasn't present anywhere else. And they'd both had enough of it, and transferred to other branches to be free to do their jobs.
 
 As rumour has it, for this reason they couldn't find anyone to take on the manager's role at my branch, until they finally had to settle on the only person who wanted the job.
 
-What that meant for the teachers, were gone were the favourable schedules, without too many classes to plan, and where we were able to work the hours we wanted.
+What that meant for the teachers, was gone were the favourable schedules, without too many classes to plan, and where we were able to work the hours we wanted.
 
-Instead, this new manager seemingly went out of his way to make everyone's lives as difficult as possible.
+Instead, this new manager went out of his way to make everyone's lives as difficult as possible.
 
 Split-shifts, where you'd have one class in the morning, and one in the evening.
 
@@ -872,9 +872,7 @@ What it meant for me, was that I'd gone from having the time to code almost ever
 
 The coding knowledge that I'd accrued was leaving my mind faster than I could put it back in, which put me in a very awkward spot.
 
-If I can no longer learn to code while doing my job, then I've got to make a choice.
-
-I've either got to leave my job and focus on this pipe dream of coding, or I've got to forget about this dream and focus on my job.
+If I can no longer learn to code while doing my job, then I've got to make a choice. I've either got to leave my job and focus on this pipe dream of coding, or I've got to forget about this dream and focus on my job.
 
 At this point, I had 6 years of experience as an English teacher. Although things had got worse recently, the belief around the staff room was that this manager couldn't last long; probably not even a year, because everyone hated him. So all I really had to do was wait it out.
 
@@ -888,13 +886,13 @@ I was very comfortable being an English teacher.
 
 I'd now spent a total of about five years in Thailand, and earned well above the average salary. And to leave my job to focus on coding, all of this would go up in smoke.
 
-I'd no longer have my Thai visa, I'd no longer be working a job I was comfortable in, I'd no longer be earning an above average salary. I would be someone unskilled trying to break-into a skilled industry. And despite the promise I'd made myself 12 months earlier to finish working as a teacher, no matter what, pulling the trigger and actually doing it was very hard to do.
+I'd no longer have my Thai visa, I'd no longer be working a job I was comfortable in, I'd no longer be earning an above average salary. I would be someone unskilled trying to break-into a skilled industry. And despite the promise I'd made myself 12 months earlier to finish working as a teacher no matter what, pulling the trigger and actually doing it was very hard to do.
 
-I was very aware that were I to do so, my life would get worse before it gets better. And it's a hard thing to knowingly and wilfully make your life worse.
+I was very aware that were I to do so, my life would get worse before it got better. And it's a hard thing to knowingly and wilfully make your existence harder.
 
 And even if I did quit my job to focus on coding, how exactly would I do it?
 
-The extent of my knowledge by this point was a Udemy course that I'd only been able to sporadically dip-into as of late, and I'd started learning from the 'Hacking with Swift' book as well, as a way of filling-in some the gaps in my knowledge.
+The extent of my knowledge by this point was a Udemy course that I'd only been able to sporadically dip-into of late, and I'd started learning from the 'Hacking with Swift' book as well, as a way of filling-in some of the gaps in my knowledge.
 
 Do you ever have moments that seem so insignificant at the time, but when you look back they ended up changing the course of your life?
 
@@ -908,19 +906,19 @@ She then added a link to [this article](https://www.freecodecamp.org/news/how-i-
 
 Up to that point, I'd never even considered a bootcamp.
 
-I'd been planning on self-teaching in some way. In order to stretch my savings as far as possible, I was really thinking about finding some quiet corner of the world in a cheap country, and just locking myself away and coding everyday. But this article spoke to me.
+I'd been planning on self-teaching in some way. In order to stretch my savings as far as possible, I was really thinking about finding some secluded corner of the world in a cheap country, and just locking myself away and coding everyday. But this article spoke to me.
 
 Learning to code while working a full-time job, it didn't really matter how long it took me, but if I were to quit my job, I'd be on a timer.
 
-I'd have until my savings ran-out to make myself employable, so I was really seeking the way to earn an income from coding in the most efficient way possible.
+I'd have until my savings ran-out to make myself employable, so I was really seeking the way to earn an income from coding in the most efficient manner possible.
 
 One of the initial benefits to my teaching job, was that I could take one term off per year, and thankfully I'd got my term off this year confirmed under the previous manager, because the new one was determined to stop this practice.
 
 I used this term off to go back to the UK, and although I didn't say a word to anybody, when I left the school to take this 8-week break, I cleared-out my locker, because unlike in previous years, I didn't know if I'd be coming back.
 
-It was a slightly weird feeling walking out of the school that day, after working there for three years, and not knowing if I'd be coming back.
+It was a slightly weird feeling walking out of the school that day, after working there for three years, not knowing if I'd be back again.
 
-I still hadn't handed-in my notice, I still hadn't been able to commit to giving-up on the comfort of living in Bangkok. But I knew there was a possibility that I wouldn't be coming back, so I cleared-out my locker just in case.
+I still hadn't handed-in my notice, I still hadn't been able to commit to giving-up on the comfort of living in Bangkok. But I knew there was a possibility that I wouldn't be here again, so I cleared-out my locker just in case.
 
 I just had to see if, during this trip back to London, I could find the steel to once again, give up my life and pack it into a 15kg suitcase.
 
@@ -940,7 +938,7 @@ I didn't have the faith that would still be true at 40.
 
 I'd seen first-hand as a teacher, how the older a person gets, the harder they find it to learn new things.
 
-In order to learn what I need to learn, and to get the subsequent opportunity at the bottom of a career ladder, I convinced myself that it had to be now.
+In order to learn what I needed to learn, and to get the subsequent opportunity at the bottom of a career ladder, I convinced myself that it had to be now.
 
 After visiting the London Le Wagon campus, I messaged my school in Bangkok and gave them my notice, but with about five weeks of holiday remaining, this meant that I would never teach there again.
 
@@ -964,21 +962,21 @@ Seeing as I had to go back to Bangkok anyway, I ultimately decided to do this bo
 ![Le Wagon, Bali campus](/images/my-story/le-wagon.jpeg)
 _Le Wagon, Bali campus, October 2018_
 
-The reason, or one of the reasons I chose Bali, was that being as stressful as I was anticipating it'd be, being a stone's throw from the beach would be a God-send in keeping you sane.
+The reason, or one of the reasons I chose Bali, was that being as stressful as I was anticipating that the bootcamp would be, being a stone's throw from the beach would be a God-send in keeping you sane.
 
 Not being in London would also mean that I could find some accommodation right by the campus, and the cost of living in Bali would be so much lower than the other cities I was considering (Barcelona and Tel Aviv).
 
-My main fear countering these benefits, was that being the holiday destination that it is, people would come to the bootcamp and to them it would be a holiday, and I'd find myself working with some very unmotivated peers.
+My main fear countering these benefits, was that being the holiday destination that it's known as, people would come to the bootcamp in Bali and to them it would be a holiday, and I'd find myself working with some very unmotivated peers.
 
 So I had a few 'come to Jesus' moments with myself before I left Bangkok, where I really focussed my mind on what I wanted from this, and how I wanted it to go, promising that I wouldn't be swayed by the actions of others.
 
-The bootcamp itself cost around £5,000 [check this]. Adding on the cost of living for two months, it was more or less going to drain my savings.
+The bootcamp itself cost around £5,000. Adding on the cost of living for two months, it was more or less going to drain my savings.
 
 While some of my peers seemed to come here on a whim, or as something to do, for me this was my future. If it went wrong, I'd be unemployable and out of money, and the best I'd be able to hope for would be teaching English again, which I was trying to escape.
 
 So where as others went out, and socialised, and learned to surf, I did none of that.
 
-I'd code from 9am to 7pm everyday as the campus was open. Then I'd take my laptop back to the room I was renting, and code until bed. I'd code on weekends.
+I'd code from 9am to 7pm everyday as the campus was open. Then I'd take my laptop back to my room and code until bed. I'd code on weekends.
 
 Where my attitude lay, was that if I gave it 100%, and I still failed to make it as a software engineer, then ok, I can live with that.
 
@@ -986,29 +984,31 @@ What I would regret is failing after not giving it my all. Failing, but then thi
 
 And I was right with my fears. As the bootcamp progressed, I saw my peers become less and less motivated, getting to class later each day, leaving earlier.
 
-I did a lot of meditation; often 30 minutes a day through the bootcamp, to really keep myself focussed on my goals, and to not grow any antipathy towards the people who were setting example that I didn't want to follow.
+I did a lot of meditation; often 30 minutes a day through the bootcamp, to really keep myself focussed on my goals, and to not grow any antipathy towards the people who were setting examples that I didn't want to follow.
 
 As for the bootcamp itself, there was a curriculum to follow, lectures everyday, and teaching assistants on hand to help you.
 
 Despite this, I was determined to take responsibility for my own learning.
 
-Having spent the last six years in classrooms, I'd seen the kinds of people who learned, and those who didn't.
+I'd spent the last six years in classrooms, and I'd seen the kinds of people who learned, and those who didn't.
 
 Every class I taught would have some people in it, who took responsibility for their own learning, and other people who thought that by showing up they'd done enough, and from that point it was the teacher's job to put knowledge in their brain.
 
 For me, the bootcamp was just one tool, but success was going to be determined by the knowledge that I left here with, no matter how I got it. So any day where I didn't fully understand a concept, going online and researching it myself was my evening/weekend task.
 
-It was a very intense way of learning, but it was [effective].
+It was a very intense way of learning, but it was effective.
 
 As one of the teacher's, who'd gone through the bootcamp themselves three years earlier, said to me, _"it's like clinging onto the side of a high-speed train."_
 
-What he meant, was the by sheer volume of knowledge that we learned in such a short space of time, you did feel at times completely panicked and overwhelmed, but if you clung-on, you ultimately you got to where you wanted to go.
+What he meant, was that through the sheer volume of knowledge that we learned in such a short space of time, you did feel at times completely panicked and overwhelmed, but if you clung-on, you ultimately you got to where you wanted to go.
 
 And that was being able to build a fully-functioning web application.
 
 The bootcamp taught Ruby on Rails.
 
-We started by learning Ruby. Then we moved onto object-oriented programming. That was followed by a module on databases, followed by front-end development. Then finally, when that was all done, we moved onto Ruby on Rails, which brought it all together.
+We started by learning Ruby. Then we moved onto object-oriented programming, followed by a module on databases, and next was front-end development.
+
+Finally, when that was all done, we moved onto Ruby on Rails, which brought it all together.
 
 The final projects were done in groups of four, where we had to collaborate in order to build a Ruby on Rails app in time "Demo Day", where the app would be presented.
 
@@ -1018,7 +1018,7 @@ If I said that this had all gone smoothly, it would have been a lie. If I'd said
 
 As I'll continue to say, you don't improve at anything by being comfortable. You've got to challenge yourself and to push yourself to breaking-point to know what you're capable of, and that's what this bootcamp did.
 
-But when I looked back over it, and what I'd learned in just two months, I couldn't help but think... _'well that was [effective].'_
+But when I looked back over it, where my goal had been to come here and to learn as much as possible, I couldn't help but think... _'well it worked.'_
 
 ## The job hunt
 
@@ -1032,35 +1032,31 @@ Now, away from the bootcamp and alone, could I still build a functioning applica
 
 Prior to Demo Day, I hadn't drunk alcohol in nearly four years.
 
-I'd gone through a very health-conscious few years, and with hangovers getting worse as I'd got older, I'd decided that my body was telling me that the party was over.
+I'd gone through a very health-conscious few years, and with hangovers getting worse as I got older, I'd decided that my body was telling me that the party was over.
 
 I never intended to go four years without drinking, but the longer I went without a hangover, the less I wanted to have one again, so I just stuck with it.
 
 The final day of the bootcamp was the moment where I was like... alright, screw it. After these two months, I need to have some fun.
 
-When you haven't drunk in four years, that's a fun party.
-
-I woke-up still drunk at about 7am the next morning, and you know what I did?
+When you haven't drunk in four years, that's a fun party. I woke-up still drunk at about 7am the next morning, and you know what I did?
 
 I pulled-out my laptop and I started coding.
 
-For as fast as knowledge had gone into my mind over these last two months, it would leave just as quickly if I didn't continually reinforce it, so I was determined that no matter what, I had to keep on coding. Everyday.
+For as fast as knowledge had gone into my mind over these last two months, it would leave just as quickly if I didn't continually reinforce it, so I was determined that no matter what, I had to keep on coding, every day.
 
 In fact, now without the structure of the bootcamp, I had to be even more disciplined, and I coded like I never left.
 
-Another reason that I chose coding as my post-teaching career, was that I still wasn't really resigned to going back to London or anywhere else and to settle down permanently.
+Another reason that I chose coding as my post-teaching career, was that I still wasn't really resigned to going back to London or anywhere else to settle down permanently.
 
-I was enamoured by the digital nomad lifestyle. And although that wasn't my immediate goal, it was something that I could work towards, and that would give me the freedom, just like teaching did, to live and work anywhere I wanted.
+I was enamoured by the digital nomad lifestyle, and although that wasn't my immediate goal, it was something that I could work towards, and that would give me the freedom, just like teaching did, to live and work anywhere I wanted.
 
 In the short-term though, I decided that this was the right time to finish this trip and to head back to London.
 
-Not because I wanted to finish this trip and head back to London, rather, knowing the hassles of getting working visas for foreigners that companies have to go through, I was pretty convinced that no one would be be willing do that for someone with no experience, so why make getting a job harder on myself?
+Not because I wanted to finish this trip and head back to London, rather, knowing the hassles of getting working visas for foreigners that companies have to go through, I was pretty convinced that no one would be willing do that for someone with no experience, so why make getting a job harder on myself?
 
 These last couple of days in Bali, I pretty much locked myself in my room and coded.
 
-The cheapest way to get back to London from here was to stop off in Singapore. At the time I booked my tickets, I'd thought _"why not have a couple of nights in Singapore on the way home?"_
-
-I'd never been there after all.
+The cheapest way to get back to London from here was to stop off in Singapore. At the time I booked my tickets, I'd thought _"why not have a couple of nights in Singapore on the way home?"_ I'd never been there after all.
 
 However, my excitement for travelling and seeing new places hadn't really returned, and I was more concerned with coding, so I didn't get to see too much of Singapore, instead sitting in my windowless Airbnb with my laptop.
 
@@ -1084,7 +1080,7 @@ Yeah, I coded.
 
 It took about three weeks to build and host my first application, a vegan recipes app called 'Plant as Usual'.
 
-The name was partly an ironic take on the phrase 'bland as usual', as people often think of vegan food as being bland. It was partly on, being aimed at vegans, them eating plants everyday, as usual. And it was partly, and most importantly, because the .com domain was available for £6 a year.
+The name was partly an ironic take on the phrase 'bland as usual', as people often think of vegan food as being bland. It was partly on being an app aimed at vegans, they eat plants everyday... as usual. And it was partly, and most importantly, because the .com domain was available for £6 a year.
 
 Out on my own, getting this app working and online hadn't exactly been a stress-free process, but I'd done it. It was there, online. Something I could now point to, as something that I had coded.
 
@@ -1094,13 +1090,13 @@ If I could, my future was going to be one as a software engineer. If I couldn't.
 
 My attitude for the job hunt was simple: If you throw enough shit at the wall, some of it will eventually stick.
 
-I wasn't in a position to be choosey. I needed a job, and I needed it as quickly as possible. So I was going to apply for everything.
+I wasn't in a position to be choosey. I needed a job, and I needed it as quickly as possible, so I applied for everything.
 
-I also saw that getting a job was a learning process in itself. I'm going to have to send off many applications before I get my first phone interview, I'm probably going to flunk many phone interviews before I get through to a technical interview, and I'm probably going to fail plenty of technical interviews before I get a job. So even if I don't want or expect to get a job, I'll apply for it anyway, and maybe my mind could be changed, or I could surprise yourself, and the worst case scenario is I'd have gained some more experience in applying for coding jobs.
+I also saw that getting a job was a learning process in itself. I'm going to have to send off many applications before I get my first phone interview, I'm probably going to flunk many phone interviews before I get through to a technical interview, and I'm probably going to fail plenty of technical interviews before I get a job. So even if I don't want or expect to get a job, I'll apply for it anyway, and maybe my mind could be changed, or I could surprise myself, and the worst case scenario is I'd have gained some more experience in applying for coding jobs.
 
 If you're paying attention, you'll notice that I arrived home on the 29th of November, and it was now three weeks later.
 
-Yep, I started my job hunt about 5 days before Christmas. Always a good time to look for a job.
+Yep, I started my job hunt 5 days before Christmas. Always a good time to look for a job.
 
 Christmas fell on a Tuesday this year, so offices were largely closed from the exact moment that I started sending off applications, until almost two weeks later. But that didn't stop me. If anything it galvanised me, because I had an excuse for not getting anywhere.
 
@@ -1120,7 +1116,7 @@ I quickly found that my calendar was getting full.
 
 Although I'd applied for any Rails job I felt remotely suited for, there was no doubt in my mind, I wanted to work at a start-up.
 
-I wanted to be part of a small company, where my work would actually mean something, rather than one of thousands where no one would notice if I wasn't there. And the first company to call me back to offer a technical interview was a start-up in Shoreditch.
+I wanted to be part of a small company, where my work actually meant something, rather than being one of thousands of employees, where no one would notice if I wasn't there. And the first company to call me back to offer a technical interview was a start-up in Shoreditch.
 
 Having never experienced one myself, my expectation for this in-person technical interview was based on what I'd read online, and I'd read some absolute horror stories online. People standing behind you, watching you code, for example.
 
@@ -1128,17 +1124,17 @@ I had been able to build and host a Rails application... just, but I wasn't remo
 
 And in reality, it was nothing like as bad as some of the horror stories I'd read.
 
-I got set a coding challenge, which was to build a simple application to some certain specification, but from that point on, I was left to do it in my own way. To Google anything I needed to, to look-up anything I needed to, without anyone looking over my shoulder. It wasn't a terrible experience.
+I got set a coding challenge, which was to build a simple application to some certain specification, but from that point on, I was left to do it in my own way. To Google anything I needed to, to look-up anything I needed to, without anyone looking over my shoulder. It wasn't a terrible experience at all.
 
 I didn't leave this interview thinking that I'd really shown my best. And if, with no experience, I've not shown my best, then there's no way I'm getting this job.
 
-Well that sucks, but onto the next one.
+That sucks, but onto the next one.
 
 I continued applying for jobs, and coding as much as possible. My phone hadn't really stopped ringing since people had gone back into the office, so I was very used to it by now.
 
 My phone rang a couple of days after this interview.
 
-_"Hello!"_
+_"Hello."_
 
 _"We were very impressed with you at the interview and would like to offer you the job of..."_
 
@@ -1156,13 +1152,13 @@ I didn't consider that the bootcamp had ever really ended for me.
 
 Even when it was over, I'd continued coding like it wasn't, so in terms of _how_ I was spending my days, now I was working as a software engineer, it wasn't all that different.
 
-The main difference, was now I was getting paid for it. And although that sounds like an improvement, it also added a lot of stress.
+The main difference, was now I was getting paid for it. And although that sounds like an improvement, it added a lot of stress.
 
 I became very conscious of everything I coded, because that would determine whether or not I actually kept my job. There were also real world consequences for the things I was now coding.
 
 This job was at a start-up that managed and rented properties. The application that I worked on had all the tools that the tenants, property managers and letting agents used to send contracts, pay rent, submit issues etc.
 
-Everything in the process managing and letting properties.
+Everything in the process of managing and letting properties.
 
 If I'd made a coding error at the bootcamp, or when I was working on Plant as Usual then... well who cares?
 
@@ -1192,7 +1188,7 @@ After about a year, with some pushing on my part, I started working remotely, wh
 
 About a week after that, Covid hit and everyone else got to work remotely as well.
 
-Unfortunately, Covid restrictions completely hamstrung the business, as lockdowns effectively meant that we could no longer rent properties. In an (utlimately failed) attempt to save the business, in August of 2020, after 20 months in the job, I was among a large batch of redundancies.
+Unfortunately, Covid restrictions completely hamstrung the business, as lockdowns essentially meant that we could no longer rent properties. In an (utlimately failed) attempt to save the business, in August of 2020, after 20 months in the job, I was among a large batch of redundancies.
 
 One of the reasons I'd started coding, was to be able to make my living anywhere in the world. I expected it to take about 2 years to get the experience to be able to start working abroad again.
 
@@ -1214,13 +1210,13 @@ I was determined to secure an income, no matter where it happened to be. And had
 
 As it was, I accepted a role at an education company in London, so my dream of using coding to work overseas would have to wait a little longer.
 
-This was again working on a Rails app, at a very transitional time in this company.
+This was again working on a Rails app, at a very transitional time for this company.
 
-Unlike my previous role, where Covid had dried-up any income streams, Covid created great opportunities for an innovative educational firm.
+Unlike in my previous role, where Covid had dried-up any revenue streams, here it created great opportunities for an innovative educational firm.
 
 It was also a start-up, although a much bigger one than my first job, which only had about 20 employees at any one time. And what we did was provide one-on-one tutoring to British school children, using overseas tutors.
 
-I stayed in the role for a year, but after 12 months I found myself wanting a change of scenery.
+I stayed in the role for a year, but after 12 months I found myself wanting a change.
 
 The world was opening-up now, and it seemed the right time to start pursuing the life that had attracted me to coding in the first place.
 
@@ -1230,29 +1226,29 @@ When I look back from where I am today, to the guy at 16 who gave up on an A-lev
 
 Every decision that I've made in my life has got me to where I am now, and I like where I am now, so I regret nothing. But it is ironic that I gave up computing in order to spend the last six years of my education studying business, only to never work in business and instead become a software engineer.
 
-I think the reality that I'm in my mid-thirties, competing in the job market with computer science graduates in their early twenties, has always given me an added motivation.
+I think the reality that I'm in my mid-thirties, competing in the job market with computer science graduates in their early twenties, has always given me added motivation.
 
 I know that everything else being equal, I can't compete with them. So I have to be willing to work harder, to learn more quickly, to be more receptive to change, just to even out the playing field.
 
 And in that vein, despite successfully earning an income as a Rails dev for almost three years on leaving this job, I was very aware of a gaping hole in my skillset.
 
-Even the improved Plant as Usual version 2 had a front-end consisting of jQuery, as I'd never had to time to properly learn a front-end library.
+Even the improved Plant as Usual version 2 had a front-end consisting of jQuery, as I'd never found the time to properly learn a front-end library.
 
-I'd earned well during this time, but since getting my first job, had taken nothing but enforced time-off.
+I'd earned well during these three years, but since getting my first job, had taken nothing but enforced time-off.
 
 Being uncharacteristically static, I'd had a pretty low cost of living for someone living in London.
 
-You can take the backpack off the backpacker, but you can't take the backpacker off the backpack. Or something like that. I've still never really snapped-out of my backpacker mentality of saving absolutely every penny possible.
+You can take the backpack off the backpacker, but you can't take the backpacker off the backpack. Or something like that. I've still never really snapped-out of my backpacker mentality of saving absolutely every penny that I can.
 
 So by this point I had a good chunk of savings behind me, which meant I could afford some time-off to... to code.
 
-I've come to accept that as my reality now. In fact, with the exception of one in September 2019, I haven't gone a week without coding since I arrived at the bootcamp three and a half years ago.
+I've come to accept that as my reality now. In fact, with the exception of one week in September 2019, I haven't gone a week without coding since I arrived at the bootcamp three and a half years ago.
 
-For the first time though, I didn't focus on Rails, and used this time to firstly learn, and to then build several applications using React, including two built with a React/Next.js front-end with a Rails API.
+For the first time though, I didn't focus on Rails, and used this time to firstly learn, and to then build several applications using React, including two built with a React/Next.js front-end, and a Rails API.
 
-Dedicating so much time to learning React, I almost consider myself a React developer as much as a Rails dev now, but they're two skills that complement each so well, that I intend to pursue both equally going forwards.
+Dedicating so much time to learning React, I almost consider myself a React developer as much as a Rails dev now, but they're two skills that complement each so well, that I intend to pursue both going forwards.
 
-And although I'll never close myself off to learning new things, in the immediate future, that's how I hope to work.
+And although I'll never close myself off to learning new things, in the immediate future, that's how I hope I can earn a living.
 
 ## Why I code
 
@@ -1262,7 +1258,7 @@ Just like everyone else in the world, any plans I had for the future got thrown 
 
 I didn't fancy travelling in a world in lockdown, and with so much uncertainty, I just wanted _a_ secure income, no matter how it came.
 
-Now though, with the world starting to open up, the time felt right to start living how I want to live. Or at least trying to.
+Now though, with the world opening up, the time feels right to start living how I want to live. Or at least trying to.
 
 There's a dilemma that all of us regularly face in our daily lives. Do we live for the moment, or do we plan for the future?
 
@@ -1280,9 +1276,9 @@ At a very surface level, it's because I enjoy it, and because I'm good at it. I 
 
 I also like that there's nothing superficial with code. You are judged on the work that you produce, and it's there in black and white for everyone to see. There is no hiding from the truth.
 
-When you've worked in politically-driven workplaces, as I have in the past, you appreciate the sincerity of code.
+When you've worked in politically-driven workplaces, you appreciate the sincerity of code.
 
-On a grander scale, I had the belief when I started coding, that I was going to be able to have my cake and eat it too. That I would be able to live a lifestyle where I could live for the moment, working from anywhere in the world... having freedom. But that I would also be able to save for the future.
+On a grander scale, I had the belief when I started coding, that I was going to be able to have my cake and eat it too. That I would be able to live a lifestyle where I could live for the moment, working from anywhere in the world, having freedom, but that I would also be able to save for the future.
 
 I think that's what it really comes down to.
 

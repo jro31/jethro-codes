@@ -830,7 +830,7 @@ And after weeks of contemplating and researching, I went down to this shopping c
 
 Well... at least I've got a nice computer to plan my lessons on now.
 
-## Swift
+## [Swift/Time is Swift]
 
 As my dream was to create these iPhone apps that I wanted to exist, the logical choice was that I'd learn to code in Swift. So my introduction to coding was a Swift course on Udemy. And you know what?
 
@@ -966,9 +966,9 @@ _Le Wagon, Bali campus, October 2018_
 
 The reason, or one of the reasons I chose Bali, was that being as stressful as I was anticipating it'd be, being a stone's throw from the beach would be a God-send in keeping you sane.
 
-Not being in London would also mean that I could find some accommodation right by the campus, and the cost of living would be so much lower than the other cities I was considering (Barelona and Tel Aviv).
+Not being in London would also mean that I could find some accommodation right by the campus, and the cost of living in Bali would be so much lower than the other cities I was considering (Barcelona and Tel Aviv).
 
-My main fear though, was that being the holiday destination that it is, people would come to the bootcamp and to them it would be a holiday, and I'd find myself working with some very unmotivated peers.
+My main fear countering these benefits, was that being the holiday destination that it is, people would come to the bootcamp and to them it would be a holiday, and I'd find myself working with some very unmotivated peers.
 
 So I had a few 'come to Jesus' moments with myself before I left Bangkok, where I really focussed my mind on what I wanted from this, and how I wanted it to go, promising that I wouldn't be swayed by the actions of others.
 
@@ -1154,7 +1154,7 @@ I was finally going to make my living through coding.
 
 I didn't consider that the bootcamp had ever really ended for me.
 
-Even when it was over, I'd continued coding like it wasn't, so in terms of _how_ I was spending my day, now I was working as a software engineer, it wasn't all that different.
+Even when it was over, I'd continued coding like it wasn't, so in terms of _how_ I was spending my days, now I was working as a software engineer, it wasn't all that different.
 
 The main difference, was now I was getting paid for it. And although that sounds like an improvement, it also added a lot of stress.
 
@@ -1180,7 +1180,7 @@ I didn't enjoy that time, although I've said it all the way through this article
 
 We were a team of four engineers, so I didn't really have any place to hide. And it meant that I didn't really have any opportunity to be a junior either. There weren't the resources to have someone shepherding me through the whole process.
 
-It was a baptism of fire, that's for sure. But I survived.
+It was a baptism of fire, but I survived.
 
 I remember it being about four months into this job when I started coming into the office and feeling somewhat comfortable.
 
@@ -1194,7 +1194,7 @@ About a week after that, Covid hit and everyone else got to work remotely as wel
 
 Unfortunately, Covid restrictions completely hamstrung the business, as lockdowns effectively meant that we could no longer rent properties. In an (utlimately failed) attempt to save the business, in August of 2020, after 20 months in the job, I was among a large batch of redundancies.
 
-One of the reasons I'd started coding, was to be able to make my living anywhere in the world. I expected it to take about 2 years to get the experience as to where I could start working abroad again.
+One of the reasons I'd started coding, was to be able to make my living anywhere in the world. I expected it to take about 2 years to get the experience to be able to start working abroad again.
 
 Under other circumstances, I might have taken this opportunity of unexpected unemployment to stretch-out my wings to start to fly again. As it was, we were in the midst of a pandemic and a recession, people were getting laid-off right and left, and half of the world was in lockdown.
 
@@ -1224,6 +1224,36 @@ I stayed in the role for a year, but after 12 months I found myself wanting a ch
 
 The world was opening-up now, and it seemed the right time to start pursuing the life that had attracted me to coding in the first place.
 
+## The future
+
+When I look back from where I am today, to the guy at 16 who gave up on an A-level computing course after one class, I can't help but wonder what could have been had I stuck with it.
+
+Every decision that I've made in my life has got me to where I am now, and I like where I am now, so I regret nothing. But it is ironic that I gave up computing in order to spend the last six years of my education studying business, only to never work in business and instead become a software engineer.
+
+I think the reality that I'm in my mid-thirties, competing in the job market with computer science graduates in their early twenties, has always given me an added motivation.
+
+I know that everything else being equal, I can't compete with them. So I have to be willing to work harder, to learn more quickly, to be more receptive to change, just to even out the playing field.
+
+And in that vein, despite successfully earning an income as a Rails dev for almost three years on leaving this job, I was very aware of a gaping hole in my skillset.
+
+Even the improved Plant as Usual version 2 had a front-end consisting of jQuery, as I'd never had to time to properly learn a front-end library.
+
+I'd earned well during this time, but since getting my first job, had taken nothing but enforced time-off.
+
+Being uncharacteristically static, I'd had a pretty low cost of living for someone living in London.
+
+You can take the backpack off the backpacker, but you can't take the backpacker off the backpack. Or something like that. I've still never really snapped-out of my backpacker mentality of saving absolutely every penny possible.
+
+So by this point I had a good chunk of savings behind me, which meant I could afford some time-off to... to code.
+
+I've come to accept that as my reality now. In fact, with the exception of one in September 2019, I haven't gone a week without coding since I arrived at the bootcamp three and a half years ago.
+
+For the first time though, I didn't focus on Rails, and used this time to firstly learn, and to then build several applications using React, including two built with a React/Next.js front-end with a Rails API.
+
+Dedicating so much time to learning React, I almost consider myself a React developer as much as a Rails dev now, but they're two skills that complement each so well, that I intend to pursue both equally going forwards.
+
+And although I'll never close myself off to learning new things, in the immediate future, that's how I hope to work.
+
 ## Why I code
 
 When I'd come back to the UK in November 2018, the loose plan I had was to stay here for 2 years.
@@ -1232,13 +1262,13 @@ Just like everyone else in the world, any plans I had for the future got thrown 
 
 I didn't fancy travelling in a world in lockdown, and with so much uncertainty, I just wanted _a_ secure income, no matter how it came.
 
-Now though, with the world starting to open up again, the time felt right to living how I want to live. Or at least trying to.
+Now though, with the world starting to open up, the time felt right to start living how I want to live. Or at least trying to.
 
 There's a dilemma that all of us regularly face in our daily lives. Do we live for the moment, or do we plan for the future?
 
 Everytime we go to a shop and see something that we want to buy, or we think about quitting our job, or we decide whether to have the healthy or the unhealthy option in a restaurant, we face that one dilemma.
 
-Do I want to some pleasure now at the cost of a debt that I'll have to pay later, or do I make my decisions with an eye on the future?
+Do I want to some pleasure now at the cost of a debt that I'll have to pay later?
 
 That was the exact dilemma that I lived with before leaving Bangkok.
 
@@ -1246,21 +1276,21 @@ I lived a happy, comfortable life, earning well above the average salary. I made
 
 There are many reasons why I code.
 
-At the very surface level, it's because I enjoy it, and because I'm good at it. I love solving analytical problems.
+At a very surface level, it's because I enjoy it, and because I'm good at it. I love solving analytical problems.
 
 I also like that there's nothing superficial with code. You are judged on the work that you produce, and it's there in black and white for everyone to see. There is no hiding from the truth.
 
-When you've worked in politically-drive workplaces as I have in the past, you appreciate the sincerity of code.
+When you've worked in politically-driven workplaces, as I have in the past, you appreciate the sincerity of code.
 
-On a grander scale though, I had the belief when I started coding, that I was going to be able to have my cake and eat it too. That I would be able to live a lifestyle where I could live for the moment, working from anywhere in the world... having freedom. But that I would also be able to save for the future.
+On a grander scale, I had the belief when I started coding, that I was going to be able to have my cake and eat it too. That I would be able to live a lifestyle where I could live for the moment, working from anywhere in the world... having freedom. But that I would also be able to save for the future.
 
 I think that's what it really comes down to.
 
 Everyone wants to have a job that they enjoy. Very few actually do. And for me, learning to code was me taking that shot to give myself a future where I'd be happy.
 
-When that day comes, that I'm lying on my death bed, looking back over my life, I want to look back and see that the world is a better place because I was a part of it.
+When that day comes, that I'm lying on my death bed, looking back over my life, I want to look back and see that the world is a better place because I was part of it.
 
-That thought lies behind so many of the lifestyle choices that I make.
+That thought lies behind so many of the lifestyle choices I make.
 
 And what it really comes down to, is how did you treat the people, the animals, and the environment around you? Did you cause pain and anguish in the places that you went, or did you make people smile?
 
@@ -1271,7 +1301,3 @@ If you're working too hard, doing a job you hate, being stressed-out, that's goi
 That means having a secure income while still being able to follow your dreams.
 
 That's what coding is to me. It's the opportunity to find something that I enjoy, that I want to do, and that gives me the freedom to live my own life, while still allowing me the income to be... comfortable.
-
-<!-- Link back to A-level computing course. -->
-
-<!-- TODO - Add any photos? -->

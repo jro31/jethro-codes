@@ -1158,25 +1158,27 @@ Even when it was over, I'd continued coding like it wasn't, so in terms of _how_
 
 The main difference, was now I was getting paid for it. And although that sounds like an improvement, it also added a lot of stress.
 
-I became very conscious of everything I coded, because that would determine whether or not I actually kept my job. But also, there were real work consequences for the things I was now coding.
+I became very conscious of everything I coded, because that would determine whether or not I actually kept my job. There were also real world consequences for the things I was now coding.
 
 This job was at a start-up that managed and rented properties. The application that I worked on had all the tools that the tenants, property managers and letting agents used to send contracts, pay rent, submit issues etc.
 
-Everything in the process.
+Everything in the process managing and letting properties.
 
-If I'd made a coding error at the bootcamp, or when I was working on Plant as Usual then... well who cares. Suddenly it was real though.
+If I'd made a coding error at the bootcamp, or when I was working on Plant as Usual then... well who cares?
+
+Suddenly it was real.
 
 This was a modern start-up, in the sense that it had an open-plan office. There were no private offices, or even private rooms.
 
-The meeting rooms were made of glass.
+Even the meeting rooms were made of glass.
 
 The only place that you could go to get any privacy, was the toilets.
 
 For about the first four months of this job, I would spend time almost everyday, sitting in one of the toilet cubicles with my head in my hands, or looking towards the sky with my palms outstretched, as my brain tried to handle both the stress and the influx of knowledge.
 
-I didn't enjoy that time, although I've said it all the way through this article, that being comfortable is the one place that you don't want to be. If you're comfortable, then it means you aren't learning. And for all I was going through internally at this time, I was convinced that I'd come out of it better the other side.
+I didn't enjoy that time, although I've said it all the way through this article, that being comfortable is the one place that you don't want to be. If you're comfortable, then it means you aren't learning. And for all I was going through internally, I was convinced that I'd come out of it better the other side.
 
-We were a team of four engineers, so I didn't really have any place to hide. And it meant that I didn't really have any opportunity to be a junior. There weren't the resources to have someone shepherding me through the whole process.
+We were a team of four engineers, so I didn't really have any place to hide. And it meant that I didn't really have any opportunity to be a junior either. There weren't the resources to have someone shepherding me through the whole process.
 
 It was a baptism of fire, that's for sure. But I survived.
 
@@ -1190,32 +1192,85 @@ After about a year, with some pushing on my part, I started working remotely, wh
 
 About a week after that, Covid hit and everyone else got to work remotely as well.
 
-Unfortunately, Covid restrictions completely hamstrung the business, as lockdowns effectively meant that we could no longer rent properties. In an (utlimately failed) attempt to save the business, in August of 2020, I was among a large batch of redundancies.
+Unfortunately, Covid restrictions completely hamstrung the business, as lockdowns effectively meant that we could no longer rent properties. In an (utlimately failed) attempt to save the business, in August of 2020, after 20 months in the job, I was among a large batch of redundancies.
 
-One of the reason I'd started coding, was to be able to make my living anywhere in the world. I expected it to take about 2 years to get the experience as to where I could start working abroad again.
+One of the reasons I'd started coding, was to be able to make my living anywhere in the world. I expected it to take about 2 years to get the experience as to where I could start working abroad again.
 
-Under other circumstances, I might have taken this opportunity of unexpected unemployment to stretch-out my wings to start to fly again. As it was, we were in the midst of a recession, people were getting laid-off right and left, and half of the world was in lockdown.
+Under other circumstances, I might have taken this opportunity of unexpected unemployment to stretch-out my wings to start to fly again. As it was, we were in the midst of a pandemic and a recession, people were getting laid-off right and left, and half of the world was in lockdown.
 
 I was more concerned with getting any income I could.
 
 With the time and stress of working my previous job, I hadn't really built a personal project since I'd started there.
 
-I'd started and sporadically worked on Plant as Usual version 2 by now, as I no longer thought that version 1 reflected my talent as a developer. But by the time I found myself unemployed, I hadn't got so far, so before I started the next job hunt, took the time to get the new and improved Plant as Usual, version 2 online.
+I'd started and sporadically worked on Plant as Usual version 2 by now, as I no longer thought that version 1 reflected my talent as a developer. But by the time I found myself unemployed, I hadn't got that far, so before I started the next job hunt, I took the time to get the new and improved Plant as Usual version 2 online.
 
 As with version 1, I figured it would help with the job hunt.
 
 In a separate, Brexit-related development, I had recently obtained German citizenship, meaning that unlike many other Brits, I still had the freedom to work anywhere within the EU, visa-free.
 
-My job hunt reflected this. In the midst of a recession, I was determined to secure an income, no matter where it happened to be. And had events happened in a slightly different order and an offer come in sooner, I could have found myself moving to Amsterdam.
+My job hunt reflected this.
+
+I was determined to secure an income, no matter where it happened to be. And had events happened in a slightly different order and an offer come in sooner, I would have found myself moving to Amsterdam.
 
 As it was, I accepted a role at an education company in London, so my dream of using coding to work overseas would have to wait a little longer.
 
-<!-- Plan to stay for 2 years, interrupted by Covid -->
+This was again working on a Rails app, at a very transitional time in this company.
 
-<!-- ## Why I code -->
-<!-- Want to find the right balance between living for the moment and planning for the future - Being able to save, while still having my freedom -->
-<!-- Want the world to be a better place because I was on it. -->
-<!-- No [ego] in coding; judged by what you produce -->
+Unlike my previous role, where Covid had dried-up any income streams, Covid created great opportunities for an innovative educational firm.
+
+It was also a start-up, although a much bigger one than my first job, which only had about 20 employees at any one time. And what we did was provide one-on-one tutoring to British school children, using overseas tutors.
+
+I stayed in the role for a year, but after 12 months I found myself wanting a change of scenery.
+
+The world was opening-up now, and it seemed the right time to start pursuing the life that had attracted me to coding in the first place.
+
+## Why I code
+
+When I'd come back to the UK in November 2018, the loose plan I had was to stay here for 2 years.
+
+Just like everyone else in the world, any plans I had for the future got thrown into disarray by Covid.
+
+I didn't fancy travelling in a world in lockdown, and with so much uncertainty, I just wanted _a_ secure income, no matter how it came.
+
+Now though, with the world starting to open up again, the time felt right to living how I want to live. Or at least trying to.
+
+There's a dilemma that all of us regularly face in our daily lives. Do we live for the moment, or do we plan for the future?
+
+Everytime we go to a shop and see something that we want to buy, or we think about quitting our job, or we decide whether to have the healthy or the unhealthy option in a restaurant, we face that one dilemma.
+
+Do I want to some pleasure now at the cost of a debt that I'll have to pay later, or do I make my decisions with an eye on the future?
+
+That was the exact dilemma that I lived with before leaving Bangkok.
+
+I lived a happy, comfortable life, earning well above the average salary. I made the decision to leave that comfort behind, in order to give myself some hope for the future.
+
+There are many reasons why I code.
+
+At the very surface level, it's because I enjoy it, and because I'm good at it. I love solving analytical problems.
+
+I also like that there's nothing superficial with code. You are judged on the work that you produce, and it's there in black and white for everyone to see. There is no hiding from the truth.
+
+When you've worked in politically-drive workplaces as I have in the past, you appreciate the sincerity of code.
+
+On a grander scale though, I had the belief when I started coding, that I was going to be able to have my cake and eat it too. That I would be able to live a lifestyle where I could live for the moment, working from anywhere in the world... having freedom. But that I would also be able to save for the future.
+
+I think that's what it really comes down to.
+
+Everyone wants to have a job that they enjoy. Very few actually do. And for me, learning to code was me taking that shot to give myself a future where I'd be happy.
+
+When that day comes, that I'm lying on my death bed, looking back over my life, I want to look back and see that the world is a better place because I was a part of it.
+
+That thought lies behind so many of the lifestyle choices that I make.
+
+And what it really comes down to, is how did you treat the people, the animals, and the environment around you? Did you cause pain and anguish in the places that you went, or did you make people smile?
+
+Hate breeds hate, love breeds love, happiness breeds happiness.
+
+If you're working too hard, doing a job you hate, being stressed-out, that's going to be reflected in the environment around you. So on a most foundational level, you need to live a life that makes you happy.
+
+That means having a secure income while still being able to follow your dreams.
+
+That's what coding is to me. It's the opportunity to find something that I enjoy, that I want to do, and that gives me the freedom to live my own life, while still allowing me the income to be... comfortable.
 
 <!-- Link back to A-level computing course. -->
 

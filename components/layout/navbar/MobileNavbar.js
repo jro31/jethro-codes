@@ -21,7 +21,7 @@ const MobileNavbar = () => {
           <div
             className={`py-2 px-4 flex items-center justify-between sm:px-6 lg:px-8 ${navColorClasses.background}`}
           >
-            <div className='h-8 w-8'>
+            <div className='flex items-center h-8 w-8'>
               <Logo />
             </div>
             <div>
@@ -89,7 +89,7 @@ const MobileNavbar = () => {
                   </div>
                 </Transition.Child>
                 <div className='flex-shrink-0 px-4 flex items-center'>
-                  <div className='h-8 w-8'>
+                  <div className='flex items-center h-8 w-8'>
                     <Logo />
                   </div>
                 </div>

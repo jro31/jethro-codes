@@ -4,7 +4,7 @@ import SectionHomeHeader from './SectionHomeHeader';
 const SectionHome = props => {
   return (
     <>
-      <SectionHomeHeader />
+      <SectionHomeHeader heroImage={props.heroImage} />
       <SectionHomeContainer>{props.children}</SectionHomeContainer>
     </>
   );

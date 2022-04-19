@@ -16,6 +16,7 @@ export const getStaticProps = async () => {
     'lastUpdated',
     'content',
     'minsToRead',
+    'coverImage',
   ]);
   const content = await markdownToHtml(article.content || '');
 

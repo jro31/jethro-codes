@@ -4,13 +4,14 @@
 import useHumanizedDate from '../../../../hooks/useHumanizedDate';
 import Title from '../../../ui/text/Title';
 import StringDivider from '../../../ui/StringDivider';
+import PageHeader from '../PageHeader';
 
 const ArticleHeader = props => {
   const humanizedDate = useHumanizedDate();
 
   return (
-    <div className='bg-gray-800 text-center'>
-      <div className='max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8'>
+    <PageHeader heroImage={props.coverImage}>
+      <div className='relative text-center max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8'>
         {props.type && (
           <div className='text-base font-semibold text-indigo-700 tracking-wide uppercase'>
             {props.type}
@@ -38,7 +39,7 @@ const ArticleHeader = props => {
           {props.minsToRead && <div>{props.minsToRead} min read</div>}
         </div>
       </div>
-    </div>
+    </PageHeader>
   );
 };
 

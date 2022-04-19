@@ -3,10 +3,13 @@ import HorizontalCard from '../components/ui/HorizontalCard';
 import HorizontalCardsContainer from '../components/ui/HorizontalCardsContainer';
 import SectionHome from '../components/layout/main-content/section-home';
 import { articleSections } from '../hooks/useSectionDetails';
+import useHeroImage from '../hooks/useHeroImage';
 
 const Section = ({ allArticles }) => {
+  // const heroImage = useHeroImage(allArticles)
+
   return (
-    <SectionHome>
+    <SectionHome heroImage={useHeroImage(allArticles)}>
       <HorizontalCardsContainer>
         {allArticles.map(article => (
           <HorizontalCard key={`${article.title}-card`} cardDetails={article} />

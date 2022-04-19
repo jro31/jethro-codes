@@ -20,7 +20,7 @@ const ArticleContainer = ({ article }) => {
         description={article.description}
         published={article.published}
         lastUpdated={article.lastUpdated}
-        // coverImage={article.coverImage}
+        coverImage={article.coverImage}
         tagsArray={article.tags ? article.tags.split(', ') : []}
         type={article.type || ''}
         minsToRead={article.minsToRead}

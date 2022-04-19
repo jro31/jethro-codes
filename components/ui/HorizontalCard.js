@@ -23,9 +23,12 @@ const HorizontalCard = props => {
             Anatomy of a project
           </Button>
         </div>
-        <div className='basis-2/3 rounded-lg border'>
-          {/* TODO - Add a default image (as in 'src={coverImage || 'images/defaultImage.png'}) in case no cover image exists */}
-          <img src={coverImage} alt={title} className='rounded-lg' />
+        <div className='flex justify-center bg-black basis-2/3 rounded-lg border max-h-[350px]'>
+          <img
+            src={coverImage || 'images/matrix-jethro.jpeg'}
+            alt={title}
+            className='rounded-lg object-cover'
+          />
         </div>
       </div>
     </div>

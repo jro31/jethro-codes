@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import Footer from './footer';
 
 const MainContent = props => {
   const mainRef = useRef();
@@ -20,6 +21,7 @@ const MainContent = props => {
       <div className='flex-1 flex items-stretch overflow-hidden'>
         <main ref={mainRef} className='flex-1 overflow-y-auto'>
           {props.children}
+          <Footer />
         </main>
       </div>
     </div>

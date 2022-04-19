@@ -4,6 +4,7 @@ import SectionHome from '../components/layout/main-content/section-home';
 import VerticalCard from '../components/ui/VerticalCard';
 import VerticalCardsContainer from '../components/ui/VerticalCardsContainer';
 import { getArticles } from '../lib/api';
+import useHeroImage from '../hooks/useHeroImage';
 
 const appTitle = 'My project name'; // TODO - Update this
 const appDescription = 'This is the description about my project'; // TODO - Update this
@@ -34,8 +35,8 @@ const Home = ({ featureArticles }) => {
         <meta name='twitter:card' content='summary_large_image' />
       </Head>
 
-      <SectionHome>
-        <VerticalCardsContainer title='New Content'>
+      <SectionHome heroImage={useHeroImage(featureArticles)}>
+        <VerticalCardsContainer title='Latest content'>
           {featureArticles.map(article => (
             <VerticalCard key={`${article.title}-card`} cardDetails={article} />
           ))}
@@ -56,7 +57,7 @@ export const getStaticProps = async () => {
     'section',
     'published',
     'minsToRead',
-  ]).slice(0, 3);
+  ]).slice(0, 6);
 
   return {
     props: { featureArticles },

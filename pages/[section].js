@@ -6,8 +6,6 @@ import { articleSections } from '../hooks/useSectionDetails';
 import useHeroImage from '../hooks/useHeroImage';
 
 const Section = ({ allArticles }) => {
-  // const heroImage = useHeroImage(allArticles)
-
   return (
     <SectionHome heroImage={useHeroImage(allArticles)}>
       <HorizontalCardsContainer>

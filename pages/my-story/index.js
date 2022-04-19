@@ -15,6 +15,7 @@ export const getStaticProps = async () => {
     'published',
     'lastUpdated',
     'content',
+    'minsToRead',
   ]);
   const content = await markdownToHtml(article.content || '');
 
@@ -23,7 +24,7 @@ export const getStaticProps = async () => {
       article: {
         ...article,
         content,
-        subtitle: 'How I became a software engineer',
+        subtitle: 'Why I became a software engineer',
       },
     },
   };

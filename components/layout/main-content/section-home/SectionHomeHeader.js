@@ -1,16 +1,13 @@
 import useSectionDetails from '../../../../hooks/useSectionDetails';
 import useActiveSection from '../../../../hooks/useActiveSection';
+import PageHeader from '../PageHeader';
 
-const SectionHomeHeader = () => {
+const SectionHomeHeader = props => {
   const sectionDetails = useSectionDetails();
   const activeSection = useActiveSection();
 
   return (
-    <div className='relative pb-32 bg-gray-800'>
-      <div className='absolute inset-0'>
-        <img className='w-full h-full object-contain' src='images/matrix-jethro.jpeg' alt='' />
-        <div className='absolute inset-0 bg-gray-800 mix-blend-multiply' aria-hidden='true' />
-      </div>
+    <PageHeader heroImage={props.heroImage}>
       <div className='relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8'>
         {sectionDetails(activeSection()).title && (
           <h1 className='text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl'>
@@ -23,7 +20,7 @@ const SectionHomeHeader = () => {
           </p>
         )}
       </div>
-    </div>
+    </PageHeader>
   );
 };
 

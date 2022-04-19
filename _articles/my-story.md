@@ -1,10 +1,8 @@
 ---
 title: 'My Story'
 description: 'Why I code'
-coverImage: ''
-published: '2020-03-16' # TODO - Update this
-lastUpdated: '2020-03-16' # TODO - Update this
-tags: ''
+coverImage: '/images/my-story/litang.jpeg'
+published: '2022-04-19'
 ---
 
 ## The pre-coding years
@@ -15,23 +13,23 @@ On the first day of this A-level computing course, aged 16, I sat in the classro
 
 I felt very out of place.
 
-I had some friends who'd taken ecomonmics and business studies, and they were raving about how fun the content had been of their first class, and how charismatic their teacher was. They had genuinely enjoyed it.
+I had some friends who'd taken economics and business studies, and they were raving about how fun the content had been of their first class, and how charismatic their teacher was. They had genuinely enjoyed it.
 
-Having felt like an imposter, I quickly changed courses, and dropped computing in favour of studying economics and business. And you know what?
+Having felt like an imposter, I quickly changed courses and dropped computing in favour of studying economics and business. And you know what?
 
 My friends were right.
 
-I wasn't even in their class. I had different peers and a different teacher. But the way the course was taught was fun and exciting. It felt like real world knowledge that could be valuable.
+I wasn't even in their class. I had different peers and a different teacher. But the way the course was taught was fun and exciting. It felt like real world knowledge that would be valuable.
 
 The way I saw the world at this point, was that I'd been in education for about as long as I had memories.
 
-The furthest I'd ventured from my hometown of London, was that I'd gone on a school trip to Berlin, although like with all school trips, it wasn't like I had the freedom to roam the city alone.
+The furthest I'd ventured from my hometown of London, was that I'd gone on a school trip to Berlin when I was 14, although like with all school trips, it wasn't like I had the freedom to roam the city alone.
 
 Having never travelled further than that, on finishing sixth-form college at 17, the world seemed a very big place to me, ripe for exploring.
 
 There had to be more to life than just sitting in classrooms. And so rather than going straight off to university like everyone I knew, I decided to take a gap year.
 
-My plan was simple. I was going to work for the first 6 months of this gap year and save every penny that I could. Then with the money that I'd saved, I was going to go overseas for the next 6 months afterwards, and travel to... wherever.
+My plan was simple. I was going to work for the first 6 months of this gap year and save every penny that I could. Then with the money that I'd saved, I was going to go overseas for the 6 months afterwards, and travel to... wherever.
 
 So I trained to be a lifeguard, and I got a job at my local swimming pool. And you know the great thing about being a lifeguard?
 
@@ -71,7 +69,7 @@ I arrived in my teenage years a fit and healthy straight-A student. By 18 I was 
 
 The advantage that I had over most other university applicants, was that by taking a gap year, I already knew my grades.
 
-At that time you could apply to six universities. And the way I looked at it, was that having my grades already, if I applied for any university of which I had the required grades, I was going to get in. So why not apply for three universities of which I know I'll get in, and then I can apply for three long-shot universities that I don't quite have the grades for, because... well you miss 100% of the shots you don't take.
+At that time you could apply to six universities, and the way I looked at it, was that having my grades already, if I applied for any university of which I had the required grades, I was going to get in. So why not apply for three universities of which I know I'll get in, and then I can apply for three long-shot universities that I don't quite have the grades for, because... well you miss 100% of the shots you don't take.
 
 I still favoured business over any other subject, so I was looking for a university with a good business school.
 
@@ -79,7 +77,7 @@ I'd now had a taste of what it was like to have money, and I liked it. And seein
 
 More important in my decision process, was I only considered courses that offered a year on exchange.
 
-I might have foregone the intended six months of travel during my gap year, but it wasn't like travel had ever left my mind, and if I could do it as part of my studies then... well why not?
+I might have foregone the intended six months of travel during my gap year, but it hadn't ever left my mind, and if I could travel as part of my studies then... well why not?
 
 Two of my three long-shot universities rejected me.
 
@@ -89,9 +87,9 @@ Glamorous, alluring and seductive. All words you're not going to associate with 
 
 But I'll tell you something, it isn't half a good place to go to university.
 
-My rent was a third less than that of people I knew studying in nearby York and Leeds, and there wasn't a night in Hull where you couldn't find a bar doing £1 drinks.
+My rent was a third less than people I knew studying in nearby York and Leeds, and there wasn't a night in Hull where you couldn't find a bar doing £1 drinks.
 
-I know that every university has a party atmosphere, but in Hull it was a bit different.
+I know that every university has a party culture, but in Hull it was a bit different.
 
 You have to have a slightly sadomasochistic personality to ever go to Hull anyway. And when you mesh those personalities with the cheaper drinks and the cheaper living costs, it made for a very fun time.
 
@@ -101,7 +99,7 @@ I'd got over my teenage rebellious phase during my gap year, and conscious of ho
 
 Through a combination of running and starvation, I shed almost half my bodyweight in just a few weeks.
 
-Looking back, that might not have been the healthiest way to do it, but it worked.
+Looking back, that might not have been the healthiest way to do it, but it was effective.
 
 Fitness, and running in particular, were suddenly very important to me.
 
@@ -185,7 +183,7 @@ This trip had introduced me to travelling, and it was fair to say that I'd caugh
 
 Luckily I had a year on exchange to look forward to as the third year of my degree. And although my first choice had been to go to Copenhagen Business School, I was given my second choice: Dalhousie University, back in Canada again, although this time on the east coast.
 
-It was a new university to me, in another country. And all the international students went through inductions together, so we all got to know each other. People from the US, Australia and New Zealand, Mexico, Korea, all over Europe...
+It was a new university to me, in another country. All the international students went through inductions together, so we all got to know each other. People from the US, Australia and New Zealand, Mexico, Korea, all over Europe...
 
 They were some fun parties too.
 
@@ -199,7 +197,7 @@ For the value of having a degree, I finished my final year of university. But in
 
 If I'd followed the typical career path of a business graduate, I'd have found myself a low-level management job in some office on graduating, and spent the next forty years of my life saving a pension and paying-off a mortgage and having 2.4 children and... I just couldn't face it.
 
-Nothing in life scares me more than regret. Even back then, I always imagined that one day, I was going to find myself, lying on my death bed, looking back over my life, too late to change anything or do anything new. And in that moment, I didn't want to find myself looking back with regret.
+Nothing in life scares me more than regret. Even back then, I always imagined that one day, I was going to find myself, lying on my death bed, looking back over my life, too late to change anything or do anything new. And in that moment, I don't want to find myself looking back with regret.
 
 And if I'd followed the path laid-out for me here; the path of a business graduate, to spend his life working in an office, there's no way I wouldn't look back with regret.
 
@@ -230,15 +228,15 @@ Until I wasn't.
 
 While skiing too fast, I overshot a turn. I leaned-into it to try and compensate, and my skis went out from under me, and I started tumbling.
 
-My right ski detached itself from my boot, my left ski didn't. I was tumbling, but with my ski still attached, my leg couldn't follow me.
+My right ski detached itself from my boot, my left ski didn't. I was tumbling, but with my ski still attached, my left leg couldn't follow me.
 
-In all the commotion, to this day I can vividly recall the feeling that my left femur was about to snap in half. Bearing that in mind, I consider myself lucky that I survived this fall with nothing more than cartilage damage. However, apart from some fairly flat runs at the start of spring, it put an end to my ski season, and it's an injury I still deal with to this day.
+In all this commotion, to this day I can vividly recall the feeling that my left femur was about to snap in half. Bearing that in mind, I consider myself lucky that I survived this fall with nothing more than cartilage damage. However, apart from some fairly flat runs in early spring, it put an end to my ski season, and it's an injury I still deal with to this day.
 
 That sucks, but as with anything, you can't go back in time an change what happened, all you can do is learn from it. And this was perhaps the moment, now 23, that I learned that I wasn't invincible.
 
 I'd played American football weighing less than 60kgs, and didn't care if I got hurt. I'd climbed mountains in Alaska without even a map. I just had absolute faith in myself to not die. All of a sudden though, I showed myself to be human. And while having pain in my knee to this day is an inconvenience, I always take it as a reminder that... hey, you've only got one body. Treat it well.
 
-This ski season had lasted for about 5 months, but I was in Canada on a 12 month visa, and my plan was to head back to Vancouver, a city that I hold an incredible fondness of, and to find some work there. What ended up happening though, was I learned about WWOOFing. WWOOF, standing for World Wide Opportunities on Organic Farms.
+This ski season had lasted for about 5 months, but I was in Canada on a 12 month visa, and my plan was to head back to Vancouver, and to find some work there. What ended up happening though, was I learned about WWOOFing. WWOOF, standing for 'World Wide Opportunities on Organic Farms.'
 
 The 'farms' in there is a bit deceptive, because it's open to anyone with an outdoors area that wants some free labour.
 
@@ -251,8 +249,6 @@ Like I said, it wasn't limited to farms, and in my first WWOOFing spot I worked 
 I'd been planning on going there for a week or two. I ended up staying for eight. When the resort wasn't full, I got to stay in the private cabins. These cost in excess of $300 to rent for a night. When there were events, such as weddings, there was an on site professional chef who would cook me dinner, otherwise I got free-reign to use this industrial kitchen. And the island itself was beautiful. You could run for miles and not see another person, and the beaches were glorious.
 
 All that in exchange for 5 hours of gardening per day? Yes please.
-
-<!-- TODO - Add WWOOFing photo? -->
 
 It might not have felt like it as I ate my professionally-cooked meals, while sleeping in my $300 rooms, but I was very much in backpacker mode by now.
 
@@ -271,7 +267,7 @@ But that, for my remaining months in Canada, became my life.
 
 I remember well the first time I hitchhiked. I'd met some hippies at my first WWOOFing gig who'd told me how easy it was, and I do remember that first time, standing at the side of the road with my thumb in the air, thinking _"I look like such an idiot."_
 
-But after not too long, this girl picked me up. She drove me for a while until we parted ways, and I started again. And it always astounded me how willing people were to let a stranger into their car, but I could get further in a day hitchhiking than I could by bus.
+But after not too long, this girl picked me up. She drove me for a while until we parted ways, and I started again. It always astounded me how willing people were to let a stranger into their car, but I could get further in a day hitchhiking than I could by bus.
 
 Often people wanted the company. Truckers especially, wanted someone to talk to. At one point I was picked up by this Romanian couple who worked in Vancouver. They'd decided to go on a road trip together, but it wasn't going very well, so they picked me up so they didn't have to talk to each other.
 
@@ -317,7 +313,7 @@ I learned that in the US, when someone gets released from prison, they give them
 
 Also like hitchhiking in Canada, this way of travelling took me to some great places that I probably would have avoided otherwise.
 
-Charleston in South Carolina had a reputation as the murder capital of the US at this time. I didn't know that when in Washington DC, I couldn't find a bed for less than $20, so off the to the bus station I went, and up on the board there was a bus to Charleston that was about to leave and would take long enough to give me a night's sleep.
+Charleston in South Carolina had a reputation as the murder capital of the US at this time. I didn't know that when in Washington DC, I couldn't find a bed for less than $20, so off to the bus station I went, and up on the board there was a bus to Charleston that was about to leave and would take long enough to give me a night's sleep.
 
 It was one of my favourite places in the country.
 
@@ -389,7 +385,8 @@ I went and worked another ski season.
 
 The time this had taken made flying back to South America and continuing my trip north illogical. So instead, my girlfriend at that time, who'd I'd met backpacking in South America but who was going east anyway, came over and we spent some time travelling in Europe before I flew off to the US.
 
-<!-- TODO - Add Europe photo? -->
+![London](/images/my-story/london.jpeg)
+_London, October 2010_
 
 I'd had a great time travelling in the US a year or so earlier. Sadly, my experience of working there didn't match this, and I found American workplace politics uncompromising so as to drive you to despair.
 
@@ -399,7 +396,7 @@ It didn't stop them having a rule where you had to shave everyday before work, a
 
 Despite the fact that the person enforcing this rule had a beard, the logic was that it looked more professional if the lifties were clean shaven.
 
-Even on the warmer spring days, where my face was uncovered, I've never heard someone go skiing and say _"well, the snow was great, and skiing was great, and the weather was great. However, I had a really bad day because one of the lifties had a bit of stubble on his chin."_
+Even on the warmer spring days, where my face was uncovered, I've never heard anyone go skiing and say _"well, the snow was great, and skiing was great, and the weather was great. However, I had a really bad day because one of the lifties had a bit of stubble on his chin."_
 
 It was ridiculous.
 
@@ -554,9 +551,9 @@ I remember a very specific moment, where I'd found a job ad looking for someone 
 
 That's never going to be anyone's dream, but I can type pretty quickly, and it pays well, so what the Hell?
 
-But this is data entry. It's not customer service, or some specialised field. You just copying data from paper into a computer.
+But this is data entry. It's not customer service, or some specialised field. You just copy data from paper into a computer.
 
-The moment that I saw the application form, and the ridiculous list of questions they wanted answered, for a job copying things into the computer, I just had a moment where I got this 1000 yard stare, and my mind just switched.
+The moment that I saw the application form, and the ridiculous list of questions they wanted answered, for a job copying things into the computer, I just had a moment where I got this 1000 yard stare, and my mind switched.
 
 _"I can't do this anymore,"_ I said to myself.
 
@@ -576,7 +573,7 @@ I'd always thought about teaching English. It's the one gift that as a native sp
 
 I'd obviously had hundreds of conversations over these years with people travelling abroad, working abroad, living abroad, teaching abroad, so the second I decided this, I already knew what I wanted to do.
 
-The reputation of teaching English qualifications, was that TEFL was what you took if you were a backpacker who wanted to teach overseas for a few months, but if you wanted to turn teaching English into a career, you took a CELTA.
+The reputation of English teaching qualifications, was that TEFL was what you took if you were a backpacker who wanted to teach overseas for a few months, but if you wanted to turn teaching English into a career, you took a CELTA.
 
 That stands for 'Certificate in English Language Teaching to Adults', and in this little cafe in Vietnam, I immediately got on my laptop to look up nearby places to do a CELTA.
 
@@ -601,7 +598,7 @@ If you'd told me at that moment, that I had to pick somewhere in Asia to live, I
 
 I went to the one in Bangkok.
 
-The Saigon school had some dubious reviews about it, where as the one in Bangkok had a stellar reputation.
+The Saigon school had some dubious reviews, where as the one in Bangkok had a stellar reputation.
 
 The CELTA wasn't cheap; it was a $1,500 course and took a month to complete.
 
@@ -646,15 +643,15 @@ I'd been warned about the intensity of the CELTA, but it definitely lived up to 
 
 There were classes of students, mostly refugees, who couldn't afford to study English in a paid school. On the first day of this course, we were told the teaching rota, on the second day, I was teaching English to a class of 30 of these students.
 
-I don't get nervous easily, but I was petrified before that first class. The course was a complete baptism by fire, and one of the hardest things I've ever gone through. Harder than any job I've ever had, we taught and got criticised throughout. But my God, if the goal was to get as good at teaching as you could in four weeks, it was very effective.
+I don't get nervous easily, but I was petrified before that first class. The course was a complete baptism by fire, and one of the hardest things I've ever gone through. Harder than any job I've ever had, we taught and got criticised throughout. But my God, if the goal was to get you as good at teaching as you could be in four weeks, it was very effective.
 
 I... survived the CELTA, a course administered by Cambridge University. So I got a graduation certificate from Cambridge University after all.
 
-And there was a careers councillor on site, or at least someone who moonlighted as one, to help graduates get started after the CELTA, so I made sure to sit down with him, and learn what I could about getting a job in Saigon.
+And there was a careers councillor on site, or at least someone moonlighting as one, to help graduates get started after the CELTA, so I made sure to sit down with him, and learn what I could about getting a job in Saigon.
 
 From that conversation, I somehow ended up with an interview at an adult school in Bangkok under the premise of _'it can't hurt to talk to them,'_ and they offered me a job, and I accepted and... oh, I guess I'm staying in Bangkok then.
 
-My logic for becoming a teacher had been that I was kind of tired of backpacking, and also the unskiled work in between in order to pay for it. But I didn't want to go home yet either. I wasn't done exploring the world yet, but I wanted to be more than a tourist in the places that I went.
+My logic for becoming a teacher had been that I was kind of tired of backpacking, and also the unskiled work in between in order to pay for it. But I didn't want to go home yet either. I wasn't done exploring the world, and I wanted to be more than a tourist in the places that I went.
 
 And what's the one skill that I have that can allow me to work anywhere in the world?
 
@@ -690,13 +687,13 @@ I ended up accepting a job in the city of Changsha, which I'd never heard of. Al
 
 I lived on the university campus, which was right on the outskirts of the city.
 
-Leave the campus and turn right, you can take a couple of buses and be in the city centre. Leave the campus and turn left, after walking for a couple of minutes, you were among fields.
+Leave the campus and turn right, you can take a couple of buses and be in the city centre. Leave the campus and turn left, after within two minutes of walking, you're among fields.
 
 There were a couple of other foreigners working at this university as well, but beyond that you had to travel miles to find the next westerner.
 
 It was the kind of isolation from western influence and the kind of immersion into Chinese culture that I really wanted.
 
-It was no doubt the best job that I'll ever had.
+It was no doubt the best job that I'll ever have.
 
 It was the only time in my life that I've worked for the public sector, as I was employed by the Chinese government. And the benefit to that, was that having no one seeking to pad a bottom-line, and to squeeze as much labour out of you as possible, the hours were glorious.
 
@@ -706,15 +703,13 @@ Somehow I was considered a full-time employee.
 
 I also got paid holidays, and being a university, these were substantial; I think four months off in the summer alone.
 
-I'll never have a job like that again, and living on campus, I had a running track two-minutes from the flat where I lived. I knew even then, this is the best job I'm ever going to have.
+I'll never have a job like that again, and living on campus, I had a running track two-minutes from the flat where I lived. I knew even then that this was the best job I was ever going to have.
 
-And I really enjoyed living in China. I got to know my students, and to understand the culture very well. It was amazing experience.
+And I really enjoyed living in China. I got to know my students, and to understand the culture very well. It was an amazing experience.
 
 However, given how isolated I was, it was also a lonely one, and that was why I ultimately decided to leave.
 
-I'd gone there on a six-month contract, and I extended it twice. But I was also aware that I wouldn't stay there forever. It was just very hard to leave the best job I was ever going to have.
-
-Whereever I worked next would be a step-down.
+I'd gone there on a six-month contract, and I extended it twice. But I was also aware that I wouldn't stay there forever. It was just very hard to leave this job. Wherever I worked next would be a step-down.
 
 I was only earning about £500/month in China, but with accommodation and bills included, this only had to cover food and leisure, so by the time I left I'd managed to save about £3,000.
 
@@ -726,7 +721,7 @@ This wasn't the end of my trip, but I wanted to go home and see family. And alth
 
 And that's what I did.
 
-As I said earlier, I hadn't initially taken to Thailand when I'd first arrived, but on living here previously, I'd really fallen in love with Thailand, Bangkok especially. And so, with no better ideas, it seemed the logical place to come back to.
+As I said earlier, I hadn't initially taken to Thailand when I'd first arrived, but on living here previously, I'd really fallen in love with Thailand, Bangkok especially. And so, with no better ideas, it seemed the logical place to go back to.
 
 I'd now been a teacher for more than three years, and had learned a lot about what I wanted from a job. So rather than just accept the first one offered, which I was more likely to do while inexperienced, I knew the value of having a job with plenty of holiday and time off.
 
@@ -736,13 +731,13 @@ After about three weeks I hadn't been able to get an offer from anywhere that I 
 
 I knew other teachers in Bangkok obviously, and so I had a very good idea of the best places to work, and so the first place I'd applied to was the one school that I'd really hoped would accept me, mainly because they worked six-week terms, after which you got a week off, and they allowed you to take one term off per year.
 
-Combined with the other holidays, like Christmas and Thai New Year, that came to 16 weeks off per year, which wasn't quite what I had in China, but was about as good as I could hope to get.
+Combined with the other holidays, like Christmas and Thai New Year, that came to 16 weeks off per year, which wasn't quite what I'd had in China, but was about as good as I could hope to get.
 
 Having applied to this school and heard nothing back, my hopes of getting a job there had long faded. But here I was, bags packed and about to leave Bangkok, when my phone rang, asking me to come in for an interview.
 
 I guess I'll unpack my bags again then.
 
-In a change of management, my application had slipped through the cracks, but thanks to another applicant being more forthcoming in chasing-up her own job application, mine too was found.
+In a change of management, my application for this job had slipped through the cracks, but thanks to another applicant being more forthcoming in chasing-up her own application, mine too was found.
 
 I got this job in Bangkok, so what was the next logical step?
 
@@ -750,11 +745,11 @@ Yep, I had to leave the country.
 
 Seriously, who comes up with these rules?
 
-It was back to Laos in order to come back into Thailand on a different visa. And whereas in my first time working in Bangkok, I always expected to leave at some point, and during my time teaching in China, I always expected to leave at some point, this time I... just didn't.
+It was back to Laos in order to come back into Thailand on a different visa. And whereas in my first time living in Bangkok, I always expected to leave at some point, and during my time teaching in China, I always expected to leave at some point, this time I... just didn't.
 
 Each time I built a life for myself somewhere, only to tear it down to nothing but a backpack, only to rebuild it elsewhere, it got harder.
 
-Whenever I weighed my bag at the airport, while moving to China, or back to Thailand, it weighed about 15kg.
+Whenever I weighed my bag at the airport, while moving to China, or back to Thailand, it weighed less than 15kg.
 
 Each time I left somewhere, I had to get the total possessions I owned in the world, down to 15kg, and I was just kind of over it.
 
@@ -764,7 +759,7 @@ There were definitely moments where I would start to envision my life in Bangkok
 
 And while these were a sign that I was now more settled than I had been in my adult life, they also came with a problem.
 
-I loved my job here. The students were really fun, the managers were always fair, and there was enough time off that you could have a life outside of work
+I loved my job here. The students were really fun, the managers were always fair, and there was enough time off that I could have a life outside of work
 
 Other people felt the same, and when I looked around the staffroom, we had multiple teachers who'd worked at this school for over 20 years, many who had worked here more than 10. And I could look at these teachers, each of whom had started at this school under similar circumstances to my own, and really see my future.
 
@@ -774,7 +769,7 @@ There would be no prospect of retiring and staying in Thailand, not on my curren
 
 I also wasn't making a tonne of money.
 
-I was earning great money for Bangkok, and saving plenty. But converting that to pounds, I wouldn't be able to save enough to retire on in the UK; not even close. And I wasn't paying any National Insurance in the UK at this time either, so I was doing nothing to pay towards getting a state pension.
+I was earning great money for Bangkok, and saving plenty. But converting that to pounds, I wouldn't be able to save enough to retire in the UK; not even close. And I wasn't paying any National Insurance in the UK at this time either, so I was doing nothing to pay towards getting a state pension.
 
 If I stayed on this path, my future prospects were quite chilling, and I got to witness others who'd stayed too long, and were living exactly what I feared. Because the problem is, that when you're earning a well above average salary (for Bangkok), then it's very hard to leave, and to go home, where you have no transferrable skills; English teaching is not lucrative in England for obvious reasons. So you are going to wilfully leave your comfortable job in Bangkok, to go back to London and work a minimum wage job, just to have a pension in a few years?
 
@@ -792,7 +787,7 @@ By this point I'd worked at this school for two years, and so what I did was tel
 
 I put this timer, this sword of Damocles over my head, and I had 12 months to figure-out the rest of my life.
 
-I had a small number of pipe dreams that I explored. For example, despite hating reading myself, I'd always wanted to be a novelist. And so one day, I sat down at my laptop and I started to write a book.
+I had a small number of pipe dreams that I explored. For example, despite hating reading myself, I've always wanted to be a novelist. And so one day, I sat down at my laptop and I started to write a book.
 
 I got about 5,000 words into it, before my brain dried-up and I was all... I've got nothing else to write.
 
@@ -800,33 +795,33 @@ Alright, I guess I'm not supposed to be a novelist them.
 
 As a (relatively) young person, I'd been brought-up on computers. I could turn a computer on and off, and use Microsoft Office as well as the next guy, but that was as far as my knowledge went.
 
-The one effort I'd made to improve this was signing-up to a computing A-level 15 years earlier, and I'd given-up after one class.
+The one effort I'd made to improve this was signing-up to a computing A-level course 15 years earlier, and I'd given that up after one class.
 
-However, another of this pipe-dreams, was that I wanted to code.
+However, another of these pipe-dreams, was that I wanted to code.
 
-Partly that was down to it being something that I thought I would be good at, because I'm a very organised, analytical-thinking person.
+Partly that was down to it being something that I thought I would be good at, because I'm a very organised, analytically-thinking person.
 
-I like to play sudoku and Tetris, and I thought that my mind would convert well when coding.
+I like to play Sudoku and Tetris, and I thought that my mind was naturally suited to coding.
 
-It was also because there were iPhone apps that I thought ought to exist, but that didn't.
+It was also because there were iPhone apps that I thought ought to exist, but didn't.
 
 Mostly related to health, and the amount of health data that our various devices collect on us, I thought then, and still think to this day, that it could be uitlised so much better. It's such an amazing trove of data on how our actions impact our health, and it's served by the likes of Apple as nothing more than some useless graphs.
 
-Even by this point, I'd felt that for years, and I'd posted my ideas on 'app idea' forums, where people post their ideas for an app, in the hope that someone would pick it up.
+Even by this point, I'd felt this for years, and I'd posted my ideas on 'app idea' forums, where people post their ideas for an app, in the hope that someone picks it up.
 
 And I'd just got the point of... alright, fuck it. If no one else is going to utilise this data in a useful way, then I'll learn to code and I'll do it myself.
 
 That was my dream. But at this stage, I had a four year-old Windows laptop that had only cost me £300 to begin with, took about 30 minutes to warm-up, and could barely handle Microsoft Word.
 
-To explore this coding dream, I was going to need to upgrade my hardware, and I spent weeks researching, and going to shopping centres to trying out various MacBooks.
+To explore this coding dream, I was going to need to upgrade my hardware, and I spent weeks researching, and going to shopping centres to try out various MacBooks.
 
 Spawned from my backpacking, I had, and still have this attitude when it comes to money where you never spend more than you need to, and if you're ever in a dilemma about whether or not to do something, always make the choice that costs the least money.
 
-So the idea of me going and spend £1,500 on a MacBook, just to explore this pipe-dream of learning to code, which could die-out as soon as my dream of becoming a novelist, it was a very hard sell.
+So the idea of me going and spending £1,500 on a MacBook, just to explore this pipe-dream of learning to code, which could die-out as soon as my dream of becoming a novelist had, it was a very hard sell.
 
 I had to be at least semi-sure.
 
-And after weeks of contemplating and researching, I went down to this shopping centre in central Bangkok, and I spent £1,500 on a brand new MacBook Pro.
+And after weeks of contemplating and researching, I went down to this shopping centre in central Bangkok, and I spent the equivalent of £1,500 on a brand new MacBook Pro.
 
 Well... at least I've got a nice computer to plan my lessons on now.
 
@@ -866,7 +861,7 @@ He'd answer with a dictatorial response about how he makes the decisions.
 
 Overnight it went from being this amazing job, to one of stress, and working excessively. Even during time-off, you had so many different classes to prepare for that you never really stopped working.
 
-This was immediately reflected in teachers leaving and transferring to other branches.
+This was immediately reflected in teachers resigning or transferring to other branches.
 
 What it meant for me, was that I'd gone from having the time to code almost everyday, to being lucky to find one hour per week.
 
@@ -884,7 +879,7 @@ Maybe once every three months, I'd be asked a question that I'd never thought ab
 
 I was very comfortable being an English teacher.
 
-I'd now spent a total of about five years in Thailand, and earned well above the average salary. And to leave my job to focus on coding, all of this would go up in smoke.
+I'd now spent a total of about five years in Thailand, and I earned well above the average salary. And to leave my job to focus on coding, all of this would go up in smoke.
 
 I'd no longer have my Thai visa, I'd no longer be working a job I was comfortable in, I'd no longer be earning an above average salary. I would be someone unskilled trying to break-into a skilled industry. And despite the promise I'd made myself 12 months earlier to finish working as a teacher no matter what, pulling the trigger and actually doing it was very hard to do.
 
@@ -892,9 +887,9 @@ I was very aware that were I to do so, my life would get worse before it got bet
 
 And even if I did quit my job to focus on coding, how exactly would I do it?
 
-The extent of my knowledge by this point was a Udemy course that I'd only been able to sporadically dip-into of late, and I'd started learning from the 'Hacking with Swift' book as well, as a way of filling-in some of the gaps in my knowledge.
+The extent of my knowledge to this point was a Udemy course that I'd only been able to sporadically dip-into of late, and I'd started learning from the 'Hacking with Swift' book as well, as a way of filling-in some of the gaps in my knowledge.
 
-Do you ever have moments that seem so insignificant at the time, but when you look back they ended up changing the course of your life?
+Do you ever have moments that seem so insignificant at the time, but when you look back they ended up changing the entire course of your life?
 
 For how bad things had become, almost every teacher was now talking openly about leaving this job, so we'd chat in the staff room about what it was we were thinking of doing instead.
 
@@ -914,7 +909,7 @@ I'd have until my savings ran-out to make myself employable, so I was really see
 
 One of the initial benefits to my teaching job, was that I could take one term off per year, and thankfully I'd got my term off this year confirmed under the previous manager, because the new one was determined to stop this practice.
 
-I used this term off to go back to the UK, and although I didn't say a word to anybody, when I left the school to take this 8-week break, I cleared-out my locker, because unlike in previous years, I didn't know if I'd be coming back.
+I used this term off to go back to the UK, and although I didn't say a word to anybody, when I left the school to take this 8-week break, I cleared-out my locker, because unlike in previous years, I didn't know if I was coming back.
 
 It was a slightly weird feeling walking out of the school that day, after working there for three years, not knowing if I'd be back again.
 
@@ -932,7 +927,7 @@ This was the push I needed. It just felt right. This was my future.
 
 At this point I was 32; almost 33.
 
-The way I was looking at it, was that as someone in their early/mid thirties, I was still young enough that someone would be willing to take a chance on me. That I would be able to walk into a job interview having no coding experience, and someone would give me a shot.
+The way I was looking at it, was that being in my early/mid thirties, I was still young enough that someone would be willing to take a chance on me. That I would be able to walk into a job interview having no coding experience, and someone would give me a shot.
 
 I didn't have the faith that would still be true at 40.
 
@@ -998,7 +993,7 @@ For me, the bootcamp was just one tool, but success was going to be determined b
 
 It was a very intense way of learning, but it was effective.
 
-As one of the teacher's, who'd gone through the bootcamp themselves three years earlier, said to me, _"it's like clinging onto the side of a high-speed train."_
+As one of the teachers, who'd gone through the bootcamp themselves three years earlier, said to me, _"it's like clinging onto the side of a high-speed train."_
 
 What he meant, was that through the sheer volume of knowledge that we learned in such a short space of time, you did feel at times completely panicked and overwhelmed, but if you clung-on, you ultimately you got to where you wanted to go.
 
@@ -1010,7 +1005,7 @@ We started by learning Ruby. Then we moved onto object-oriented programming, fol
 
 Finally, when that was all done, we moved onto Ruby on Rails, which brought it all together.
 
-The final projects were done in groups of four, where we had to collaborate in order to build a Ruby on Rails app in time "Demo Day", where the app would be presented.
+The final projects were done in groups of four, where we had to collaborate in order to build a Ruby on Rails app in time for "Demo Day", where the app would be presented.
 
 In my group, we built an app called 'Buidl' (don't ask), whose goal was to use the Github API to visualise a person's Github profile in a way that you could enter someone's Github username, and be presented with graphs about the types of projects they built, the languages they used etc.
 
@@ -1092,7 +1087,7 @@ My attitude for the job hunt was simple: If you throw enough shit at the wall, s
 
 I wasn't in a position to be choosey. I needed a job, and I needed it as quickly as possible, so I applied for everything.
 
-I also saw that getting a job was a learning process in itself. I'm going to have to send off many applications before I get my first phone interview, I'm probably going to flunk many phone interviews before I get through to a technical interview, and I'm probably going to fail plenty of technical interviews before I get a job. So even if I don't want or expect to get a job, I'll apply for it anyway, and maybe my mind could be changed, or I could surprise myself, and the worst case scenario is I'd have gained some more experience in applying for coding jobs.
+I also saw that getting a job was a learning process in itself. I'm going to have to send off many applications before I get my first phone interview, I'm probably going to flunk many phone interviews before I get through to a technical interview, and I'm probably going to fail plenty of technical interviews before I get a job. So even if I don't want or expect to get a job, I'll apply for it anyway, and maybe my mind can be changed, or maybe I'll surprise myself, and the worst case scenario is I'll have gained some more experience in applying for coding jobs.
 
 If you're paying attention, you'll notice that I arrived home on the 29th of November, and it was now three weeks later.
 
@@ -1124,7 +1119,7 @@ I had been able to build and host a Rails application... just, but I wasn't remo
 
 And in reality, it was nothing like as bad as some of the horror stories I'd read.
 
-I got set a coding challenge, which was to build a simple application to some certain specification, but from that point on, I was left to do it in my own way. To Google anything I needed to, to look-up anything I needed to, without anyone looking over my shoulder. It wasn't a terrible experience at all.
+I got set a coding challenge, which was to build a simple application to a certain specification, but from that point on, I was left to do it in my own way. To Google anything I needed to, to look-up anything I needed to, without anyone looking over my shoulder. It wasn't a terrible experience at all.
 
 I didn't leave this interview thinking that I'd really shown my best. And if, with no experience, I've not shown my best, then there's no way I'm getting this job.
 
@@ -1152,7 +1147,7 @@ I didn't consider that the bootcamp had ever really ended for me.
 
 Even when it was over, I'd continued coding like it wasn't, so in terms of _how_ I was spending my days, now I was working as a software engineer, it wasn't all that different.
 
-The main difference, was now I was getting paid for it. And although that sounds like an improvement, it added a lot of stress.
+The main difference, was now I was getting paid for it. And although that sounds like an improvement, it adds a lot of stress.
 
 I became very conscious of everything I coded, because that would determine whether or not I actually kept my job. There were also real world consequences for the things I was now coding.
 

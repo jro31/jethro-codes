@@ -11,8 +11,11 @@ const VerticalCard = props => {
   return (
     <div className='flex flex-col rounded-lg shadow-lg overflow-hidden'>
       <div className='flex-shrink-0'>
-        {/* TODO - Add a default image (as in 'src={coverImage || 'images/defaultImage.png'}) in case no cover image exists */}
-        <img className='h-48 w-full object-cover' src={coverImage} alt={`${title} cover image`} />
+        <img
+          className='h-48 w-full object-cover'
+          src={coverImage || 'images/matrix-jethro.jpeg'}
+          alt={`${title} cover image`}
+        />
       </div>
       <div className='flex-1 bg-white p-6 flex flex-col justify-between'>
         <div className='flex-1'>

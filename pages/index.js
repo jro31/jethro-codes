@@ -35,7 +35,7 @@ const Home = ({ featureArticles }) => {
       </Head>
 
       <SectionHome>
-        <VerticalCardsContainer title='New Content'>
+        <VerticalCardsContainer title='Latest content'>
           {featureArticles.map(article => (
             <VerticalCard key={`${article.title}-card`} cardDetails={article} />
           ))}

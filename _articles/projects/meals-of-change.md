@@ -11,33 +11,31 @@ tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Verce
 
 At the time I started this project, I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
 
-I'd never had any time to learn React at this point, and in the first of these jobs, it was the era of React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, looking at and trying to replicate the existing code, but not really understanding what was going on.
+I'd never had the time to learn React at this point, and in the first of these jobs, it was the era of React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, looking at and trying to replicate the existing code, but not really understanding what was going on.
 
 I had a similar experience in my next job where, despite being hired as a backend Rails dev, I was again put onto occasional React projects despite my insistance that we had devs in the team better-suited to the task, and again, I was able to scrape by, just by trying to replicate, even while not understanding the existing code.
 
-These experiences gave me a real aversion to React, as I was just thrown into these occasional React projects, often with tight deadlines, with zero time to actually learn the basics. So I just came to associate React with a lot of stress and confusion.
+These experiences gave me a real aversion to React, as I was thrown onto these occasional React projects, often with tight deadlines, with zero time to actually learn the basics. So I just came to associate React with a lot of stress and confusion.
 
-All of that being said, when I came to the end of my time in the latter of these jobs, I was acutely aware that while very talented as a Rails dev, the gaping hole in my skillset was the lack of a front-end library.
+All of that being said, when I came to the end of my time in the latter of these jobs, I was acutely aware that while talented as a Rails dev, the gaping hole in my skillset was the lack of a front-end library.
 
 On my personal projects up to this time, I'd got by with jQuery, and even vanilla JavaScript. But if I really wanted to consider myself a full-stack dev, and to be able to build modern projects from start to deployment, I needed the knowledge of a front-end library. So on leaving this job, and even slightly before, I focussed all of my energy onto learning React.
 
-And you know what? When you actually learn the basics before undertaking a project, React is really a joy to work with.
+And you know what? When you actually learn the basics before undertaking a project, React is a joy to work with.
 
 I try to be as receptive as I can to all sources of knowledge, although there's no doubting that my primary resource for learning React was Academind's excellent course, [React - The Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/).
 
-I spent about a month working through this course as if it was my full-time job. But as with any skill, it's only useful and only gets sharpened so much as you put it into practice. I wanted a project that would utilise everything that I'd learned.
+I spent about a month working through this course as if it were my full-time job. But as with any skill, it's only useful and only gets sharpened so much as you put it into practice. I wanted a project that would utilise everything that I'd learned.
 
 That's where Meals of Change comes in.
 
 I've always been a fan of recipes apps as a means of learning, because they ask for such a wide range of skills; forms, photo uploads, complex styling etc. And this project could almost be considered version 3.
 
-When I'd finished the Rails bootcamp that largely introduced me to coding, the first project I made, starting the day after graduation while still drunk from the night before, was another recipes app called 'Plant as Usual'.
+When I'd finished the Rails bootcamp that largely introduced me to coding three years earlier, the first project I made was another recipes app called 'Plant as Usual.'
 
 It was an app for plant-based recipes, and the rationale behind the name was how some people think of plant-based meals as very bland. 'Plant as Usual' was an ironic play on the phrase 'bland as usual', where the app would try to show that plant-based recipes were anything but.
 
-It was also that the domain only cost £6 per year. Had I been able to afford it, I'd have gone for something much more generic.
-
-That app, [Plant as Usual version 1](https://github.com/jro31/plantasusual), was a Rails monolith, and the first app that I built and hosted from scratch, and it led to me getting my first coding job. But alas, a year or so later, now with some experience under my belt, I looked back at this app with a bit of shame for how bad the code now looked to me.
+That app, [Plant as Usual version 1](https://github.com/jro31/plantasusual), was a Rails monolith, and the first app that I built and hosted from scratch, and it led to me getting my first coding job. But alas, a year or so later, now with some experience under my belt, I looked back at this app with a bit of shame for how bad the code was.
 
 That spawned [Plant as Usual version 2](https://github.com/jro31/Plant-as-Usual-2); a much improved, from the ground up rebuild of Plant as Usual.
 
@@ -51,7 +49,7 @@ However, a couple of years after Plant as Usual version 2, I now finally had an 
 
 _"Oh, I get it now."_
 
-And so was spawned, Plant as Usual version 3, although going through a rebrand, again which was driven by the .com domains that were available for £6/year, Meals of Change was born.
+And so was spawned, Plant as Usual version 3, although going through a rebrand, Meals of Change was born.
 
 ## Tools
 
@@ -59,7 +57,7 @@ Given my skillset at this point, there were only really two options for building
 
 I opted for the latter of these, partly for the technical challenge. This project was more a learning experience than anything else, and I hadn't built a Rails API before. But also, I philosophically like having services broken-up as much as possible. I think it makes them easier to work on and easier to maintain.
 
-At a later date, if I wanted to, I could build a completely new front-end. Or I could build an iOS app, or an Android app, and all would be able to work with this backend right away. Building a monolith you don't have that flexibility, so I knew that going forward, this would be the kind of path I'd want to take.
+At a later date, if I wanted to, I could build a completely new front-end, or I could build an iOS app, or an Android app, and all would be able to work with this backend right away. Building a monolith you don't have that flexibility, so I knew that going forward, this would be the direction I'd want to take.
 
 ### Frontend
 
@@ -596,7 +594,7 @@ end
 
 #### Front-end
 
-With authentication working on the API, it was time to set up the front-end to utilise these endpoints.
+With authentication working on the API, it's time to set up the front-end to utilise these endpoints.
 
 I was using Redux Toolkit for my app-wide state management, so it made sense to store the login status this way as well.
 
@@ -1033,7 +1031,7 @@ Rails.application.routes.draw do
 end
 ```
 
-The photos get added to a recipe as the recipe gets created, so we still need to amend the `recipes#create` action. Assuming that the recipes controller and corresponding routes already exist, the `create` action would be updated as follows (for simplicity I'll omit irrelevant parts here):
+The photos get added to a recipe as the recipe gets created, so we still need to amend the `recipes#create` action. Assuming that the recipes controller and corresponding routes already exist, the `create` action is updated as follows (for simplicity I'll omit irrelevant parts here):
 
 ```rb
 # app/controllers/api/v1/recipes_controller.rb
@@ -1122,15 +1120,15 @@ export default useChecksum;
 
 The file that we pass into `const checksum = async file` will be the photo that we're going to upload. We then call `md5FromFile(file)`, passing-in the photo, and ultimately return the md5 of the photo. This is the checksum which we'll send to S3.
 
-I here added-in an extra step where we resize the photos before uploading them.
+At this point I added-in an extra step where we resize the photos before uploading them.
 
-I toyed with whether to do this client-side, or whether to upload the photos to S3 and figure it out from there so that the user could get on with their life.
+I toyed with whether to do this client-side, or whether to upload the photos to S3 and figure it out from there so that the user can get on with their life.
 
 Ultimately though, I found the package [react-image-file-resizer](https://www.npmjs.com/package/react-image-file-resizer) was able to resize the photos to the two sizes that I wanted very quickly. And after spending ~20 minutes writing the steps/ingredients of a recipe, I decided a user wouldn't mind waiting three seconds to make sure it uploaded.
 
 With that in mind, let's go over the entire process of uploading a recipe from the front-end perspective.
 
-As with authentication, I won't go over the form that the user completed with their recipe (I'll get to that later in this article), and will start after they click `Submit recipe`, and the submit handler is called within the `NewRecipePreview` component:
+As with authentication, I won't go over the form that the user completed with their recipe (I'll get to that later in this article), and will start after they click `Submit recipe`, and the `submithandler` that is called within the `NewRecipePreview` component:
 
 ```js
 // components/pages/recipes/new/NewRecipePreview.js
@@ -1455,7 +1453,7 @@ My philosphy for building an application, is that you start with the data.
 
 That database is the foundation of any app (assuming that it's an app that has a database).
 
-One change in the back-end code means ten changes for the front-end, and one change to the database, means ten changes for the back-end. So any change in the database is magnified throughout the app, so it's important to build from the ground up, and get the database right as early as possible.
+One change in the back-end code means ten changes for the front-end, and one change to the database, means ten changes for the back-end. Any change in the database is magnified throughout the app, so it's important to build from the ground up, and get the database right as early as possible.
 
 And to make life easier, sometimes keeping things as simple as possible is key.
 
@@ -1493,7 +1491,7 @@ I want the `#index` action to handle all of these cases, so how can I do that?
 
 As with the API, in the name of simplicity I won't go over every single part of the front-end. If you've made it this far, then I commend you, and I assume that your React knowledge is sufficient to understand what's going on from the code.
 
-However, there are a couple of front-end feature that I think are worth touching on, starting with the form to add a new recipe.
+However, there are a couple of front-end features that I think are worth touching on, starting with the form to add a new recipe.
 
 <!-- TODO - Finish this section -->
 

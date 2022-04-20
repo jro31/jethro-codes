@@ -2025,6 +2025,22 @@ As on desktop, clicking 'Preview' takes the user to an exact replica of their re
 
 ### Hosting
 
-<!-- TODO - Finish this section -->
+I think at this point, I've touched on all the main parts of the app.
+
+I could spend many, many hours going over the CSS to get the app looking like it does, and many more hours going over the Redux Toolkit slices. But I think if you've made it this far, then you have a pretty good grasp of the basics of how the app works, and there comes a point where it's easier to understand the code by looking at the code, than by reading an article about the code, and I think we're at that point.
+
+The last thing to mention therefore, is how the app is hosted.
+
+The front-end is hosted by Vercel. As the makers of Next.js, it just makes sense to host the app with them. Their app is incredibly user-friendly, and free.
+
+Obviously the front-end gets to use the main domain, so the front-end of the app can be accessed at [https://mealsofchange.com/](https://mealsofchange.com/).
+
+My personal preference for hosting Rails apps, so who I've gone with here, is Heroku. My only reservation with Heroku is their free tier is pretty useless for anything other than testing, so I reluctantly give them $7/month to make sure the app is always awake.
+
+I appreciate that you made it all the way to the end of this article. If anything here didn't make sense, or there's any other code in the app you think I should have gone over here, or any other feedback, then shoot me a message.
+
+If not, then I hope you gained something from it.
+
+Happy coding!
 
 <!-- TODO - Add a useful links section, include API Github repo, front-end Github repo, Meals of Change -->

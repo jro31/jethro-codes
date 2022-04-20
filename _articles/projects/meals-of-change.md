@@ -1941,15 +1941,87 @@ end
 
 As with the API, in the name of simplicity I won't go over every single part of the front-end. If you've made it this far, then I commend you, and I assume that your React knowledge is sufficient to understand what's going on from the code.
 
-However, there are a couple of front-end features that I think are worth touching on, starting with the form to add a new recipe.
+However, I think it's worth briefly touching on the logic behind the form to add a new recipe.
 
-<!-- TODO - Finish this section -->
+When I wrote Plant as Usual version 2, I didn't even have a form to add a new recipe.
 
-### Horizontal recipe list
+What I had, was the recipe show page, and if you were the recipe owner, then each element on that page was clickable, and you could, click onto the recipe name, or the recipe method, for example, and it would turn into an input field.
 
-The other feature I think worth going over is the horizontal recipe list.
+Visually it would be almost identical, just a cursor would appear in the element.
 
-<!-- TODO - Finish this section -->
+Clicking out of the element again, and your updates would be saved.
+
+I did all that with jQuery, and it was one reason that come the end, this jQuery code had become a bit of a mess. Doing that on one page for all elements of the recipe wasn't very simple. Every click on the page had to be accounted for.
+
+The reason I did it like that, was that almost like a MySpace page, I wanted the user to be able to see exactly how their recipe would look, as they were adding it.
+
+As the page would be almost identical whether editing a field, or just viewing the page, the user could see exactly what other people would see, _as_ they were adding their recipe.
+
+I thought about doing something similar here, but I decided to instead use a form. However, I still wanted the user to be able to see what the their recipe would look like, as they were adding it.
+
+On desktop, the way I did this was to split the screen in half.
+
+Within a page container, the relevant code starts with:
+
+<!-- prettier-ignore -->
+```js
+<div className='flex justify-between gap-4 h-full'>
+  ...
+</div>
+```
+
+These classes are all standard Tailwind classes, so check the [Tailwind docs](https://tailwindcss.com/docs/installation) for more info, although I think these four classes are pretty self-explanatory.
+
+Adding-in the next layer of div tags, the code becomes
+
+```js
+<div className='flex justify-between gap-4 h-full'>
+  <div className='basis-full lg:basis-3/5 xl:basis-1/2 overflow-scroll h-full pt-2 lg:pr-6'>
+    ...
+  </div>
+  <div className='hidden lg:block basis-2/5 xl:basis-1/2 border border-slate-300 rounded-2xl p-4 overflow-scroll h-screen-minus-nav'>
+    ...
+  </div>
+</div>
+```
+
+Within this app, I considered anything in the `lg` breakpoint or above (that's a screen width of 1024px) as desktop, anything below that was mobile.
+
+The second child element here is `hidden` until the screen width becomes 1024px (with the `lg:block` class). At that point, the first child element takes-up 3/5ths of the space, with the second element taking up 2/5ths. Then at the `xl` breakpoint, it splits 50/50.
+
+What this second child element contains, is a preview of the recipe, that updates as the user completes the recipe form.
+
+It isn't _exactly_ as it would be once the recipe is published. Considering usability, I didn't want, for example, the photo to take up the majority of the screen, as it would in the final recipe.
+
+However, I think it finds that nice balance between the user friendliness of allowing them to see how their recipe will look, and allowing the complexity needed for a form which allows multiple ingredients, multiple steps, three lines of tags, a photo upload, as well as other details.
+
+![Add a recipe desktop form - top](/images/meals-of-change/desktop-form-top.png)
+
+![Add a recipe desktop form - bottom](/images/meals-of-change/desktop-form-bottom.png)
+
+Both sides of the screen are individually scrollable, so it gives the user a chance to see their recipe, as they're adding it. Which I think is important.
+
+Being able to visualise what the end user will see, helps a person to create.
+
+If you're very eagle-eyed, you will have noticed that the button at the bottom of the form is labelled 'Preview recipe'. That's because clicking onto this button, you get taken to a recipe preview page:
+
+![Add a recipe desktop preview](/images/meals-of-change/desktop-preview.png)
+
+With the exception of the banner at the bottom, which is intentionally invasive to let the user know that they haven't submitted their recipe yet, what the user sees here is identical to how their recipe will be displayed on the recipe show page.
+
+It uses the same components.
+
+This user can skip between this page and the form, amending the details of the recipe as needed, meaning that they still get to see the recipe, exactly as it will be viewed by others, before eventually clicking to submit.
+
+I won't go over any more of the code here, because I think it's all fairly simple to understand (the form can be found [here](https://github.com/jro31/meals-of-change-front-end/blob/15569faa92ea2cf6a20042b35ca50f3c494a9657/components/pages/recipes/new/NewRecipeForm.js), and the preview page [here](https://github.com/jro31/meals-of-change-front-end/blob/15569faa92ea2cf6a20042b35ca50f3c494a9657/components/pages/recipes/new/NewRecipePreview.js)). However, I will add that in this situation, where you have the form, a preview section next to the form, and a separate preview page, each one sharing the same state values, that having Redux Toolkit here is a delight.
+
+On mobile there sadly isn't the luxury of having the recipe form and preview side-by-side, so the form has to self-contain all the entered data in a visually appealing way, if not an accurate representation of how it will finally look.
+
+![Add a recipe mobile form - top](/images/meals-of-change/mobile-form-top.png)
+
+![Add a recipe mobile form - bottom](/images/meals-of-change/mobile-form-bottom.png)
+
+As on desktop, clicking 'Preview' takes the user to an exact replica of their recipe (with the exception of the invasive banner at the bottom), again allowing them to visualise exactly how their recipe will be seen, and switch back to the form and make updates before submitting.
 
 ### Hosting
 

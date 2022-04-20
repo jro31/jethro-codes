@@ -432,7 +432,6 @@ module CurrentUserConcern
 
   attr_reader :current_user
 end
-
 ```
 
 The `before_action :set_current_user` requires that the `set_current_user` method is called _before_ the action, in any controller which inherits this concern.
@@ -1485,7 +1484,458 @@ I try to stick with RESTful routes (I know that I didn't with the `sessions#logg
 
 I want the `#index` action to handle all of these cases, so how can I do that?
 
-<!-- TODO - Finish this section -->
+To start with, here is the `#index` action:
+
+```rb
+def index
+  begin
+    filter_recipes
+    render json: recipes_return, status: :ok
+  rescue => e
+    @skip_after_action = true
+    render json: {
+      error_message: e.message
+    }, status: :not_found
+  end
+end
+```
+
+To start with, I'll go over the `recipes_return` method, which is as follows:
+
+```rb
+def recipes_return
+  if ActiveModel::Type::Boolean.new.cast(params[:ids_array])
+    { recipe_ids: @recipes.unscoped.pluck(:id) }
+  else
+    { recipes: RecipesRepresenter.new(@recipes).as_json, filter_title: @filter_title || '' }
+  end
+end
+```
+
+What the `if ActiveModel::Type::Boolean.new.cast(params[:ids_array])` line does is check whether the request that came from the front-end has an `ids_array` param. If it does, then we just return the IDs of the recipes, if it doesn't, then we return the recipes (formatted by the `RecipesRepresenter`).
+
+Why would we want to return just the recipe IDs?
+
+Because of how routing works in Next.js.
+
+The major benefit of Next.js over pure React, for me at least, is `getStaticProps`, which pre-renders a page a build time, meaning that the data within the rendered 'props', is visible to search engine crawlers. So where as with pure React, if Googlebot had come along and seen my app, it would see a nearly empty page, with Next.js, I can include my recipe within `getStaticProps` and Googlebot will be able to see it.
+
+When using a dynamic route, such as [https://mealsofchange.com/recipes/1](https://mealsofchange.com/recipes/1) (where the '1' is dynamic based on the ID of the recipe), you need to use `getStaticPaths`, and at built time, Next.js will pre-render all of the paths that you return.
+
+For example, in the recipes show page on the front-end, I have the following:
+
+```js
+// pages/recipes/[recipeId]/index.js
+
+...
+
+export const getStaticPaths = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/recipes?ids_array=true`, {
+    credentials: 'include',
+  });
+  const data = await response.json();
+
+  const paths = data.recipe_ids.map(recipe_id => {
+    return {
+      params: {
+        recipeId: recipe_id.toString(),
+      },
+    };
+  });
+
+  return {
+    fallback: 'blocking',
+    paths: paths,
+  };
+};
+
+export const getStaticProps = async context => {
+  const recipeId = context.params.recipeId;
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/recipes/${recipeId}`, {
+    credentials: 'include',
+  });
+  const data = await response.json();
+  const recipe = data.recipe;
+
+  return {
+    props: {
+      recipeId: recipe.id,
+      name: recipe.name,
+      author: recipe.user,
+      timeMinutes: recipe.time_minutes,
+      preface: recipe.preface,
+      ingredients: recipe.ingredients,
+      steps: recipe.steps,
+      tags: recipe.tags,
+      smallPhoto: recipe.small_photo,
+      largePhoto: recipe.large_photo,
+    },
+    revalidate: 60,
+  };
+};
+```
+
+To pre-render these pages, in the `getStaticPaths` function, I need to loop-over the recipe IDs. And to do that, I need to be able to return these IDs from the API. So the `recipes_return` method on the API, simply gives us the ability to do this.
+
+When we're returning the recipes (rather than just the IDs), the `RecipesRepresenter` takes over. I use representers as equivalents to serializers; so to format and limit the data that we return from each model. I just find it simpler to create them myself, rather than using a serializer gem.
+
+The `RecipesRepresenter` is as follows:
+
+```rb
+# app/respresenters/recipes_representer.rb
+
+class RecipesRepresenter
+  def initialize(recipes)
+    @recipes = recipes
+  end
+
+  def as_json
+    recipes.map do |recipe|
+      {
+        id: recipe.id,
+        author: recipe.user.display_name,
+        author_twitter_handle: recipe.user.twitter_handle,
+        author_instagram_username: recipe.user.instagram_username,
+        name: recipe.name,
+        time_minutes: recipe.time_minutes,
+        small_photo: recipe.small_photo_url
+      }
+    end
+  end
+
+  private
+
+  attr_reader :recipes
+end
+```
+
+That just leaves the `filter_recipes` method.
+
+There are five ways that we want to be able to filter recipes:
+
+1. By user
+2. By tag
+3. By search query
+4. By bookmark
+5. By nothing
+
+Within these five filters, we also want to be able to limit/paginate the returned recipes.
+
+To start with 'By user', in the `filter_recipes` method, we have:
+
+```rb
+if params[:user_id]
+  user = User.find(params[:user_id])
+  @recipes = policy_scope(Recipe).where(user: user)
+                                 .order(created_at: :desc)
+                                 .limit(params[:limit])
+                                 .offset(params[:offset])
+  @filter_title = "#{user.display_name}'s recipes"
+...
+end
+```
+
+This is quite a dumb filtering system. We can't filter by multiple fields, for example by user and search query, to return all the recipes by a certain user that satisfy a certain search term.
+
+I thought about adding that functionality, but in the infant stages of this app at least, I don't see any use for it.
+
+If the app were to take-off and be populated with hundreds of recipes, there could be a need to be able to search your bookmarked recipes, for example. However, at this stage we just go over each of the params one-by-one, and _if_ the front-end passes-in a user ID, it doesn't matter if they also pass in a tag name or a search query, we will return _all_ of the recipes for this user ID.
+
+The user ID is the first param that we check for, and if it exists, we run `user = User.find(params[:user_id])`.
+
+This will throw an error if no such user exists, and the `rescue` block in our `#index` action will be called.
+
+On the assumption that a user does exist, we return all recipes with `policy_scope(Recipe)`. Our Pundit recipe polics is as follows:
+
+```rb
+# app/policies/recipe_policy.rb
+
+class RecipePolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+  end
+
+  def show?
+    true
+  end
+
+  def create?
+    !!user
+  end
+end
+```
+
+By calling `policy_scope(Recipe)`, we hit `scope.all` and return all recipes. However, I use `policy_scope(Recipe)` as opposed to `Recipe.all`, because in future we might want to change this scope. For example, we might want to soft-delete recipes, by adding a `deleted: true` field to them. We could then update our recipe policy to reflect this, and the controller logic would already work.
+
+Using `Recipe.all` you don't get that luxury.
+
+We then filter the recipes by the user (`.where(user: user)`) and order them by most recently created (`.order(created_at: :desc)`).
+
+`.limit(params[:limit])` allows us to... limit how many recipes are returned, and `.offset(params[:offset])` says which of our returned recipes we should start from.
+
+These two fields are optional, but are what allows pagination on the front-end.
+
+If, for example, a user has created 10 recipes, and we want to return them two at a time, a request would come in from the front-end, such as `/api/v1/recipes?user_id=1&limit=2&offset=0`. Then as the user scrolls and the front-end needs the next two recipes, the next request would be `/api/v1/recipes?user_id=1&limit=2&offset=2` etc.
+
+The last thing to mention is the `@filter_title` variable, which returns a human-readable string of which recipes are being returned. If you rememeber from the `recipes_return` method we have:
+
+```rb
+{ recipes: RecipesRepresenter.new(@recipes).as_json, filter_title: @filter_title || '' }
+```
+
+The `filter_title` is what can be displayed to the user on the front-end to make it clear which recipes are being displayed. In the example here, we use the user's display name, to return something like 'Jethro's recipes':
+
+```rb
+"#{user.display_name}'s recipes"
+```
+
+If there is no `user_id` param within the request, the next param that we check for is `tag_name`.
+
+All recipes optionally have tags to make them easier to filter. For example, when creating a recipe, you can give it a `healthy` tag, or a `breakfast` tag, or a `Thai` tag, depending on the kind of dish you're adding.
+
+On the front-end, these tags are clickable, and should return `all` recipes with assigned the clicked tag, so that's what we do with:
+
+```rb
+def filter_recipes
+  if params[:user_id]
+    ...
+  elsif params[:tag_name]
+    raise 'tag not found' unless tag = Tag.find_by(name: params[:tag_name].downcase)
+
+    @recipes = policy_scope(Recipe).joins(:tags)
+                                   .where(tags: { id: tag.id })
+                                   .order(created_at: :desc)
+                                   .limit(params[:limit])
+                                   .offset(params[:offset])
+    @filter_title = "#{tag.name.split.map(&:capitalize).join(' ')} recipes"
+  ...
+  end
+end
+```
+
+On the `Tag` model there is a uniqueness validation that ignores case sensitivity:
+
+```rb
+validates_uniqueness_of :name, case_sensitive: false
+```
+
+And on creating tags, they are converted to lower-case, no matter how they arrive from the front-end. Therefore, we can search for the tag with `Tag.find_by(name: params[:tag_name].downcase)`, and raise an error (which will call the `rescue` block within the `#index` action) if no tag is found.
+
+We ask the front-end to send the tag `name` rather than the tag `id` to make things simpler on the front-end. If we requested the ID, it would mean the front-end knowing the ID of each tag that we have in our database, which adds a lot of unnecessary complexity compared to requesting the `name`, and returning an error if no such tag exists.
+
+Assuming that a tag exists, the function is much like when filtering by user ID. We start with all recipes from the policy scope, then filter by the recipes which have been assigned this tag:
+
+```rb
+policy_scope(Recipe).joins(:tags).where(tags: { id: tag.id })
+```
+
+From here the ordering, paginating and setting the filter title works as with a user ID.
+
+If there is no `user_id` param, and there is no `tag_name` param, the next check we make is for a `query` param:
+
+```rb
+def filter_recipes
+  if params[:user_id]
+    ...
+  elsif params[:tag_name]
+    ...
+  elsif params[:query]
+    @recipes = policy_scope(Recipe).search_by_recipe_name_ingredient_food_and_tag_name(params[:query])
+                                   .limit(params[:limit])
+                                   .offset(params[:offset])
+    @filter_title = "\"#{params[:query]}\" recipes"
+  ...
+  end
+end
+```
+
+And yes, `search_by_recipe_name_ingredient_food_and_tag_name` may be the worst method name I've ever come up with.
+
+This uses the `pg_search` gem, so requires you to add `gem 'pg_search'` to your Gemfile and run `bundle`.
+
+What this gem does is allow you to run searches on a PostgreSQL database.
+
+Within the `Recipe` model, I then have:
+
+```rb
+class Recipe < ApplicationRecord
+  include PgSearch::Model
+
+  ...
+
+  has_many :ingredients, dependent: :destroy
+  has_many :recipe_tags, dependent: :destroy
+  has_many :tags, through: :recipe_tags
+
+  ...
+
+  pg_search_scope :search_by_recipe_name_ingredient_food_and_tag_name,
+    against: { name: 'A' },
+    associated_against: {
+      ingredients: { food: 'C' },
+      tags: { name: 'B' }
+    },
+    using: {
+      tsearch: { prefix: true, dictionary: 'english' }
+    }
+
+  ...
+end
+```
+
+To start with the `'A'`, `'B'` and `'C'`, this is the 'weight' that we give each field when searching.
+
+`against`, means that you search against a column in `Recipe`, in this case, the column `name`. So, for example, if I have a recipe in my database with the name 'Avocado pasta', and someone searches for `pasta`, the avocado pasta recipe would be included in the return.
+
+`associated_against` allows you to search through columns on associated models.
+
+As you can see, a recipe `has_many :ingredients`, and `has_many :tags`. `associated_against` allows us to search through these tables as well, and return any recipes associated to ingredients/tags which match.
+
+For example, within `tags`, we also search the `name` field.
+
+If I, as a user, search for 'Healthy', then based just on the recipe name 'Avocado pasta', I would not get that recipe returned. However, if I have given this recipe the tag `healthy`, then searching for 'Healthy' would return my avocado pasta recipe.
+
+It's the same with `ingredients: { food: 'C' }`. My avocado pasta recipe contains basil. It's not included in the name of the recipe, and there is no 'basil' tag. However, there is an ingredient associated to this recipe, whose `food` column is 'basil'. Therefore, my avocado pasta recipe would be returned.
+
+This is where the `'A'`, `'B'` and `'C'` become very useful. If I search for 'curry', I don't want to give the same weight in my search to a recipe that has, 'curry' in its name, such as 'Chickpea curry', as I do to a recipe that includes half a teaspoon of curry powder.
+
+So by giving `against: { name: 'A' },`, all recipes with 'curry' in the name will be returned first. Secondly, thanks to `tags: { name: 'B' }`, recipes who've been given the tag 'curry' will be returned second. Then, thanks to `ingredients: { food: 'C' }`, any recipes with an ingredient that includes 'curry' will be returned last.
+
+In last line, `tsearch: { prefix: true, dictionary: 'english' }`, `prefix: true` allows us to search for partial words. For example, if someone searches for 'mac', recipes with the ingredient 'macaroni' will be returned.
+
+Setting `dictionary: 'english'`, then variants of the same word are grouped together. 'Healthy' will be returned if 'health' is searched for.
+
+Looking back to our controller method, `policy_scope(Recipe).search_by_recipe_name_ingredient_food_and_tag_name(params[:query])` will therefore return all recipes with the name, tag or ingredient for the passed-in `query` param.
+
+The next filter is `bookmarked`:
+
+```rb
+def filter_recipes
+  if params[:user_id]
+    ...
+  elsif params[:tag_name]
+    ...
+  elsif params[:query]
+    ...
+  elsif params[:bookmarked]
+    @recipes = policy_scope(Recipe).joins(:user_recipe_bookmarks)
+                                   .where(user_recipe_bookmarks: { user: current_user })
+                                   .order('user_recipe_bookmarks.created_at desc')
+    @filter_title = 'Bookmarked recipes'
+  ...
+  end
+end
+```
+
+This one is pretty straight forward. We have `current_user` available to us here, based on the `CurrentUserConcern` (explained in the 'Authentication' section above).
+
+If you remember our database, `user_recipe_bookmarks` is a join table between `User` and `Recipe`, that allows a user to bookmark recipes.
+
+```rb
+# app/models/user.rb
+
+class User < ApplicationRecord
+  ...
+  has_many :user_recipe_bookmarks, dependent: :destroy
+  has_many :bookmarked_recipes, through: :user_recipe_bookmarks, source: :recipe
+  ...
+end
+```
+
+```rb
+# app/models/recipe.rb
+
+class Recipe < ApplicationRecord
+  ...
+  has_many :user_recipe_bookmarks, dependent: :destroy
+  has_many :bookmarked_users, through: :user_recipe_bookmarks, source: :user
+  ...
+```
+
+So here we have to simply filter the recipes based on where a `UserRecipeBookmark` record exists for this user.
+
+The recipes are then ordered, based on how recently the bookmark was added (`.order('user_recipe_bookmarks.created_at desc')`)
+
+Finally, if none of the params above are passed-in, we go to our default, which is to return all recipes:
+
+```rb
+def filter_recipes
+  if params[:user_id]
+    ...
+  elsif params[:tag_name]
+    ...
+  elsif params[:query]
+    ...
+  elsif params[:bookmarked]
+    ...
+  else
+    @recipes = policy_scope(Recipe).order(created_at: :desc)
+                                   .limit(params[:limit])
+                                   .offset(params[:offset])
+  end
+end
+```
+
+At this stage, the app is small enough that I don't have any enforced limits on how many recipes can be returned. However, if it were to grow to hundreds of recipes, that is something I would add.
+
+The completed `filter_recipes` method therefore looks as follows:
+
+```rb
+def filter_recipes
+  if params[:user_id]
+    user = User.find(params[:user_id])
+    @recipes = policy_scope(Recipe).where(user: user)
+                                   .order(created_at: :desc)
+                                   .limit(params[:limit])
+                                   .offset(params[:offset])
+    @filter_title = "#{user.display_name}'s recipes"
+  elsif params[:tag_name]
+    raise 'tag not found' unless tag = Tag.find_by(name: params[:tag_name].downcase)
+
+    @recipes = policy_scope(Recipe).joins(:tags)
+                                   .where(tags: { id: tag.id })
+                                   .order(created_at: :desc)
+                                   .limit(params[:limit])
+                                   .offset(params[:offset])
+    @filter_title = "#{tag.name.split.map(&:capitalize).join(' ')} recipes"
+  elsif params[:query]
+    @recipes = policy_scope(Recipe).search_by_recipe_name_ingredient_food_and_tag_name(params[:query])
+                                   .limit(params[:limit])
+                                   .offset(params[:offset])
+    @filter_title = "\"#{params[:query]}\" recipes"
+  elsif params[:bookmarked]
+    @recipes = policy_scope(Recipe).joins(:user_recipe_bookmarks)
+                                   .where(user_recipe_bookmarks: { user: current_user })
+                                   .order('user_recipe_bookmarks.created_at desc')
+    @filter_title = 'Bookmarked recipes'
+  else
+    @recipes = policy_scope(Recipe).order(created_at: :desc)
+                                   .limit(params[:limit])
+                                   .offset(params[:offset])
+  end
+end
+```
+
+If you remember our initial `#index` action:
+
+```rb
+def index
+  begin
+    filter_recipes
+    render json: recipes_return, status: :ok
+  rescue => e
+    @skip_after_action = true
+    render json: {
+      error_message: e.message
+    }, status: :not_found
+  end
+end
+```
+
+`filter_recipes` sets the `@recipes` variable, then `recipes_return` decides whether to return the recipes based on the `RecipesRepresenter`, or whether to just return the recipe IDs.
 
 ### Adding a recipe
 
@@ -1504,3 +1954,5 @@ The other feature I think worth going over is the horizontal recipe list.
 ### Hosting
 
 <!-- TODO - Finish this section -->
+
+<!-- TODO - Add a useful links section, include API Github repo, front-end Github repo, Meals of Change -->

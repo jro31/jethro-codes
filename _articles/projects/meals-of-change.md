@@ -1,9 +1,8 @@
 ---
 title: 'Meals of Change'
-description: 'This is the Meals of Change description' # TODO - Update this
+description: 'A deep-dive into some of the concepts behind Meals of Change - An app where for users to share their plant-based recipes.'
 coverImage: '/images/meals-of-change/screenshot.png'
-published: '2020-03-16'
-lastUpdated: '2020-03-16'
+published: '2022-04-21' # TODO - Update this?
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
 ---
 
@@ -2043,4 +2042,8 @@ If not, then I hope you gained something from it.
 
 Happy coding!
 
-<!-- TODO - Add a useful links section, include API Github repo, front-end Github repo, Meals of Change -->
+## Useful links
+
+- Meals of Change - [https://mealsofchange.com/](https://mealsofchange.com/)
+- Meals of Change front-end Github repo - [https://github.com/jro31/meals-of-change-front-end](https://github.com/jro31/meals-of-change-front-end)
+- Meals of Change API Github repo - [https://github.com/jro31/meals-of-change-api](https://github.com/jro31/meals-of-change-api)

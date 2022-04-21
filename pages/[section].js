@@ -1,3 +1,5 @@
+// TODO - Add <Head> section
+
 import { getArticles } from '../lib/api';
 import HorizontalCard from '../components/ui/HorizontalCard';
 import HorizontalCardsContainer from '../components/ui/HorizontalCardsContainer';

@@ -1,5 +1,4 @@
 // TODO - Add 'coverImage' (if included)
-// TODO - Add 'lastUpdated' date
 
 import useHumanizedDate from '../../../../hooks/useHumanizedDate';
 import Title from '../../../ui/text/Title';

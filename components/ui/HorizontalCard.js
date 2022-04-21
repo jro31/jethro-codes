@@ -8,13 +8,13 @@ const HorizontalCard = props => {
   const { title, description, slug, coverImage, tags, section } = props.cardDetails;
 
   return (
-    <div className='max-w-7xl mx-auto bg-indigo-600 lg:bg-transparent lg:px-8 rounded-lg pt-6 lg:pt-0'>
+    <div className='max-w-7xl mx-auto bg-indigo-600 lg:bg-transparent lg:px-8 rounded-lg lg:rounded-3xl pt-6 lg:pt-0'>
       <div className='lg:grid lg:grid-cols-12'>
         <div className='relative z-10 lg:col-start-1 lg:row-start-1 lg:col-span-4 lg:py-16 lg:bg-transparent'>
           <div className='max-w-md mx-auto px-4 sm:max-w-3xl sm:px-6 lg:max-w-none lg:p-0'>
             <div className='aspect-w-10 aspect-h-6 sm:aspect-w-2 sm:aspect-h-1 lg:aspect-w-1'>
               <img
-                className='object-cover object-center rounded-lg shadow-2xl'
+                className='object-cover object-center rounded-lg lg:rounded-3xl shadow-2xl'
                 src='https://images.unsplash.com/photo-1507207611509-ec012433ff52?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=934&q=80'
                 alt=''
               />
@@ -22,7 +22,7 @@ const HorizontalCard = props => {
           </div>
         </div>
 
-        <div className='relative bg-indigo-600 lg:col-start-3 lg:row-start-1 lg:col-span-10 lg:rounded-3xl lg:grid lg:grid-cols-10 lg:items-center rounded-lg'>
+        <div className='relative bg-indigo-600 lg:col-start-3 lg:row-start-1 lg:col-span-10 lg:grid lg:grid-cols-10 lg:items-center rounded-lg lg:rounded-3xl'>
           <div
             className='hidden absolute inset-0 overflow-hidden rounded-3xl lg:block'
             aria-hidden='true'

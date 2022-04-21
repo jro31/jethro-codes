@@ -1,4 +1,7 @@
+// TODO - Add <Head> section
+
 import { useState } from 'react';
+import LoadingSpinner from '../../components/ui/svg/LoadingSpinner';
 import Dots from './Dots';
 
 const inputClasses =
@@ -15,19 +18,23 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sendStatus, setSendStatus] = useState('');
 
-  const formIsValid = () => {
-    return (
-      enteredFirstName.trim().length > 0 &&
-      enteredEmail.trim().length > 0 &&
-      enteredMessage.trim().length > 0
-    );
-  };
+  const formIsValid = () =>
+    enteredFirstName.trim().length > 0 &&
+    enteredEmail.trim().length > 0 &&
+    enteredMessage.trim().length > 0;
 
   const resetForm = () => {
     setEnteredFirstName('');
     setEnteredLastName('');
     setEnteredEmail('');
     setEnteredMessage('');
+  };
+
+  const disableButton = () => !formIsValid() || isSubmitting;
+
+  const handleFormFieldChange = (updateFunction, newValue) => {
+    updateFunction(newValue);
+    setSendStatus('');
   };
 
   const formSubmitHandler = async event => {
@@ -97,7 +104,7 @@ const Contact = () => {
                   autoComplete='given-name'
                   className={inputClasses}
                   value={enteredFirstName}
-                  onChange={event => setEnteredFirstName(event.target.value)}
+                  onChange={event => handleFormFieldChange(setEnteredFirstName, event.target.value)}
                 />
               </div>
             </div>
@@ -113,7 +120,7 @@ const Contact = () => {
                   autoComplete='family-name'
                   className={inputClasses}
                   value={enteredLastName}
-                  onChange={event => setEnteredLastName(event.target.value)}
+                  onChange={event => handleFormFieldChange(setEnteredLastName, event.target.value)}
                 />
               </div>
             </div>
@@ -129,7 +136,7 @@ const Contact = () => {
                   autoComplete='email'
                   className={inputClasses}
                   value={enteredEmail}
-                  onChange={event => setEnteredEmail(event.target.value)}
+                  onChange={event => handleFormFieldChange(setEnteredEmail, event.target.value)}
                 />
               </div>
             </div>
@@ -144,20 +151,26 @@ const Contact = () => {
                   rows={4}
                   className={`${inputClasses} border`}
                   value={enteredMessage}
-                  onChange={event => setEnteredMessage(event.target.value)}
+                  onChange={event => handleFormFieldChange(setEnteredMessage, event.target.value)}
                 />
               </div>
             </div>
-            {/* TODO - Add 'success' message if message sent */}
-            {/* TODO - Add error message if not sent */}
-            <div className='sm:col-span-2'>
-              {/* TODO - Disable button until valid */}
-              {/* TODO - Disable button and add loading spinner when isSubmitting */}
-              <button
-                type='submit'
-                className='w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            {sendStatus && (
+              <div
+                className={
+                  sendStatus === successMessage ? 'text-green-400' : 'text-rose-500 font-bold'
+                }
               >
-                Send email
+                {sendStatus}
+              </div>
+            )}
+            <div className='sm:col-span-2'>
+              <button
+                disabled={disableButton()}
+                type='submit'
+                className='w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              >
+                {isSubmitting ? <LoadingSpinner /> : 'Send email'}
               </button>
             </div>
           </form>

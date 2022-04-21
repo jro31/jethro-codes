@@ -1,6 +1,6 @@
 ---
 title: 'Meals of Change'
-description: 'A deep-dive into some of the concepts behind Meals of Change - An app where for users to share their plant-based recipes.'
+description: 'A deep-dive into some of the concepts behind Meals of Change - an app where users share their plant-based recipes.'
 coverImage: '/images/meals-of-change/screenshot.png'
 published: '2022-04-21' # TODO - Update this?
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
@@ -10,7 +10,7 @@ tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Verce
 
 At the time I started this project, I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
 
-I'd never had the time to learn React at this point, and in the first of these jobs, it was the era of React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, looking at and trying to replicate the existing code, but not really understanding what was going on.
+I'd never had the time to learn React at this point, and in my first job, it was the era of React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, looking at and trying to replicate the existing code, but not really understanding what was going on.
 
 I had a similar experience in my next job where, despite being hired as a backend Rails dev, I was again put onto occasional React projects despite my insistance that we had devs in the team better-suited to the task, and again, I was able to scrape by, just by trying to replicate, even while not understanding the existing code.
 
@@ -18,7 +18,7 @@ These experiences gave me a real aversion to React, as I was thrown onto these o
 
 All of that being said, when I came to the end of my time in the latter of these jobs, I was acutely aware that while talented as a Rails dev, the gaping hole in my skillset was the lack of a front-end library.
 
-On my personal projects up to this time, I'd got by with jQuery, and even vanilla JavaScript. But if I really wanted to consider myself a full-stack dev, and to be able to build modern projects from start to deployment, I needed the knowledge of a front-end library. So on leaving this job, and even slightly before, I focussed all of my energy onto learning React.
+On my personal projects up to this time, I'd got by with jQuery, and even vanilla JavaScript. But if I really wanted to consider myself a full-stack dev, and to be able to build modern projects from start to deployment, I needed the knowledge of a front-end library. So on leaving this job, and even slightly before, I focussed all of my energy into learning React.
 
 And you know what? When you actually learn the basics before undertaking a project, React is a joy to work with.
 
@@ -76,7 +76,7 @@ PostgreSQL database, RSpec for testing, Pundit for authorization (I'll go into a
 
 ## Build process
 
-For the first time building an app made of two serparate services, there were two issues that I anticipated being stumbling blocks, so I'll go over those first.
+Being my first time building an app made of two serparate services, there were two issues that I anticipated being stumbling blocks, so I'll go over those first.
 
 ### Authentication
 
@@ -98,7 +98,7 @@ gem 'rack-cors', :require => 'rack/cors'
 ...
 ```
 
-From their own [documentation](https://github.com/cyu/rack-cors), Rack::Cors _"provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications,"_ which is just a fancy way of saying that it allows you to white-list external domains. So if, as was the case here, I have the API hosted in one place, and it's receiving requests from a front-end hosted in another place, Rack::Cors allows you to white-list the domain of the front-end.
+From their own [documentation](https://github.com/cyu/rack-cors), Rack::Cors _"provides support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications,"_ which is just a fancy way of saying that it allows you to white-list external domains. So if, as is the case here, I have the API hosted in one place, and it's receiving requests from a front-end hosted in another place, Rack::Cors allows you to white-list the domain of the front-end.
 
 And to that end, it was necessary to white-list two URLs:
 
@@ -122,7 +122,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 end
 ```
 
-The methods `[:get, :post, :put, :patch, :delete, :options, :head]` are all the methods which I could call from the front-end. `credentials: true` is what allows you to pass the cookie (created below) between the front-end and the back-end.
+The methods `[:get, :post, :put, :patch, :delete, :options, :head]` are all the methods which I could call from the front-end, and `credentials: true` is what allows you to pass the cookie (created below) between the front-end and the back-end.
 
 Next I needed to define the cookie, and did this in _'session_store.rb'_.
 
@@ -364,7 +364,7 @@ module Api
 end
 ```
 
-The `authenticate` method is given to us by `has_secure_password`. Once you've found the user using the given email, it will check if the given password matches this user's password. If they match, it will return the user. If they don't, it will return `false`.
+The `authenticate` method is given to us by `has_secure_password`. Once you've found the user using the given email, it will check if the given password matches the user's password. If they match, it will return the user. If they don't, it will return `false`.
 
 If the user is returned, what we then want to do is create a cookie, which we do by setting the user to the session:
 
@@ -407,7 +407,7 @@ module Api
 end
 ```
 
-Next was to create the `sessions#logged_in` action, which is a `GET` request to simply check whether or not a user is logged-in.
+Next we want to create the `sessions#logged_in` action, which is a `GET` request to simply check whether or not a user is logged-in.
 
 However, we're going to require the functionality of checking for a logged-in user in more than just this action, so it makes sense to add this logic in a concern, and then add it to our base controller.
 
@@ -699,7 +699,7 @@ const Layout = props => {
 export default Layout;
 ```
 
-Everytime the app loads, `checkLoginStatus()` is called from within `useEffect`. This calls our `sessions#logged_in` action in our API, which returns either `logged_in: true` or `logged_in: false`. And only on returning `logged_in: true` do we then change the user's `loggedInStatus` to `LOGGED_IN`, by calling the `login` action in the `loginStatusSlice`:
+Everytime the app loads, `checkLoginStatus()` is called from within `useEffect`. This calls the `sessions#logged_in` endpoint in our API, which returns either `logged_in: true` or `logged_in: false`. And only on returning `logged_in: true` do we then change the user's `loggedInStatus` to `LOGGED_IN`, by calling the `login` action in the `loginStatusSlice`:
 
 ```js
 dispatch(loginStatusActions.login(data.user));
@@ -829,7 +829,7 @@ In Rails monolith apps that I'd built, this was no issue. You upload the photo f
 
 Now though, with separate services, do you want to go from the front-end, to the API, to the third-party service and back again, every time you want to upload of fetch a photo?
 
-No, that's madness. Sending large files to the backend to just act as an intermediary to send them on again is a huge waste of resources. You want the front-end and the storage service to communicate with each other. But when you store that data for the photos in the backend, how exactly do you do that?
+No, that's madness. Sending large files to the backend to just act as an intermediary to send them on again is a huge waste of resources. You want the front-end and the storage service to communicate with each other. But when you store the data for the photos in the backend, how exactly do you do that?
 
 That's what I didn't know either.
 
@@ -852,7 +852,7 @@ I'll skip the part of setting-up S3 in this article, and just focus on the code 
 
 #### API
 
-The first step here was to run `rails active_storage:install`, and then to run `rails db:migrate` which created and then ran the following migration:
+The first step here was to install Active Storage by running `rails active_storage:install`, and then running `rails db:migrate` to create and run the following migration:
 
 ```rb
 class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
@@ -1011,7 +1011,7 @@ The `create_before_direct_upload!` method creates this blob, without uploading t
 
 The `service_url_for_direct_upload` method then returns the URL for this blob.
 
-The `blob.signed_id` line returnes the signed ID that can be used by the front-end, so what we end up returning to the front-end with `render json: response`, is the URL to upload a photo to, and the signed ID that allows us to do so.
+The `blob.signed_id` line returns the signed ID that can be used by the front-end, so what we end up returning to the front-end with `render json: response`, is the URL to upload a photo to, and the signed ID that allows us to do so.
 
 Lastly, don't forget to add the route to hit this endpoint:
 
@@ -1074,7 +1074,7 @@ A checksum is a way to check that two files are identical. When you generate a c
 
 So you generate the checksum for a file, and send it to S3 with the file. Amazon will then generate a checksum on their end, and only accept the file if they match.
 
-I find S3 documentation to usually be more confusing than helpful, but the first couple of paragraphs of [this blog](https://aws.amazon.com/blogs/aws/new-additional-checksum-algorithms-for-amazon-s3/) do a pretty good job of making this clearer.
+I find the S3 documentation to usually be more confusing than helpful, but the first couple of paragraphs of [this blog](https://aws.amazon.com/blogs/aws/new-additional-checksum-algorithms-for-amazon-s3/) do a pretty good job of making this clearer.
 
 The checksum that S3 expects, is the MD5 hash of the file, which can be generated with the [crypto-js](https://www.npmjs.com/package/crypto-js) package, so run:
 
@@ -1355,7 +1355,7 @@ blobSignedIdArray.push(presignedUrl.blob_signed_id);
 
 We then repeat this process for the large photo, calling `uploadPhoto(largePhoto, 'large')`, before returning the `blobSignedIdArray` from the `usePhotoUploader` hook.
 
-Back in the `NewRecipePreview` `submitHandler` function, we check that the `blobSignedIdArray` has a length of 2, and if it doesn't, throw an error, because... well something went wrong.
+Back in the `NewRecipePreview` `submitHandler` function, we check that the `blobSignedIdArray` has a length of 2, and if it doesn't, throw an error, because... well it means that there aren't two photos, so something went wrong.
 
 ```js
 if (props.chosen_photo && blobSignedIdArray.length !== 2) {
@@ -1473,7 +1473,7 @@ As I was intending to host the API on Heroku, I used PostgreSQL.
 
 Having such a simple database allowed me to keep the backend code incredibly simple as well.
 
-The models contain little more than associations and validations, and the controller code that we've been over already is the as complicated as it gets.
+The models contain little more than associations and validations, and the controller code that we've been over already is as complicated as it gets.
 
 I don't want to go over every single file, because if you've made it this far, then I assume that your knowledge of Rails is sufficient to understand the rest of the code yourself.
 
@@ -1483,7 +1483,7 @@ I try to stick with RESTful routes (I know that I didn't with the `sessions#logg
 
 I want the `#index` action to handle all of these cases, so how can I do that?
 
-To start with, here is the `#index` action:
+To start with, here is the `recipes#index` action:
 
 ```rb
 def index
@@ -1517,7 +1517,7 @@ Why would we want to return just the recipe IDs?
 
 Because of how routing works in Next.js.
 
-The major benefit of Next.js over pure React, for me at least, is `getStaticProps`, which pre-renders a page a build time, meaning that the data within the rendered 'props', is visible to search engine crawlers. So where as with pure React, if Googlebot had come along and seen my app, it would see a nearly empty page, with Next.js, I can include my recipe within `getStaticProps` and Googlebot will be able to see it.
+The major benefit of Next.js over pure React, for me at least, is `getStaticProps`, which pre-renders a page a build time, meaning that the data within the rendered 'props' is visible to search engine crawlers. So where as with pure React, if Googlebot had come along and seen my app, it would see a nearly empty page, with Next.js I can include my recipe within `getStaticProps` and Googlebot will be able to see it.
 
 When using a dynamic route, such as [https://mealsofchange.com/recipes/1](https://mealsofchange.com/recipes/1) (where the '1' is dynamic based on the ID of the recipe), you need to use `getStaticPaths`, and at built time, Next.js will pre-render all of the paths that you return.
 
@@ -1577,7 +1577,7 @@ export const getStaticProps = async context => {
 
 To pre-render these pages, in the `getStaticPaths` function, I need to loop-over the recipe IDs. And to do that, I need to be able to return these IDs from the API. So the `recipes_return` method on the API, simply gives us the ability to do this.
 
-When we're returning the recipes (rather than just the IDs), the `RecipesRepresenter` takes over. I use representers as equivalents to serializers; so to format and limit the data that we return from each model. I just find it simpler to create them myself, rather than using a serializer gem.
+When we're returning the recipes (rather than just the IDs), the `RecipesRepresenter` takes over. I use representers as an equivalent to serializers; so to format and limit the data that we return from each model. I just find it simpler to create them myself, rather than using a serializer gem.
 
 The `RecipesRepresenter` is as follows:
 
@@ -1609,7 +1609,7 @@ class RecipesRepresenter
 end
 ```
 
-That just leaves the `filter_recipes` method.
+Looking back to the `recipes#index` action, that just leaves the `filter_recipes` method.
 
 There are five ways that we want to be able to filter recipes:
 
@@ -1635,17 +1635,17 @@ if params[:user_id]
 end
 ```
 
-This is quite a dumb filtering system. We can't filter by multiple fields, for example by user and search query, to return all the recipes by a certain user that satisfy a certain search term.
+This is a dumb filtering system. We can't filter by multiple fields, for example by user and search query, to return all the recipes by a certain user that satisfy a certain search term.
 
 I thought about adding that functionality, but in the infant stages of this app at least, I don't see any use for it.
 
-If the app were to take-off and be populated with hundreds of recipes, there could be a need to be able to search your bookmarked recipes, for example. However, at this stage we just go over each of the params one-by-one, and _if_ the front-end passes-in a user ID, it doesn't matter if they also pass in a tag name or a search query, we will return _all_ of the recipes for this user ID.
+If the app were to take-off and be populated with hundreds of recipes, there could be a need to be able to search within your bookmarked recipes, for example. However, at this stage we just go over each of the params one-by-one, and _if_ the front-end passes-in a user ID, it doesn't matter if they also pass in a tag name or a search query, we will return _all_ of the recipes for this user ID.
 
 The user ID is the first param that we check for, and if it exists, we run `user = User.find(params[:user_id])`.
 
 This will throw an error if no such user exists, and the `rescue` block in our `#index` action will be called.
 
-On the assumption that a user does exist, we return all recipes with `policy_scope(Recipe)`. Our Pundit recipe polics is as follows:
+On the assumption that a user does exist, we return all recipes with `policy_scope(Recipe)`. Our Pundit recipe policy is as follows:
 
 ```rb
 # app/policies/recipe_policy.rb
@@ -1693,9 +1693,9 @@ The `filter_title` is what can be displayed to the user on the front-end to make
 
 If there is no `user_id` param within the request, the next param that we check for is `tag_name`.
 
-All recipes optionally have tags to make them easier to filter. For example, when creating a recipe, you can give it a `healthy` tag, or a `breakfast` tag, or a `Thai` tag, depending on the kind of dish you're adding.
+All recipes optionally have tags to make them easier to filter. For example, when creating a recipe, you can give it a `healthy` tag, or a `breakfast` tag, or a `thai` tag, depending on the kind of dish you're adding.
 
-On the front-end, these tags are clickable, and should return `all` recipes with assigned the clicked tag, so that's what we do with:
+On the front-end, these tags are clickable, and should return `all` recipes which are assigned the clicked tag, so that's what we do with:
 
 ```rb
 def filter_recipes
@@ -1731,7 +1731,7 @@ Assuming that a tag exists, the function is much like when filtering by user ID.
 policy_scope(Recipe).joins(:tags).where(tags: { id: tag.id })
 ```
 
-From here the ordering, paginating and setting the filter title works as with a user ID.
+From here ordering, paginating and setting the filter title works as with a user ID.
 
 If there is no `user_id` param, and there is no `tag_name` param, the next check we make is for a `query` param:
 
@@ -1791,7 +1791,7 @@ To start with the `'A'`, `'B'` and `'C'`, this is the 'weight' that we give each
 
 `associated_against` allows you to search through columns on associated models.
 
-As you can see, a recipe `has_many :ingredients`, and `has_many :tags`. `associated_against` allows us to search through these tables as well, and return any recipes associated to ingredients/tags which match.
+As you can see, a recipe `has_many :ingredients` and `has_many :tags`. `associated_against` allows us to search through these tables as well, and return any recipes associated to ingredients/tags which match the search query.
 
 For example, within `tags`, we also search the `name` field.
 
@@ -1805,9 +1805,11 @@ So by giving `against: { name: 'A' },`, all recipes with 'curry' in the name wil
 
 In last line, `tsearch: { prefix: true, dictionary: 'english' }`, `prefix: true` allows us to search for partial words. For example, if someone searches for 'mac', recipes with the ingredient 'macaroni' will be returned.
 
-Setting `dictionary: 'english'`, then variants of the same word are grouped together. 'Healthy' will be returned if 'health' is searched for.
+By setting `dictionary: 'english'`, variants of the same word are grouped together. 'Healthy' will be returned if 'health' is searched for.
 
 Looking back to our controller method, `policy_scope(Recipe).search_by_recipe_name_ingredient_food_and_tag_name(params[:query])` will therefore return all recipes with the name, tag or ingredient for the passed-in `query` param.
+
+On the front-end, this is what allows us to have a search bar through which we can allow users to enter a query, in order to search all our recipes.
 
 The next filter is `bookmarked`:
 
@@ -1948,13 +1950,11 @@ What I had, was the recipe show page, and if you were the recipe owner, then eac
 
 Visually it would be almost identical, just a cursor would appear in the element.
 
-Clicking out of the element again, and your updates would be saved.
+Click out of the element again, and your update would be saved.
 
 I did all that with jQuery, and it was one reason that come the end, this jQuery code had become a bit of a mess. Doing that on one page for all elements of the recipe wasn't very simple. Every click on the page had to be accounted for.
 
 The reason I did it like that, was that almost like a MySpace page, I wanted the user to be able to see exactly how their recipe would look, as they were adding it.
-
-As the page would be almost identical whether editing a field, or just viewing the page, the user could see exactly what other people would see, _as_ they were adding their recipe.
 
 I thought about doing something similar here, but I decided to instead use a form. However, I still wanted the user to be able to see what the their recipe would look like, as they were adding it.
 
@@ -1984,7 +1984,7 @@ Adding-in the next layer of div tags, the code becomes
 </div>
 ```
 
-Within this app, I considered anything in the `lg` breakpoint or above (that's a screen width of 1024px) as desktop, anything below that was mobile.
+Within this app, I considered anything in the `lg` breakpoint or above (that's a screen width of 1024px) as desktop, anything below as mobile.
 
 The second child element here is `hidden` until the screen width becomes 1024px (with the `lg:block` class). At that point, the first child element takes-up 3/5ths of the space, with the second element taking up 2/5ths. Then at the `xl` breakpoint, it splits 50/50.
 
@@ -1992,15 +1992,13 @@ What this second child element contains, is a preview of the recipe, that update
 
 It isn't _exactly_ as it would be once the recipe is published. Considering usability, I didn't want, for example, the photo to take up the majority of the screen, as it would in the final recipe.
 
-However, I think it finds that nice balance between the user friendliness of allowing them to see how their recipe will look, and allowing the complexity needed for a form which allows multiple ingredients, multiple steps, three lines of tags, a photo upload, as well as other details.
+However, I think this finds that nice balance between the user friendliness of allowing them to see how their recipe will look, and allowing the complexity needed for a form which allows multiple ingredients, multiple steps, three lines of tags, a photo upload, as well as other details.
 
 ![Add a recipe desktop form - top](/images/meals-of-change/desktop-form-top.png)
 
 ![Add a recipe desktop form - bottom](/images/meals-of-change/desktop-form-bottom.png)
 
-Both sides of the screen are individually scrollable, so it gives the user a chance to see their recipe, as they're adding it. Which I think is important.
-
-Being able to visualise what the end user will see, helps a person to create.
+Both sides of the screen are individually scrollable, so it gives the user a chance to see their recipe, as they're adding it.
 
 If you're very eagle-eyed, you will have noticed that the button at the bottom of the form is labelled 'Preview recipe'. That's because clicking onto this button, you get taken to a recipe preview page:
 

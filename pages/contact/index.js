@@ -62,11 +62,11 @@ const Contact = () => {
         </svg>
         <div className='text-center'>
           <h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
-            Contact sales
+            Get in touch
           </h2>
           <p className='mt-4 text-lg leading-6 text-gray-500'>
-            Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet.
-            Sapien tortor lacus arcu.
+            Interested in working together, any comments or questions, or just want to say hi, send
+            me an email below.
           </p>
         </div>
         <div className='mt-12'>
@@ -136,7 +136,7 @@ const Contact = () => {
                 type='submit'
                 className='w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               >
-                Let's talk
+                Send email
               </button>
             </div>
           </form>

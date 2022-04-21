@@ -19,7 +19,6 @@ const ArticleContainer = ({ article }) => {
         title={article.title}
         description={article.description}
         published={article.published}
-        lastUpdated={article.lastUpdated}
         coverImage={article.coverImage}
         tagsArray={article.tags ? article.tags.split(', ') : []}
         type={article.type || ''}

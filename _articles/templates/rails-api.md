@@ -1,8 +1,8 @@
 ---
 title: 'Rails API'
-description: 'This is the Rails API description' # TODO - Update this
+description: 'A starting template for a Rails API, including login/sign-up functionality.' # TODO - Update this
 coverImage: ''
-published: '2020-03-16'
+published: '2020-03-16' # TODO - Update this
 tags: 'Template, Ruby on Rails, API, PostgreSQL, RSpec, User sign-up/login, Pundit'
 ---
 

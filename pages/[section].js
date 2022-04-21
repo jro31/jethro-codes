@@ -21,7 +21,7 @@ export default Section;
 
 export const getStaticProps = async ({ params }) => {
   const allArticles = getArticles(
-    ['title', 'description', 'slug', 'coverImage', 'tags', 'section'],
+    ['title', 'description', 'slug', 'coverImage', 'section'],
     params.section
   );
 

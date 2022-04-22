@@ -1,5 +1,4 @@
-// TODO - Add social media links to share this article
-// TODO - Add 'First commit' date, and optionally add it to the article header (will only be used on projects/templates/packages)
+// NICETOHAVE - Add social media links to share this article
 
 import Head from 'next/head';
 
@@ -11,7 +10,7 @@ const ArticleContainer = ({ article }) => {
   return (
     <article>
       <Head>
-        {/* TODO - Add meta tags; use 'tags' as keywords */}
+        {/* ESSENTIAL - Add meta tags; use 'tags' as keywords */}
         <title>
           {article.title}
           {article.subtitle && ` | ${article.subtitle}`}

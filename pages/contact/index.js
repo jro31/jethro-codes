@@ -1,4 +1,4 @@
-// TODO - Add <Head> section
+// ESSENTIAL - Add <Head> section
 
 import { useState } from 'react';
 import Dots from '../../components/layout/main-content/contact-page/Dots';

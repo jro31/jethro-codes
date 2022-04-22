@@ -1,7 +1,6 @@
-// TODO - Update favicon
-// TODO - Update navbar logo
+// ESSENTIAL - Update favicon
 // TODO - Add sitemap to Google search console
-// TODO - Update readme
+// ESSENTIAL - Update readme
 
 import { Provider } from 'react-redux';
 

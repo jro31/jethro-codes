@@ -1,4 +1,4 @@
-// TODO - Add <Head> section
+// ESSENTIAL - Add <Head> section
 
 import { getArticles } from '../lib/api';
 import HorizontalCard from '../components/ui/HorizontalCard';

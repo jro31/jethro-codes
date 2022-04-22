@@ -1,4 +1,4 @@
-// TODO - Is it possible to add syntax highlighting for the code blocks in the article?
+// NICETOHAVE - Is it possible to add syntax highlighting for the code blocks in the article?
 
 const ArticleBody = props => {
   return (

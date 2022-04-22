@@ -6,10 +6,10 @@ import VerticalCardsContainer from '../components/ui/VerticalCardsContainer';
 import { getArticles } from '../lib/api';
 import useHeroImage from '../hooks/useHeroImage';
 
-const appTitle = 'My project name'; // TODO - Update this
-const appDescription = 'This is the description about my project'; // TODO - Update this
-const baseUrl = 'https://my-url.com'; // TODO - Update this
-const socialMediaImagePath = `${baseUrl}/images/my-image-name.png`; // TODO - Update this
+const appTitle = 'My project name'; // ESSENTIAL - Update this
+const appDescription = 'This is the description about my project'; // ESSENTIAL - Update this
+const baseUrl = 'https://my-url.com'; // ESSENTIAL - Update this
+const socialMediaImagePath = `${baseUrl}/images/my-image-name.png`; // ESSENTIAL - Update this
 
 const Home = ({ featureArticles }) => {
   return (
@@ -17,7 +17,7 @@ const Home = ({ featureArticles }) => {
       <Head>
         <title>{appTitle}</title>
         <meta name='description' content={appDescription} />
-        {/* TODO - Update keywords */}
+        {/* ESSENTIAL - Update keywords */}
         <meta name='keywords' content='these, are, some, keywords, about, my project' />
 
         {/* Facebook */}
@@ -29,7 +29,7 @@ const Home = ({ featureArticles }) => {
 
         {/* Twitter */}
         <meta name='twitter:title' content={appTitle} />
-        {/* TODO <meta name='twitter:site' content='@my-site-twitter-handle' /> */}
+        {/* ESSENTIAL <meta name='twitter:site' content='@my-site-twitter-handle' /> */}
         <meta name='twitter:description' content={appDescription} />
         <meta name='twitter:image' content={socialMediaImagePath} />
         <meta name='twitter:card' content='summary_large_image' />

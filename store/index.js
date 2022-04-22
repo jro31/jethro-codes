@@ -1,4 +1,4 @@
-// TODO - Need this?
+// ESSENTIAL - Remove Redux Toolkit; not using it
 
 import { configureStore } from '@reduxjs/toolkit';
 

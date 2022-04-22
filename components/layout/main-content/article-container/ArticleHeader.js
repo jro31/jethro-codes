@@ -1,5 +1,3 @@
-// TODO - Add 'coverImage' (if included)
-
 import useHumanizedDate from '../../../../hooks/useHumanizedDate';
 import Title from '../../../ui/text/Title';
 import StringDivider from '../../../ui/StringDivider';

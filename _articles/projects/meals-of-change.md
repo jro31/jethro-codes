@@ -1,7 +1,7 @@
 ---
 title: 'Meals of Change'
 description: 'A deep-dive into some of the concepts behind Meals of Change - an app where users share their plant-based recipes.'
-coverImage: '/images/projects/meals-of-change/hero-screenshot.png' # TODO - Rename this to something clearer
+coverImage: '/images/projects/meals-of-change/hero-screenshot.png'
 published: '2022-04-21'
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
 ---

@@ -37,3 +37,5 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 end
 ```
+
+This is a long line of code `policy_scope(Recipe).search_by_recipe_name_ingredient_food_and_tag_name(params[:query])`

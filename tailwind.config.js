@@ -27,12 +27,14 @@ module.exports = {
               padding: '0.25rem',
               borderRadius: '0.25rem',
               fontWeight: 400,
+              overflowWrap: 'break-word',
             },
             pre: {
               code: {
                 backgroundColor: '#1f2937',
                 color: '#e5e7eb',
                 padding: 0,
+                overflowWrap: 'normal',
               },
             },
           },

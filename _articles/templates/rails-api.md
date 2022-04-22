@@ -20,4 +20,22 @@ Venenatis cras sed felis eget velit. Consectetur libero id faucibus nisl tincidu
 
 Tristique senectus et netus et malesuada fames ac turpis. Ridiculous mus mauris vitae ultricies leo integer malesuada nunc vel. In mollis nunc sed id semper. Egestas tellus rutrum tellus pellentesque. Phasellus vestibulum lorem sed risus ultricies tristique nulla. Quis blandit turpis cursus in hac habitasse platea dictumst quisque. Eros donec ac odio tempor orci dapibus ultrices. Aliquam sem et tortor consequat id porta nibh. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Diam vulputate ut pharetra sit amet. Ut tellus elementum sagittis vitae et leo. Arcu non odio euismod lacinia at quis risus sed vulputate.
 
-![Meals of Change screenshot](/images/meals-of-change.png)
+![Meals of Change screenshot](/images/meals-of-change/screenshot.png)
+
+```rb
+# config/initializers/cors.rb
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins "http://localhost:3000"
+    resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
+  end
+
+  allow do
+    origins "https://mealsofchange.com"
+    resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
+  end
+end
+```
+
+This is a long line of code `policy_scope(Recipe).search_by_recipe_name_ingredient_food_and_tag_name(params[:query])`

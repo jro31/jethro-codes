@@ -7,7 +7,7 @@ tags: 'Ruby on Rails, PostgreSQL, RSpec, Pundit'
 
 ## Repo
 
-This template is public repo on GitHub, and can be found [here](https://github.com/jro31/rails-api-template).
+This template is a public repo on GitHub, and can be found [here](https://github.com/jro31/rails-api-template).
 
 ## Specifications
 
@@ -19,13 +19,13 @@ It includes authentication setup with Rails' `has_secure_password` (see 'Authent
 
 ## Setup
 
-Feel free to clone this template or use it any way you see fit. However, the simplest way is to:
+Feel free to clone this template or use it any way you see fit. However, the simplest way to get started is to:
 
 - Navigate to the template on [GitHub](https://github.com/jro31/rails-api-template).
-- Click 'Use this template'
+- Click 'Use this template'.
   ![Use this template button](/images/templates/rails-api/use-this-template.png)
 
-- On the next screen, fill-in a repository name and click 'Create repository from template'
+- On the next screen, fill-in a repository name and click 'Create repository from template'.
   ![Create a new repository](/images/templates/rails-api/create-new-repo.png)
 
 - On the next page, click the 'Code' button, and in the dropdown, copy the url beneath 'HTTPS'.
@@ -83,7 +83,7 @@ This template includes authentication setup using `has_secure_password`. This in
     - If they are it returns `logged_in: true` and the user, if not it returns `logged_in: false`.
   - The `#logout` action allows a user to logout.
 
-  - All actions have request specs.
+  - All actions have [**request specs**](https://github.com/jro31/rails-api-template/blob/master/spec/requests/api/v1/sessions_spec.rb).
 
 ## Endpoints
 

@@ -1,41 +1,158 @@
 ---
 title: 'Rails API'
-description: 'A starting template for a Rails API, including login/sign-up functionality.' # TODO - Update this
-coverImage: ''
-published: '2020-03-16' # TODO - Update this
-tags: 'Template, Ruby on Rails, API, PostgreSQL, RSpec, User sign-up/login, Pundit'
+description: 'A starting template for a Rails API with login/sign-up functionality, PostgreSQL, RSpec and Pundit.'
+published: '2022-04-22'
+tags: 'Ruby on Rails, PostgreSQL, RSpec, Pundit'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus. Praesent elementum facilisis leo vel fringilla. Congue mauris rhoncus aenean vel. Egestas sed tempus urna et pharetra pharetra massa massa ultricies.
+## Repo
 
+This template is a public repo on GitHub, and can be found [here](https://github.com/jro31/rails-api-template).
+
+## Specifications
+
+This project template is setup with **Ruby 3.1.0** and **Rails 7.0.1**, the [**Pundit**](https://github.com/varvet/pundit) authorization gem, and has a **PostgreSQL** database.
+
+Testing has been setup with **RSpec**, including [**factory_bot**](https://github.com/thoughtbot/factory_bot/blob/main/GETTING_STARTED.md), [**Faker**](https://github.com/faker-ruby/faker) and [**Database Cleaner Adapter for ActiveRecord**](https://github.com/DatabaseCleaner/database_cleaner-active_record).
+
+It includes authentication setup with Rails' `has_secure_password` (see 'Authentication' and 'Endpoints' sections below).
+
+## Setup
+
+Feel free to clone this template or use it any way you see fit. However, the simplest way to get started is to:
+
+- Navigate to the template on [GitHub](https://github.com/jro31/rails-api-template).
+- Click 'Use this template'.
+  ![Use this template button](/images/templates/rails-api/use-this-template.png)
+
+- On the next screen, fill-in a repository name and click 'Create repository from template'.
+  ![Create a new repository](/images/templates/rails-api/create-new-repo.png)
+
+- On the next page, click the 'Code' button, and in the dropdown, copy the url beneath 'HTTPS'.
+  ![Copy the URL](/images/templates/rails-api/clone-url.png)
+
+- In your local terminal, CD into the folder where you want to store the project. Then type `git clone [THE URL YOU JUST COPIED]`, for example `git clone https://github.com/jro31/my-new-project.git`, and press `Enter`.
+  ![Clone the repo](/images/templates/rails-api/git-clone.png)
+
+- CD into the created repo, for example `cd my-new-project`.
+  ![CD into the repo](/images/templates/rails-api/cd-into-repo.png)
+
+- To check that all specs are passing, run `bundle exec rspec`. You should get 0 failures.
+  ![Run specs](/images/templates/rails-api/bundle-exec-rspec.png)
+
+  ![No failures](/images/templates/rails-api/no-failures.png)
+
+- Run `rails s` to start the server. Then navigate to [localhost:3001](http://localhost:3001/). If all is well, you should see `{"status":"It's working"}`.
+  ![Run rails s](/images/templates/rails-api/rails-s.png)
+
+  ![It's working!](/images/templates/rails-api/its-working.png)
+
+### Notes
+
+#### Development
+
+- Run the development server with `rails s`.
+- The default port is 3001.
+  - So when running, the api can be accessed at [localhost:3001](http://localhost:3001/).
+- Update the `origins "http://localhost:3000"` line of `config/initializers/cors.rb` with the development URL of your frontend.
+- Update both `key` values of `config/initializers/session_store.rb` with the name of your app.
+
+#### Production
+
+- Update the `origins "https://myappurl.com"` line of `config/initializers/cors.rb` with the production URL of your frontend.
+- Update the `domain` value of `config/initializers/session_store.rb` with the production URL of your API.
+
+## Authentication
+
+This template includes authentication setup using `has_secure_password`. This includes:
+
+- A [**User**](https://github.com/jro31/rails-api-template/blob/master/app/models/user.rb) model with email/password validations (and [specs](https://github.com/jro31/rails-api-template/blob/master/spec/models/user_spec.rb) for these validations).
+- A [**registrations controller**](https://github.com/jro31/rails-api-template/blob/master/app/controllers/api/v1/registrations_controller.rb) that includes a `#create` action:
+
+  - This action allows a user to register (sign-up).
+  - If successful, it returns the status `:created` (201), with a json that includes the user ID, and the user email.
+  - If unsuccessful, it returns the status `:unprocessable_entity` (422) with an error message.
+  - This action has a [**request spec**](https://github.com/jro31/rails-api-template/blob/master/spec/requests/api/v1/registrations_spec.rb).
+
+- A [**sessions controller**](https://github.com/jro31/rails-api-template/blob/master/app/controllers/api/v1/sessions_controller.rb) that has three actions:
+
+  - The `#create` action allows a user to login.
+    - If they provide a correct email/password combo, it returns the status `:created` (201), with a json that includes the user ID, and the user email.
+    - Otherwise it returns the status `:unauthorized` (401) with an error message.
+  - The `#logged_in` action utilises the [CurrentUserConcern](https://github.com/jro31/rails-api-template/blob/master/app/controllers/concerns/current_user_concern.rb) to check if a user is logged-in.
+    - If they are it returns `logged_in: true` and the user, if not it returns `logged_in: false`.
+  - The `#logout` action allows a user to logout.
+
+  - All actions have [**request specs**](https://github.com/jro31/rails-api-template/blob/master/spec/requests/api/v1/sessions_spec.rb).
+
+## Endpoints
+
+### `GET` `http://localhost:3001/`
+
+- Root, to check that the API is working.
+
+### `POST` `http://localhost:3001/api/v1/registrations`
+
+- To register a user.
+- Requires a `user` param containing an `email`, `password` and `password_confirmation`, for example:
+
+```js
+fetch('http://localhost:3001/api/v1/registrations', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    user: {
+      email: 'example@email.com',
+      password: 'password',
+      password_confirmation: 'password',
+    },
+  }),
+  credentials: 'include',
+});
 ```
-This is some code
+
+### `POST` `http://localhost:3001/api/v1/sessions`
+
+- To create a session (login a user).
+- Requires a `user` param containing an `email` and `password`, for example:
+
+```js
+fetch('http://localhost:3001/api/v1/sessions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    user: {
+      email: 'example@email.com',
+      password: 'password',
+    },
+  }),
+  credentials: 'include',
+});
 ```
 
-Venenatis cras sed felis eget velit. Consectetur libero id faucibus nisl tincidunt. Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Volutpat consequat mauris nunc congue nisi vitae. Id aliquet risus feugiat in ante metus dictum at tempor. Sed blandit libero volutpat sed cras. Sed odio morbi quis commodo odio aenean sed adipiscing. Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in. Nibh cras pulvinar mattis nunc sed. Luctus accumsan tortor posuere ac ut consequat semper viverra. Fringilla ut morbi tincidunt augue interdum velit euismod.
+### `GET` `http://localhost:3001/api/v1/logged_in`
 
-[This is a link](#)
+- To check if a user is logged-in.
+- Example request:
 
-## Lorem Ipsum
-
-Tristique senectus et netus et malesuada fames ac turpis. Ridiculous mus mauris vitae ultricies leo integer malesuada nunc vel. In mollis nunc sed id semper. Egestas tellus rutrum tellus pellentesque. Phasellus vestibulum lorem sed risus ultricies tristique nulla. Quis blandit turpis cursus in hac habitasse platea dictumst quisque. Eros donec ac odio tempor orci dapibus ultrices. Aliquam sem et tortor consequat id porta nibh. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Diam vulputate ut pharetra sit amet. Ut tellus elementum sagittis vitae et leo. Arcu non odio euismod lacinia at quis risus sed vulputate.
-
-![Meals of Change screenshot](/images/meals-of-change/screenshot.png)
-
-```rb
-# config/initializers/cors.rb
-
-Rails.application.config.middleware.insert_before 0, Rack::Cors do
-  allow do
-    origins "http://localhost:3000"
-    resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
-  end
-
-  allow do
-    origins "https://mealsofchange.com"
-    resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
-  end
-end
+```js
+fetch('http://localhost:3001/api/v1/logged_in', {
+  credentials: 'include',
+});
 ```
 
-This is a long line of code `policy_scope(Recipe).search_by_recipe_name_ingredient_food_and_tag_name(params[:query])`
+### `DELETE` `http://localhost:3001/api/v1/logout`
+
+- To logout a user.
+- Example request:
+
+```js
+fetch('http://localhost:3001/api/v1/logout', {
+  method: 'DELETE',
+  credentials: 'include',
+});
+```

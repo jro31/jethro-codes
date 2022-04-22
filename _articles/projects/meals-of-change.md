@@ -1,7 +1,7 @@
 ---
 title: 'Meals of Change'
 description: 'A deep-dive into some of the concepts behind Meals of Change - an app where users share their plant-based recipes.'
-coverImage: '/images/meals-of-change/screenshot.png'
+coverImage: '/images/projects/meals-of-change/hero-screenshot.png' # TODO - Rename this to something clearer
 published: '2022-04-21'
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
 ---
@@ -144,7 +144,7 @@ Then open up the inspector (on Chrome it's `right click -> Inspect`, or press `o
 
 You should see a cookie with the 'Name' `_meals_of_change` (as we set the `key:` above), with the 'Domain' `.api.mealsofchange.com` (as we set with `domain:` above).
 
-![Meals of Change cookie](/images/meals-of-change/cookie.png)
+![Meals of Change cookie](/images/projects/meals-of-change/cookie.png)
 
 With the config now set, it was necessary to add another gem, `bcrypt`, so I updated the Gemfile as below and ran `bundle`.
 
@@ -638,11 +638,11 @@ const isLoggedIn = useSelector(state => state.loginStatus.loggedInStatus === 'LO
 
 This is utilised in several places within the app, for example in the navbar. A logged-in user will see the profile menu icon:
 
-![Profile menu icon](/images/meals-of-change/profile-menu-icon.png)
+![Profile menu icon](/images/projects/meals-of-change/profile-menu-icon.png)
 
 But a logged-out user will see the login button:
 
-![Login button](/images/meals-of-change/login-button.png)
+![Login button](/images/projects/meals-of-change/login-button.png)
 
 With this in place, we just need to make sure that this `loggedInStatus` in kept current to the user's status.
 
@@ -709,7 +709,7 @@ If the user is not logged-in, `loggedInStatus` will retain its initial status of
 
 To allow a new user to register, there is a registration modal:
 
-![Meals of Change screenshot](/images/meals-of-change/registration-modal.png)
+![Meals of Change screenshot](/images/projects/meals-of-change/registration-modal.png)
 
 On completing this form and hitting the 'sign-up' button, a `submitHandler` function is called:
 
@@ -755,7 +755,7 @@ This endpoint returns `logged_in: true` if a user successfully registers, so we 
 
 Otherwise, we throw an error, and display that message to the user.
 
-![Meals of Change screenshot](/images/meals-of-change/login-modal.png)
+![Meals of Change screenshot](/images/projects/meals-of-change/login-modal.png)
 
 The login modal (above) works in much the same way, except we hit the `sessions#create` endpoint on the API instead:
 
@@ -1461,7 +1461,7 @@ And where as in those early apps I might end up with a database schema looking l
 
 Meals of Change therefore is an app of just seven database tables (discounting those used for ActiveStorage):
 
-![Meals of Change database](/images/meals-of-change/database-structure.png)
+![Meals of Change database](/images/projects/meals-of-change/database-structure.png)
 
 A user has many recipes, as well as many recipe bookmarks. A recipe also has many recipe bookmarks, as well as many ingredients, steps and recipe tags. A tag has many recipe tags.
 
@@ -1994,15 +1994,15 @@ It isn't _exactly_ as it would be once the recipe is published. Considering usab
 
 However, I think this finds that nice balance between the user friendliness of allowing them to see how their recipe will look, and allowing the complexity needed for a form which allows multiple ingredients, multiple steps, three lines of tags, a photo upload, as well as other details.
 
-![Add a recipe desktop form - top](/images/meals-of-change/desktop-form-top.png)
+![Add a recipe desktop form - top](/images/projects/meals-of-change/desktop-form-top.png)
 
-![Add a recipe desktop form - bottom](/images/meals-of-change/desktop-form-bottom.png)
+![Add a recipe desktop form - bottom](/images/projects/meals-of-change/desktop-form-bottom.png)
 
 Both sides of the screen are individually scrollable, so it gives the user a chance to see their recipe, as they're adding it.
 
 If you're very eagle-eyed, you will have noticed that the button at the bottom of the form is labelled 'Preview recipe'. That's because clicking onto this button, you get taken to a recipe preview page:
 
-![Add a recipe desktop preview](/images/meals-of-change/desktop-preview.png)
+![Add a recipe desktop preview](/images/projects/meals-of-change/desktop-preview.png)
 
 With the exception of the banner at the bottom, which is intentionally invasive to let the user know that they haven't submitted their recipe yet, what the user sees here is identical to how their recipe will be displayed on the recipe show page.
 
@@ -2014,9 +2014,9 @@ I won't go over any more of the code here, because I think it's all fairly simpl
 
 On mobile there sadly isn't the luxury of having the recipe form and preview side-by-side, so the form has to self-contain all the entered data in a visually appealing way, if not an accurate representation of how it will finally look.
 
-![Add a recipe mobile form - top](/images/meals-of-change/mobile-form-top.png)
+![Add a recipe mobile form - top](/images/projects/meals-of-change/mobile-form-top.png)
 
-![Add a recipe mobile form - bottom](/images/meals-of-change/mobile-form-bottom.png)
+![Add a recipe mobile form - bottom](/images/projects/meals-of-change/mobile-form-bottom.png)
 
 As on desktop, clicking 'Preview' takes the user to an exact replica of their recipe (with the exception of the invasive banner at the bottom), again allowing them to visualise exactly how their recipe will be seen, and switch back to the form and make updates before submitting.
 

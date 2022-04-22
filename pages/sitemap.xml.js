@@ -1,3 +1,5 @@
+// TODO - Test that this works in production once the app is hosted (go to jethro.codes/sitemap.xml and check that all URLs are there)
+
 import { allContainingFolders, getArticles } from '../lib/api';
 
 const Sitemap = () => {};

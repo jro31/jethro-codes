@@ -1,7 +1,7 @@
 ---
 title: 'Rails API'
 description: 'A starting template for a Rails API with login/sign-up functionality, PostgreSQL, RSpec and Pundit.'
-published: '2022-04-21' # TODO - Update this
+published: '2022-04-22'
 tags: 'Ruby on Rails, PostgreSQL, RSpec, Pundit'
 ---
 
@@ -11,9 +11,11 @@ This template is public repo on GitHub, and can be found [here](https://github.c
 
 ## Specifications
 
-This project template is setup with **Ruby 3.1.0** and **Rails 7.0.1**, the **[Pundit](https://github.com/varvet/pundit)** authorization gem, and has a **PostgreSQL** database.
+This project template is setup with **Ruby 3.1.0** and **Rails 7.0.1**, the [**Pundit**](https://github.com/varvet/pundit) authorization gem, and has a **PostgreSQL** database.
 
-Testing has been setup with **RSpec**, including **[factory_bot](https://github.com/thoughtbot/factory_bot/blob/main/GETTING_STARTED.md)**, **[Faker](https://github.com/faker-ruby/faker)** and **[Database Cleaner Adapter for ActiveRecord](https://github.com/DatabaseCleaner/database_cleaner-active_record)**.
+Testing has been setup with **RSpec**, including [**factory_bot**](https://github.com/thoughtbot/factory_bot/blob/main/GETTING_STARTED.md), [**Faker**](https://github.com/faker-ruby/faker) and [**Database Cleaner Adapter for ActiveRecord**](https://github.com/DatabaseCleaner/database_cleaner-active_record).
+
+It includes authentication setup with Rails' `has_secure_password` (see 'Authentication' and 'Endpoints' sections below).
 
 ## Setup
 
@@ -45,72 +47,78 @@ Feel free to clone this template or use it any way you see fit. However, the sim
 
   ![It's working!](/images/templates/rails-api/its-working.png)
 
-### Authentication
+### Notes
+
+#### Development
+
+- Run the development server with `rails s`.
+- The default port is 3001.
+  - So when running, the api can be accessed at [localhost:3001](http://localhost:3001/).
+- Update the `origins "http://localhost:3000"` line of `config/initializers/cors.rb` with the development URL of your frontend.
+- Update both `key` values of `config/initializers/session_store.rb` with the name of your app.
+
+#### Production
+
+- Update the `origins "https://myappurl.com"` line of `config/initializers/cors.rb` with the production URL of your frontend.
+- Update the `domain` value of `config/initializers/session_store.rb` with the production URL of your API.
+
+## Authentication
 
 This template includes authentication setup using `has_secure_password`. This includes:
 
-- A **User** model with email/password validations, and specs for these validations.
-- A **registrations** controller that includes a `#create` action:
+- A [**User**](https://github.com/jro31/rails-api-template/blob/master/app/models/user.rb) model with email/password validations (and [specs](https://github.com/jro31/rails-api-template/blob/master/spec/models/user_spec.rb) for these validations).
+- A [**registrations controller**](https://github.com/jro31/rails-api-template/blob/master/app/controllers/api/v1/registrations_controller.rb) that includes a `#create` action:
 
-  - This action allows a user to register (sign-up)
-  - Returns the
+  - This action allows a user to register (sign-up).
+  - If successful, it returns the status `:created` (201), with a json that includes the user ID, and the user email.
+  - If unsuccessful, it returns the status `:unprocessable_entity` (422) with an error message.
+  - This action has a [**request spec**](https://github.com/jro31/rails-api-template/blob/master/spec/requests/api/v1/registrations_spec.rb).
 
-- Registrations controller
-  - With request specs
-- Sessions controller
-  - With request specs
-- User model
-  - Includes email/password validations + specs
-- Pundit
+- A [**sessions controller**](https://github.com/jro31/rails-api-template/blob/master/app/controllers/api/v1/sessions_controller.rb) that has three actions:
 
-## Notes
+  - The `#create` action allows a user to login.
+    - If they provide a correct email/password combo, it returns the status `:created` (201), with a json that includes the user ID, and the user email.
+    - Otherwise it returns the status `:unauthorized` (401) with an error message.
+  - The `#logged_in` action utilises the [CurrentUserConcern](https://github.com/jro31/rails-api-template/blob/master/app/controllers/concerns/current_user_concern.rb) to check if a user is logged-in.
+    - If they are it returns `logged_in: true` and the user, if not it returns `logged_in: false`.
+  - The `#logout` action allows a user to logout.
 
-### Development
-
-- Run the development server with `rails s`
-- Default port is 3001
-- Update the `origins "http://localhost:3000"` line of `config/initializers/cors.rb` with the development URL of your frontend
-- Update both `key` values of `config/initializers/session_store.rb` with the name of your app
-
-### Production
-
-- Update the `origins "https://myappurl.com"` line of `config/initializers/cors.rb` with the production URL of your frontend
-- Update the `domain` value of `config/initializers/session_store.rb` with the production URL of your API
+  - All actions have request specs.
 
 ## Endpoints
 
 ### `GET` `http://localhost:3001/`
 
-- Root, to check that the API is working
+- Root, to check that the API is working.
 
 ### `POST` `http://localhost:3001/api/v1/registrations`
 
-- To register a user
+- To register a user.
 - Requires a `user` param containing an `email`, `password` and `password_confirmation`, for example:
 
-```
+```js
 fetch('http://localhost:3001/api/v1/registrations', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    user: {
+      email: 'example@email.com',
+      password: 'password',
+      password_confirmation: 'password',
     },
-    body: JSON.stringify({
-      user: {
-        email: 'example@email.com',
-        password: 'password',
-        password_confirmation: 'password',
-      },
-    }),
-    credentials: 'include',
-  });
+  }),
+  credentials: 'include',
+});
 ```
 
 ### `POST` `http://localhost:3001/api/v1/sessions`
 
-- To create a session (login a user)
+- To create a session (login a user).
 - Requires a `user` param containing an `email` and `password`, for example:
 
-```
+```js
 fetch('http://localhost:3001/api/v1/sessions', {
   method: 'POST',
   headers: {
@@ -128,10 +136,10 @@ fetch('http://localhost:3001/api/v1/sessions', {
 
 ### `GET` `http://localhost:3001/api/v1/logged_in`
 
-- To check if a user is logged-in
+- To check if a user is logged-in.
 - Example request:
 
-```
+```js
 fetch('http://localhost:3001/api/v1/logged_in', {
   credentials: 'include',
 });
@@ -139,12 +147,12 @@ fetch('http://localhost:3001/api/v1/logged_in', {
 
 ### `DELETE` `http://localhost:3001/api/v1/logout`
 
-- To logout a user
+- To logout a user.
 - Example request:
 
-```
+```js
 fetch('http://localhost:3001/api/v1/logout', {
-    method: 'DELETE',
-    credentials: 'include',
-  });
+  method: 'DELETE',
+  credentials: 'include',
+});
 ```

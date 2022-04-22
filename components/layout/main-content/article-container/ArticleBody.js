@@ -1,3 +1,5 @@
+// TODO - Is it possible to add syntax highlighting for the code blocks in the article?
+
 const ArticleBody = props => {
   return (
     <section className='-mt-32 max-w-7xl mx-auto relative z-10 md:pb-6 sm:px-6 lg:px-8'>

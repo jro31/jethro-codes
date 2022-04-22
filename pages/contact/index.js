@@ -1,8 +1,8 @@
 // TODO - Add <Head> section
 
 import { useState } from 'react';
+import Dots from '../../components/layout/main-content/contact-page/Dots';
 import LoadingSpinner from '../../components/ui/svg/LoadingSpinner';
-import Dots from './Dots';
 
 const inputClasses =
   'py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md';

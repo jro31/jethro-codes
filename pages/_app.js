@@ -1,6 +1,4 @@
-// ESSENTIAL - Update favicon
 // TODO - Add sitemap to Google search console
-// ESSENTIAL - Update readme
 
 import Layout from '../components/layout';
 import '../styles/globals.css';

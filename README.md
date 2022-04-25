@@ -1,7 +1,7 @@
-A Next.js project template setup with:
+My home for everything code.
 
-- Next.js 12.1.4
-- React 17.0.2
-- Redux Toolkit
-- Tailwind CSS 3
-  - Setup for Tailwind UI
+Why I code, my project templates, and a deep-dive into some of my personal projects.
+
+Built with Next.js and Tailwind 3.
+
+View at [jethro.codes](https://jethro.codes).

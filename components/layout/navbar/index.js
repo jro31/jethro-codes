@@ -1,4 +1,4 @@
-import DesktopSidebar from './desktopSidebar';
+import DesktopSidebar from './DesktopSidebar';
 import MobileNavbar from './MobileNavbar';
 
 export const navColorClasses = {

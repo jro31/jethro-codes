@@ -1,20 +1,44 @@
 // NICETOHAVE - Add social media links to share this article
 
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import ArticleBody from './ArticleBody';
 import ArticleHeader from './ArticleHeader';
 import useTagsArray from '../../../../hooks/useTagsArray';
+import { stockImagePath } from '../..';
 
 const ArticleContainer = ({ article }) => {
+  const router = useRouter();
+
+  const metaTitle = `${article.title}${article.subtitle && ` | ${article.subtitle}`}`;
+  const appUrl = 'https://jethro.codes';
+  const pageUrl = `${appUrl}${router.asPath}`;
+  const socialMediaImagePath = `${appUrl}${
+    article.coverImage ? article.coverImage : stockImagePath
+  }`;
+
   return (
     <article>
       <Head>
-        {/* ESSENTIAL - Add meta tags; use 'tags' as keywords */}
-        <title>
-          {article.title}
-          {article.subtitle && ` | ${article.subtitle}`}
-        </title>
+        {/* TODO - Once the app is online, run these tags through Twitter/Facebook tools, and check cover image and stock image paths work */}
+        <title>{metaTitle}</title>
+        <meta name='description' content={article.description} />
+        <meta name='keywords' content={article.tags || ''} />
+
+        {/* Facebook */}
+        <meta property='og:title' content={metaTitle} />
+        <meta property='og:description' content={article.description} />
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content={pageUrl} />
+        <meta property='og:image' content={socialMediaImagePath} />
+
+        {/* Twitter */}
+        <meta name='twitter:title' content={metaTitle} />
+        <meta name='twitter:site' content='@jethro_williams' />
+        <meta name='twitter:description' content={article.description} />
+        <meta name='twitter:image' content={socialMediaImagePath} />
+        <meta name='twitter:card' content='summary_large_image' />
       </Head>
       <ArticleHeader
         title={article.title}

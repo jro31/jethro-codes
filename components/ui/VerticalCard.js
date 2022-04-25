@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import useHumanizedDate from '../../hooks/useHumanizedDate';
+import { stockImagePath } from '../layout';
 
 const VerticalCard = props => {
   const { title, description, slug, coverImage, published, section, minsToRead } =
@@ -13,7 +14,7 @@ const VerticalCard = props => {
       <div className='flex-shrink-0'>
         <img
           className='h-48 w-full object-cover'
-          src={coverImage || 'images/matrix-jethro.jpeg'}
+          src={coverImage || stockImagePath}
           alt={`${title} cover image`}
         />
       </div>

@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { stockImagePath } from '../layout';
+
 const HorizontalCard = props => {
   const { title, description, slug, coverImage, section } = props.cardDetails;
 
@@ -24,7 +26,7 @@ const HorizontalCard = props => {
             <div className='aspect-w-10 aspect-h-6 sm:aspect-w-2 sm:aspect-h-1 lg:aspect-w-1'>
               <img
                 className='object-cover object-center rounded-lg lg:rounded-3xl shadow-2xl'
-                src={coverImage || 'images/matrix-jethro.jpeg'}
+                src={coverImage || stockImagePath}
                 alt=''
               />
             </div>

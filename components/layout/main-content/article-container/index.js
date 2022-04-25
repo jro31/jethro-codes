@@ -11,7 +11,7 @@ import { baseUrl, stockImagePath } from '../..';
 const ArticleContainer = ({ article }) => {
   const router = useRouter();
 
-  const metaTitle = `${article.title}${article.subtitle && ` | ${article.subtitle}`}`;
+  const pageTitle = `${article.title}${article.subtitle && ` | ${article.subtitle}`}`;
   const pageUrl = `${baseUrl}${router.asPath}`;
   const socialMediaImagePath = `${baseUrl}${
     article.coverImage ? article.coverImage : stockImagePath
@@ -21,19 +21,19 @@ const ArticleContainer = ({ article }) => {
     <article>
       <Head>
         {/* TODO - Once the app is online, run these tags through Twitter/Facebook tools, and check cover image and stock image paths work */}
-        <title>{metaTitle}</title>
+        <title>{pageTitle}</title>
         <meta name='description' content={article.description} />
         <meta name='keywords' content={article.tags || ''} />
 
         {/* Facebook */}
-        <meta property='og:title' content={metaTitle} />
+        <meta property='og:title' content={pageTitle} />
         <meta property='og:description' content={article.description} />
         <meta property='og:type' content='website' />
         <meta property='og:url' content={pageUrl} />
         <meta property='og:image' content={socialMediaImagePath} />
 
         {/* Twitter */}
-        <meta name='twitter:title' content={metaTitle} />
+        <meta name='twitter:title' content={pageTitle} />
         <meta name='twitter:site' content='@jethro_williams' />
         <meta name='twitter:description' content={article.description} />
         <meta name='twitter:image' content={socialMediaImagePath} />

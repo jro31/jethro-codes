@@ -6,15 +6,14 @@ import { useRouter } from 'next/router';
 import ArticleBody from './ArticleBody';
 import ArticleHeader from './ArticleHeader';
 import useTagsArray from '../../../../hooks/useTagsArray';
-import { stockImagePath } from '../..';
+import { baseUrl, stockImagePath } from '../..';
 
 const ArticleContainer = ({ article }) => {
   const router = useRouter();
 
   const metaTitle = `${article.title}${article.subtitle && ` | ${article.subtitle}`}`;
-  const appUrl = 'https://jethro.codes';
-  const pageUrl = `${appUrl}${router.asPath}`;
-  const socialMediaImagePath = `${appUrl}${
+  const pageUrl = `${baseUrl}${router.asPath}`;
+  const socialMediaImagePath = `${baseUrl}${
     article.coverImage ? article.coverImage : stockImagePath
   }`;
 

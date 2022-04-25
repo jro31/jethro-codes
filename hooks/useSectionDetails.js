@@ -4,7 +4,7 @@ import {
   PaperClipIcon,
   TemplateIcon,
   TrendingUpIcon,
-} from '@heroicons/react/outline'; // TODO - Save these icons locally
+} from '@heroicons/react/outline';
 
 const contact = 'contact';
 const home = 'home';

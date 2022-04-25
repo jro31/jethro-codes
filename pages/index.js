@@ -5,11 +5,11 @@ import VerticalCard from '../components/ui/VerticalCard';
 import VerticalCardsContainer from '../components/ui/VerticalCardsContainer';
 import { getArticles } from '../lib/api';
 import useHeroImage from '../hooks/useHeroImage';
+import { baseUrl, stockImagePath } from '../components/layout';
 
-const appTitle = 'My project name'; // ESSENTIAL - Update this
-const appDescription = 'This is the description about my project'; // ESSENTIAL - Update this
-const baseUrl = 'https://my-url.com'; // ESSENTIAL - Update this
-const socialMediaImagePath = `${baseUrl}/images/my-image-name.png`; // ESSENTIAL - Update this
+const appTitle = 'jethro.codes';
+const appDescription = "I'm Jethro. This is my home for everything code.";
+const socialMediaImagePath = `${baseUrl}${stockImagePath}`;
 
 const Home = ({ featureArticles }) => {
   return (
@@ -17,8 +17,10 @@ const Home = ({ featureArticles }) => {
       <Head>
         <title>{appTitle}</title>
         <meta name='description' content={appDescription} />
-        {/* ESSENTIAL - Update keywords */}
-        <meta name='keywords' content='these, are, some, keywords, about, my project' />
+        <meta
+          name='keywords'
+          content='Ruby on Rails API template, Next.js template, Ruby on Rails tutorial, Next.js tutorial'
+        />
 
         {/* Facebook */}
         <meta property='og:title' content={appTitle} />
@@ -29,7 +31,7 @@ const Home = ({ featureArticles }) => {
 
         {/* Twitter */}
         <meta name='twitter:title' content={appTitle} />
-        {/* ESSENTIAL <meta name='twitter:site' content='@my-site-twitter-handle' /> */}
+        <meta name='twitter:site' content='@jethro_williams' />
         <meta name='twitter:description' content={appDescription} />
         <meta name='twitter:image' content={socialMediaImagePath} />
         <meta name='twitter:card' content='summary_large_image' />

@@ -56,4 +56,44 @@ The Tailwind docs are some of the best I've ever come across, and do a far bette
 
 What I instead want to focus on is fetching the Markdown articles, and updating the app accordingly.
 
-## [Articles]
+## Structure
+
+Before getting into the API and fetching the articles, it's worth mentioning the stucture of the app to make everything a little clearer.
+
+Note that this is (fairly obviously) a simplified version of the app. I'm only showing relevant folders here.
+
+```
+📦_articles
+ ┣ 📂projects
+ ┃ ┣ 📜jethro-codes.md
+ ┃ ┗ 📜meals-of-change.md
+ ┣ 📂templates
+ ┃ ┗ 📜rails-api.md
+ ┗ 📜my-story.md
+📦lib
+ ┣ 📜api.js
+ ┗ 📜markdownToHtml.js
+📦pages
+ ┣ 📂[section]
+ ┃ ┗ 📜[slug].js
+ ┣ 📂contact
+ ┃ ┗ 📜index.js
+ ┣ 📂my-story
+ ┃ ┗ 📜index.js
+ ┣ 📜[section].js
+ ┣ 📜_app.js
+ ┣ 📜index.js
+ ┗ 📜sitemap.xml.js
+```
+
+To start with, the `_articles` folder, is where the articles are added as Markdown files.
+
+The `pages` folder shows the pages within the app.
+
+The `api.js` file in the `lib` folder is where all the magic happens. This is where the logic to look within the `_articles` folder and return the correct data to the pages lives.
+
+If you're used to working on MVC apps, then the `api.js` file is very much the controller; the intermediary between the data (the `_articles`) and what the user sees (the `pages`).
+
+If you understand how the API works, then the rest of the app is fairly rudimentary, so let's start by going over that.
+
+## API

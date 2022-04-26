@@ -20,7 +20,6 @@ const ArticleContainer = ({ article }) => {
   return (
     <article>
       <Head>
-        {/* TODO - Once the app is online, run these tags through Twitter/Facebook tools, and check cover image and stock image paths work */}
         <title>{pageTitle}</title>
         <meta name='description' content={article.description} />
         <meta name='keywords' content={article.tags || ''} />

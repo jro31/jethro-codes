@@ -1,4 +1,5 @@
 // NICETOHAVE - Is it possible to add syntax highlighting for the code blocks in the article?
+// See https://nextjs-prism.vercel.app/prism
 
 const ArticleBody = props => {
   return (

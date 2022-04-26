@@ -97,3 +97,97 @@ If you're used to working on MVC apps, then the `api.js` file is very much the c
 If you understand how the API works, then the rest of the app is fairly rudimentary, so let's start by going over that.
 
 ## API
+
+The API is based on [the API from the Vercel demo project](https://github.com/vercel/next.js/blob/canary/examples/blog-starter/lib/api.js).
+
+It exports three functions needed by the various pages used within the app:
+
+- `getArticles`
+- `getArticleBySlug`
+- `allContainingFolders`
+
+### `allContainingFolders`
+
+I'll start with the simplest of these: `allContainingFolders`.
+
+This function returns any folde within `_article`, that contains a markdown article.
+
+```js
+import fs from 'fs';
+import { join } from 'path';
+
+const articlesPath = join(process.cwd(), '_articles');
+
+export const allContainingFolders = () =>
+  ['', ...fs.readdirSync(articlesPath)].filter(file => file.slice(-3) !== '.md');
+```
+
+`process.cwd()` returns the current working directory. The `join()` function, joins the arguments you give it, as a path. So by running `join(process.cwd(), '_articles')`, we pass it the current working directory, followed by `_articles`, to give us the path to our `_articles` folder.
+
+This is set to the `articlesPath` variable.
+
+`fs` (short for 'file system') is a Node library. The `readdirSync()` function (short for 'read directory synchronously') returns the contents of the directory that you pass it.
+
+So `fs.readdirSync(articlesPath)` returns an array of all files and folders which are direct children to the `_articles` folder.
+
+Looking back to the file tree above, that is `['my-story.md', 'projects', 'templates']`.
+
+We are looking _just_ for folders here, not files, so `.filter(file => file.slice(-3) !== '.md')` removes any returns where the last three characters of the string are `.md` (so in this example, it will remove `'my-story.md'`).
+
+However, because there _is_ a Markdown article within the `_articles` folder itself, we also want to return this, hence adding `''` to the returned array (the `my-story.md` article is a permanent fixture of this app, so no need to programatically check if a Markdown file exists as a child to the `_articles` directory).
+
+Therefore, given the file tree above, `allContainingFolders()` will return `[ '', 'projects', 'templates' ]`.
+
+### `getArticleBySlug`
+
+The next exportable function in the API is `getArticleBySlug`. This returns one article, based on the slug passed-into it.
+
+A 'slug' in this context is the part of the URL that comes after the last backslash. So on this page, the slug is `jethro-codes`. On the `https://jethro.codes/my-story` page, the slug is `my-story`.
+
+As a side-note, I was curious why it's called a slug, because when I think of a slug, I think of a snail without a shell, which seems completely irrelevant here.
+
+The best explanation I could find was [this StackOverflow answer](https://stackoverflow.com/a/4230937/2475306), which gives a couple of possibilities for the origin of 'slug' in this context.
+
+It's either _"an informal name given to a story during the production process"_ of the printing press, or _"screenplays had "slug lines" at the start of each scene, which basically sets the background for that scene."_
+
+Regardless of where it came from, this function returns one article, based on the slug you pass it:
+
+```js
+import fs from 'fs';
+import { join } from 'path';
+import matter from 'gray-matter';
+
+const articlesPath = join(process.cwd(), '_articles');
+const directoryPath = containingFolder =>
+  `${articlesPath}${containingFolder ? `/${containingFolder}` : ''}`;
+
+export const getArticleBySlug = (slug, fields = [], containingFolder = '') => {
+  const realSlug = slug.replace(/\.md$/, '');
+  const fullPath = join(directoryPath(containingFolder), `${realSlug}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
+
+  const items = {};
+
+  fields.forEach(field => {
+    if (field === 'slug') {
+      items[field] = realSlug;
+    }
+    if (field === 'section') {
+      items[field] = containingFolder;
+    }
+    if (field === 'content') {
+      items[field] = content;
+    }
+    if (field === 'minsToRead') {
+      items[field] = Math.ceil(content.split(' ').length / 200);
+    }
+
+    if (typeof data[field] !== 'undefined') {
+      items[field] = data[field];
+    }
+  });
+
+  return items;
+};
+```

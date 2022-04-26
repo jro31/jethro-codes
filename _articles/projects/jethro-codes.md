@@ -228,13 +228,13 @@ tags: 'Next JS, React, Tailwind CSS, Vercel'
 
 When we call `matter(fileContents)`, it returns an object with two keys: `data` and `content`.
 
-The value of `content` is the Markdown that comes _after_ this yaml code, so in this article:
+The value of `content` is the Markdown that comes _after_ this YAML code, so in this article:
 
 > I wasn’t going to write an article about this app, because I thought it’d be a bit weird to write about an app within the app. Some kind of appception...
 
 (and this is exactly what I meant)
 
-It contains formatting, although for simplicity I won't add that here.
+It contains formatting, although for simplicity I won't add that here (we'll get to it later).
 
 The value of `data`, is another object, that contains "data" of this YAML code, for example:
 
@@ -506,6 +506,182 @@ export const getArticles = (fields = [], containingFolder = '') => {
 };
 ```
 
-## Calling the API
+## Updating the app
 
 With the API done, we now need to make use of it in a way that the app automatically updates in every way we want it to, simply by adding a Markdown file. And this is where Next.js really comes into its own.
+
+Ignoring the sitemap for now, based on the file tree that I added earlier, we need to call the API in four different places:
+
+```
+📦pages
+ ┣ 📂[section]
+ ┃ ┗ 📜[slug].js
+ ┣ 📂my-story
+ ┃ ┗ 📜index.js
+ ┣ 📜[section].js
+ ┣ 📜index.js
+```
+
+Let's start with the 'My story' page, because this is the simplest of the four.
+
+### My story
+
+Being a static page, we don't even need to fetch the paths from the API. We already know the slug that we want to use is `my-story`.
+
+In order to have the article available for search engines to crawl, we're going to call the API in `getStaticProps`. Wanting just one article returned, we call `getArticleBySlug`, passing-in the `my-story` slug, and an array of the fields that we want returned.
+
+```js
+import { getArticleBySlug } from '../../lib/api';
+
+export const getStaticProps = async () => {
+  const article = getArticleBySlug('my-story', [
+    'title',
+    'description',
+    'published',
+    'content',
+    'minsToRead',
+    'coverImage',
+  ]);
+};
+```
+
+If you remember earlier, I said that the return `content` return from `gray-matter` "contains formatting". Well this is the point that we address that.
+
+The `article` variable from the above code block, would be:
+
+```js
+{
+  title: 'My Story',
+  description: 'Why I code',
+  published: '2022-04-19',
+  content: '\n' +
+    '## The pre-coding years\n' +
+    '\n' +
+    "Throughout my teenage years, I'd been very into video games, so it seemed logical that when it came to choosing my subjects for sixth-form college, that computing was one of them.\n" +
+    '\n' +
+    "On the first day of this A-level computing course, aged 16, I sat in the classroom, listening to the teacher drone on in his monotone voice about topics that I didn't understand. I looked around the class, and saw myself surrounded by peers that I couldn't relate to.\n" +
+    '\n' +
+    'I felt very out of place.\n' +
+    '\n' +
+    "I had some friends who'd taken economics and business studies, and they were raving about how fun the content had been of their first class, and how charismatic their teacher was. They had genuinely enjoyed it.\n" +
+    '\n' + ...,
+  minsToRead: 87,
+  coverImage: '/images/my-story/litang.jpeg',
+```
+
+I won't paste all of `content`, but you get the idea. It's not very nice to look at. It's Markdown as we write it, but even worse.
+
+`'\n'` instead of line-breaks, `+` signs everywhere. Probably not how we want our final article to be formatted.
+
+If you look back to the file tree again, you'll see a `markdownToHtml.js` file that we haven't mentioned yet.
+
+`markdownToHtml` returns the `markdownToHtml` function, and here is where we call that.
+
+```js
+import { getArticleBySlug } from '../../lib/api';
+import markdownToHtml from '../../lib/markdownToHtml';
+
+export const getStaticProps = async () => {
+  const article = getArticleBySlug('my-story', [
+    'title',
+    'description',
+    'published',
+    'content',
+    'minsToRead',
+    'coverImage',
+  ]);
+};
+const content = await markdownToHtml(article.content || '');
+```
+
+The full `markdownToHtml.js` file is as follows:
+
+```js
+import { remark } from 'remark';
+import html from 'remark-html';
+
+const markdownToHtml = async markdown => {
+  const result = await remark().use(html).process(markdown);
+  return result.toString();
+};
+
+export default markdownToHtml;
+```
+
+`remark` is a tool that parses and compiles Markdown. `remark-html` is a plugin for `remark`, that converts Markdown to html.
+
+So we call `remark()`, tell it to `use()` the `html` plugin, and then pass the Markdown that we want converted, in this case our article, to `process`.
+
+This returns a [vfile](https://github.com/vfile/vfile). We can call `.toString()` on this vfile, and return our article as html.
+
+Going back to our `getStaticProps` function, we now just need to return the article as `props`, overwriting the `content` key with the parsed article.
+
+We also pass-in the article subtitle (this is used when determining the content of the `<title>` tag in the page header, so is consistent across all pages within a section, hence why we set it here, rather than in the YAML at the top of each Markdown file).
+
+```js
+export const getStaticProps = async () => {
+  const article = getArticleBySlug('my-story', [
+    'title',
+    'description',
+    'published',
+    'content',
+    'minsToRead',
+    'coverImage',
+  ]);
+
+  const content = await markdownToHtml(article.content || '');
+
+  return {
+    props: {
+      article: {
+        ...article,
+        content,
+        subtitle: 'Why I became a software engineer',
+      },
+    },
+  };
+};
+```
+
+There is an `<ArticleContainer>` component that handles displaying our articles, so we pass the article as a prop to that component, and with that we have our article, fetched from the API, and visible to search engine crawlers.
+
+I'm not going to go over the `<ArticleContainer>` component itself, or any child components in any detail, because it's pretty simple.
+
+But just briefly, it renders and `<ArticleHeader>` (for example, the top of this page) and an `<ArticleBody>` (what you're looking at right now).
+
+The `<ArticleBody>` component, which is where the article `content` is displayed, is as follows:
+
+```js
+// components/layout/main-content/article-container/ArticleBody.js
+
+const ArticleBody = props => {
+  return (
+    <section className='-mt-32 max-w-7xl mx-auto relative z-10 md:pb-6 sm:px-6 lg:px-8'>
+      <div className='flex justify-center py-4 px-4 lg:py-8 sm:px-6 lg:px-8 bg-white rounded-lg shadow'>
+        <div
+          className='prose max-w-full 2xl:max-w-[900px] prose-img:m-0 prose-img:rounded-md prose-img:shadow-lg prose-pre:max-w-full'
+          dangerouslySetInnerHTML={{ __html: props.content }}
+        />
+      </div>
+    </section>
+  );
+};
+
+export default ArticleBody;
+```
+
+If the class names all look a bit funny, then you haven't tried Tailwind yet, and you're missing-out.
+
+However, the important part of this component is `dangerouslySetInnerHTML={{ __html: props.content }}`. This renders the value of `props.content` (our article) within the containing `<div>` tag.
+
+`dangerouslySetInnerHTML` is named as such, because if you're allowing other people to enter data that is rendered by `dangerouslySetInnerHTML`, you're leaving users vulnerable to Cross-site scripting (XSS) attacks.
+
+However, as the only HTML being rendered here comes from the Markdown articles that I wrote, it's perfectly safe.
+
+And with that, in our most simple of cases of displaying the 'My story' article, we are done.
+
+### `[slug].js`
+
+Next let's look at `[slug].js`. This does exactly the same thing as `my-story`, with the exception that the page name is dynamic.
+
+## Updating the sitemap

@@ -300,3 +300,212 @@ And with that, we've set all the data that we need, so return `items`.
 The last exportable function is `getArticles`.
 
 This uses a lot of the functionality that we've already been over, except that it uses it to return multiple articles.
+
+In the name of simplicity, I'll only add the code that we haven't been over here:
+
+```js
+const getArticleSlugs = containingFolder => {
+  return fs.readdirSync(directoryPath(containingFolder));
+};
+
+const allArticles = (fields = []) => {
+  let articlesArray = [];
+  allContainingFolders().map(folder => {
+    getArticleSlugs(folder).map(slug => {
+      if (slug.slice(-3) === '.md') {
+        articlesArray.push(getArticleBySlug(slug, fields, folder));
+      }
+    });
+  });
+  return articlesArray;
+};
+
+const articlesByFolder = (fields = [], folder) =>
+  getArticleSlugs(folder).map(slug => getArticleBySlug(slug, fields, folder));
+
+export const getArticles = (fields = [], containingFolder = '') => {
+  let articles = containingFolder
+    ? articlesByFolder(fields, containingFolder)
+    : allArticles(fields);
+
+  return articles.sort((article1, article2) => (article1.published > article2.published ? -1 : 1));
+};
+```
+
+`getArticles` accepts two arguments; `fields` and `containingFolder`.
+
+`fields` is used as we've seen earlier, to set which fields from each article are returned.
+
+If omitted, the `containingFolder` here determines that we return _all_ articles, as is necessary for the homepage or the sitemap, and calls the `allArticles()` function. If it is provided, then it will return _just_ the articles from within that folder by calling the `articlesByFolder()` function:
+
+```js
+containingFolder ? articlesByFolder(fields, containingFolder) : allArticles(fields);
+```
+
+Starting with `articlesByFolder()`, it firstly calls `getArticleSlugs()`.
+
+```js
+const getArticleSlugs = containingFolder => {
+  return fs.readdirSync(directoryPath(containingFolder));
+};
+```
+
+`getArticleSlugs()` uses the `fs.readdirSync()` function, which we went over earlier, and returns an array of all of the slugs contained _within_ the given folder. For example,
+
+```js
+getArticleSlugs('projects');
+```
+
+returns
+
+```js
+['jethro-codes.md', 'meals-of-change.md'];
+```
+
+Now that we know all of the articles that we want to return, it's simply a case of mapping over this array, calling `getArticleBySlug()` on each one, and returning the resulting array.
+
+```js
+const articlesByFolder = (fields = [], folder) =>
+  getArticleSlugs(folder).map(slug => getArticleBySlug(slug, fields, folder));
+```
+
+If instead, a `containingFolder` is not passed to `getArticles()`, we then call the `allArticles()` function.
+
+This function is similar, except we want to return every slug from every folder. So firstly we map over the return from `allContainingFolders()` (which we went over earlier).
+
+```js
+allContainingFolders().map(folder => {});
+```
+
+Within this map we run _another_ map, calling `getArticleSlugs()` on _each_ folder.
+
+```js
+allContainingFolders().map(folder => {
+  getArticleSlugs(folder).map(slug => {});
+});
+```
+
+We only want to call `getArticleBySlug()` on article slugs (and not on folders), so we then run a check that `slug` _is_ in fact an article, by checking that it has an `.md` extension.
+
+```js
+allContainingFolders().map(folder => {
+  getArticleSlugs(folder).map(slug => {
+    if (slug.slice(-3) === '.md') {
+    }
+  });
+});
+```
+
+Finally, if `slug` is an article, we call `getArticleBySlug()`, passing-in `slug` and the containing `folder`.
+
+The return is pushed to `articlesArray`, which we return from this function.
+
+```js
+const allArticles = (fields = []) => {
+  let articlesArray = [];
+  allContainingFolders().map(folder => {
+    getArticleSlugs(folder).map(slug => {
+      if (slug.slice(-3) === '.md') {
+        articlesArray.push(getArticleBySlug(slug, fields, folder));
+      }
+    });
+  });
+  return articlesArray;
+};
+```
+
+And with that, whether or not we passed-in a `containingFolder` to `getArticles()`, we now have an array of all the articles that we want to return, set to the variable `articles`.
+
+```js
+let articles = containingFolder ? articlesByFolder(fields, containingFolder) : allArticles(fields);
+```
+
+The last thing we do is sort the articles by the `published` date.
+
+If you remember the YAML at the top of our Markdown files, we include the date that the article is `published` there. This is what we use to sort them, returning the most recently published first.
+
+```js
+articles.sort((article1, article2) => (article1.published > article2.published ? -1 : 1));
+```
+
+And with that, our API is done.
+
+We can use this API by calling any of the three exported functions to return either the containing folders, a single article, or an array of articles.
+
+The completed `api.rb` files is therefore:
+
+```js
+// lib/api.js
+
+import fs from 'fs';
+import { join } from 'path';
+import matter from 'gray-matter';
+
+const articlesPath = join(process.cwd(), '_articles');
+const directoryPath = containingFolder =>
+  `${articlesPath}${containingFolder ? `/${containingFolder}` : ''}`;
+
+export const allContainingFolders = () =>
+  ['', ...fs.readdirSync(articlesPath)].filter(file => file.slice(-3) !== '.md');
+
+const getArticleSlugs = containingFolder => {
+  return fs.readdirSync(directoryPath(containingFolder));
+};
+
+export const getArticleBySlug = (slug, fields = [], containingFolder = '') => {
+  const realSlug = slug.replace(/\.md$/, '');
+  const fullPath = join(directoryPath(containingFolder), `${realSlug}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
+
+  const items = {};
+
+  fields.forEach(field => {
+    if (field === 'slug') {
+      items[field] = realSlug;
+    }
+    if (field === 'section') {
+      items[field] = containingFolder;
+    }
+    if (field === 'content') {
+      items[field] = content;
+    }
+    if (field === 'minsToRead') {
+      items[field] = Math.ceil(content.split(' ').length / 200);
+    }
+
+    if (typeof data[field] !== 'undefined') {
+      items[field] = data[field];
+    }
+  });
+
+  return items;
+};
+
+const allArticles = (fields = []) => {
+  let articlesArray = [];
+  allContainingFolders().map(folder => {
+    getArticleSlugs(folder).map(slug => {
+      if (slug.slice(-3) === '.md') {
+        articlesArray.push(getArticleBySlug(slug, fields, folder));
+      }
+    });
+  });
+  return articlesArray;
+};
+
+const articlesByFolder = (fields = [], folder) =>
+  getArticleSlugs(folder).map(slug => getArticleBySlug(slug, fields, folder));
+
+export const getArticles = (fields = [], containingFolder = '') => {
+  let articles = containingFolder
+    ? articlesByFolder(fields, containingFolder)
+    : allArticles(fields);
+
+  return articles.sort((article1, article2) => (article1.published > article2.published ? -1 : 1));
+};
+```
+
+## Calling the API
+
+With the API done, we now need to make use of it in a way that the app automatically updates in every way we want it to, simply by adding a Markdown file. And this is where Next.js really comes into its own.

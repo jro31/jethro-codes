@@ -191,3 +191,112 @@ export const getArticleBySlug = (slug, fields = [], containingFolder = '') => {
   return items;
 };
 ```
+
+This function accepts three arguments:
+
+The `slug` of the article, the `fields` within the article that you want returned (we'll get into that in a moment), and the `containingFolder`.
+
+To start with, `const realSlug = slug.replace(/\.md$/, '');` simply removes the `.md` extension, if one is passed-in on the slug, and sets the resulting string to `realSlug`.
+
+For example, if I passed `my-story.md` in as the `slug` argument, this would set `my-story` to `realSlug`.
+
+On the next line, we use the `join()` function again (covered in the previous section).
+
+The `directoryPath()` function simply checks whether the a `containingFolder` is present. If it is, it will return a string of the `articlesPath` followed by the containing folder, if not it will just return the`articlesPath`.
+
+So `` const fullPath = join(directoryPath(containingFolder), `${realSlug}.md`);  `` sets the full path of the location of the article, to the `fullPath` variable.
+
+Now that we have this path, we pass it to `fs.readFileSync`, which returns the contents of the file path we pass to it.
+
+So, for example, if our `fullPath` variable is set to `jethro-codes/_articles/projects/meals-of-change.md`, then `const fileContents = fs.readFileSync(fullPath, 'utf8');` sets the contents of the `meals-of-change.md` file to the `fileContents` variable, in utf8 format.
+
+Lastly we pass this `fileContents` to [`gray-matter`](https://github.com/jonschlinkert/gray-matter).
+
+What `gray-matter` does, is allow us to add YAML to the top of our Markdown files.
+
+For example, at the top of this file that I'm typing right now, is the following:
+
+```yaml
+---
+title: 'jethro.codes'
+description: 'A look behind the mechanics of how this app utilises Markdown files to automatically update the homepage and other pages.'
+coverImage: '/images/projects/jethro-codes/hero-screenshot.png'
+published: '2022-04-25' # TODO - Update this
+tags: 'Next JS, React, Tailwind CSS, Vercel'
+---
+```
+
+When we call `matter(fileContents)`, it returns an object with two keys: `data` and `content`.
+
+The value of `content` is the Markdown that comes _after_ this yaml code, so in this article:
+
+> I wasn’t going to write an article about this app, because I thought it’d be a bit weird to write about an app within the app. Some kind of appception...
+
+(and this is exactly what I meant)
+
+It contains formatting, although for simplicity I won't add that here.
+
+The value of `data`, is another object, that contains "data" of this YAML code, for example:
+
+```js
+data: {
+  title: 'jethro.codes',
+  description: 'A look behind the mechanics of how this app utilises Markdown files to automatically update the homepage and other pages.',
+  coverImage: '/images/projects/jethro-codes/hero-screenshot.png',
+  published: '2022-04-25',
+  tags: 'Next JS, React, Tailwind CSS, Vercel'
+}
+```
+
+We then use object destructuring to set the data and content to `data` and `content` variables respectively:
+
+```js
+const { data, content } = matter(fileContents);
+```
+
+Now we have all that we need to know about the article.
+
+What we eventually return is the `items` object, so now it's just a case of filtering only the data that we want to return, and appending this data to `items`.
+
+This is where the `fields` argument of `getArticleBySlug` comes in. To save accidentally returning too much data, we must pass-in every field we want returned.
+
+We then loop-over each of these fields, and assign them to `items` accordingly:
+
+```js
+fields.forEach(field => {
+  if (field === 'slug') {
+    items[field] = realSlug;
+  }
+  if (field === 'section') {
+    items[field] = containingFolder;
+  }
+  if (field === 'content') {
+    items[field] = content;
+  }
+  if (field === 'minsToRead') {
+    items[field] = Math.ceil(content.split(' ').length / 200);
+  }
+
+  if (typeof data[field] !== 'undefined') {
+    items[field] = data[field];
+  }
+});
+```
+
+In the client-side code, the `containingFolder` is called the `section`, for example the `projects` section or the `templates` section.
+
+The `minsToRead` field, splits the `content` based on spaces to (roughly) give the number of words in the article (`content.split(' ').length`).
+
+This number is then divided by 200, on the assumption that a person reads around 200 words per minute.
+
+That's the more conservative end of the spectrum of reading speed (per multiple sources), but people tend to read more slowly looking at screens, and I doubt many people will be bothering to print-off these articles to read them, so it makes sense to be at that end.
+
+`if (typeof data[field] !== 'undefined')` simply checks that a field exists in `data` before trying to return it.
+
+And with that, we've set all the data that we need, so return `items`.
+
+## `getArticles`
+
+The last exportable function is `getArticles`.
+
+This uses a lot of the functionality that we've already been over, except that it uses it to return multiple articles.

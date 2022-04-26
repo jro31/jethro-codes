@@ -645,7 +645,45 @@ export const getStaticProps = async () => {
 
 There is an `<ArticleContainer>` component that handles displaying our articles, so we pass the article as a prop to that component, and with that we have our article, fetched from the API, and visible to search engine crawlers.
 
-I'm not going to go over the `<ArticleContainer>` component itself, or any child components in any detail, because it's pretty simple.
+The entire file is as follows:
+
+```js
+// pages/my-story/index.js
+
+import { getArticleBySlug } from '../../lib/api';
+import markdownToHtml from '../../lib/markdownToHtml';
+import ArticleContainer from '../../components/layout/main-content/article-container';
+
+const MyStory = ({ article }) => {
+  return <ArticleContainer article={article} />;
+};
+
+export default MyStory;
+
+export const getStaticProps = async () => {
+  const article = getArticleBySlug('my-story', [
+    'title',
+    'description',
+    'published',
+    'content',
+    'minsToRead',
+    'coverImage',
+  ]);
+  const content = await markdownToHtml(article.content || '');
+
+  return {
+    props: {
+      article: {
+        ...article,
+        content,
+        subtitle: 'Why I became a software engineer',
+      },
+    },
+  };
+};
+```
+
+I'm not going to go over the `<ArticleContainer>` component itself, or any child component in any detail, because it's pretty simple.
 
 But just briefly, it renders and `<ArticleHeader>` (for example, the top of this page) and an `<ArticleBody>` (what you're looking at right now).
 
@@ -674,14 +712,291 @@ If the class names all look a bit funny, then you haven't tried Tailwind yet, an
 
 However, the important part of this component is `dangerouslySetInnerHTML={{ __html: props.content }}`. This renders the value of `props.content` (our article) within the containing `<div>` tag.
 
-`dangerouslySetInnerHTML` is named as such, because if you're allowing other people to enter data that is rendered by `dangerouslySetInnerHTML`, you're leaving users vulnerable to Cross-site scripting (XSS) attacks.
+`dangerouslySetInnerHTML` is named as such, because if you're allowing other people to enter data that is rendered by `dangerouslySetInnerHTML`, you're leaving users vulnerable to [Cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting) attacks.
 
 However, as the only HTML being rendered here comes from the Markdown articles that I wrote, it's perfectly safe.
 
 And with that, in our most simple of cases of displaying the 'My story' article, we are done.
 
-### `[slug].js`
+### [slug].js
 
 Next let's look at `[slug].js`. This does exactly the same thing as `my-story`, with the exception that the page name is dynamic.
+
+And what that means, is that in addition to `getStaticProps`, we also have to run the `getStaticPaths` function, in order to establish these page names.
+
+It's worth at this point, establishing _how_ the various sections of the app are populated.
+
+When you look at the sidebar (or the Navbar menu if you're on mobile), and you see `Home`, `Projects`, `Templates` etc., how did they get there?
+
+I like to keep related data in one place, so I have a `useSectionDetails` hook that contains all of these section details:
+
+```js
+// hooks/useSectionDetails.js
+
+import {
+  ChatIcon,
+  HomeIcon,
+  PaperClipIcon,
+  TemplateIcon,
+  TrendingUpIcon,
+} from '@heroicons/react/outline';
+
+const contact = 'contact';
+const home = 'home';
+const myStory = 'my-story';
+const projects = 'projects';
+const templates = 'templates';
+
+export const sectionOrder = [home, projects, templates, myStory, contact];
+export const articleSections = [projects, templates];
+
+const useSectionDetails = () => {
+  const sectionDetails = sectionName => {
+    switch (sectionName) {
+      case contact:
+        return {
+          title: 'Contact',
+          linkText: 'Contact',
+          route: `/${contact}`,
+          icon: ChatIcon,
+        };
+      case home:
+        return {
+          title: 'jethro.codes',
+          description: 'My home for everything code',
+          linkText: 'Home',
+          route: '/',
+          icon: HomeIcon,
+        };
+      case myStory:
+        return {
+          title: 'My Story',
+          linkText: 'My Story',
+          route: `/${myStory}`,
+          icon: TrendingUpIcon,
+        };
+      case projects:
+        return {
+          title: 'Projects',
+          description: 'Going in depth on my latest personal projects',
+          linkText: 'Projects',
+          route: `/${projects}`,
+          icon: PaperClipIcon,
+        };
+      case templates:
+        return {
+          title: 'Templates',
+          description: 'Project templates to save time starting from scratch',
+          linkText: 'Templates',
+          route: `/${templates}`,
+          icon: TemplateIcon,
+        };
+      default:
+        throw new Error(`Unrecognised section name '${sectionName}' passed to useSectionDetails`);
+    }
+  };
+
+  return sectionDetails;
+};
+
+export default useSectionDetails;
+```
+
+I won't go over every case of how this data hook is used, because most of it is irrelevant to how the articles are used, and that's what I want to focus on here. However, there is one important line:
+
+```js
+export const articleSections = [projects, templates];
+```
+
+This `articleSections` variable sets _which_ sections of our app contain articles.
+
+At the time of writing, that's just `projects` and `templates`, but in the future (if I find the time), may include `blog`, `packages`, `gems`, `tutorials` etc.
+
+Going back to our `getStaticPaths` function in `[slug].js`, we import `articleSections`, to know _where_ we need to look for articles.
+
+```js
+import { getArticles } from '../../lib/api';
+import { articleSections } from '../../hooks/useSectionDetails';
+
+export const getStaticPaths = () => {
+  const articles = [];
+
+  articleSections.map(section => {
+    articles.push(getArticles(['slug', 'section'], section));
+  });
+};
+```
+
+If you remember the `getArticles` function from earlier, it returns _all_ the articles for a given section.
+
+However, as we're mapping over _all_ sections, the `articles` array will contain _all_ articles (with the exception of 'my-story', as that's not contained within a section).
+
+At this stage, as we're only establishing the `paths` of these articles, we're only interested in returning the `slug` and the `section`.
+
+So with all articles now set to `articles`, we can loop over them, and set the `section` and the `slug`.
+
+```
+📦pages
+ ┣ 📂[section]
+ ┃ ┗ 📜[slug].js
+```
+
+So our full `getStaticPaths` function becomes:
+
+```js
+import { getArticles } from '../../lib/api';
+import { articleSections } from '../../hooks/useSectionDetails';
+
+export const getStaticPaths = () => {
+  const articles = [];
+
+  articleSections.map(section => {
+    articles.push(getArticles(['slug', 'section'], section));
+  });
+
+  return {
+    paths: articles.flat().map(article => {
+      return {
+        params: {
+          section: article.section,
+          slug: article.slug,
+        },
+      };
+    }),
+    fallback: 'blocking',
+  };
+};
+```
+
+The rest of the `[slug].js` file is fairly similar to the 'My story' section, as now having each of the article paths, we just need to fetch each article from the API.
+
+`getStaticProps` will run for every article, passing-in the `params` that we returned above.
+
+```js
+return {
+  params: {
+    section: article.section,
+    slug: article.slug,
+  },
+};
+```
+
+So when we call `getStaticProps`, we already have the `slug` and the `section`. We can therefore call `getArticleBySlug()`, and subsequently `markdownToHtml()` exactly as we did in the 'My story' section:
+
+```js
+import { getArticleBySlug } from '../../lib/api';
+import markdownToHtml from '../../lib/markdownToHtml';
+
+export const getStaticProps = async ({ params }) => {
+  const article = getArticleBySlug(
+    params.slug,
+    ['title', 'description', 'published', 'content', 'coverImage', 'tags', 'minsToRead'],
+    params.section
+  );
+};
+```
+
+The only slight additions, is that the `subtitle` will change, depending on the section, so we have a simple function for that, where we pass-in `params.section` as the argument.
+
+```js
+const subtitle = section => {
+  switch (section) {
+    case 'projects':
+      return 'Anatomy of a Project';
+    case 'templates':
+      return 'Project Template';
+    default:
+      return '';
+  }
+};
+```
+
+And we also need to determing the `type`.
+
+If you go to the very top of this page, you'll see `PROJECT` in blue letters, right above the title.
+
+That's the `type`, as in the `type` of article. And for all current sections, and future sections that I've so far conceived, simply removing the last 's' from the section name determines the type (so `projects` becomes `PROJECT`, `templates` becomes `TEMPLATE` etc.).
+
+For as long as that remains true, then `params.section.slice(0, -1)` will suffice.
+
+Every other part of the `[slug].js` file was covered in the 'My story' section, so I hope that it's clear.
+
+The full `[slug].js` file is therefore:
+
+```js
+// pages/[section]/[slug].js
+
+import { getArticleBySlug, getArticles } from '../../lib/api';
+import markdownToHtml from '../../lib/markdownToHtml';
+
+import ArticleContainer from '../../components/layout/main-content/article-container';
+
+import { articleSections } from '../../hooks/useSectionDetails';
+
+const Article = ({ article }) => {
+  return <ArticleContainer article={article} />;
+};
+
+export default Article;
+
+export const getStaticProps = async ({ params }) => {
+  const article = getArticleBySlug(
+    params.slug,
+    ['title', 'description', 'published', 'content', 'coverImage', 'tags', 'minsToRead'],
+    params.section
+  );
+  const content = await markdownToHtml(article.content || '');
+
+  const subtitle = section => {
+    switch (section) {
+      case 'projects':
+        return 'Anatomy of a Project';
+      case 'templates':
+        return 'Project Template';
+      default:
+        return '';
+    }
+  };
+
+  return {
+    props: {
+      article: {
+        ...article,
+        content,
+        type: params.section.slice(0, -1),
+        subtitle: subtitle(params.section),
+      },
+    },
+  };
+};
+
+export const getStaticPaths = () => {
+  const articles = [];
+
+  articleSections.map(section => {
+    articles.push(getArticles(['slug', 'section'], section));
+  });
+
+  return {
+    paths: articles.flat().map(article => {
+      return {
+        params: {
+          section: article.section,
+          slug: article.slug,
+        },
+      };
+    }),
+    fallback: 'blocking',
+  };
+};
+```
+
+### [section].js
+
+So far what we've been able to achieve, is dynamically fetching and displaying the articles, simply by adding a Markdown file.
+
+`getStaticPaths` in `[slug].js` will check for any articles that exist at build time.
+
+However, at this stage although the articles will be hosted within the app, no one will have any way of finding them or knowing that they're there, because so far we haven't updated the homepage or the section page. So let's take care of that next.
 
 ## Updating the sitemap

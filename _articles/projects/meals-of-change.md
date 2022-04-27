@@ -2043,5 +2043,5 @@ Happy coding!
 ## Useful links
 
 - Meals of Change - [https://mealsofchange.com/](https://mealsofchange.com/)
-- Meals of Change front-end Github repo - [https://github.com/jro31/meals-of-change-front-end](https://github.com/jro31/meals-of-change-front-end)
-- Meals of Change API Github repo - [https://github.com/jro31/meals-of-change-api](https://github.com/jro31/meals-of-change-api)
+- Meals of Change front-end GitHub repo - [https://github.com/jro31/meals-of-change-front-end](https://github.com/jro31/meals-of-change-front-end)
+- Meals of Change API GitHub repo - [https://github.com/jro31/meals-of-change-api](https://github.com/jro31/meals-of-change-api)

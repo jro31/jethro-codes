@@ -2,7 +2,7 @@
 title: 'jethro.codes'
 description: 'A look behind the mechanics of how this app utilises Markdown files to automatically update the homepage and other pages.'
 coverImage: '/images/projects/jethro-codes/hero-screenshot.png'
-published: '2022-04-25' # TODO - Update this
+published: '2022-04-27'
 tags: 'Next JS, React, Tailwind CSS, Vercel'
 ---
 
@@ -219,7 +219,7 @@ For example, at the top of this file that I'm typing right now, is the following
 title: 'jethro.codes'
 description: 'A look behind the mechanics of how this app utilises Markdown files to automatically update the homepage and other pages.'
 coverImage: '/images/projects/jethro-codes/hero-screenshot.png'
-published: '2022-04-25' # TODO - Update this
+published: '2022-04-27'
 tags: 'Next JS, React, Tailwind CSS, Vercel'
 ---
 ```
@@ -1466,4 +1466,18 @@ export const getServerSideProps = ({ req, res }) => {
 };
 ```
 
-To see the file that we generated here, go to [jethro.codes/sitemap.xml](https://jethro.codes/sitemap.xml).
+To see the page that we generated here, go to [jethro.codes/sitemap.xml](https://jethro.codes/sitemap.xml).
+
+## Wrap-up
+
+By automatically updating the sitemap, we've successfully got our app working so that by simply adding a new Markdown article, the article gets hosted, the homepage and the section page get updated, and the sitemap updates to let Google and other search engines know that our article is there.
+
+If you've made it this far, then I hope that everything I've been over is clear... or at least clear enough for you to start hacking away yourself.
+
+If anything wasn't clear, or if there's anything else on this app that you think should be covered in this article, shoot me an email.
+
+Otherwise, happy hacking!
+
+## Useful links
+
+- jethro.codes GitHub repo - [https://github.com/jro31/jethro-codes](https://github.com/jro31/jethro-codes)

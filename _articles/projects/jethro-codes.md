@@ -10,11 +10,11 @@ I wasn’t going to write an article about this app, because I thought it’d be
 
 I imagine that’s what the people who make Git go through everyday.
 
-However, in creating this app, I learned a lot that I didn't know before, so I think it’s worth going over and maybe it can help someone.
+However, in creating this app, I learned a lot that I didn't know before, so I think it’s worth going over and hopefully it can be useful.
 
 Being an app consisting mostly of articles, it made sense to me that I’d write them in Markdown. And what I wanted, was to be able to add a Markdown file, and by simply adding this file and doing nothing else, I wanted the homepage to update, the section page (for example, the 'Projects' page or the 'Templates' page) to update, and even the sitemap to update.
 
-I had a rough idea how I could achieve this, but then I found that [Vercel](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) has a template project that was better than my idea, and using that as my starting point, I was able to build the foundations of this app so it does exactly what I wanted.
+I had a rough idea how I could achieve this, but then I found that [Vercel](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) had a template project that was better than my idea, and using that as my starting point, I was able to build the foundations of this app so it does exactly what I wanted.
 
 I added this article as a Markdown file, and by doing nothing else, as if by magic it appears on the homepage, the projects page, and in the sitemap.
 
@@ -22,11 +22,11 @@ I added this article as a Markdown file, and by doing nothing else, as if by mag
 
 My reasoning for creating this app was fairly simple.
 
-At this point, [jethrowilliams.com](https://jethrowilliams.com/) was already online, and that was my sort of… front page, if you will.
+At this point, [jethrowilliams.com](https://jethrowilliams.com/) was already online, and that was my sort of... front page.
 
 If I want to give someone a very quick overview of exactly what it is I do, and how they can contact me, then I can direct them to jethrowilliams.com. And for the majority of people, that’s going to be enough.
 
-However, this front-page doesn’t allow me to go into any depth on the code I create because most people, especially non-technical people, just won’t care.
+However, this front-page doesn’t allow me to go into any depth on the code I create because most people, especially non-technical people, just don’t care.
 
 So I wanted a place, partly for my own benefit because I find it insightful to have to explain something in a manner that others can understand, where I can go into more depth on the code that I write.
 
@@ -38,11 +38,11 @@ And I don’t drink coffee, so I had nothing to spend that money on anyway.
 
 ## Styling
 
-Before I get onto the technical part of this app, a quick word about styling.
+Before I get onto the technical side of this app, a quick word about styling.
 
 This app may look like it was cobbled together with a bunch of random components that don’t have any relation to each other. And that’s because... well it was.
 
-Up to this point, every app I'd ever made I'd done the styling myself. And although I enjoy and I'm very good at styling, it's such a time consuming process, tweaking every element for various devices and screen sizes.
+Up to this point, every app I'd ever made I'd done the styling myself. And although I enjoy and I'm good at styling, it's such a time consuming process, tweaking every element for various devices and screen sizes.
 
 I just wanted a place where I can write about code, and in all truth, so long as it doesn't look completely atrocious, I'm not too concerned with how it looks.
 
@@ -58,7 +58,7 @@ What I instead want to focus on is fetching the Markdown articles, and updating 
 
 Before getting into the API and fetching the articles, it's worth mentioning the stucture of the app to make everything a little clearer.
 
-Note that this is (fairly obviously) a simplified version of the app. I'm only showing relevant folders here.
+Below is a file tree of all the files/folders relevant to what we're going to cover in this article.
 
 ```
 📦_articles
@@ -86,7 +86,7 @@ Note that this is (fairly obviously) a simplified version of the app. I'm only s
 
 To start with, the `_articles` folder, is where the articles are added as Markdown files.
 
-The `pages` folder shows the pages within the app.
+The `pages` folder shows the pages within this app.
 
 The `api.js` file in the `lib` folder is where all the magic happens. This is where the logic to look within the `_articles` folder and return the correct data to the pages lives.
 
@@ -96,9 +96,9 @@ If you understand how the API works, then the rest of the app is fairly rudiment
 
 ## API
 
-The API is based on [the API from the Vercel demo project](https://github.com/vercel/next.js/blob/canary/examples/blog-starter/lib/api.js).
+The API is based on [the API from this Vercel demo project](https://github.com/vercel/next.js/blob/canary/examples/blog-starter/lib/api.js).
 
-It exports three functions needed by the various pages used within the app:
+It exports three functions needed by the various pages within the app:
 
 - `getArticles`
 - `getArticleBySlug`
@@ -108,7 +108,7 @@ It exports three functions needed by the various pages used within the app:
 
 I'll start with the simplest of these: `allContainingFolders`.
 
-This function returns any folder within `_article`, that contains a markdown article.
+This function returns any folder within the `_article` folder, that contains a markdown article.
 
 ```js
 import fs from 'fs';
@@ -126,7 +126,7 @@ This is set to the `articlesPath` variable.
 
 `fs` (short for 'file system') is a Node library. The `readdirSync()` function (short for 'read directory synchronously') returns the contents of the directory that you pass it.
 
-So `fs.readdirSync(articlesPath)` returns an array of all files and folders which are direct children to the `_articles` folder.
+So `fs.readdirSync(articlesPath)` returns an array of all files and folders which are direct children of the `_articles` folder.
 
 Looking back to the file tree above, that is `['my-story.md', 'projects', 'templates']`.
 
@@ -190,21 +190,21 @@ export const getArticleBySlug = (slug, fields = [], containingFolder = '') => {
 };
 ```
 
-This function accepts three arguments:
+The `getArticleBySlug` function accepts three arguments:
 
 The `slug` of the article, the `fields` within the article that you want returned (we'll get into that in a moment), and the `containingFolder`.
 
 To start with, `const realSlug = slug.replace(/\.md$/, '');` simply removes the `.md` extension, if one is passed-in on the slug, and sets the resulting string to `realSlug`.
 
-For example, if I passed `my-story.md` in as the `slug` argument, this would set `my-story` to `realSlug`.
+For example, if I passed `'my-story.md'` in as the `slug` argument, then `'my-story'` would be set to `realSlug`.
 
 On the next line, we use the `join()` function again (covered in the previous section).
 
-The `directoryPath()` function simply checks whether the a `containingFolder` is present. If it is, it will return a string of the `articlesPath` followed by the containing folder, if not it will just return the `articlesPath`.
+The `directoryPath()` function simply checks whether a `containingFolder` is present. If it is, it returns a string of the `articlesPath` followed by the containing folder, if not it will just return the `articlesPath`.
 
 So `` const fullPath = join(directoryPath(containingFolder), `${realSlug}.md`); `` sets the full path of the location of the article, to the `fullPath` variable.
 
-Now that we have this path, we pass it to `fs.readFileSync`, which returns the contents of the file path we pass to it.
+Now that we have this path, we pass it to `fs.readFileSync` (read file synchronously), which returns the contents of the file path we pass to it.
 
 So, for example, if our `fullPath` variable is set to `jethro-codes/_articles/projects/meals-of-change.md`, then `const fileContents = fs.readFileSync(fullPath, 'utf8');` sets the contents of the `meals-of-change.md` file to the `fileContents` variable, in utf8 format.
 
@@ -234,7 +234,7 @@ The value of `content` is the Markdown that comes _after_ this YAML code, so in 
 
 It contains formatting, although for simplicity I won't add that here (we'll get to it later).
 
-The value of `data`, is another object, that contains the "data" of this YAML code, for example:
+The value of `data` is another object, which contains the "data" of this YAML code, for example:
 
 ```js
 data: {
@@ -254,7 +254,7 @@ const { data, content } = matter(fileContents);
 
 Now we have all that we need to know about the article.
 
-What we eventually return is the `const items = {};` object, so now it's just a case of filtering only the data that we want to return, and appending this data to `items`.
+What we eventually return from `getArticleBySlug` is the `const items = {};` object, so now it's just a case of filtering only the data that we want to return, and appending this data to `items`.
 
 This is where the `fields` argument of `getArticleBySlug` comes in. To save accidentally returning too much data, we must pass-in every field we want returned.
 
@@ -334,7 +334,7 @@ export const getArticles = (fields = [], containingFolder = '') => {
 
 `fields` is used as we've seen earlier, to set which fields from each article are returned.
 
-If omitted, the `containingFolder` here determines that we return _all_ articles, as is necessary for the homepage or the sitemap, and calls the `allArticles()` function. If it is provided, then it will return _just_ the articles from within that folder by calling the `articlesByFolder()` function:
+If omitted, the `containingFolder` here determines that we return _all_ articles, as is necessary for the homepage or the sitemap, and calls the `allArticles()` function. If `containingFolder` is provided, then it will return _just_ the articles from within that folder by calling the `articlesByFolder()` function:
 
 ```js
 containingFolder ? articlesByFolder(fields, containingFolder) : allArticles(fields);
@@ -430,7 +430,7 @@ And with that, our API is done.
 
 We can use this API by calling any of the three exported functions to return either the containing folders, a single article, or an array of articles.
 
-The completed `api.rb` files is therefore:
+The completed `api.rb` file is therefore:
 
 ```js
 // lib/api.js
@@ -543,7 +543,7 @@ export const getStaticProps = async () => {
 };
 ```
 
-If you remember earlier, I said that the return `content` return from `gray-matter` "contains formatting." Well this is the point that we address that.
+If you remember earlier, I said that the `content` return from `gray-matter` "contains formatting." Well this is the point that we address that.
 
 The `article` variable from the above code block, would be:
 
@@ -595,6 +595,8 @@ const content = await markdownToHtml(article.content || '');
 The full `markdownToHtml.js` file is as follows:
 
 ```js
+// lib/markdownToHtml.js
+
 import { remark } from 'remark';
 import html from 'remark-html';
 
@@ -713,13 +715,13 @@ However, the important part of this component is `dangerouslySetInnerHTML={{ __h
 
 However, as the only HTML being rendered here comes from the Markdown articles that I wrote, it's perfectly safe.
 
-And with that, in our most simple of cases of displaying the 'My story' article, we are done.
+And with that, in our most simple case of displaying the 'My story' article, we are done.
 
 ### [slug].js
 
 Next let's look at `[slug].js`. This does exactly the same thing as `my-story`, with the exception that the page name is dynamic.
 
-And what that means, is that in addition to `getStaticProps`, we also have to run the `getStaticPaths` function, in order to establish these page names.
+And what that means, is that in addition to `getStaticProps`, we also have to run the `getStaticPaths` function, in order to establish the page names.
 
 It's worth at this point, establishing _how_ the various sections of the app are populated.
 
@@ -799,7 +801,7 @@ const useSectionDetails = () => {
 export default useSectionDetails;
 ```
 
-I won't go over every case of how this data is used, because most of it is irrelevant to the articles, and that's what I want to focus on here. However, there is one important line:
+I won't go over every case of how this data is used, because most of it is irrelevant to the Markdown articles, and that's what I want to focus on here. However, there is one important line:
 
 ```js
 export const articleSections = [projects, templates];
@@ -908,15 +910,15 @@ const subtitle = section => {
 };
 ```
 
-And we also need to determing the `type`.
+And we also need to determine the `type`.
 
 If you go to the very top of this page, you'll see `PROJECT` in blue letters, right above the title.
 
-That's the `type`, as in the `type` of article. And for all current sections, and future sections that I've so far conceived, simply removing the last 's' from the section name determines the type (so `projects` becomes `PROJECT`, `templates` becomes `TEMPLATE` etc.).
+That's the `type`, as in the `type` of article. And for all current sections, and future sections that I've so far conceived (ignore blog), simply removing the last 's' from the section name determines the type (so `projects` becomes `PROJECT`, `templates` becomes `TEMPLATE` etc.).
 
 For as long as that remains true, then `params.section.slice(0, -1)` will suffice.
 
-Every other part of the `[slug].js` file was covered in the 'My story' section, so I hope that it's clear.
+Every other part of the `[slug].js` file was covered in the 'My story' section.
 
 The full `[slug].js` file is therefore:
 
@@ -1014,7 +1016,7 @@ Luckily, we already know the various sections of our app, because they're contai
 import { articleSections } from '../../hooks/useSectionDetails';
 ```
 
-Within `getStaticPaths` we again map over this array, although this time we don't care about fetching any slugs, we simply want to tell `[section]/index.js` which paths to create.
+Within `getStaticPaths` we again map over this array, although this time we don't care about fetching any slugs; we simply want to tell `[section]/index.js` which paths to create.
 
 Assuming that `articleSections` returns `['projects', 'templates']`, then we want a `projects` page and a `templates` page, so our `getStaticPaths` function becomes:
 
@@ -1035,11 +1037,11 @@ export const getStaticPaths = () => {
 };
 ```
 
-On these 'section' pages, we have no interest in displaying the entire article, we simply want enough information to populate the "cards" on each page, and link to the article itself.
+On these 'section' pages, we have no interest in displaying the entire article, we simply want enough information to populate the cards on each page, and to link to the article itself.
 
-To that end, we need five pieces of information about each article; the `title`, `description`, `slug`, `coverImage` and `section`.
+To that end, we need five pieces of information about each article: `title`, `description`, `slug`, `coverImage` and `section`.
 
-So in our `getStaticProps` function, we call our API `getArticles` function, pass-in the section (`projects` or `templates`) for whichever page we're on, as well as the required fields, and set the returned array to the `allArticles` variable. We then return `allArticles` as our props.
+So in `getStaticProps`, we call our API `getArticles` function, pass-in the section (`projects` or `templates`) for whichever page we're on, as well as the required fields, and set the returned array to the `allArticles` variable. We then return `allArticles` as our props.
 
 ```js
 import { getArticles } from '../../lib/api';
@@ -1129,7 +1131,7 @@ The full file can be found [HERE] - ADD LINK ONCE MOVED FILE IS ON MASTER
 
 And with that, at build time our `[section]/index.js` page will create a page for _each_ section stored within our `articleSections` variable, and will fetch all of the articles for that section, creating a card for each article.
 
-That means that, just by adding a Markdown article within the correct sub-folder of our `_articles` folder, the article will be automatically fetched made available to our readers.
+That means that, just by adding a Markdown article within the correct sub-folder of our `_articles` folder, the article will be automatically fetched and made available to our readers.
 
 ```
 📦_articles
@@ -1143,7 +1145,7 @@ That means that, just by adding a Markdown article within the correct sub-folder
 
 ### Homepage
 
-The last place that we want to display our new article, is the homepage, as if you were to take a look at the homepage now, you'll see that it displays the six most recently published articles.
+The last place that we want to display our new article is the homepage. If you were to take a look at the homepage now, you'll see that it displays the six most recently published articles.
 
 At this point, we've done all the hard work and updating the homepage is comparatively simple.
 
@@ -1241,7 +1243,7 @@ export const getStaticProps = async () => {
 
 The full homepage file can be found [here](https://github.com/jro31/jethro-codes/blob/master/pages/index.js).
 
-As with other pages, our homepage will update at build time, so now by simply adding a new Markdown file, our new article is hosted (by `[slug].js`) and will have a card advertising it on both the section page, and the homepage.
+As with other pages, our homepage will update at build time, so now by simply adding a new Markdown file, our new article is hosted (by `[slug].js`) and will have a card linking to it on both the section page, and the homepage.
 
 All that's left therefore, is to update our sitemap so that search engines know that the article is there.
 
@@ -1271,9 +1273,9 @@ All that's left therefore, is to update our sitemap so that search engines know 
  ┗ 📜sitemap.xml.js
 ```
 
-This is the file tree that I gave you back at the beginning of the article. And the last part that we need to cover is the `sitemap.xml.js` file at the bottom.
+This is the file tree that I showed you back at the beginning of this article. And the last part that we need to cover is the `sitemap.xml.js` file at the bottom.
 
-`sitemap.xml.js` is a component within which we don't render anything. Instead we're going to use its `getServerSideProps` function, which is called once the URL (in this case, jethro.codes/sitemap.xml) is hit.
+`sitemap.xml.js` is a component within which we don't render anything. Instead we're going to use its `getServerSideProps` function, which is called once the URL (in this case jethro.codes/sitemap.xml) is hit.
 
 `getServerSideProps` has a `res` object (short for 'response'), and we're going to override this response with our sitemap.
 
@@ -1293,7 +1295,7 @@ export const getServerSideProps = ({ res }) => {
 };
 ```
 
-At this point, the `sitemap` variable doesn't exist; we'll get to that in a second.
+At this point, the `sitemap` variable (within `res.write(sitemap)`) doesn't exist; we'll get to that in a second.
 
 I just want to try and make clearer exactly what we're doing.
 
@@ -1301,7 +1303,7 @@ When calling `getServerSideProps`, we get a `res` (response) object.
 
 We then set the header of this response to have a content-type of `xml`. We then write our `sitemap` to the body of this response, before we `end` the response (sending it back to the original request).
 
-The `return` statement here does nothing; it's simply a requirement of `getServerSideProps`, so we include it so as to not through an error.
+The `return` statement here does nothing; it's simply a requirement of `getServerSideProps`, so we include it so as to not throw an error.
 
 With that done, we now need to populate the `sitemap` variable _with_ our sitemap.
 
@@ -1341,7 +1343,7 @@ We interpolate these two strings together to set the `baseUrl` variable.
 
 So in production, `baseUrl` will be set to `https://jethro.codes`.
 
-Next we want to fetch all the articles that we have in the app. We do that by calling the `getArticles()` function in our API, that we've been over already in this article.
+Next we want to fetch all the articles that we have in the app. We do this by calling the `getArticles()` function in our API.
 
 We want _all_ articles, so we don't pass-in a containing folder, and as we're only interested in determining the location of these articles, only request the `slug` and `section` fields.
 
@@ -1351,7 +1353,7 @@ import { getArticles } from '../lib/api';
 const allArticles = getArticles(['slug', 'section']);
 ```
 
-The `allArticles` variable will be something like:
+The `allArticles` variable will therefore be something like:
 
 ```js
 [
@@ -1370,7 +1372,7 @@ const allArticlePaths = allArticles.map(
 );
 ```
 
-Here we map over each article, and _if_ a `section` is present, interpolate the `section` with the slug. If no `section` is present, we just return the slug. Our `allArticlePaths` variable will therefore be:
+Here we map over `allArticles`, and _if_ a `section` is present, we interpolate the `section` with the slug. If no `section` is present, we just return the slug. Our `allArticlePaths` variable will therefore be:
 
 ```js
 ['my-story', 'projects/jethro-codes', 'projects/meals-of-change', 'templates/rails-api'];
@@ -1415,7 +1417,7 @@ const allPaths = [...allContainingFolders(), 'contact', ...allArticlePaths];
 
 Now that we have the paths to every page in our app, all we need to do is map over them and add them to our `sitemap` variable.
 
-They need to be contained withing `<url><loc>` tags, and we want to append the path onto the `baseUrl` that we established earlier, so our `sitemap` variable can be set as follows:
+They need to be contained within `<url><loc>` tags, and we want to append the path onto the `baseUrl` that we established earlier, so our `sitemap` variable can be set as follows:
 
 ```js
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -1474,7 +1476,7 @@ By automatically updating the sitemap, we've successfully got our app working so
 
 If you've made it this far, then I hope that everything I've been over is clear... or at least clear enough for you to start hacking away yourself.
 
-If anything wasn't clear, or if there's anything else on this app that you think should be covered in this article, shoot me an email.
+If anything wasn't clear, or if there's anything else in this app that you think should be covered in this article, let me know in an email.
 
 Otherwise, happy hacking!
 

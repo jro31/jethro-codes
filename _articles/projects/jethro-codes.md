@@ -1147,4 +1147,102 @@ The last place that we want to display our new article, is the homepage, as if y
 
 At this point, we've done all the hard work and updating the homepage is comparatively simple.
 
+It's not a dynamic page, so we **don't** need to use `getStaticPaths`. And as it's not a section, we don't even have to pass a containing folder to the API.
+
+Instead, in our `getStaticProps` function, we want to return _all_ articles from the API.
+
+```js
+import { getArticles } from '../lib/api';
+
+getArticles(['title', 'description', 'slug', 'coverImage', 'section', 'published', 'minsToRead']);
+```
+
+As they are returned from the API already sorted by the most recently published, we simply need to keep the first six of them, and can do that with `slice`.
+
+```js
+import { getArticles } from '../lib/api';
+
+getArticles([
+  'title',
+  'description',
+  'slug',
+  'coverImage',
+  'section',
+  'published',
+  'minsToRead',
+]).slice(0, 6);
+```
+
+We can set these six articles to the variable `featureArticles`, and return that as `props` from `getStaticProps`.
+
+```js
+import { getArticles } from '../lib/api';
+
+export const getStaticProps = async () => {
+  const featureArticles = getArticles([
+    'title',
+    'description',
+    'slug',
+    'coverImage',
+    'section',
+    'published',
+    'minsToRead',
+  ]).slice(0, 6);
+
+  return {
+    props: { featureArticles },
+  };
+};
+```
+
+From here, this page works very much like `[section]/index.js`, with the exception that we use vertical cards, instead of horizontal cards.
+
+So again omitting some irrelevant code (like the `<Head>` section), our full homepage (`index.js`) file becomes:
+
+```js
+// pages/index.js
+
+import SectionHome from '../components/layout/main-content/section-home';
+import VerticalCard from '../components/ui/VerticalCard';
+import VerticalCardsContainer from '../components/ui/VerticalCardsContainer';
+import { getArticles } from '../lib/api';
+import useHeroImage from '../hooks/useHeroImage';
+
+const Home = ({ featureArticles }) => {
+  return (
+    <SectionHome heroImage={useHeroImage(featureArticles)}>
+      <VerticalCardsContainer title='Latest content'>
+        {featureArticles.map(article => (
+          <VerticalCard key={`${article.title}-card`} cardDetails={article} />
+        ))}
+      </VerticalCardsContainer>
+    </SectionHome>
+  );
+};
+
+export default Home;
+
+export const getStaticProps = async () => {
+  const featureArticles = getArticles([
+    'title',
+    'description',
+    'slug',
+    'coverImage',
+    'section',
+    'published',
+    'minsToRead',
+  ]).slice(0, 6);
+
+  return {
+    props: { featureArticles },
+  };
+};
+```
+
+The full homepage file can be found [here](https://github.com/jro31/jethro-codes/blob/master/pages/index.js).
+
+As with other pages, our homepage will update at build time, so now by simply adding a new Markdown file, our new article is hosted (by `[slug].js`) and will have a card advertising it on both the section page, and the homepage.
+
+All that's left therefore, is to update our sitemap so that search engines know that the article is there.
+
 ## Updating the sitemap

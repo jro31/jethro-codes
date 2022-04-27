@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { getArticles } from '../lib/api';
-import HorizontalCard from '../components/ui/HorizontalCard';
-import HorizontalCardsContainer from '../components/ui/HorizontalCardsContainer';
-import SectionHome from '../components/layout/main-content/section-home';
-import { articleSections } from '../hooks/useSectionDetails';
-import useHeroImage from '../hooks/useHeroImage';
-import useActiveSection from '../hooks/useActiveSection';
-import useSectionDetails from '../hooks/useSectionDetails';
-import { baseUrl, stockImagePath } from '../components/layout';
+import { getArticles } from '../../lib/api';
+import HorizontalCard from '../../components/ui/HorizontalCard';
+import HorizontalCardsContainer from '../../components/ui/HorizontalCardsContainer';
+import SectionHome from '../../components/layout/main-content/section-home';
+import { articleSections } from '../../hooks/useSectionDetails';
+import useHeroImage from '../../hooks/useHeroImage';
+import useActiveSection from '../../hooks/useActiveSection';
+import useSectionDetails from '../../hooks/useSectionDetails';
+import { baseUrl, stockImagePath } from '../../components/layout';
 
 const Section = ({ allArticles }) => {
   const router = useRouter();

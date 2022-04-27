@@ -10,13 +10,11 @@ I wasn’t going to write an article about this app, because I thought it’d be
 
 I imagine that’s what the people who make Git go through everyday.
 
-However, in creating this app, I learned a lot that I didn't know before, so I think it’s worth going over.
+However, in creating this app, I learned a lot that I didn't know before, so I think it’s worth going over and maybe it can help someone.
 
-Being an app consisting mostly of articles, it made sense to me that I’d write them in Markdown.
+Being an app consisting mostly of articles, it made sense to me that I’d write them in Markdown. And what I wanted, was to be able to add a Markdown file, and by simply adding this file and doing nothing else, I wanted the homepage to update, the section page (for example, the 'Projects' page or the 'Templates' page) to update, and even the sitemap to update.
 
-And what I wanted, was to be able to add a Markdown file, and by simply adding this file and doing nothing else, I wanted the homepage to update, the section page (for example, the 'Projects' page or the 'Templates' page) to update, and even the sitemap to update.
-
-I had a rough idea how I could achieve this, but then I found that [Vercel](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) has a template project that was better than my idea, and using that as my starting point, I was able to build the foundations of this app so it does exactly what I was hoping.
+I had a rough idea how I could achieve this, but then I found that [Vercel](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) has a template project that was better than my idea, and using that as my starting point, I was able to build the foundations of this app so it does exactly what I wanted.
 
 I added this article as a Markdown file, and by doing nothing else, as if by magic it appears on the homepage, the projects page, and in the sitemap.
 
@@ -42,11 +40,11 @@ And I don’t drink coffee, so I had nothing to spend that money on anyway.
 
 Before I get onto the technical part of this app, a quick word about styling.
 
-This app may look like it was cobbled together with a bunch of random components that don’t have any relation to each other. And that’s because... well that’s exactly what it is.
+This app may look like it was cobbled together with a bunch of random components that don’t have any relation to each other. And that’s because... well it was.
 
 Up to this point, every app I'd ever made I'd done the styling myself. And although I enjoy and I'm very good at styling, it's such a time consuming process, tweaking every element for various devices and screen sizes.
 
-I just want a place where I can write about code, and in all truth, so long as it doesn't look completely atrocious, I'm not too concerned with how it looks.
+I just wanted a place where I can write about code, and in all truth, so long as it doesn't look completely atrocious, I'm not too concerned with how it looks.
 
 So while I have done some minor customisation, this app is largely made up of [Tailwind UI](https://tailwindui.com/) components.
 
@@ -76,11 +74,11 @@ Note that this is (fairly obviously) a simplified version of the app. I'm only s
 📦pages
  ┣ 📂[section]
  ┃ ┗ 📜[slug].js
+ ┃ ┗ 📜index.js
  ┣ 📂contact
  ┃ ┗ 📜index.js
  ┣ 📂my-story
  ┃ ┗ 📜index.js
- ┣ 📜[section].js
  ┣ 📜_app.js
  ┣ 📜index.js
  ┗ 📜sitemap.xml.js
@@ -110,7 +108,7 @@ It exports three functions needed by the various pages used within the app:
 
 I'll start with the simplest of these: `allContainingFolders`.
 
-This function returns any folde within `_article`, that contains a markdown article.
+This function returns any folder within `_article`, that contains a markdown article.
 
 ```js
 import fs from 'fs';
@@ -150,7 +148,7 @@ The best explanation I could find was [this StackOverflow answer](https://stacko
 
 It's either _"an informal name given to a story during the production process"_ of the printing press, or _"screenplays had "slug lines" at the start of each scene, which basically sets the background for that scene."_
 
-Regardless of where it came from, this function returns one article, based on the slug you pass it:
+Regardless of where it came from, `getArticleBySlug()` returns one article, based on the slug you pass it:
 
 ```js
 import fs from 'fs';
@@ -202,9 +200,9 @@ For example, if I passed `my-story.md` in as the `slug` argument, this would set
 
 On the next line, we use the `join()` function again (covered in the previous section).
 
-The `directoryPath()` function simply checks whether the a `containingFolder` is present. If it is, it will return a string of the `articlesPath` followed by the containing folder, if not it will just return the`articlesPath`.
+The `directoryPath()` function simply checks whether the a `containingFolder` is present. If it is, it will return a string of the `articlesPath` followed by the containing folder, if not it will just return the `articlesPath`.
 
-So `` const fullPath = join(directoryPath(containingFolder), `${realSlug}.md`);  `` sets the full path of the location of the article, to the `fullPath` variable.
+So `` const fullPath = join(directoryPath(containingFolder), `${realSlug}.md`); `` sets the full path of the location of the article, to the `fullPath` variable.
 
 Now that we have this path, we pass it to `fs.readFileSync`, which returns the contents of the file path we pass to it.
 
@@ -226,7 +224,7 @@ tags: 'Next JS, React, Tailwind CSS, Vercel'
 ---
 ```
 
-When we call `matter(fileContents)`, it returns an object with two keys: `data` and `content`.
+When we `import matter from 'gray-matter';` and then call `matter(fileContents)`, it returns an object with two keys: `data` and `content`.
 
 The value of `content` is the Markdown that comes _after_ this YAML code, so in this article:
 
@@ -236,7 +234,7 @@ The value of `content` is the Markdown that comes _after_ this YAML code, so in 
 
 It contains formatting, although for simplicity I won't add that here (we'll get to it later).
 
-The value of `data`, is another object, that contains "data" of this YAML code, for example:
+The value of `data`, is another object, that contains the "data" of this YAML code, for example:
 
 ```js
 data: {
@@ -256,7 +254,7 @@ const { data, content } = matter(fileContents);
 
 Now we have all that we need to know about the article.
 
-What we eventually return is the `items` object, so now it's just a case of filtering only the data that we want to return, and appending this data to `items`.
+What we eventually return is the `const items = {};` object, so now it's just a case of filtering only the data that we want to return, and appending this data to `items`.
 
 This is where the `fields` argument of `getArticleBySlug` comes in. To save accidentally returning too much data, we must pass-in every field we want returned.
 
@@ -285,7 +283,7 @@ fields.forEach(field => {
 
 In the client-side code, the `containingFolder` is called the `section`, for example the `projects` section or the `templates` section.
 
-The `minsToRead` field, splits the `content` based on spaces to (roughly) give the number of words in the article (`content.split(' ').length`).
+The `minsToRead` field splits the `content` based on spaces to (roughly) give the number of words in the article (`content.split(' ').length`).
 
 This number is then divided by 200, on the assumption that a person reads around 200 words per minute.
 
@@ -362,7 +360,7 @@ returns
 ['jethro-codes.md', 'meals-of-change.md'];
 ```
 
-Now that we know all of the articles that we want to return, it's simply a case of mapping over this array, calling `getArticleBySlug()` on each one, and returning the resulting array.
+Now that we know all of the articles that we want to return, it's simply a case of mapping over this array, calling `getArticleBySlug()` (gone over in the previous section) on each one, and returning the resulting array.
 
 ```js
 const articlesByFolder = (fields = [], folder) =>
@@ -516,9 +514,9 @@ Ignoring the sitemap for now, based on the file tree that I added earlier, we ne
 📦pages
  ┣ 📂[section]
  ┃ ┗ 📜[slug].js
+ ┃ ┗ 📜index.js
  ┣ 📂my-story
  ┃ ┗ 📜index.js
- ┣ 📜[section].js
  ┣ 📜index.js
 ```
 
@@ -545,7 +543,7 @@ export const getStaticProps = async () => {
 };
 ```
 
-If you remember earlier, I said that the return `content` return from `gray-matter` "contains formatting". Well this is the point that we address that.
+If you remember earlier, I said that the return `content` return from `gray-matter` "contains formatting." Well this is the point that we address that.
 
 The `article` variable from the above code block, would be:
 
@@ -628,7 +626,6 @@ export const getStaticProps = async () => {
     'minsToRead',
     'coverImage',
   ]);
-
   const content = await markdownToHtml(article.content || '');
 
   return {
@@ -685,7 +682,7 @@ export const getStaticProps = async () => {
 
 I'm not going to go over the `<ArticleContainer>` component itself, or any child component in any detail, because it's pretty simple.
 
-But just briefly, it renders and `<ArticleHeader>` (for example, the top of this page) and an `<ArticleBody>` (what you're looking at right now).
+But just briefly, it renders an `<ArticleHeader>` (for example, the top of this page) and an `<ArticleBody>` (what you're looking at right now).
 
 The `<ArticleBody>` component, which is where the article `content` is displayed, is as follows:
 
@@ -802,7 +799,7 @@ const useSectionDetails = () => {
 export default useSectionDetails;
 ```
 
-I won't go over every case of how this data hook is used, because most of it is irrelevant to how the articles are used, and that's what I want to focus on here. However, there is one important line:
+I won't go over every case of how this data is used, because most of it is irrelevant to the articles, and that's what I want to focus on here. However, there is one important line:
 
 ```js
 export const articleSections = [projects, templates];
@@ -812,7 +809,7 @@ This `articleSections` variable sets _which_ sections of our app contain article
 
 At the time of writing, that's just `projects` and `templates`, but in the future (if I find the time), may include `blog`, `packages`, `gems`, `tutorials` etc.
 
-Going back to our `getStaticPaths` function in `[slug].js`, we import `articleSections`, to know _where_ we need to look for articles.
+Going back to our `getStaticPaths` function in `[slug].js`, we import `articleSections` to know _where_ we need to look for articles.
 
 ```js
 import { getArticles } from '../../lib/api';
@@ -991,12 +988,163 @@ export const getStaticPaths = () => {
 };
 ```
 
-### [section].js
+### [section]/index.js
 
 So far what we've been able to achieve, is dynamically fetching and displaying the articles, simply by adding a Markdown file.
 
 `getStaticPaths` in `[slug].js` will check for any articles that exist at build time.
 
 However, at this stage although the articles will be hosted within the app, no one will have any way of finding them or knowing that they're there, because so far we haven't updated the homepage or the section page. So let's take care of that next.
+
+```
+📦pages
+ ┣ 📂[section]
+ ┃ ┗ 📜[slug].js
+ ┃ ┗ 📜index.js
+ ┣ 📂my-story
+ ┃ ┗ 📜index.js
+ ┣ 📜index.js
+```
+
+Like `[slug].js`, `[section]/index.js` is a dynamic file where we have to tell it its name by using `getStaticPaths`.
+
+Luckily, we already know the various sections of our app, because they're contained within the `articleSections` variable or our `useSectionDetails` hook. So just like in `[slug].js`, we import that variable.
+
+```js
+import { articleSections } from '../../hooks/useSectionDetails';
+```
+
+Within `getStaticPaths` we again map over this array, although this time we don't care about fetching any slugs, we simply want to tell `[section]/index.js` which paths to create.
+
+Assuming that `articleSections` returns `['projects', 'templates']`, then we want a `projects` page and a `templates` page, so our `getStaticPaths` function becomes:
+
+```js
+import { articleSections } from '../../hooks/useSectionDetails';
+
+export const getStaticPaths = () => {
+  return {
+    paths: articleSections.map(section => {
+      return {
+        params: {
+          section: section,
+        },
+      };
+    }),
+    fallback: 'blocking',
+  };
+};
+```
+
+On these 'section' pages, we have no interest in displaying the entire article, we simply want enough information to populate the "cards" on each page, and link to the article itself.
+
+To that end, we need five pieces of information about each article; the `title`, `description`, `slug`, `coverImage` and `section`.
+
+So in our `getStaticProps` function, we call our API `getArticles` function, pass-in the section (`projects` or `templates`) for whichever page we're on, as well as the required fields, and set the returned array to the `allArticles` variable. We then return `allArticles` as our props.
+
+```js
+import { getArticles } from '../../lib/api';
+import { articleSections } from '../../hooks/useSectionDetails';
+
+export const getStaticProps = async ({ params }) => {
+  const allArticles = getArticles(
+    ['title', 'description', 'slug', 'coverImage', 'section'],
+    params.section
+  );
+
+  return {
+    props: { allArticles },
+  };
+};
+
+export const getStaticPaths = () => {
+  return {
+    paths: articleSections.map(section => {
+      return {
+        params: {
+          section: section,
+        },
+      };
+    }),
+    fallback: 'blocking',
+  };
+};
+```
+
+From here, we have three main components that make-up this page; the `<SectionHome>` component, a `<HorizontalCardsContainer>` and a `<HorizontalCard>`.
+
+```js
+// pages/[section]/index.js
+
+import { getArticles } from '../../lib/api';
+import HorizontalCard from '../../components/ui/HorizontalCard';
+import HorizontalCardsContainer from '../../components/ui/HorizontalCardsContainer';
+import SectionHome from '../../components/layout/main-content/section-home';
+import { articleSections } from '../../hooks/useSectionDetails';
+import useHeroImage from '../../hooks/useHeroImage';
+
+const Section = ({ allArticles }) => {
+  return (
+    <SectionHome heroImage={useHeroImage(allArticles)}>
+      <HorizontalCardsContainer>
+        {allArticles.map(article => (
+          <HorizontalCard key={`${article.title}-card`} cardDetails={article} />
+        ))}
+      </HorizontalCardsContainer>
+    </SectionHome>
+  );
+};
+
+export default Section;
+
+export const getStaticProps = async ({ params }) => {
+  const allArticles = getArticles(
+    ['title', 'description', 'slug', 'coverImage', 'section'],
+    params.section
+  );
+
+  return {
+    props: { allArticles },
+  };
+};
+
+export const getStaticPaths = () => {
+  return {
+    paths: articleSections.map(section => {
+      return {
+        params: {
+          section: section,
+        },
+      };
+    }),
+    fallback: 'blocking',
+  };
+};
+```
+
+As with other sections, I don't intend to go over the styling of these three components, as there's nothing very complex in there.
+
+For simplicity, I've also omitted part of the `[section]/index.js` (mainly related to adding the `<Head>`).
+
+The full file can be found [HERE] - ADD LINK ONCE MOVED FILE IS ON MASTER
+
+And with that, at build time our `[section]/index.js` page will create a page for _each_ section stored within our `articleSections` variable, and will fetch all of the articles for that section, creating a card for each article.
+
+That means that, just by adding a Markdown article within the correct sub-folder of our `_articles` folder, the article will be automatically fetched made available to our readers.
+
+```
+📦_articles
+ ┣ 📂projects
+ ┃ ┣ 📜jethro-codes.md
+ ┃ ┗ 📜meals-of-change.md
+ ┣ 📂templates
+ ┃ ┗ 📜rails-api.md
+ ┗ 📜my-story.md
+```
+
+### Homepage
+
+The last place that we want to display our new article, is the homepage, as if you were to take a look at the homepage now, you'll see that it displays the six most recently published articles.
+
+At this point, we've done all the hard work and updating the homepage is comparatively simple.
 
 ## Updating the sitemap

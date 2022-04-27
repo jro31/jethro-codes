@@ -1,3 +1,5 @@
+// TODO - Possible future sections: Blog, Packages, Gems, Tutorials, Buy me a coffee, Components/Features/Hooks
+
 import {
   ChatIcon,
   HomeIcon,

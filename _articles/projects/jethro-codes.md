@@ -1246,3 +1246,224 @@ As with other pages, our homepage will update at build time, so now by simply ad
 All that's left therefore, is to update our sitemap so that search engines know that the article is there.
 
 ## Updating the sitemap
+
+```
+📦_articles
+ ┣ 📂projects
+ ┃ ┣ 📜jethro-codes.md
+ ┃ ┗ 📜meals-of-change.md
+ ┣ 📂templates
+ ┃ ┗ 📜rails-api.md
+ ┗ 📜my-story.md
+📦lib
+ ┣ 📜api.js
+ ┗ 📜markdownToHtml.js
+📦pages
+ ┣ 📂[section]
+ ┃ ┗ 📜[slug].js
+ ┃ ┗ 📜index.js
+ ┣ 📂contact
+ ┃ ┗ 📜index.js
+ ┣ 📂my-story
+ ┃ ┗ 📜index.js
+ ┣ 📜_app.js
+ ┣ 📜index.js
+ ┗ 📜sitemap.xml.js
+```
+
+This is the file tree that I gave you back at the beginning of the article. And the last part that we need to cover is the `sitemap.xml.js` file at the bottom.
+
+`sitemap.xml.js` is a component within which we don't render anything. Instead we're going to use its `getServerSideProps` function, which is called once the URL (in this case, jethro.codes/sitemap.xml) is hit.
+
+`getServerSideProps` has a `res` object (short for 'response'), and we're going to override this response with our sitemap.
+
+```js
+const Sitemap = () => {};
+
+export default Sitemap;
+
+export const getServerSideProps = ({ res }) => {
+  res.setHeader('Content-Type', 'text/xml');
+  res.write(sitemap);
+  res.end();
+
+  return {
+    props: {},
+  };
+};
+```
+
+At this point, the `sitemap` variable doesn't exist; we'll get to that in a second.
+
+I just want to try and make clearer exactly what we're doing.
+
+When calling `getServerSideProps`, we get a `res` (response) object.
+
+We then set the header of this response to have a content-type of `xml`. We then write our `sitemap` to the body of this response, before we `end` the response (sending it back to the original request).
+
+The `return` statement here does nothing; it's simply a requirement of `getServerSideProps`, so we include it so as to not through an error.
+
+With that done, we now need to populate the `sitemap` variable _with_ our sitemap.
+
+`sitemap` is going to be a string, and within it we will interpolate the URLs for the various pages of our app. So to start, `sitemap` will be a template literal with the structure of our `xml` file.
+
+```js
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  </urlset>
+`;
+```
+
+Within the `<urlset>` tags, we want to have our URLs.
+
+Sitemaps will often contain `<lastmod>` (last modified), `<changefreq>` (change frequency) and `<priority>` tags. For simplicity, I've omitted them. My only concern with a sitemap is making Google (and other search engines) aware that a page exists. So the only tag I want to use for each page is `<loc>` (location).
+
+To start with, we need to know the base URL of the app.
+
+```js
+export const getServerSideProps = ({ req }) => {
+  const baseUrl = `${process.env.NODE_ENV === 'production' ? 'https://' : 'http://'}${
+    req.headers.host
+  }`;
+};
+```
+
+To start with we check whether we're in production or not, and return `'https://'` if we are.
+
+This step isn't really necessary, as a search engine is _only_ ever going to find the production version of a sitemap, so we could just hardcode `'https://'`. However, when working in development, it's good to see that the correct URL is being generated.
+
+Next we call `req.headers.host`.
+
+`req` is the request, and within the `headers` object, we have the `host`. Locally the `host` is `'localhost:3000'`, in production it's `'jethro.codes'`.
+
+We interpolate these two strings together to set the `baseUrl` variable.
+
+So in production, `baseUrl` will be set to `https://jethro.codes`.
+
+Next we want to fetch all the articles that we have in the app. We do that by calling the `getArticles()` function in our API, that we've been over already in this article.
+
+We want _all_ articles, so we don't pass-in a containing folder, and as we're only interested in determining the location of these articles, only request the `slug` and `section` fields.
+
+```js
+import { getArticles } from '../lib/api';
+
+const allArticles = getArticles(['slug', 'section']);
+```
+
+The `allArticles` variable will be something like:
+
+```js
+[
+  { slug: 'my-story', section: '' },
+  { slug: 'jethro-codes', section: 'projects' },
+  { slug: 'meals-of-change', section: 'projects' },
+  { slug: 'rails-api', section: 'templates' },
+];
+```
+
+We want to get the relative path to each article, and having the `slug` and the `section`, we can easily do that:
+
+```js
+const allArticlePaths = allArticles.map(
+  article => `${article.section && `${article.section}/`}${article.slug}`
+);
+```
+
+Here we map over each article, and _if_ a `section` is present, interpolate the `section` with the slug. If no `section` is present, we just return the slug. Our `allArticlePaths` variable will therefore be:
+
+```js
+['my-story', 'projects/jethro-codes', 'projects/meals-of-change', 'templates/rails-api'];
+```
+
+These are the relative paths to all of our articles, however we still need the paths to the other pages of our app.
+
+You may have noticed one oversight at this point.
+
+Earlier in our API, we had the following code:
+
+```js
+export const allContainingFolders = () =>
+  ['', ...fs.readdirSync(articlesPath)].filter(file => file.slice(-3) !== '.md');
+```
+
+We exported this function, yet we never actually used it anywhere outside of our API.
+
+Here is where we finally get to use it.
+
+If you remember back to the `allContainingFolders` section of this article, this function returns any folder within `_article` that contains a Markdown article, so here it will be:
+
+```js
+['', 'projects', 'templates'];
+```
+
+That's the homepage, the projects page, and the templates page.
+
+We have all our articles set to the `allArticlePaths` variable, and the homepage and section pages accessible by importing the `allContainingFolders` function.
+
+That covers all the pages of our app... apart from one.
+
+The one outlier in our app is the `contact` page. This is the only page that has absolutely nothing to do with any articles.
+
+And although there was a part of me tempted to add the functionality to find this page programatically, as it is, and probably always will be the only page that isn't present in `allArticlePaths` or `allContainingFolders`, finding it programatically, the juice isn't really worth the squeeze.
+
+So to get the paths to _all_ the pages of this app, we can just do:
+
+```js
+const allPaths = [...allContainingFolders(), 'contact', ...allArticlePaths];
+```
+
+Now that we have the paths to every page in our app, all we need to do is map over them and add them to our `sitemap` variable.
+
+They need to be contained withing `<url><loc>` tags, and we want to append the path onto the `baseUrl` that we established earlier, so our `sitemap` variable can be set as follows:
+
+```js
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${allPaths.map(path => `<url><loc>${baseUrl}/${path}</loc></url>`).join('')}
+  </urlset>
+`;
+```
+
+And that's all we have to do.
+
+Our full `sitemap.xml.js` file therefore becomes:
+
+```js
+// pages/sitemap.xml.js
+
+import { allContainingFolders, getArticles } from '../lib/api';
+
+const Sitemap = () => {};
+
+export default Sitemap;
+
+export const getServerSideProps = ({ req, res }) => {
+  const baseUrl = `${process.env.NODE_ENV === 'production' ? 'https://' : 'http://'}${
+    req.headers.host
+  }`;
+
+  const allArticles = getArticles(['slug', 'section']);
+  const allArticlePaths = allArticles.map(
+    article => `${article.section && `${article.section}/`}${article.slug}`
+  );
+
+  const allPaths = [...allContainingFolders(), 'contact', ...allArticlePaths];
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      ${allPaths.map(path => `<url><loc>${baseUrl}/${path}</loc></url>`).join('')}
+    </urlset>
+  `;
+
+  res.setHeader('Content-Type', 'text/xml');
+  res.write(sitemap);
+  res.end();
+
+  return {
+    props: {},
+  };
+};
+```
+
+To see the file that we generated here, go to [jethro.codes/sitemap.xml](https://jethro.codes/sitemap.xml).

@@ -1,3 +1,5 @@
+// NICETOHAVE - Hide the mobile navbar when the user scrolls down the page
+
 import { Fragment, useState } from 'react';
 import Link from 'next/link';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';

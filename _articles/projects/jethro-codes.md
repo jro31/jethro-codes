@@ -1127,7 +1127,7 @@ As with other sections, I don't intend to go over the styling of these three com
 
 For simplicity, I've also omitted part of the `[section]/index.js` (mainly related to adding the `<Head>`).
 
-The full file can be found [HERE] - ADD LINK ONCE MOVED FILE IS ON MASTER
+The full file can be found [here](https://github.com/jro31/jethro-codes/blob/master/pages/%5Bsection%5D/index.js).
 
 And with that, at build time our `[section]/index.js` page will create a page for _each_ section stored within our `articleSections` variable, and will fetch all of the articles for that section, creating a card for each article.
 

@@ -2,7 +2,7 @@
 title: 'Next.js'
 description: 'A starting template of a Next.js project, setup with Redux Toolkit and Tailwind CSS 3.'
 published: '2022-04-28'
-tags: 'Next JS. React, Redux Toolkit, Tailwind CSS'
+tags: 'Next JS, React, Redux Toolkit, Tailwind CSS'
 ---
 
 ## Repo
@@ -88,3 +88,5 @@ There are a couple more to-dos to do to get this project setup as your own. They
   - Update the `<meta name='keywords' content='these, are, some, keywords, about, my project' />` line to be some keywords about your project.
   - Uncomment the `<meta name='twitter:site' content='@my-site-twitter-handle' />` line and add the Twitter handle you want associated to your app.
 - If your app will have a navbar, you should put it in `components/layout/index.js`, _above_ the `<main>{props.children}</main>` line.
+
+And with that you're ready to go. Happy hacking!

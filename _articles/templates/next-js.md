@@ -22,7 +22,7 @@ It also includes **Redux Toolkit 1.8.1**, setup with a Redux Store and a test re
 - The [`@heroicons/react`](https://www.npmjs.com/package/@heroicons/react) package is installed (see [here](https://heroicons.com/) for details).
 - The Tailwind [forms plugin](https://github.com/tailwindlabs/tailwindcss-forms) is installed.
 
-In addition to the 5 [standard Tailwind breakpoints](https://tailwindcss.com/docs/responsive-design), I have also added an `xs` breakpoint at 512px, and a `2xs` breakpoint at 384px.
+In addition to the 5 [standard Tailwind breakpoints](https://tailwindcss.com/docs/responsive-design), I have added an `xs` breakpoint at 512px, and a `2xs` breakpoint at 384px.
 
 These can be used with classes just like the standard breakpoints, for example `<div className='text-base 2xs:text-lg xs:text-xl sm:text-2xl'>`.
 
@@ -37,26 +37,54 @@ Feel free to clone this template or use it any way you see fit. However, the sim
 - Click 'Use this template'.
   ![Use this template button](/images/templates/next-js/use-this-template.png)
 
-<!-- - On the next screen, fill-in a repository name and click 'Create repository from template'.
-  ![Create a new repository](/images/templates/rails-api/create-new-repo.png)
+- On the next screen, fill-in a repository name and click 'Create repository from template'.
+  ![Create a new repository](/images/templates/next-js/create-new-repo.png)
 
 - On the next page, click the 'Code' button, and in the dropdown, copy the url beneath 'HTTPS'.
-  ![Copy the URL](/images/templates/rails-api/clone-url.png)
+  ![Copy the URL](/images/templates/next-js/clone-url.png)
 
 - In your local terminal, CD into the folder where you want to store the project. Then type `git clone [THE URL YOU JUST COPIED]`, for example `git clone https://github.com/jro31/my-new-project.git`, and press `Enter`.
-  ![Clone the repo](/images/templates/rails-api/git-clone.png)
+  ![Clone the repo](/images/templates/next-js/git-clone.png)
 
 - CD into the created repo, for example `cd my-new-project`.
-  ![CD into the repo](/images/templates/rails-api/cd-into-repo.png)
+  ![CD into the repo](/images/templates/next-js/cd-into-repo.png)
 
-- To check that all specs are passing, run `bundle exec rspec`. You should get 0 failures.
-  ![Run specs](/images/templates/rails-api/bundle-exec-rspec.png)
+- Run `npm install` to install all packages (this requires that you have [Node.js](https://nodejs.org/) installed).
+  ![Run npm install](/images/templates/next-js/npm-install.png)
 
-  ![No failures](/images/templates/rails-api/no-failures.png)
+- To start the server, run `npm run dev`.
+  ![Run npm install](/images/templates/next-js/npm-run-dev.png)
 
-- Run `rails s` to start the server. Then navigate to [localhost:3001](http://localhost:3001/). If all is well, you should see `{"status":"It's working"}`.
-  ![Run rails s](/images/templates/rails-api/rails-s.png)
+- Navigate to [localhost:3000](http://localhost:3000/). You should see the following page:
+  ![localhost:3000](/images/templates/next-js/localhost-3000.png)
 
-  ![It's working!](/images/templates/rails-api/its-working.png) -->
+- To check that Redux Toolkit is working, click on the `The test reducer state is true` line. It should toggle between `true` and `false`.
+
+  ![Test reducer true](/images/templates/next-js/test-reducer-true.png)
+
+  ![Test reducer false](/images/templates/next-js/test-reducer-false.png)
+
+- To check that Tailwind CSS is working, resize the viewport (browser window). The `CONTENT GOES HERE` text should change size when:
+
+  - Below 384px
+  - 384px to 639px
+  - Above 639px
+
+  ![Screen sizes](/images/templates/next-js/screen-sizes.png)
+
+If all of that is working, then you're setup and ready to go!
 
 ## To do after setup
+
+There are a couple more to-dos to do to get this project setup as your own. They are marked within the code with `TODO` tags.
+
+- You should update the `public/favicon.ico` file to your own favicon. Currently it is the 'Vercel' logo.
+- In `package.json` you should update the `"name": "next-js-template",` line to your own project name, for example `"name": "my-new-project",`. The next time you run `npm install`, your `package-lock.json` file will be updated with _your_ project name.
+- In order to populate the `<Head>` tag with correct `<title>` and `<meta>` tags, in `pages/index.js` you should:
+  - Update the `appTitle` variable to your project name.
+  - Update `appDescription` to a description about your app.
+  - Update `baseUrl` to the production URL of your app.
+  - Add an `images` folder to `public`, and add an image file that you'd like to be seen when people share your app on social media. Then update `socialMediaImagePath` to the path of this image.
+  - Update the `<meta name='keywords' content='these, are, some, keywords, about, my project' />` line to be some keywords about your project.
+  - Uncomment the `<meta name='twitter:site' content='@my-site-twitter-handle' />` line and add the Twitter handle you want associated to your app.
+- If your app will have a navbar, you should put it in `components/layout/index.js`, _above_ the `<main>{props.children}</main>` line.

@@ -17,7 +17,7 @@ export const projects = 'projects';
 export const templates = 'templates';
 
 export const sectionOrder = [home, projects, templates, packages, myStory, contact];
-export const articleSections = [projects, templates];
+export const articleSections = [packages, projects, templates];
 
 const useSectionDetails = () => {
   const sectionDetails = sectionName => {

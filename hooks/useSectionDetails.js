@@ -2,6 +2,7 @@
 
 import {
   ChatIcon,
+  CubeIcon,
   HomeIcon,
   PaperClipIcon,
   TemplateIcon,
@@ -11,11 +12,12 @@ import {
 const contact = 'contact';
 const home = 'home';
 const myStory = 'my-story';
-const projects = 'projects';
-const templates = 'templates';
+export const packages = 'packages';
+export const projects = 'projects';
+export const templates = 'templates';
 
-export const sectionOrder = [home, projects, templates, myStory, contact];
-export const articleSections = [projects, templates];
+export const sectionOrder = [home, projects, templates, packages, myStory, contact];
+export const articleSections = [packages, projects, templates];
 
 const useSectionDetails = () => {
   const sectionDetails = sectionName => {
@@ -41,6 +43,14 @@ const useSectionDetails = () => {
           linkText: 'My Story',
           route: `/${myStory}`,
           icon: TrendingUpIcon,
+        };
+      case packages:
+        return {
+          title: 'Packages',
+          description: 'npm packages',
+          linkText: 'Packages',
+          route: `/${packages}`,
+          icon: CubeIcon,
         };
       case projects:
         return {

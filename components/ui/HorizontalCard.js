@@ -1,15 +1,18 @@
 import Link from 'next/link';
 
 import { stockImagePath } from '../layout';
+import { packages, projects, templates } from '../../hooks/useSectionDetails';
 
 const HorizontalCard = props => {
   const { title, description, slug, coverImage, section } = props.cardDetails;
 
   const buttonText = () => {
     switch (section) {
-      case 'projects':
+      case packages:
+        return 'View package';
+      case projects:
         return 'Anatomy of a project';
-      case 'templates':
+      case templates:
         return 'View details';
       default:
         throw new Error(
@@ -19,7 +22,7 @@ const HorizontalCard = props => {
   };
 
   return (
-    <div className='max-w-7xl mx-auto bg-indigo-600 lg:bg-transparent lg:px-8 rounded-lg lg:rounded-3xl pt-6 lg:pt-0'>
+    <div className='max-w-7xl bg-indigo-600 lg:bg-transparent lg:px-8 rounded-lg lg:rounded-3xl pt-6 lg:pt-0'>
       <div className='lg:grid lg:grid-cols-12'>
         <div className='relative z-10 lg:col-start-1 lg:row-start-1 lg:col-span-4 lg:py-16 lg:bg-transparent'>
           <div className='max-w-md mx-auto px-4 sm:max-w-3xl sm:px-6 lg:max-w-none lg:p-0'>

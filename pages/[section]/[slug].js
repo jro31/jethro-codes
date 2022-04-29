@@ -1,6 +1,5 @@
 // TODO - Add 'Blocks falling' article
 // TODO - Add 'Where's Jethro' article
-// TODO - Add 'Next.js template' article
 
 import { getArticleBySlug, getArticles } from '../../lib/api';
 import markdownToHtml from '../../lib/markdownToHtml';

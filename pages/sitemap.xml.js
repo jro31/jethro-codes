@@ -1,6 +1,3 @@
-// TODO - Check if the error on Google console is fixed
-// (sitemap has been submitted; showed an error, but this always seems to happen when you initially submit a sitemap, but it fixes after a day or so)
-
 import { allContainingFolders, getArticles } from '../lib/api';
 
 const Sitemap = () => {};

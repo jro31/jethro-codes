@@ -1,6 +1,6 @@
 ---
 title: 'array-of-numbers'
-description: 'An npm package that returns an array of integers based on three arguments.'
+description: 'An npm package that returns an array of integers.'
 coverImage: '/images/packages/array-of-numbers/npm-screenshot.png'
 published: '2022-04-29' # TODO - Update this
 tags: 'npm, JavaScript'

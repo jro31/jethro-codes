@@ -84,7 +84,7 @@ Below is a file tree of all the files/folders relevant to what we're going to co
  ┗ 📜sitemap.xml.js
 ```
 
-To start with, the `_articles` folder, is where the articles are added as Markdown files.
+To start with, the `_articles` folder is where the articles are added as Markdown files.
 
 The `pages` folder shows the pages within this app.
 

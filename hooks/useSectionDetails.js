@@ -1,4 +1,4 @@
-// TODO - Possible future sections: Blog, Packages, Gems, Tutorials, Buy me a coffee, Components/Features/Hooks
+// TODO - Possible future sections: Blog, Gems, Tutorials, Buy me a coffee, Components/Features/Hooks
 
 import {
   ChatIcon,

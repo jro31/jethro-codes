@@ -82,9 +82,9 @@ Array.from(new Array(20), (_, i) => i + 1).map(_ =>
 );
 ```
 
-The `'empty'` values above, represent the status of that "square"; we'll go over that in more detail in a moment. The second value is the name of the block (although being initially empty, that is why it is an empty string).
+The `'empty'` values above represent the status of that "square"; we'll go over that in more detail in a moment. The second value is the name of the block (although being initially empty, that is why it is an empty string).
 
-And what I quickly found, was that keeping track of and updating all of these values while using array indexes of arrays nested three-deep was a God-awful process.
+However, what I quickly found was that keeping track of and updating all of these values while using array indexes of arrays nested three-deep was a God-awful process.
 
 So I instead updated to use nested objects.
 
@@ -124,7 +124,7 @@ console.log(arrayOfNumbers(1, 20)); // [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 
 
 The `reduce` function is a bit of a sticky one to get your head around, particularly when it's used like this, but let me do my best to try and explain.
 
-`reduce` returns a single value. In this case, that single value just so happens to be a rather large object.
+`reduce` returns a single value. It "reduces" your array into a single value. In this case, that single value just so happens to be a rather large object.
 
 `reduce` loops over all the elements of the array that it's called on. `acc` (short for 'accumulator') is the accumulated value to be returned, after that iteration. `curr` (short for 'current'), is the current element from the array that we're iterating over.
 
@@ -138,7 +138,7 @@ Let's look at a simpler example:
 [1, 2, 3, 4].reduce((acc, curr) => acc + curr);
 ```
 
-Here, we're looping over this array. As we haven't passed-in a starting value, our `acc` starts at zero. So on the first iteration, where `acc` is zero, `curr` (the first element in our array) is `1`. So `0 + 1`, we return `1`.
+Here, we're looping over this array. As we haven't passed-in a starting value, our `acc` starts at zero. So on the first iteration, where `acc` is zero, `curr` (the first element in our array) is `1`. So `acc + curr` is equal to `0 + 1`, so we return `1`.
 
 This value that we return, is the value of `acc` for the next iteration. So on the second iteration, `acc` is `1`, and `curr` (the second element in our array) is `2`. So `1 + 2`, we return `3` from the second iteration of our loop.
 
@@ -227,7 +227,7 @@ So after one iteration, what we have returned is `{ '1': { status: 'empty' } }`.
 
 Therefore, in our second iteration, `acc` is set to `{ '1': { status: 'empty' } }`, and `curr` is set to `2`.
 
-With `acc[curr] = { status: 'empty' }` we therefore set a key of `2`, and give it a value of `{ status: 'empty' }`. We return this updated object, so our return from our second iteration is `{ '1': { status: 'empty' }, '2': { status: 'empty' } }`.
+With `acc[curr] = { status: 'empty' }` we therefore set a key of `2`, and give it a value of `{ status: 'empty' }`. We return this updated object, so our return from the second iteration is `{ '1': { status: 'empty' }, '2': { status: 'empty' } }`.
 
 In our third iteration, `acc` is therefore set to `{ '1': { status: 'empty' }, '2': { status: 'empty' } }`, and `curr` is set to `3`, so from this iteration we return `{ '1': { status: 'empty' }, '2': { status: 'empty' }, '3': { status: 'empty' } }`.
 
@@ -242,7 +242,7 @@ Now let's go back to our full `emptyRow` variable:
 export const emptyRow = arrayOfNumbers().reduce((acc, curr) => ((acc[curr] = { status: empty, block: '' }), acc), {});
 ```
 
-Here, `arrayOfNumbers` is `[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]`, and `empty` is set to `'empty'`. So when we run our `reduce` function, what is returned is:
+Here, `arrayOfNumbers()` is `[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]`, and `empty` is set to `'empty'`. So when we run our `reduce` function, what is returned is:
 
 ```js
 {
@@ -493,9 +493,88 @@ Does that last one seem complicated and unnecessary? It wasn't included in the e
 
 In order for the square to know what color it needs to be, the value of `block` (if the square is not `empty` or `dead`) will be one of the seven block names.
 
-So that is it; that is our game board. It's 210 squares, organised by row, where each has a `status` and a `block` attribute. And in order for the game to work, all we have to do is keep track of all 210 squares, and update them based on the player's actions, and automated actions.
+So that is it; that is our game board. It's 210 squares, organised by row, where each square has a `status` and a `block` attribute. And in order for the game to work, all we have to do is keep track of all 210 squares, and update them based on the player's actions, and automated actions.
 
 Simple, right?
+
+## Redux Toolkit
+
+So how do we keep track of the status of our game board? Well that's where Redux Toolkit comes into the equation.
+
+We want to store our game board in state, but seeing as it's going to be the key component to our app, and will need to be accessed from everywhere, then it makes sense to store it in a global state.
+
+That's exactly what Redux does.
+
+I'm not going to go over the basics of Redux Toolkit here, or how to install it in your app ([this is the commit](https://github.com/jro31/blocks-falling/commit/ac3a15dc3e985af56c0e434a0292223420b63ec1) where I added Redux Toolkit to my master branch); I'll assume that you know the basics.
+
+This app only has two state slices, with the most important of these being the `gameBoardSlice`, whose initial state is as follows:
+
+```js
+const initialState = {
+  squares: initialSquares(),
+  speed: 1000,
+  liveBlock: blocks[Math.floor(Math.random() * blocks.length)],
+  blockCounter: 0,
+  timer: { isLive: true },
+  status: preGame,
+  clearedRows: 0,
+  backgroundOne: backgrounds[Math.floor(Math.random() * backgrounds.length)],
+  backgroundTwo: backgrounds[Math.floor(Math.random() * backgrounds.length)],
+  liveBackground: 'one',
+};
+```
+
+We'll touch on all parts of this state through this article. However, at this point the important thing to know is that our `initialSquares()` function is set to `squares`.
+
+Within our store, the game board reducer is imported as follows:
+
+```js
+// src/store/index.js
+
+import { configureStore } from '@reduxjs/toolkit';
+
+import gameBoardReducer from './game-board';
+import topScoreReducer from './top-score';
+
+const store = configureStore({
+  reducer: {
+    gameBoard: gameBoardReducer,
+    topScore: topScoreReducer,
+  },
+});
+
+export default store;
+```
+
+Therefore, we can access our game board anywhere in our app using:
+
+```js
+useSelector(state => state.gameBoard.squares);
+```
+
+But what is a game board without any pieces?
+
+Well it's not a very fun game, so let's fix that.
+
+## The blocks
+
+In Blocks Falling, there are seven different kinds of blocks.
+
+I came up with these seven blocks completely on my own while sitting in a dark room without power, food or water. If you think you've seen them somewhere before... you haven't.
+
+![Blocks](/images/projects/blocks-falling/blocks.jpeg)
+
+I gave these seven blocks that I invented on my own, unique and original letter-based names depending on their shape.
+
+Reading from left to right and top to bottom, these are `I`, `J`, `L`, `O`, `S`, `T` and `Z`.
+
+## Adding blocks to the game board
+
+First off, adding a block to our game board. What does that actually mean?
+
+Ruining the illusion of actually playing a fun video game, it simply means that we update the `status` and `block` values of the relevant 'squares' within our game board to be `live` and the name of the block respectively.
+
+Inject that into my veins.
 
 ## Backgrounds
 

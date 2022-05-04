@@ -576,6 +576,358 @@ Ruining the illusion of actually playing a fun video game, it simply means that 
 
 Inject that into my veins.
 
+Let's go to the very beginning, of what happens when a player starts the game.
+
+There are two ways that a player can start a game.
+
+If they're on a computer, they can press the space bar. Alternatively, if they don't have a keyboard or they just feel like living a little, they can click the play/pause button.
+
+The former of these methods is handled in the `GameBoard` component. We add an event listener as the component loads with `useEffect`:
+
+```js
+import { useEffect } from 'react';
+
+useEffect(() => {
+  document.addEventListener('keydown', handleKeyPress);
+
+  return () => {
+    document.removeEventListener('keydown', handleKeyPress);
+  };
+}, []);
+```
+
+This event listener points at the `handleKeyPress` function, so whenever a key is pressed, we call `handleKeyPress()`.
+
+The `handleKeyPress()` function is a switch/case statement that looks at which key was pressed, and takes action accordingly:
+
+```js
+import { useRef } from 'react';
+import { useSelector } from 'react-redux';
+
+import { gameOver, inProgress, paused, preGame, } from '../store/game-board';
+import useBeginGame from '../hooks/use-begin-game';
+
+export let statusRef;
+
+const GameBoard = () => {
+  const status = useSelector(state => state.gameBoard.status);
+  statusRef = useRef(status);
+  statusRef.current = status;
+
+  const beginGame = useBeginGame();
+
+  const handleKeyPress = event => {
+    switch (event.key) {
+      case 'ArrowDown':
+        ...
+      case 'ArrowLeft':
+        ...
+      case 'ArrowRight':
+        ...
+      case 'z':
+        ...
+      case 'x':
+        ...
+      case ' ':
+        event.preventDefault();
+        if (statusRef.current === preGame || statusRef.current === gameOver) {
+          beginGame();
+        } else if (statusRef.current === inProgress) {
+          dispatch(gameBoardActions.pauseGame());
+        } else if (statusRef.current === paused) {
+          dispatch(gameBoardActions.resumeGame());
+        }
+        break;
+      default:
+        return;
+    }
+  };
+};
+```
+
+For simplicity, I've removed all the actions we take _apart_ from when the space bar (`' '`) is pressed.
+
+You may be asking yourself, what on earth is going on in this code?
+
+```js
+const status = useSelector(state => state.gameBoard.status);
+statusRef = useRef(status);
+statusRef.current = status;
+```
+
+Good question. And it's just taken me half a day looking back over my commit history and my stack overflow history to figure it out.
+
+Within the `GameBoard` component, we also have:
+
+```js
+export let squaresRef;
+
+const GameBoard = () => {
+  const squares = useSelector(state => state.gameBoard.squares);
+  squaresRef = useRef(squares);
+  squaresRef.current = squares;
+};
+```
+
+It does the exact same thing, although with the `squares` state, rather than `status`, but I think it's easier to explain with `squares` (which is our game board).
+
+If you play the game, you'll notice that blocks fall to the row below at timed intervals.
+
+This starts at one second intervals, and slowly this speed increases as the game proceeds.
+
+This 'timer' until the block drops, is set with a `setTimeout()` function set in `useEffect`:
+
+```js
+import { useSelector } from 'react-redux';
+
+import { down, inProgress } from '../store/game-board';
+import useMoveBlock from '../hooks/use-move-block';
+
+let timeOut;
+
+const GameBoard = () => {
+  const speed = useSelector(state => state.gameBoard.speed);
+  const timer = useSelector(state => state.gameBoard.timer);
+  const status = useSelector(state => state.gameBoard.status);
+
+  const moveBlock = useMoveBlock();
+
+  useEffect(() => {
+    if (status === inProgress) {
+      if (timer.isLive) {
+        timeOut = setTimeout(() => {
+          moveBlock(down);
+        }, speed);
+      }
+    }
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [status, timer]);
+};
+```
+
+And when we call `setTimeout()` here, we set the timer to call `moveBlock(down)` _after_ the `speed` interval; so anything up to one second into the future.
+
+We'll go over the code of the `useMoveBlock` hook a little later, but what it essentially does, is take the existing game board, update it with our block moved into its new position, and then call the Redux Toolkit action to update the game board, passing-in the updated game board as an argument.
+
+The problem here, is that if I were to fetch the existing game board within `useMoveBlock` in the usual Redux Toolkit way of
+
+```js
+const squares = useSelector(state => state.gameBoard.squares);
+```
+
+then it would use the game board state at the time that `setTimeout()` was called, and **not** after the interval. So we'd be using a game board that was up to a second old.
+
+```js
+export let squaresRef;
+
+const GameBoard = () => {
+  const squares = useSelector(state => state.gameBoard.squares);
+  squaresRef = useRef(squares);
+  squaresRef.current = squares;
+};
+```
+
+This code sets the game board (`squares`) to a ref variable `squaresRef`, and exports it. We can then call `current` on `squaresRef`, and this will always be the updated version of the game board.
+
+That means that it doesn't matter that we called our `useMoveBlock` hook up to a second ago, by importing `squaresRef` and calling `squaresRef.current`, we can guarantee that we are working with the latest version of the game board.
+
+It's the same with:
+
+```js
+const status = useSelector(state => state.gameBoard.status);
+statusRef = useRef(status);
+statusRef.current = status;
+```
+
+By calling importing `statusRef` and then calling `statusRef.current`, it simply guarantees that the state that we are using is current state.
+
+Make sense?
+
+Good.
+
+[Note to self - Add a better explanation of this before publishing]
+
+Onto what happens within the switch/case statement when the space bar is pressed:
+
+```js
+const handleKeyPress = event => {
+  switch (event.key) {
+    case ' ':
+      event.preventDefault();
+      if (statusRef.current === preGame || statusRef.current === gameOver) {
+        beginGame();
+      } else if (statusRef.current === inProgress) {
+        dispatch(gameBoardActions.pauseGame());
+      } else if (statusRef.current === paused) {
+        dispatch(gameBoardActions.resumeGame());
+      }
+      break;
+    default:
+      return;
+  }
+};
+```
+
+Assuming that `statusRef.current === preGame` is true (which it will be because we haven't started a game yet), then we call `beginGame()` (which calls the `useBeginGame` hook):
+
+```js
+import useBeginGame from '../hooks/use-begin-game';
+
+const GameBoard = () => {
+  const beginGame = useBeginGame();
+};
+```
+
+If you don't like custom hooks, then you might not really enjoy the next few minutes of your life. This app uses 46 different custom hooks. And although I'll try my best not to go over every single one of them, because I don't really want to, I'm probably going to have to talk about hooks a bit.
+
+A lot.
+
+Luckily the `useBeginGame` hook is comparatively simple, so we'll start with some light pain, and it'll get worse later:
+
+```js
+// src/hooks/use-begin-game.js
+
+import { useDispatch } from 'react-redux';
+
+import { statusRef } from '../components/GameBoard';
+import { gameBoardActions, gameOver } from '../store/game-board';
+
+const useBeginGame = () => {
+  const dispatch = useDispatch();
+
+  const beginGame = () => {
+    if (statusRef.current === gameOver) dispatch(gameBoardActions.resetGame());
+    dispatch(gameBoardActions.startGame());
+    dispatch(gameBoardActions.nextBlock());
+  };
+
+  return beginGame;
+};
+
+export default useBeginGame;
+```
+
+`statusRef` we've already been over, so we don't have to go over it again (thank God), then in this hook we just call three of our game board slice's actions.
+
+`resetGame()` I'll ignore for now, because that's for when starting after a game over, _not_ when starting the first game of the session.
+
+So we only have to concern ourselves with two actions: `startGame()` and `nextBlock()`.
+
+By the end of this article, the game board slice will become a bit of a mess, but I'll try to build it up slowly. And the `startGame()` action is simply:
+
+```js
+// src/store/game-board.js
+
+import { createSlice, current } from '@reduxjs/toolkit';
+import arrayOfNumbers from 'array-of-numbers';
+
+export const preGame = 'pre-game';
+export const inProgress = 'in-progress';
+
+export const dead = 'dead';
+export const empty = 'empty';
+
+export const deadRow = arrayOfNumbers().reduce(
+  (acc, curr) => ((acc[curr] = { status: dead, block: '' }), acc),
+  {}
+);
+
+export const emptyRow = arrayOfNumbers().reduce(
+  (acc, curr) => ((acc[curr] = { status: empty, block: '' }), acc),
+  {}
+);
+
+const initialSquares = () => {
+  const returnObject = arrayOfNumbers(1, 20).reduce(
+    (acc, curr) => ((acc[curr] = emptyRow), acc),
+    {}
+  );
+  returnObject[0] = deadRow;
+  return returnObject;
+};
+
+const initialState = {
+  squares: initialSquares(),
+  status: preGame,
+};
+
+const gameBoardSlice = createSlice({
+  name: 'game-board',
+  initialState,
+  reducers: {
+    startGame(state) {
+      state.squares = initialState.squares;
+      state.status = inProgress;
+    },
+  },
+});
+
+export const gameBoardActions = gameBoardSlice.actions;
+
+export default gameBoardSlice.reducer;
+```
+
+So we hit the `startGame` action, and all we do is update `state.squares` to the initial game board, and update `state.status` to `'in-progress'`:
+
+```js
+startGame(state) {
+  state.squares = initialState.squares;
+  state.status = inProgress;
+},
+```
+
+Not too bad, right? So simple that you're probably bored.
+
+Well have I got a treat for you?
+
+This is the `nextBlock()` action:
+
+```js
+nextBlock(state) {
+  let newBlock = blocks[Math.floor(Math.random() * blocks.length)];
+
+  state.liveBlock = newBlock;
+  state.blockCounter = state.blockCounter + 1;
+
+  if (state.blockCounter % 5 === 0) {
+    if (state.liveBackground === 'one') {
+      state.liveBackground = 'two';
+      state.backgroundTwo = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+    } else {
+      state.liveBackground = 'one';
+      state.backgroundOne = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+    }
+  }
+
+  if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
+    state.squares = mergeNestedObjects(current(state.squares), newBlockShape(newBlock));
+    state.timer = { isLive: true };
+  } else {
+    if (
+      !Object.keys(current(state.squares)[0])
+        .map(square => current(state.squares)[0][square].status)
+        .includes(settled)
+    ) {
+      state.squares = mergeNestedObjects(current(state.squares), {
+        0: { ...newBlockShape(newBlock)[1] },
+      });
+    }
+    state.status = gameOver;
+  }
+},
+```
+
+Now, I know exactly what you're thinking.
+
+_"Kill me. Kill me now."_
+
+And yes, at this point that would be a mercy.
+
+But why do that, when instead you could spend the next 15 minutes of your life going over this action line-by-line with me?
+
 ## Backgrounds
 
 <!-- TODO -->

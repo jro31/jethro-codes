@@ -928,9 +928,150 @@ And yes, at this point that would be a mercy.
 
 But why do that, when instead you could spend the next 15 minutes of your life going over this action line-by-line with me?
 
-## Backgrounds
+I knew that would convince you to stay.
 
-<!-- TODO -->
+So to start with, what is
+
+```js
+let newBlock = blocks[Math.floor(Math.random() * blocks.length)];
+```
+
+Do you remember those blocks I told you about? `I`, `J`, `L`, `O`, `S`, `T` and `Z`?
+
+Well good news, this is the `blocks` variable:
+
+```js
+export const blocks = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+```
+
+Well what `let newBlock = blocks[Math.floor(Math.random() * blocks.length)];` does is randomly select one of these blocks, and assign it to `newBlock`.
+
+This kind of code is crying to be made into an npm package, because God that's an ugly way of doing something so simple.
+
+But to explain exactly what we're doing, `Math.random()` generates a float between 0 and 1 (but not including 1), for example:
+
+```js
+console.log(Math.random()); // 0.8850186784884699
+```
+
+We then multiply this by the length of our array; in this case seven (as in, seven different blocks). So
+
+```js
+Math.random() * blocks.length;
+```
+
+is equivalent to
+
+```js
+0.8850186784884699 * 7;
+```
+
+(which returns `6.1951307494` for those of you who aren't so sharp).
+
+`Math.floor` then rounds this down to the nearest whole number, so
+
+```js
+Math.floor(Math.random() * blocks.length);
+```
+
+is equivalent to
+
+```js
+Math.floor(0.8850186784884699 * 7);
+```
+
+(which returns 6. You'd better have got that one).
+
+`let newBlock = blocks[Math.floor(Math.random() * blocks.length)];` is therefore eqivalent to `let newBlock = blocks[6]`, except that `Math.random()` could be any float, so the effective result is that we randomly select one element from our `blocks` array, and assign it to `newBlock`.
+
+In this example, that would be `z`.
+
+That's the first line of this action. 29 to go.
+
+From looking at the `startGame` action, our `initialState` was:
+
+```js
+const initialState = {
+  squares: initialSquares(),
+  status: preGame,
+};
+```
+
+Let's add to that now:
+
+```js
+const initialState = {
+  squares: initialSquares(),
+  liveBlock: blocks[Math.floor(Math.random() * blocks.length)],
+  blockCounter: 0,
+  status: preGame,
+};
+```
+
+`squares`, as we've been over earlier, is our game board.
+
+`status` can be one of `'pre-game'`, `'in-progress'`, `'paused'` or `'game-over'`, depending on what stage of the game we're in.
+
+Now we've just added `liveBlock`. This is the block that's currently in play, and will be one of `I`, `J`, `L`, `O`, `S`, `T` or `Z`.
+
+`blockCounter` keeps track of how many blocks have been played in the game so far.
+
+So onto the next lines of our `nextBlock` action:
+
+```js
+state.liveBlock = newBlock;
+state.blockCounter = state.blockCounter + 1;
+```
+
+The first line simply sets the next block to be played, and the second line takes the current `blockCounter` and adds one.
+
+_"But why do we want to know how many blocks have been played?"_ I hear you ask.
+
+And good question. Well done.
+
+Now strap-in, because we're about to go on an adrenaline-filled roller-coaster that is... changing the game's background.
+
+### Backgrounds
+
+The next part of our `nextBlock` action is:
+
+```js
+if (state.blockCounter % 5 === 0) {
+  if (state.liveBackground === 'one') {
+    state.liveBackground = 'two';
+    state.backgroundTwo = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  } else {
+    state.liveBackground = 'one';
+    state.backgroundOne = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  }
+}
+```
+
+Seems simple enough, right?
+
+The first `if` statement simply checks whether or not `blockCounter` is a multiple of `5`:
+
+```js
+if (state.blockCounter % 5 === 0)
+```
+
+Then if it is... if it is... we then check if the `liveBackground` state is `one`. Wow!
+
+Now you may be asking yourself, _"what is going on right now?"_
+
+This wasn't how I planned for the background of this game to be, until I made a terrifying discovery:
+
+Browsers don't allow you to transition between linear gradient backgrounds!
+
+I know, that was my reaction too.
+
+If you try and transition between linear gradient backgrounds, they'll just change instantly. No transition.
+
+But I'll tell you something, I'm not about to let Google Chrome tell me what I can and can't do, so I spent an entire morning coming up with a hacky workaround that's really confusing and hard to explain.
+
+Fight the power!
+
+<!-- START HERE TOMORROW -->
 
 ## Useful links
 

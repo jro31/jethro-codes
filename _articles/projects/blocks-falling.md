@@ -2,7 +2,7 @@
 title: 'Blocks Falling'
 description: 'A deep-dive into the code of this game where players must rotate falling blocks and fit them together into lines.'
 coverImage: '/images/projects/blocks-falling/hero-screenshot.png'
-published: '2022-05-03' # TODO - Update this
+published: '2022-05-07' # TODO - Update this
 tags: 'React, Redux Toolkit, Firebase'
 ---
 
@@ -12,7 +12,7 @@ I didn't really think anyone would care. Building it was a personal challenge, a
 
 Turns out some that some people do care. And they have lawyers. So I had to do a complete rebrand.
 
-So based on this [completely unrelated video game trailer](https://youtu.be/Mr8fVT_Ds4Q) (which just so happens to be the greatest trailer in video game history), I rebranded to 'Blocks Falling.'
+So based on this [completely unrelated video game trailer](https://youtu.be/Mr8fVT_Ds4Q) (which just so happens to be the greatest trailer in video game history), I rebranded and '[Blocks Falling](https://blocksfalling.com/)' was born.
 
 ## Background
 
@@ -126,7 +126,7 @@ The `reduce` function is a bit of a sticky one to get your head around, particul
 
 `reduce` returns a single value. It "reduces" your array into a single value. In this case, that single value just so happens to be a rather large object.
 
-`reduce` loops over all the elements of the array that it's called on. `acc` (short for 'accumulator') is the accumulated value to be returned, after that iteration. `curr` (short for 'current'), is the current element from the array that we're iterating over.
+`reduce` loops over all the elements of the array that it's called on. `acc` (short for 'accumulator') is the accumulated value to be returned from that iteration. `curr` (short for 'current'), is the current element from the array that we're iterating over.
 
 Confused?
 
@@ -138,7 +138,7 @@ Let's look at a simpler example:
 [1, 2, 3, 4].reduce((acc, curr) => acc + curr);
 ```
 
-Here, we're looping over this array. As we haven't passed-in a starting value, our `acc` starts at zero. So on the first iteration, where `acc` is zero, `curr` (the first element in our array) is `1`. So `acc + curr` is equal to `0 + 1`, so we return `1`.
+Here, we're looping over this array. As we haven't passed-in a starting value, our `acc` starts at zero. So on the first iteration `acc` is zero, and `curr` (the first element in our array) is `1`. So `acc + curr` is equal to `0 + 1`, so we return `1`.
 
 This value that we return, is the value of `acc` for the next iteration. So on the second iteration, `acc` is `1`, and `curr` (the second element in our array) is `2`. So `1 + 2`, we return `3` from the second iteration of our loop.
 
@@ -154,7 +154,7 @@ Let's add one more element to our function:
 [1, 2, 3, 4].reduce((acc, curr) => acc + curr, 10);
 ```
 
-In this example, a `10` has been added, and what this does is set the initial value of `acc`. So on our first iteration, instead of `acc` being `0`, it starts as `10`. With `curr` being `1`, on our first iteration we run `10 + 1` to return `11`.
+In this example, a `10` has been added, and what this does is set the initial value of `acc`. So on our first iteration, instead of `acc` being zero, it starts as `10`. With `curr` being `1`, on our first iteration we run `10 + 1` to return `11`.
 
 On the second iteration, `acc` is therefore set to `11`, so `11 + 2` returns `13`.
 
@@ -171,7 +171,7 @@ export const emptyRow = arrayOfNumbers().reduce((acc, curr) => ((acc[curr] = { s
 
 In this instance, `{}` is our initial value. On the first iteration, we're setting `acc` to an empty object.
 
-Let me change this code slightly, to make it easier to go over:
+Let me change this code slightly to make it easier to go over:
 
 ```js
 [1, 2, 3, 4].reduce((acc, curr) => ((acc[curr] = { status: 'empty' }), acc), {});
@@ -288,7 +288,7 @@ const initialSquares = () => {
 
 When we call our `initialSquares()` function, we run `reduce()` on `arrayOfNumbers(1, 20)` (which returns `[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]`).
 
-However, the difference is that we're setting `acc[curr]` to be our `emptyRow` variable.
+However, the difference is that we're setting the value of `acc[curr]` to be our `emptyRow` variable.
 
 We do this on all 20 elements of our array, and finally with `returnObject[0] = deadRow;`, set a 21st row where the status is set to `dead` (I'll go over the reasons for this in a second).
 
@@ -524,7 +524,7 @@ const initialState = {
 };
 ```
 
-We'll touch on all parts of this state through this article. However, at this point the important thing to know is that our `initialSquares()` function is set to `squares`.
+We'll touch on all parts of this state through this article. However, at this point the important thing to know is that the return from our `initialSquares()` function is set to `squares`.
 
 Within our store, the game board reducer is imported as follows:
 
@@ -580,7 +580,7 @@ Let's go to the very beginning, of what happens when a player starts the game.
 
 There are two ways that a player can start a game.
 
-If they're on a computer, they can press the space bar. Alternatively, if they don't have a keyboard or they just feel like living a little, they can click the play/pause button.
+If they're on a computer, they can press the space bar. Alternatively, if they don't have a keyboard or they just feel like living a little, they can click the on-screen play/pause button.
 
 The former of these methods is handled in the `GameBoard` component. We add an event listener as the component loads with `useEffect`:
 
@@ -655,7 +655,7 @@ statusRef = useRef(status);
 statusRef.current = status;
 ```
 
-Good question. And it's just taken me half a day looking back over my commit history and my stack overflow history to figure it out.
+Good question. And it's just taken me half a day looking back over my commit history and my Google search history to figure it out.
 
 Within the `GameBoard` component, we also have:
 
@@ -742,7 +742,7 @@ statusRef = useRef(status);
 statusRef.current = status;
 ```
 
-By calling importing `statusRef` and then calling `statusRef.current`, it simply guarantees that the state that we are using is current state.
+By importing `statusRef` and then calling `statusRef.current`, it guarantees that the state that we are using is current state.
 
 Make sense?
 
@@ -771,7 +771,7 @@ const handleKeyPress = event => {
 };
 ```
 
-Assuming that `statusRef.current === preGame` is true (which it will be because we haven't started a game yet), then we call `beginGame()` (which calls the `useBeginGame` hook):
+Assuming that `statusRef.current === preGame` is true (which it will be because we haven't started a game yet), then we call `beginGame()`, which calls the `useBeginGame` hook:
 
 ```js
 import useBeginGame from '../hooks/use-begin-game';
@@ -781,7 +781,7 @@ const GameBoard = () => {
 };
 ```
 
-If you don't like custom hooks, then you might not really enjoy the next few minutes of your life. This app uses 46 different custom hooks. And although I'll try my best not to go over every single one of them, because I don't really want to, I'm probably going to have to talk about hooks a bit.
+If you don't like custom hooks, then you might not really enjoy the next few minutes of your life. This app uses 46 custom hooks. And although I'll try my best not to go over every single one of them, because I don't really want to, I'm probably going to have to talk about hooks a bit.
 
 A lot.
 
@@ -944,7 +944,7 @@ Well good news, this is the `blocks` variable:
 export const blocks = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
 ```
 
-Well what `let newBlock = blocks[Math.floor(Math.random() * blocks.length)];` does is randomly select one of these blocks, and assign it to `newBlock`.
+And what `let newBlock = blocks[Math.floor(Math.random() * blocks.length)];` does is randomly select one of these blocks, and assign it to `newBlock`.
 
 This kind of code is crying to be made into an npm package, because God that's an ugly way of doing something so simple.
 
@@ -984,7 +984,7 @@ Math.floor(0.8850186784884699 * 7);
 
 `let newBlock = blocks[Math.floor(Math.random() * blocks.length)];` is therefore eqivalent to `let newBlock = blocks[6]`, except that `Math.random()` could be any float, so the effective result is that we randomly select one element from our `blocks` array, and assign it to `newBlock`.
 
-In this example, that would be `z`.
+In this example, that would be `'Z'`.
 
 That's the first line of this action. 29 to go.
 
@@ -1010,7 +1010,7 @@ const initialState = {
 
 `squares`, as we've been over earlier, is our game board.
 
-`status` can be one of `'pre-game'`, `'in-progress'`, `'paused'` or `'game-over'`, depending on what stage of the game we're in.
+`status` can be one of `'pre-game'`, `'in-progress'`, `'paused'` or `'game-over'`, depending on what stage of the game we're as.
 
 Now we've just added `liveBlock`. This is the block that's currently in play, and will be one of `I`, `J`, `L`, `O`, `S`, `T` or `Z`.
 
@@ -1023,7 +1023,7 @@ state.liveBlock = newBlock;
 state.blockCounter = state.blockCounter + 1;
 ```
 
-The first line simply sets the next block to be played, and the second line takes the current `blockCounter` and adds one.
+The first line simply sets `state.liveBlock` as the next block to be played, and the second line takes the current `blockCounter` and adds one.
 
 _"But why do we want to know how many blocks have been played?"_ I hear you ask.
 
@@ -1057,7 +1057,7 @@ if (state.blockCounter % 5 === 0)
 
 Then if it is... if it is... we then check if the `liveBackground` state is `one`. Wow!
 
-Now you may be asking yourself, _"what is going on right now?"_
+Now you may be asking yourself... _"what is going on right now?"_
 
 This wasn't how I planned for the background of this game to be, until I made a terrifying discovery:
 
@@ -1067,11 +1067,505 @@ I know, that was my reaction too.
 
 If you try and transition between linear gradient backgrounds, they'll just change instantly. No transition.
 
-But I'll tell you something, I'm not about to let Google Chrome tell me what I can and can't do, so I spent an entire morning coming up with a hacky workaround that's really confusing and hard to explain.
+But I'll tell you something, I'm not about to let some Google Chrome devs tell me what I can and can't do, so I spent an entire morning coming up with a hacky workaround that's really confusing and hard to explain.
 
 Fight the power!
 
-<!-- START HERE TOMORROW -->
+And to make sense of it, the first thing that we need to do is look at our styling for the `App.js` file:
+
+```css
+/* src/App.module.css */
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.page-container::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transition: opacity var(--transition-time);
+}
+
+.before-is-visible::before {
+  opacity: 1;
+}
+
+.before-is-hidden::before {
+  opacity: 0;
+}
+
+.superman,
+.superman-before::before {
+  background-image: linear-gradient(to right, #0099f7, #f11712);
+}
+
+.orange-coral,
+.orange-coral-before::before {
+  background-image: linear-gradient(to right, #ff9966, #ff5e62);
+}
+
+.deep-sea,
+.deep-sea-before::before {
+  background-image: linear-gradient(to right, #2c3e50, #4ca1af);
+}
+
+.sunrise,
+.sunrise-before::before {
+  background-image: linear-gradient(to right, #ff512f, #f09819);
+}
+
+.fresh-air,
+.fresh-air-before::before {
+  background-image: linear-gradient(
+    95.2deg,
+    rgba(173, 252, 234, 1) 26.8%,
+    rgba(192, 229, 246, 1) 64%
+  );
+}
+
+.cherry-blossom,
+.cherry-blossom-before::before {
+  background-image: linear-gradient(25deg, #d64c7f, #ee4758 50%);
+}
+
+.mango,
+.mango-before::before {
+  background-image: radial-gradient(circle farthest-side, #fceabb, #f8b500);
+}
+
+.chlorophyll,
+.chlorophyll-before::before {
+  background-image: radial-gradient(
+    circle 759px at -6.7% 50%,
+    rgba(80, 131, 73, 1) 0%,
+    rgba(140, 209, 131, 1) 26.2%,
+    rgba(178, 231, 170, 1) 50.6%,
+    rgba(144, 213, 135, 1) 74.1%,
+    rgba(75, 118, 69, 1) 100.3%
+  );
+}
+
+.spectrum,
+.spectrum-before::before {
+  background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
+}
+
+.not-dead-red,
+.not-dead-red-before::before {
+  background-image: linear-gradient(to right, #fffbd5, #b20a2c);
+}
+
+.sand-to-sea,
+.sand-to-sea-before::before {
+  background-image: linear-gradient(to right, #decba4, #3e5151);
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+@media (min-width: 640px) {
+  .game-container {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+```
+
+The `--transition-time` variable is set to 10 seconds in our `index.css` file:
+
+```css
+:root {
+  --transition-time: 10s;
+}
+```
+
+Then most of these CSS classes sound quite fun.
+
+`cherry-blossom`, `sunrise`, `superman`, `fresh-air`... this can't be so bad, right?
+
+Well each of these fun-sounding classes (I came up with the names myself) contain the `linear-gradients` that make-up the various backgrounds that you see while playing.
+
+But Jethro, why do they all also have `::before` selectors?
+
+To understand this, let's look at a simplified version of our `App.js` file:
+
+```js
+import { useSelector } from 'react-redux';
+
+import styles from './App.module.css';
+
+const App = () => {
+  const backgroundOne = useSelector(state => state.gameBoard.backgroundOne);
+  const backgroundTwo = useSelector(state => state.gameBoard.backgroundTwo);
+  const liveBackground = useSelector(state => state.gameBoard.liveBackground);
+
+  const backgroundClasses = () => {
+    return `${
+      liveBackground === 'one' ? styles['before-is-hidden'] : styles['before-is-visible']
+    } ${styles[backgroundOne]} ${styles[`${backgroundTwo}-before`]}`;
+  };
+
+  return (
+    <div className={`${styles['page-container']} ${backgroundClasses()}`}>
+      {/* Some useful stuff goes here */}
+    </div>
+  );
+};
+
+export default App;
+```
+
+As you can see, the parent `<div>` in `App.js` has a `className` of the return or `backgroundClasses()`.
+
+`backgroundClasses()` returns a string of class names.
+
+Firstly, if `liveBackground` is equal to `'one'`, it returns the `'before-is-hidden` class. If `liveBackground` is not equal to `one`, it returns the `'before-is-visible'` class.
+
+If it helps you to understand, 'before' is a noun rather than a preposition in these class names.
+
+No?
+
+Worth a shot.
+
+Let's go back to our stylesheet again:
+
+```css
+.page-container::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transition: opacity var(--transition-time);
+}
+
+.before-is-visible::before {
+  opacity: 1;
+}
+
+.before-is-hidden::before {
+  opacity: 0;
+}
+```
+
+Our `<div>` has a `::before` pseudo-element. This element is positioned absolutely with the `top`, `right`, `bottom` and `left` properties all set to `0`. This means that this pseudo-element takes up the entire screen.
+
+It also has a `z-index` of `1`.
+
+Our `page-container` element also takes up the entire screen (by virtue of the elements within it). However, `page-container` has a `z-index` of `0`.
+
+```css
+.page-container {
+  z-index: 0;
+}
+```
+
+What does all this mean?
+
+It means that the `page-container::before` pseudo-element is exactly the same size and in the same position as the `page-container` element, however it sits on top of it.
+
+We cannot transition linear-gradient backgrounds. However what we can do, is transition the `opacity` of the `page-container::before` element.
+
+If the `before-is-visible` class is returned from the `backgroundClasses()` function, then the `page-container::before` pseudo-element is visible. If `before-is-hidden` is returned from `backgroundClasses()` then `page-container::before` is transparent.
+
+And as we have a `transition: opacity var(--transition-time);` property on `.page-container::before`, this change between opacity takes 10 seconds, giving the illusion that the linear-gradient background is changing gradually:
+
+```css
+.page-container::before {
+  transition: opacity var(--transition-time);
+}
+
+.before-is-visible::before {
+  opacity: 1;
+}
+
+.before-is-hidden::before {
+  opacity: 0;
+}
+```
+
+So when you play the game, and you see the background slowly changing, that's not actually what's happening at all. What is actually happening, is the `page-container::before` pseudo-element that lives on top of the background (but below the game board) is changing its opacity.
+
+Let's again look at the code from our `nextBlock()` action:
+
+```js
+if (state.blockCounter % 5 === 0) {
+  if (state.liveBackground === 'one') {
+    state.liveBackground = 'two';
+    state.backgroundTwo = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  } else {
+    state.liveBackground = 'one';
+    state.backgroundOne = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  }
+}
+```
+
+Our `liveBackground` state can be one of two values: `one` or `two`. And when every fifth block is added to the game (`if (state.blockCounter % 5 === 0) {`), it will toggle to the value that it isn't currently.
+
+So if it's `one`, then it'll change to `two`. And if it's `two`, it'll change to `one`.
+
+If you remember back to our `backgroundClasses()` function in `App.js`, this change in `liveBackground` is what determines whether our `<div>` has a `'before-is-hidden'` or a `'before-is-visible'` class:
+
+<!-- prettier-ignore -->
+```js
+const backgroundClasses = () => {
+  return `${
+    liveBackground === 'one' ? styles['before-is-hidden'] : styles['before-is-visible']
+  } ${styles[backgroundOne]} ${styles[`${backgroundTwo}-before`]}`;
+};
+```
+
+So as `liveBackground` changes from `one` to `two` (or vice-versa) with every fifth block, the `'before-is-hidden'` and `'before-is-visible'` classes also toggle with every fifth block.
+
+And that means that every fifth block, `.page-container::before` has an `opacity` of `1`, then an `opacity` of `0`, then an `opacity` of `1` etc.
+
+```css
+.before-is-visible::before {
+  opacity: 1;
+}
+
+.before-is-hidden::before {
+  opacity: 0;
+}
+```
+
+Let's add a little more to the `initialState` of our game board slice now:
+
+```js
+const backgrounds = [
+  'superman',
+  'orange-coral',
+  'deep-sea',
+  'sunrise',
+  'fresh-air',
+  'cherry-blossom',
+  'mango',
+  'chlorophyll',
+  'spectrum',
+  'not-dead-red',
+  'sand-to-sea',
+];
+
+const initialState = {
+  squares: initialSquares(),
+  liveBlock: randomElement(blocks),
+  blockCounter: 0,
+  status: preGame,
+  backgroundOne: backgrounds[Math.floor(Math.random() * backgrounds.length)],
+  backgroundTwo: backgrounds[Math.floor(Math.random() * backgrounds.length)],
+  liveBackground: 'one',
+};
+```
+
+We've just added the `backgroundOne`, `backgroundTwo` and `liveBackground` states.
+
+You'll also see that the `backgrounds` array _matches_ the class names of the various backgrounds from our CSS file.
+
+So in our `initialState`, for when we load the page and start the game, `backgroundOne` will be randomly set to one of these background strings, and `backgroundTwo` will be randomly set to one of these background strings.
+
+For this example, let's say that the `initialState` is:
+
+```js
+const initialState = {
+  backgroundOne: 'superman',
+  backgroundTwo: 'cherry-blossom',
+  liveBackground: 'one',
+};
+```
+
+How would this affect our `backgroundClasses()` function?
+
+<!-- prettier-ignore -->
+```js
+const backgroundClasses = () => {
+  return `${
+    liveBackground === 'one' ? styles['before-is-hidden'] : styles['before-is-visible']
+  } ${styles[backgroundOne]} ${styles[`${backgroundTwo}-before`]}`;
+};
+```
+
+Well `liveBackground` is currently `'one'`, so we're returning the `'before-is-hidden'` class. Then `backgroundOne` is `'superman'`, so we're returning the `'superman'` class. And `backgroundTwo` is `'cherry-blossom'` so we're returning the `'cherry-blossom-before'` class.
+
+Therefore, for this example, `backgroundClasses()` is equivalent to
+
+```js
+const backgroundClasses = () => {
+  return {`${styles['before-is-hidden']} ${styles['superman']} ${styles['cherry-blossom-before']}`}
+};
+```
+
+So our
+
+<!-- prettier-ignore -->
+```js
+<div className={`${styles['page-container']} ${backgroundClasses()}`}>
+  {/* Fun stuff here */}
+</div>
+```
+
+`<div>` becomes
+
+<!-- prettier-ignore -->
+```js
+<div className={`${styles['page-container']} ${styles['before-is-hidden']} ${styles['superman']} ${styles['cherry-blossom-before']}`}>
+  {/* Fun stuff here */}
+</div>
+```
+
+And if we go back to our stylesheet, what that means is:
+
+```css
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.page-container::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transition: opacity var(--transition-time);
+}
+
+.before-is-hidden::before {
+  opacity: 0;
+}
+
+.superman {
+  background-image: linear-gradient(to right, #0099f7, #f11712);
+}
+
+.cherry-blossom-before::before {
+  background-image: linear-gradient(25deg, #d64c7f, #ee4758 50%);
+}
+```
+
+Currently our `.page-container::before` pseudo-element has an `opacity` of `0`, so is completely transparent. And as we can't see this pseudo-element, it means that we _can_ see the `.page-container` element, which is the same element as `.superman`, and so we display the 'superman' background:
+
+![Superman](/images/projects/blocks-falling/superman.png)
+_Superman_
+
+We then start playing the game, and we reach our fifth block:
+
+```js
+if (state.blockCounter % 5 === 0) {
+  if (state.liveBackground === 'one') {
+    state.liveBackground = 'two';
+    state.backgroundTwo = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  } else {
+    state.liveBackground = 'one';
+    state.backgroundOne = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  }
+}
+```
+
+As `state.liveBackground` is currenly `'one'`, we update this to `'two'`, and we change `state.backgroundTwo` to a new random background.
+
+So we never got to see cherry blossom. God dammit!
+
+Let's say that `state.backgroundTwo` updates to `'sunrise'`.
+
+As these two states update, our `App.js` component re-renders, meaning that our `<div>` calls the `backgroundClasses()` function again.
+
+<!-- prettier-ignore -->
+```js
+const backgroundClasses = () => {
+  return `${
+    liveBackground === 'one' ? styles['before-is-hidden'] : styles['before-is-visible']
+  } ${styles[backgroundOne]} ${styles[`${backgroundTwo}-before`]}`;
+};
+```
+
+`liveBackground` is now `'two'`, `backgroundOne` is still `'superman'`, and `backgroundTwo` is now `'sunrise'`, so the return from `backgroundClasses()` is
+
+```js
+const backgroundClasses = () => {
+  return {`${styles['before-is-visible']} ${styles['superman']} ${styles['sunrise-before']}`}
+};
+```
+
+meaning that our `<div>` becomes:
+
+<!-- prettier-ignore -->
+```js
+<div className={`${styles['page-container']} ${styles['before-is-visible']} ${styles['superman']} ${styles['sunrise-before']}`}>
+  {/* Fun stuff here */}
+</div>
+```
+
+In our stylesheet, that means
+
+```css
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.page-container::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transition: opacity var(--transition-time);
+}
+
+.before-is-visible::before {
+  opacity: 1;
+}
+
+.superman {
+  background-image: linear-gradient(to right, #0099f7, #f11712);
+}
+
+.sunrise-before::before {
+  background-image: linear-gradient(to right, #ff512f, #f09819);
+}
+```
+
+The key part here, is `before-is-visible`. This gives our `::before` pseudo-element an `opacity` of `1`, so it becomes completely opaque. That means that we're now showing our `.sunrise-before::before` background, instead of our `.superman` background.
+
+However, as we have a transition on `opacity`, this change happens gradually over the next 10 seconds.
+
+```css
+.page-container::before {
+  transition: opacity var(--transition-time);
+}
+```
+
+This gives the illusion that we've gradually transitioned between our linear-gradient background, where as actually we've just changed the `opacity` of the `::before` pseudo-element.
+
+![Sunrise](/images/projects/blocks-falling/sunrise.png)
+_Sunrise_
+
+So we keep on playing, and get to our 10th block...
 
 ## Useful links
 

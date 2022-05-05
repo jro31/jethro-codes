@@ -1,4 +1,6 @@
 // NICETOHAVE - Add social media links to share this article
+// Either an icon at the top of the page that opens a modal/dropdown, or a section at the bottom of the article.
+// (or both)
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';

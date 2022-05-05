@@ -8,7 +8,7 @@ tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Verce
 
 ## Background
 
-At the time I started this project, I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
+At the time I started [Meals of Change](https://mealsofchange.com/), I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
 
 I'd never had the time to learn React at this point, and in my first job, it was the era of React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, looking at and trying to replicate the existing code, but not really understanding what was going on.
 

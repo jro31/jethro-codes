@@ -1192,7 +1192,7 @@ The `--transition-time` variable is set to 10 seconds in our `index.css` file:
 }
 ```
 
-Then most of these CSS classes sound quite fun.
+Most of these CSS classes sound quite fun.
 
 `cherry-blossom`, `sunrise`, `superman`, `fresh-air`... this can't be so bad, right?
 
@@ -1228,11 +1228,11 @@ const App = () => {
 export default App;
 ```
 
-As you can see, the parent `<div>` in `App.js` has a `className` of the return or `backgroundClasses()`.
+As you can see, the parent `<div>` returned from the `App.js` component has a `className` of the return of our `backgroundClasses()` function.
 
 `backgroundClasses()` returns a string of class names.
 
-Firstly, if `liveBackground` is equal to `'one'`, it returns the `'before-is-hidden` class. If `liveBackground` is not equal to `one`, it returns the `'before-is-visible'` class.
+Firstly, if `liveBackground` is equal to `'one'`, it returns the `'before-is-hidden'` class. If `liveBackground` is not equal to `one`, it returns the `'before-is-visible'` class.
 
 If it helps you to understand, 'before' is a noun rather than a preposition in these class names.
 
@@ -1267,7 +1267,7 @@ Our `<div>` has a `::before` pseudo-element. This element is positioned absolute
 
 It also has a `z-index` of `1`.
 
-Our `page-container` element also takes up the entire screen (by virtue of the elements within it). However, `page-container` has a `z-index` of `0`.
+By virtue of the elements contained within it, this `<div>` also takes-up the entire screen. However, thanks to the `.page-container` class, it has a `z-index` of `0`.
 
 ```css
 .page-container {
@@ -1281,7 +1281,7 @@ It means that the `page-container::before` pseudo-element is exactly the same si
 
 We cannot transition linear-gradient backgrounds. However what we can do, is transition the `opacity` of the `page-container::before` element.
 
-If the `before-is-visible` class is returned from the `backgroundClasses()` function, then the `page-container::before` pseudo-element is visible. If `before-is-hidden` is returned from `backgroundClasses()` then `page-container::before` is transparent.
+If the `'before-is-visible'` class is returned from the `backgroundClasses()` function, then the `page-container::before` pseudo-element is visible. If `'before-is-hidden'` is returned from `backgroundClasses()` then `page-container::before` is transparent.
 
 And as we have a `transition: opacity var(--transition-time);` property on `.page-container::before`, this change between opacity takes 10 seconds, giving the illusion that the linear-gradient background is changing gradually:
 
@@ -1299,7 +1299,7 @@ And as we have a `transition: opacity var(--transition-time);` property on `.pag
 }
 ```
 
-So when you play the game, and you see the background slowly changing, that's not actually what's happening at all. What is actually happening, is the `page-container::before` pseudo-element that lives on top of the background (but below the game board) is changing its opacity.
+So when you play the game, and you see the background slowly changing, that's not actually what's happening at all. What is actually happening, is the `page-container::before` pseudo-element that lives on top of the background (but beneath the game board) is changing its opacity.
 
 Let's again look at the code from our `nextBlock()` action:
 
@@ -1317,7 +1317,7 @@ if (state.blockCounter % 5 === 0) {
 
 Our `liveBackground` state can be one of two values: `one` or `two`. And when every fifth block is added to the game (`if (state.blockCounter % 5 === 0) {`), it will toggle to the value that it isn't currently.
 
-So if it's `one`, then it'll change to `two`. And if it's `two`, it'll change to `one`.
+So if it's `one`, then it'll change to `two`, and if it's `two`, it'll change to `one`.
 
 If you remember back to our `backgroundClasses()` function in `App.js`, this change in `liveBackground` is what determines whether our `<div>` has a `'before-is-hidden'` or a `'before-is-visible'` class:
 
@@ -1332,7 +1332,7 @@ const backgroundClasses = () => {
 
 So as `liveBackground` changes from `one` to `two` (or vice-versa) with every fifth block, the `'before-is-hidden'` and `'before-is-visible'` classes also toggle with every fifth block.
 
-And that means that every fifth block, `.page-container::before` has an `opacity` of `1`, then an `opacity` of `0`, then an `opacity` of `1` etc.
+And that means that every fifth block, `.page-container::before` has an `opacity` of `1`, then an `opacity` of `0`, then an `opacity` of `1`, then an `opacity` of `0` etc.
 
 ```css
 .before-is-visible::before {
@@ -1374,7 +1374,7 @@ const initialState = {
 
 We've just added the `backgroundOne`, `backgroundTwo` and `liveBackground` states.
 
-You'll also see that the `backgrounds` array _matches_ the class names of the various backgrounds from our CSS file.
+You'll also see that the `backgrounds` array _matches_ the class names of the various backgrounds in our CSS file.
 
 So in our `initialState`, for when we load the page and start the game, `backgroundOne` will be randomly set to one of these background strings, and `backgroundTwo` will be randomly set to one of these background strings.
 
@@ -1462,7 +1462,7 @@ And if we go back to our stylesheet, what that means is:
 }
 ```
 
-Currently our `.page-container::before` pseudo-element has an `opacity` of `0`, so is completely transparent. And as we can't see this pseudo-element, it means that we _can_ see the `.page-container` element, which is the same element as `.superman`, and so we display the 'superman' background:
+Currently our `::before` pseudo-element has an `opacity` of `0`, so is completely transparent. And as we can't see this pseudo-element, it means that we _can_ see the `<div>`, which has the `.superman` class, and so we display the 'superman' background:
 
 ![Superman](/images/projects/blocks-falling/superman.png)
 _Superman_
@@ -1550,7 +1550,7 @@ In our stylesheet, that means
 }
 ```
 
-The key part here, is `before-is-visible`. This gives our `::before` pseudo-element an `opacity` of `1`, so it becomes completely opaque. That means that we're now showing our `.sunrise-before::before` background, instead of our `.superman` background.
+The key part here, is `before-is-visible`. This gives our `::before` pseudo-element an `opacity` of `1`, so it becomes completely opaque. That means that we're now showing our `.sunrise-before::before` background, and our `.superman` background behind it, completely hidden.
 
 However, as we have a transition on `opacity`, this change happens gradually over the next 10 seconds.
 
@@ -1560,12 +1560,128 @@ However, as we have a transition on `opacity`, this change happens gradually ove
 }
 ```
 
-This gives the illusion that we've gradually transitioned between our linear-gradient background, where as actually we've just changed the `opacity` of the `::before` pseudo-element.
+This gives the illusion that we've gradually transitioned between our linear-gradient backgrounds, where as actually we've just changed the `opacity` of the `::before` pseudo-element.
 
 ![Sunrise](/images/projects/blocks-falling/sunrise.png)
 _Sunrise_
 
-So we keep on playing, and get to our 10th block...
+So we keep on playing, and get to our 10th block.
+
+```js
+if (state.blockCounter % 5 === 0) {
+  if (state.liveBackground === 'one') {
+    state.liveBackground = 'two';
+    state.backgroundTwo = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  } else {
+    state.liveBackground = 'one';
+    state.backgroundOne = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  }
+}
+```
+
+As we get here, our `liveBackground` state is `'two'`, so the first thing that we do is change this back to `'one'`. Then randomly select a new background class, and set this to our `backgroundOne` state.
+
+For this example, let's say that `state.backgroundOne` now becomes `'mango'`.
+
+Because of these changes, our `App.js` component re-renders, meaning that it calls `backgroundClasses()` again.
+
+<!-- prettier-ignore -->
+```js
+const backgroundClasses = () => {
+  return `${
+    liveBackground === 'one' ? styles['before-is-hidden'] : styles['before-is-visible']
+  } ${styles[backgroundOne]} ${styles[`${backgroundTwo}-before`]}`;
+};
+```
+
+And this time, as `liveBackground` is equal to `'one'` again, we return our `'before-is-hidden'` class here. `backgroundOne` is now `'mango'`, and `backgroundTwo` is still `'sunrise'`, so `backgroundClasses()` returns:
+
+```js
+const backgroundClasses = () => {
+  return {`${styles['before-is-hidden']} ${styles['mango']} ${styles['sunrise-before']}`}
+};
+```
+
+meaning that our `<div>` becomes:
+
+<!-- prettier-ignore -->
+```js
+<div className={`${styles['page-container']} ${styles['before-is-hidden']} ${styles['mango']} ${styles['sunrise-before']}`}>
+  {/* Kung fu */}
+</div>
+```
+
+The relevant classes in our stylesheet are:
+
+```css
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+}
+
+.page-container::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transition: opacity var(--transition-time);
+}
+
+.before-is-hidden::before {
+  opacity: 0;
+}
+
+.mango {
+  background-image: radial-gradient(circle farthest-side, #fceabb, #f8b500);
+}
+
+.sunrise-before::before {
+  background-image: linear-gradient(to right, #ff512f, #f09819);
+}
+```
+
+Our `::before` pseudo-element is now opaque again, so we can no longer see our `.sunrise` background, with the exception that the transition to this `opacity` takes ten seconds, again giving the illusion of the linear-gradient background transitioning slowly, until we can only see `.mango`.
+
+[ADD MANGO SCREENSHOT HERE, TAKEN ON BIG MONITOR]
+
+And that's how I hacked my way around the restriction of being able to transition linear gradients.
+
+Now let's continue down our `nextBlock()` action:
+
+```js
+if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
+  state.squares = mergeNestedObjects(current(state.squares), newBlockShape(newBlock));
+  state.timer = { isLive: true };
+} else {
+  if (
+    !Object.keys(current(state.squares)[0])
+      .map(square => current(state.squares)[0][square].status)
+      .includes(settled)
+  ) {
+    state.squares = mergeNestedObjects(current(state.squares), {
+      0: { ...newBlockShape(newBlock)[1] },
+    });
+  }
+  state.status = gameOver;
+}
+```
+
+This last step of our action, starts by calling `canAddBlock()` as a way of checking _if_ we can add a new block to our game board.
+
+<!-- prettier-ignore -->
+```js
+const canAddBlock = (nextBlock, currentGrid) => {
+  if (Object.keys(currentGrid[0]).map(square => currentGrid[0][square].status).includes(settled)) return false
+  if (Object.keys(nextBlock[1]).map(square => currentGrid[1][square].status).includes(settled)) return false
+  return true
+};
+```
 
 ## Useful links
 

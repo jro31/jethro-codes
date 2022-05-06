@@ -1683,6 +1683,563 @@ const canAddBlock = (nextBlock, currentGrid) => {
 };
 ```
 
+Obviously, as we're just starting the game, we should return `true` here. This check becomes more relevant later in the game when we need to know whether we can add another block, or whether the user has stacked their blocks to the top of the game board and it's time for 'Game Over'. But seeing as we're here already, let's go over this logic now.
+
+So our call to `canAddBlock()` passes in two arguments:
+
+```js
+canAddBlock(newBlockShape(newBlock), current(state.squares));
+```
+
+If you remember back at the beginning of the `nextBlock()` action, the `newBlock` variable was randomly assigned the name of one of our blocks; one of `I`, `J`, `L`, `O`, `S`, `T` or `Z`:
+
+```js
+export const blocks = ['I', 'J', 'L', 'O', 'S', 'T', 'Z'];
+
+let newBlock = blocks[Math.floor(Math.random() * blocks.length)];
+```
+
+So the first argument that we pass-into `canAddBlock()` is the return of `newBlockShape(newBlock)`:
+
+```js
+export const live = 'live';
+
+export const iBlock = 'i-block';
+export const jBlock = 'j-block';
+export const lBlock = 'l-block';
+export const oBlock = 'o-block';
+export const sBlock = 's-block';
+export const tBlock = 't-block';
+export const zBlock = 'z-block';
+
+const blockObject = block => {
+  return {
+    status: live,
+    block: block,
+  };
+};
+
+const newBlockShape = block => {
+  switch (block) {
+    case 'I':
+      return newBlockI();
+    case 'J':
+      return newBlockJ();
+    case 'L':
+      return newBlockL();
+    case 'O':
+      return newBlockO();
+    case 'S':
+      return newBlockS();
+    case 'T':
+      return newBlockT();
+    case 'Z':
+      return newBlockZ();
+    default:
+      return newBlockO();
+  }
+};
+
+const newBlockI = () => {
+  const blockI = blockObject(iBlock);
+
+  return {
+    1: {
+      4: blockI,
+      5: blockI,
+      6: blockI,
+      7: blockI,
+    },
+  };
+};
+
+const newBlockJ = () => {
+  const blockJ = blockObject(jBlock);
+
+  return {
+    0: {
+      4: blockJ,
+    },
+    1: {
+      4: blockJ,
+      5: blockJ,
+      6: blockJ,
+    },
+  };
+};
+
+const newBlockL = () => {
+  const blockL = blockObject(lBlock);
+
+  return {
+    0: {
+      6: blockL,
+    },
+    1: {
+      4: blockL,
+      5: blockL,
+      6: blockL,
+    },
+  };
+};
+
+const newBlockO = () => {
+  const blockO = blockObject(oBlock);
+
+  return {
+    0: {
+      5: blockO,
+      6: blockO,
+    },
+    1: {
+      5: blockO,
+      6: blockO,
+    },
+  };
+};
+
+const newBlockS = () => {
+  const blockS = blockObject(sBlock);
+
+  return {
+    0: {
+      5: blockS,
+      6: blockS,
+    },
+    1: {
+      4: blockS,
+      5: blockS,
+    },
+  };
+};
+
+const newBlockT = () => {
+  const blockT = blockObject(tBlock);
+
+  return {
+    0: {
+      5: blockT,
+    },
+    1: {
+      4: blockT,
+      5: blockT,
+      6: blockT,
+    },
+  };
+};
+
+const newBlockZ = () => {
+  const blockZ = blockObject(zBlock);
+
+  return {
+    0: {
+      4: blockZ,
+      5: blockZ,
+    },
+    1: {
+      5: blockZ,
+      6: blockZ,
+    },
+  };
+};
+```
+
+Ok man, what the Hell?
+
+Let's break this down to make it a little clearer.
+
+Firstly, let's say that our `newBlock` variable was assigned a value of `'J'`. Then when we call `newBlockShape(newBlock)` we're passing-in the argument of `'J'`, so the equivalent of:
+
+```js
+newBlockShape('J');
+```
+
+The relevant parts of the `newBlockShape()` function then become:
+
+```js
+const newBlockShape = block => {
+  switch (block) {
+    case 'J':
+      return newBlockJ();
+  }
+};
+```
+
+So what we return from `newBlockShape()` is the return of the `newBlockJ()` function:
+
+```js
+export const live = 'live';
+
+export const jBlock = 'j-block';
+
+const blockObject = block => {
+  return {
+    status: live,
+    block: block,
+  };
+};
+
+const newBlockJ = () => {
+  const blockJ = blockObject(jBlock);
+
+  return {
+    0: {
+      4: blockJ,
+    },
+    1: {
+      4: blockJ,
+      5: blockJ,
+      6: blockJ,
+    },
+  };
+};
+```
+
+The `jBlock` variable is simply the string `'j-block'`, and the `live` variable is simply the string `'live'`, I just assign them to variables to prevent typos, because if you mis-type the variable name, it will throw an error.
+
+The return from `blockObject()` is an object (surprisingly). This is the object that's going to be nested into one of the squares of our game board (did it look familiar?).
+
+Previously, in our `initialState`, the status of all our squares had been set to `'empty'` or `'dead'`, but now as we're adding a block, it's going to become `'live'`.
+
+So in this instance, where the new block that we randomly selected was `'J'`, the return from `blockObject()` is going to be:
+
+```js
+{
+  status: 'live',
+  block: 'j-block',
+}
+```
+
+In our `newBlockJ` function, we assign this return to the variable `blockJ`, then from this function return _another_ object formed as such:
+
+```js
+return {
+  0: {
+    4: blockJ,
+  },
+  1: {
+    4: blockJ,
+    5: blockJ,
+    6: blockJ,
+  },
+};
+```
+
+You may be looking at this and thinking _"why am I still reading this article?"_
+
+It's not as stupid as it looks though.
+
+Remember that the block that we want is a 'J' shape. On its side. So:
+
+![j-block](/images/projects/blocks-falling/j-block.jpeg)
+
+And you may also remember that within our game board, the keys of the first object represent rows, and the keys of the objects within these represent squares.
+
+Well... here's where all that starts to matter.
+
+What we're returning here, are the squares in our gameboard that we need to update in order to simulate adding the `J` block.
+
+So from the above code, in row `0` (the top/dead row), what we want to do is change square `4` (the fourth square from the left), from its initial value of
+
+```js
+{
+  'status': 'empty',
+  'block': ''
+}
+```
+
+to its new value of
+
+```js
+{
+  status: 'live',
+  block: 'j-block',
+}
+```
+
+And in the row below, with the key `1`, we want to change the squares `4`, `5` and `6` from their initial value of
+
+```js
+{
+  'status': 'empty',
+  'block': ''
+}
+```
+
+to their new values of
+
+```js
+{
+  status: 'live',
+  block: 'j-block',
+}
+```
+
+Therefore, the return from the `newBlockJ()` function, and consequently the return from the `newBlockShape()` function (when passing-in `'J'` as the argument), will be this object
+
+```js
+return {
+  0: {
+    4: blockJ,
+  },
+  1: {
+    4: blockJ,
+    5: blockJ,
+    6: blockJ,
+  },
+};
+```
+
+which is equivalent to
+
+```js
+return {
+  0: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+If you remember our `if` check from what feels like a lifetime ago now, this return is passed-in as the first argument to the `canAddBlock()` function:
+
+```js
+if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
+```
+
+The second argument is thankfully a little simpler to explain.
+
+`current` is given to use by Redux Toolkit, and we import it at the top of our game board slice:
+
+```js
+import { current } from '@reduxjs/toolkit';
+```
+
+It allows us to use our 'current' state. In this case, `current(state.squares)` is equivalent to our current game board.
+
+So to `canAddBlock()`, we're passing-in `newBlockShape(newBlock)`, which is an object representing the changes that we want to make to our game board, and our current game board.
+
+Back to our `canAddBlock()` function:
+
+<!-- prettier-ignore -->
+```js
+const canAddBlock = (nextBlock, currentGrid) => {
+  if (Object.keys(currentGrid[0]).map(square => currentGrid[0][square].status).includes(settled)) return false
+  if (Object.keys(nextBlock[1]).map(square => currentGrid[1][square].status).includes(settled)) return false
+  return true
+};
+```
+
+Now that we know what the two arguments we're passing-in represent, it's a little easier to make sense of what's going on here.
+
+`currentGrid` is our current game board, so in the first `if` check, we run `Object.keys(currentGrid[0])`. This simple returns us the keys from the top row of our game board.
+
+These keys are the same on all rows of the game board, and will almost certainly never change, so we could instead just replace `Object.keys(currentGrid[0])` with `['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']` and it would work just the same way. But just in case I one day, in my infinite wisdom decide... I think the game board needs to have 11 columns, then we're fetching the keys for the top row programatically, so it won't cause any issue.
+
+We then take this array of keys and map over it, so
+
+```js
+Object.keys(currentGrid[0]).map(square => currentGrid[0][square].status);
+```
+
+is equivalent to
+
+```js
+['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].map(square => currentGrid[0][square].status);
+```
+
+`currentGrid[0]` just means the top row of our game board, so by mapping over the keys `'1'` to `'10'`, what we return here, is an array of the `status` of all ten squares of our top row.
+
+For the game to continue, there can be no blocks "settled" in this top/dead row, so what we would expect this array to be most of the time would be:
+
+```js
+['dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead'];
+```
+
+The last part of our `if` statement checks if this array includes `settled` (the `settled` variable is just the string `'settled'`).
+
+So assuming that there are no blocks "settled" in this top row, then
+
+```js
+if (Object.keys(currentGrid[0]).map(square => currentGrid[0][square].status).includes(settled))
+```
+
+is equivalent to
+
+```js
+if (['dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead'].includes('settled'))
+```
+
+which will return `false` (as the array does not include the element `'settled'`).
+
+And because this `if` check returns `false`, then we do **not** return `false` from the `canAddBlock()` function after this check:
+
+<!-- prettier-ignore -->
+```js
+if (Object.keys(currentGrid[0]).map(square => currentGrid[0][square].status).includes(settled)) return false
+```
+
+_If_ however, the `if` check returned `true`, for example
+
+<!-- prettier-ignore -->
+```js
+if (['dead', 'dead', 'dead', 'settled', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead'].includes('settled')) return false
+```
+
+then we would return `false` from the `canAddBlock()` function, meaning that we **cannot** add a new block.
+
+For now though, let's assume that the `if` check returns `false`, in which case we move onto the second line of the `canAddBlock()` function:
+
+<!-- prettier-ignore -->
+```js
+if (Object.keys(nextBlock[1]).map(square => currentGrid[1][square].status).includes(settled)) return false
+```
+
+We're again using `Object.keys`, but this time on our `nextBlock` argument. And if you remember, this argument is the object that represents our new block. On the assumption that it's a `'J'` block, then it would be:
+
+```js
+{
+  0: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+So `Object.keys(nextBlock[1])` returns an array of the keys within row `1`, which in this case is `['4', '5', '6']`. So in our `if` statement,
+
+```js
+Object.keys(nextBlock[1]).map(square => currentGrid[1][square].status);
+```
+
+is equivalent to
+
+```js
+['4', '5', '6'].map(square => currentGrid[1][square].status);
+```
+
+As these keys represent that our new block wants to join our game board at squares `4`, `5` and `6` on row `1`, we then need to check whether these squares are currently available.
+
+So `currentGrid[1]` returns row `1` of our current game board. `[square]` represents the squares needed by our new block (`4`, `5` and `6`). So what we return from our map function, is an array of the `status` of all the squares on row `1` of our current game board, that we need for our new block.
+
+In most instances this will be something like `['empty', 'empty', 'empty']` (although the length of the array will change, depending on which block we want to add to our game board).
+
+And if you go back to the full `if` statement
+
+<!-- prettier-ignore -->
+```js
+if (Object.keys(nextBlock[1]).map(square => currentGrid[1][square].status).includes(settled)) return false
+```
+
+is therefore equivalent to, for example:
+
+```js
+if (['empty', 'empty', 'empty'].includes('settled')) return false;
+```
+
+In this instance, our `if` statement returns `false`, so we do **not** return false from our `canAddBlock()`.
+
+If on the other hand, there _is_ a block that's "settled" in one of the squares that we need for our new block, our `if` statement would instead be something like:
+
+```js
+if (['empty', 'empty', 'settled'].includes('settled')) return false;
+```
+
+In this instance, our `if` statement returns `true`, so we return `false` from our `canAddBlock()` function.
+
+Now if we go back to our full `canAddBlock()` function:
+
+<!-- prettier-ignore -->
+```js
+const canAddBlock = (nextBlock, currentGrid) => {
+  if (Object.keys(currentGrid[0]).map(square => currentGrid[0][square].status).includes(settled)) return false
+  if (Object.keys(nextBlock[1]).map(square => currentGrid[1][square].status).includes(settled)) return false
+  return true
+};
+```
+
+If the two `if` statements that we've been over return `false`, which means that there are no blocks "settled" in our 'dead' row, and there are no blocks "settled" in the squares that we need to add our new block, then we return `true` from this function, meaning that we _can_ add the new block to our game board.
+
+And going back to this part of our `nextBlock()` action, let's take a look at what happens when `canAddBlock()` is `true`, and when `canAddBlock()` is `false`:
+
+```js
+if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
+  state.squares = mergeNestedObjects(current(state.squares), newBlockShape(newBlock));
+  state.timer = { isLive: true };
+} else {
+  if (
+    !Object.keys(current(state.squares)[0])
+      .map(square => current(state.squares)[0][square].status)
+      .includes(settled)
+  ) {
+    state.squares = mergeNestedObjects(current(state.squares), {
+      0: { ...newBlockShape(newBlock)[1] },
+    });
+  }
+  state.status = gameOver;
+}
+```
+
+Starting with `true`, the first thing we do is update `state.squares` to the return of the `mergeNestedObjects()` function:
+
+```js
+state.squares = mergeNestedObjects(current(state.squares), newBlockShape(newBlock));
+```
+
+And thankfully, we've already been over the two arguments we're passing-in here. We know that `current(state.squares)` is our current game board, and `newBlockShape(newBlock)` is the new block that we want to add to our game board.
+
+In `mergeNestedObjects()`, these arguments are renamed to `existingObject` and `newObject`:
+
+```js
+const mergeNestedObjects = (existingObject, newObject) => {
+  let returnObject = { ...existingObject };
+
+  Object.keys(newObject).forEach(outerKey =>
+    Object.keys(newObject[outerKey]).forEach(
+      innerKey =>
+        (returnObject = {
+          ...returnObject,
+          [outerKey]: { ...returnObject[outerKey], [innerKey]: newObject[outerKey][innerKey] },
+        })
+    )
+  );
+
+  return returnObject;
+};
+```
+
 ## Useful links
 
 <!-- TODO -->

@@ -18,7 +18,7 @@ So based on this [completely unrelated video game trailer](https://youtu.be/Mr8f
 
 Based on the above, I want to stress that this app has no relation to any existing video game, ever, and any resemblance is purely coincidental.
 
-However, my motivation for building this app was 2-fold.
+However, my motivation for building this app was two-fold.
 
 I'd always enjoyed playing games as a child, and building one myself that resembled nothing that I'd ever played in my youth, gave me a good feeling of nostalgia.
 
@@ -572,7 +572,7 @@ Reading from left to right and top to bottom, these are `I`, `J`, `L`, `O`, `S`,
 
 First off, adding a block to our game board. What does that actually mean?
 
-Ruining the illusion of actually playing a fun video game, it simply means that we update the `status` and `block` values of the relevant 'squares' within our game board to be `live` and the name of the block respectively.
+Ruining the illusion of actually playing a fun video game, it simply means that we update the `status` and `block` values of the relevant 'squares' within our game board to be `'live'` and the name of the block respectively.
 
 Inject that into my veins.
 
@@ -732,7 +732,7 @@ const GameBoard = () => {
 
 This code sets the game board (`squares`) to a ref variable `squaresRef`, and exports it. We can then call `current` on `squaresRef`, and this will always be the updated version of the game board.
 
-That means that it doesn't matter that we called our `useMoveBlock` hook up to a second ago, by importing `squaresRef` and calling `squaresRef.current`, we can guarantee that we are working with the latest version of the game board.
+That means that it doesn't matter that we called our `useMoveBlock` hook up to a second ago, because by importing `squaresRef` and calling `squaresRef.current`, we can guarantee that we are working with the latest version of the game board.
 
 It's the same with:
 
@@ -742,7 +742,7 @@ statusRef = useRef(status);
 statusRef.current = status;
 ```
 
-By importing `statusRef` and then calling `statusRef.current`, it guarantees that the state that we are using is current state.
+By importing `statusRef` and then calling `statusRef.current`, it guarantees that the state that we are using is the current state.
 
 Make sense?
 
@@ -1010,7 +1010,7 @@ const initialState = {
 
 `squares`, as we've been over earlier, is our game board.
 
-`status` can be one of `'pre-game'`, `'in-progress'`, `'paused'` or `'game-over'`, depending on what stage of the game we're as.
+`status` can be one of `'pre-game'`, `'in-progress'`, `'paused'` or `'game-over'`, depending on what stage of the game we're at.
 
 Now we've just added `liveBlock`. This is the block that's currently in play, and will be one of `I`, `J`, `L`, `O`, `S`, `T` or `Z`.
 
@@ -1057,7 +1057,7 @@ if (state.blockCounter % 5 === 0)
 
 Then if it is... if it is... we then check if the `liveBackground` state is `one`. Wow!
 
-Now you may be asking yourself... _"what is going on right now?"_
+Now you may be asking yourself... _"what's going on right now?"_
 
 This wasn't how I planned for the background of this game to be, until I made a terrifying discovery:
 
@@ -1277,11 +1277,11 @@ By virtue of the elements contained within it, this `<div>` also takes-up the en
 
 What does all this mean?
 
-It means that the `page-container::before` pseudo-element is exactly the same size and in the same position as the `page-container` element, however it sits on top of it.
+It means that the `<div>`'s `::before` pseudo-element is exactly the same size and in the same position as the `<div>` element itself, however it sits on top of it.
 
-We cannot transition linear-gradient backgrounds. However what we can do, is transition the `opacity` of the `page-container::before` element.
+We cannot transition linear-gradient backgrounds. However what we can do, is transition the `opacity` of this `::before` pseudo-element.
 
-If the `'before-is-visible'` class is returned from the `backgroundClasses()` function, then the `page-container::before` pseudo-element is visible. If `'before-is-hidden'` is returned from `backgroundClasses()` then `page-container::before` is transparent.
+If the `'before-is-visible'` class is returned from the `backgroundClasses()` function, then the `::before` pseudo-element is visible. If `'before-is-hidden'` is returned from `backgroundClasses()` then the `::before` pseudo-element is transparent.
 
 And as we have a `transition: opacity var(--transition-time);` property on `.page-container::before`, this change between opacity takes 10 seconds, giving the illusion that the linear-gradient background is changing gradually:
 
@@ -1299,7 +1299,7 @@ And as we have a `transition: opacity var(--transition-time);` property on `.pag
 }
 ```
 
-So when you play the game, and you see the background slowly changing, that's not actually what's happening at all. What is actually happening, is the `page-container::before` pseudo-element that lives on top of the background (but beneath the game board) is changing its opacity.
+So when you play the game, and you see the background slowly changing, that's not actually what's happening at all. What is actually happening, is the `::before` pseudo-element that lives on top of the background (but beneath the game board) is changing its opacity.
 
 Let's again look at the code from our `nextBlock()` action:
 
@@ -1315,9 +1315,9 @@ if (state.blockCounter % 5 === 0) {
 }
 ```
 
-Our `liveBackground` state can be one of two values: `one` or `two`. And when every fifth block is added to the game (`if (state.blockCounter % 5 === 0) {`), it will toggle to the value that it isn't currently.
+Our `liveBackground` state can be one of two values: `'one'` or `'two'`. And when every fifth block is added to the game (`if (state.blockCounter % 5 === 0) {`), it will toggle to the value that it isn't currently.
 
-So if it's `one`, then it'll change to `two`, and if it's `two`, it'll change to `one`.
+So if it's `'one'`, then it'll change to `'two'`, and if it's `'two'`, it'll change to `'one'`.
 
 If you remember back to our `backgroundClasses()` function in `App.js`, this change in `liveBackground` is what determines whether our `<div>` has a `'before-is-hidden'` or a `'before-is-visible'` class:
 
@@ -1332,7 +1332,7 @@ const backgroundClasses = () => {
 
 So as `liveBackground` changes from `one` to `two` (or vice-versa) with every fifth block, the `'before-is-hidden'` and `'before-is-visible'` classes also toggle with every fifth block.
 
-And that means that every fifth block, `.page-container::before` has an `opacity` of `1`, then an `opacity` of `0`, then an `opacity` of `1`, then an `opacity` of `0` etc.
+And that means that every fifth block, our `::before` pseudo-element has an `opacity` of `1`, then an `opacity` of `0`, then an `opacity` of `1`, then an `opacity` of `0` etc.
 
 ```css
 .before-is-visible::before {
@@ -1550,7 +1550,7 @@ In our stylesheet, that means
 }
 ```
 
-The key part here, is `before-is-visible`. This gives our `::before` pseudo-element an `opacity` of `1`, so it becomes completely opaque. That means that we're now showing our `.sunrise-before::before` background, and our `.superman` background behind it, completely hidden.
+The key part here, is `before-is-visible`. This gives our `::before` pseudo-element an `opacity` of `1`, so it becomes completely opaque. That means that we're now showing our `.sunrise-before::before` background, and our `.superman` background is behind it, completely hidden.
 
 However, as we have a transition on `opacity`, this change happens gradually over the next 10 seconds.
 
@@ -1579,7 +1579,7 @@ if (state.blockCounter % 5 === 0) {
 }
 ```
 
-As we get here, our `liveBackground` state is `'two'`, so the first thing that we do is change this back to `'one'`. Then randomly select a new background class, and set this to our `backgroundOne` state.
+As we get here, our `liveBackground` state is `'two'`, so the first thing that we do is change this back to `'one'`. Then we randomly select a new background class, and set this to our `backgroundOne` state.
 
 For this example, let's say that `state.backgroundOne` now becomes `'mango'`.
 
@@ -1648,7 +1648,8 @@ The relevant classes in our stylesheet are:
 
 Our `::before` pseudo-element is now opaque again, so we can no longer see our `.sunrise` background, with the exception that the transition to this `opacity` takes ten seconds, again giving the illusion of the linear-gradient background transitioning slowly, until we can only see `.mango`.
 
-[ADD MANGO SCREENSHOT HERE, TAKEN ON BIG MONITOR]
+![Mango](/images/projects/blocks-falling/mango.png)
+_Mango_
 
 And that's how I hacked my way around the restriction of being able to transition linear gradients.
 
@@ -1672,7 +1673,7 @@ if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
 }
 ```
 
-This last step of our action, starts by calling `canAddBlock()` as a way of checking _if_ we can add a new block to our game board.
+This last step of our action starts by calling `canAddBlock()` as a way of checking _if_ we can add a new block to our game board.
 
 <!-- prettier-ignore -->
 ```js
@@ -1929,7 +1930,7 @@ You may be looking at this and thinking _"why am I still reading this article?"_
 
 It's not as stupid as it looks though.
 
-Remember that the block that we want is a 'J' shape. On its side. So:
+Remember that the block that we want is a 'J' shape (on its side). So:
 
 ![j-block](/images/projects/blocks-falling/j-block.jpeg)
 
@@ -1937,7 +1938,7 @@ And you may also remember that within our game board, the keys of the first obje
 
 Well... here's where all that starts to matter.
 
-What we're returning here, are the squares in our gameboard that we need to update in order to simulate adding the `J` block.
+What we're returning here, are the squares in our gameboard that we need to update in order to add the `J` block.
 
 So from the above code, in row `0` (the top/dead row), what we want to do is change square `4` (the fourth square from the left), from its initial value of
 
@@ -1957,7 +1958,7 @@ to its new value of
 }
 ```
 
-And in the row below, with the key `1`, we want to change the squares `4`, `5` and `6` from their initial value of
+And in the row below, with the key `1`, we want to change the squares `4`, `5` and `6` from their initial values of
 
 ```js
 {
@@ -2025,7 +2026,7 @@ if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
 
 The second argument is thankfully a little simpler to explain.
 
-`current` is given to use by Redux Toolkit, and we import it at the top of our game board slice:
+`current` is given to us by Redux Toolkit, and we import it at the top of our game board slice:
 
 ```js
 import { current } from '@reduxjs/toolkit';
@@ -2033,7 +2034,7 @@ import { current } from '@reduxjs/toolkit';
 
 It allows us to use our 'current' state. In this case, `current(state.squares)` is equivalent to our current game board.
 
-So to `canAddBlock()`, we're passing-in `newBlockShape(newBlock)`, which is an object representing the changes that we want to make to our game board, and our current game board.
+So to `canAddBlock()`, we're passing-in `newBlockShape(newBlock)`, which is an object representing the changes that we want to make to our game board, and we're passing-in our current game board.
 
 Back to our `canAddBlock()` function:
 
@@ -2048,7 +2049,7 @@ const canAddBlock = (nextBlock, currentGrid) => {
 
 Now that we know what the two arguments we're passing-in represent, it's a little easier to make sense of what's going on here.
 
-`currentGrid` is our current game board, so in the first `if` check, we run `Object.keys(currentGrid[0])`. This simple returns us the keys from the top row of our game board.
+`currentGrid` is our current game board, so in the first `if` check, we run `Object.keys(currentGrid[0])`. This simply returns us the keys from the top row of our game board.
 
 These keys are the same on all rows of the game board, and will almost certainly never change, so we could instead just replace `Object.keys(currentGrid[0])` with `['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']` and it would work just the same way. But just in case I one day, in my infinite wisdom decide... I think the game board needs to have 11 columns, then we're fetching the keys for the top row programatically, so it won't cause any issue.
 
@@ -2152,11 +2153,11 @@ is equivalent to
 
 As these keys represent that our new block wants to join our game board at squares `4`, `5` and `6` on row `1`, we then need to check whether these squares are currently available.
 
-So `currentGrid[1]` returns row `1` of our current game board. `[square]` represents the squares needed by our new block (`4`, `5` and `6`). So what we return from our map function, is an array of the `status` of all the squares on row `1` of our current game board, that we need for our new block.
+So `currentGrid[1]` returns row `1` of our current game board. `[square]` represents the squares needed by our new block (`4`, `5` and `6`). So what we return from our map function, is an array of the `status` of the squares on row `1` of our current game board, that we need for our new block.
 
 In most instances this will be something like `['empty', 'empty', 'empty']` (although the length of the array will change, depending on which block we want to add to our game board).
 
-And if you go back to the full `if` statement
+If we go back to our full `if` statement
 
 <!-- prettier-ignore -->
 ```js

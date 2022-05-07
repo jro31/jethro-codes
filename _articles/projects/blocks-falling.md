@@ -2227,12 +2227,12 @@ In `mergeNestedObjects()`, these arguments are renamed to `existingObject` and `
 const mergeNestedObjects = (existingObject, newObject) => {
   let returnObject = { ...existingObject };
 
-  Object.keys(newObject).forEach(outerKey =>
-    Object.keys(newObject[outerKey]).forEach(
-      innerKey =>
+  Object.keys(newObject).forEach(rowKey =>
+    Object.keys(newObject[rowKey]).forEach(
+      columnKey =>
         (returnObject = {
           ...returnObject,
-          [outerKey]: { ...returnObject[outerKey], [innerKey]: newObject[outerKey][innerKey] },
+          [rowKey]: { ...returnObject[rowKey], [columnKey]: newObject[rowKey][columnKey] },
         })
     )
   );
@@ -2240,6 +2240,810 @@ const mergeNestedObjects = (existingObject, newObject) => {
   return returnObject;
 };
 ```
+
+The `returnObject` variable is what we ultimately return from this function, and what we update `state.squares` (our game board) to be. So the first thing that we do is set `returnObject` to be equivalent to our current game board:
+
+```js
+let returnObject = { ...existingObject };
+```
+
+So now we have our current game board set to `returnObject`, and we know that we're able to add our new block, we just need to update `returnObject` to include our new block.
+
+Let's continue with the assumption that we're adding a `J` block. That means that `newObject` is equal to:
+
+```js
+{
+  0: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+So when we run `Object.keys(newObject)`, we get `['0', '1']`.
+
+We run a `forEach` loop over these values, giving them the name `rowKey`, as they represent the rows in our game board:
+
+```js
+Object.keys(newObject).forEach(rowKey =>
+```
+
+Within each iteration of this loop, we then fetch the child keys of each row with `Object.keys(newObject[rowKey])`. Each of these child keys represents that square, or column within that row that we want to update.
+
+Continuing our example of the `J` block, `Object.keys(newObject[rowKey])` where `rowKey` is `0` would return `['4']`, and `Object.keys(newObject[rowKey])` where `rowKey` is `1`, would return `['4', '5', '6']`.
+
+We then do a `forEach` loop over each of these values, so we're not in a bit of a loopception. And in this instance, I gave the keys the name `columnKey`.
+
+```js
+Object.keys(newObject[rowKey]).forEach(columnKey =>
+```
+
+By looping over our rows, and then the squares/columns within these rows, what we're doing is having one iteration within our loops, for _each_ of the squares that we want to update.
+
+Then it's simply a case of updating our `returnObject` appropriately:
+
+```js
+returnObject = {
+  ...returnObject,
+  [rowKey]: { ...returnObject[rowKey], [columnKey]: newObject[rowKey][columnKey] },
+};
+```
+
+`...returnObject` simply copies our existing return object.
+
+Then with `[rowKey]:` we update the relevant row of our game board.
+
+`...returnObject[rowKey]` copies the row as it currently exists, then `[columnKey]: newObject[rowKey][columnKey]` updates the corresponding column with the value of the equivalent column from `newObject`.
+
+To make it clearer, let's go over the first iteration of our loop.
+
+The first value of `Object.keys(newObject)` is `'0'`, so from
+
+```js
+Object.keys(newObject).forEach(rowKey =>
+```
+
+our `rowKey` is `'0'`.
+
+That means that
+
+```js
+Object.keys(newObject[rowKey]).forEach(columnKey =>
+```
+
+is equivalent to
+
+```js
+Object.keys(newObject['0']).forEach(columnKey =>
+```
+
+If you remember, our `newObject` only has one key within the `0` row:
+
+```js
+{
+  0: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  1: {
+    // More stuff here
+  },
+};
+```
+
+That means that on this first iteration, `columnKey` will be `'4'`.
+
+So then we get into this code:
+
+```js
+returnObject = {
+  ...returnObject,
+  [rowKey]: { ...returnObject[rowKey], [columnKey]: newObject[rowKey][columnKey] },
+};
+```
+
+As we know that `rowKey` is `'0'` and `columnKey` is `'4'`, then this code can be updated to:
+
+```js
+returnObject = {
+  ...returnObject,
+  ['0']: { ...returnObject['0'], ['4']: newObject['0']['4'] },
+};
+```
+
+`...returnObject` copies our existing `returnObject` variable, then the `['0']` overwrites this _just_ for row `0`. Although the first thing we do here, is copy all of the existing row `0`:
+
+```js
+...returnObject['0']
+```
+
+The only column that we return that is _different_ from how `returnObject` started, is column `4` on row `0`:
+
+```js
+['4']: newObject['0']['4']
+```
+
+This column we update to instead be the value of row `0`, column `4` of our `newObject` variable. In this instance, that would be:
+
+```js
+{
+  status: 'live',
+  block: 'j-block',
+}
+```
+
+We then continue our iterations over the other rows/squares that we want to update, until we've updated everything we want to update on our game board.
+
+Assuming that we're starting a new game, the top two rows of our `returnObject` would have started as:
+
+```js
+{
+  '0': {
+    '1': {
+      'status': 'dead',
+      'block': ''
+    },
+    '2': {
+      'status': 'dead',
+      'block': ''
+    },
+    '3': {
+      'status': 'dead',
+      'block': ''
+    },
+    '4': {
+      'status': 'dead',
+      'block': ''
+    },
+    '5': {
+      'status': 'dead',
+      'block': ''
+    },
+    '6': {
+      'status': 'dead',
+      'block': ''
+    },
+    '7': {
+      'status': 'dead',
+      'block': ''
+    },
+    '8': {
+      'status': 'dead',
+      'block': ''
+    },
+    '9': {
+      'status': 'dead',
+      'block': ''
+    },
+    '10': {
+      'status': 'dead',
+      'block': ''
+    }
+  },
+  '1': {
+    '1': {
+      'status': 'empty',
+      'block': ''
+    },
+    '2': {
+      'status': 'empty',
+      'block': ''
+    },
+    '3': {
+      'status': 'empty',
+      'block': ''
+    },
+    '4': {
+      'status': 'empty',
+      'block': ''
+    },
+    '5': {
+      'status': 'empty',
+      'block': ''
+    },
+    '6': {
+      'status': 'empty',
+      'block': ''
+    },
+    '7': {
+      'status': 'empty',
+      'block': ''
+    },
+    '8': {
+      'status': 'empty',
+      'block': ''
+    },
+    '9': {
+      'status': 'empty',
+      'block': ''
+    },
+    '10': {
+      'status': 'empty',
+      'block': ''
+    }
+  },
+  // etc.
+}
+```
+
+What we would then return from this `mergeNestedObjects()` function, would be:
+
+```js
+{
+  '0': {
+    '1': {
+      'status': 'dead',
+      'block': ''
+    },
+    '2': {
+      'status': 'dead',
+      'block': ''
+    },
+    '3': {
+      'status': 'dead',
+      'block': ''
+    },
+    '4': {
+      'status': 'live',
+      'block': 'j-block'
+    },
+    '5': {
+      'status': 'dead',
+      'block': ''
+    },
+    '6': {
+      'status': 'dead',
+      'block': ''
+    },
+    '7': {
+      'status': 'dead',
+      'block': ''
+    },
+    '8': {
+      'status': 'dead',
+      'block': ''
+    },
+    '9': {
+      'status': 'dead',
+      'block': ''
+    },
+    '10': {
+      'status': 'dead',
+      'block': ''
+    }
+  },
+  '1': {
+    '1': {
+      'status': 'empty',
+      'block': ''
+    },
+    '2': {
+      'status': 'empty',
+      'block': ''
+    },
+    '3': {
+      'status': 'empty',
+      'block': ''
+    },
+    '4': {
+      'status': 'live',
+      'block': 'j-block'
+    },
+    '5': {
+      'status': 'live',
+      'block': 'j-block'
+    },
+    '6': {
+      'status': 'live',
+      'block': 'j-block'
+    },
+    '7': {
+      'status': 'empty',
+      'block': ''
+    },
+    '8': {
+      'status': 'empty',
+      'block': ''
+    },
+    '9': {
+      'status': 'empty',
+      'block': ''
+    },
+    '10': {
+      'status': 'empty',
+      'block': ''
+    }
+  },
+  // etc.
+}
+```
+
+And if you think back to what we're doing with this return in our `nextBlock()` action, this is what we're updating `state.squares` to be:
+
+```js
+state.squares = mergeNestedObjects(current(state.squares), newBlockShape(newBlock));
+```
+
+So what we return from `mergeNestedObjects()` _becomes_ our new game board.
+
+The other state we update if `canAddBlock()` returns `true`, is `state.timer`:
+
+```js
+if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
+  state.squares = mergeNestedObjects(current(state.squares), newBlockShape(newBlock));
+  state.timer = { isLive: true };
+}
+```
+
+This is an object that contains just the `isLive` key. It will always be `{ isLive: true }` or `{ isLive: false }`, and it is used in our `GameBoard` component.
+
+```js
+import { useSelector } from 'react-redux';
+
+const GameBoard = () => {
+  const timer = useSelector(state => state.gameBoard.timer);
+
+  useEffect(() => {
+    if (status === inProgress) {
+      if (timer.isLive) {
+        timeOut = setTimeout(() => {
+          moveBlock(down);
+        }, speed);
+      }
+    }
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [status, timer]);
+};
+```
+
+We've seen this code already, but let me just go over exactly what the `timer` state is doing here.
+
+And first it's necessary to understand _why_ we need to know if the time is `live` or not.
+
+In this `useEffect` block, we're calling `setTimeout`, and then after the interval determined by `speed`, we call our `moveBlock(down)` hook.
+
+The problem with this, is that we don't _always_ want to call `moveBlock(down)` when the interval determined by `speed` reaches zero.
+
+The most obvious example is if the user has paused the game, we certainly don't want to still move the block down. But also, what if the user has manually moved the block down?
+
+If `speed` was set to 1 second, but the user has moved the block down with the down arrow after 0.9 seconds, so we still want to move the block down 0.1 second later?
+
+No. In this case we want to reset the time to 1 second again. That's what's happening in this `useEffect` function.
+
+It has two dependencies:
+
+```js
+[status, timer];
+```
+
+It also has a clean-up function:
+
+```js
+return () => {
+  clearTimeout(timeOut);
+};
+```
+
+Anytime that either of the dependencies change, the clean-up function is run, before the `useEffect` block is run again.
+
+And in this clean-up function, `clearTimeout(timeOut)` "clears" our timer, meaning that `moveBlock(down)` _won't_ be called.
+
+Did you wonder a minute ago why `state.timer` is always either `{ isLive: true }` or `{ isLive: false }`, and not just `true` or `false`?
+
+It could instead have been renamed to something clearer, and just had the values of `true` or `false`.
+
+The problem with that, is if `state.timer` is `true`, and in my game board slice, I call `state.timer = true`, then what changed?
+
+Well... nothing. That's the problem.
+
+According to React, `state.timer` did not just update.
+
+Remember that these are the dependencies of our `useEffect` function:
+
+```js
+[status, timer];
+```
+
+If React doesn't consider that `timer` just updated, then it _won't_ call our clean-up function which clears the timer, and it _won't_ re-run our `useEffect` function.
+
+This is bad, because we've just added a new block. We _want_ the timer to be reset here.
+
+Contrary to this, if `state.timer` is `{ isLive: true }`, and in our game board slice, I call `state.timer = { isLive: true }`, then what changed?
+
+To you and me, nothing changed.
+
+However, this object is stored in memory as a _different_ object, so to react, `timer` was just updated. And because `timer` is a dependency of our `useEffect` function, it then runs our clean-up function, cancelling our timer, and it re-runs `useEffect`.
+
+So in our `nextBlock()` action, when we run `state.timer = { isLive: true };`, even if `state.timer` is already equal to `{ isLive: true }`, it resets the timer for how long it is until `moveBlock(down)` is called in our `GameBoard` component.
+
+And with that, we have now added a new block to our game board.
+
+If this was the start of a new game, and the first block was a `J` block, our game board would now look like this:
+
+![First block](/images/projects/blocks-falling/first-block.png)
+
+Of course, that wasn't the end of our `nextBlock()` function. What about if `canAddBlock()` returns `false`?
+
+```js
+if (canAddBlock(newBlockShape(newBlock), current(state.squares))) {
+  state.squares = mergeNestedObjects(current(state.squares), newBlockShape(newBlock));
+  state.timer = { isLive: true };
+} else {
+  if (
+    !Object.keys(current(state.squares)[0])
+      .map(square => current(state.squares)[0][square].status)
+      .includes(settled)
+  ) {
+    state.squares = mergeNestedObjects(current(state.squares), {
+      0: { ...newBlockShape(newBlock)[1] },
+    });
+  }
+  state.status = gameOver;
+}
+```
+
+The first thing that we do inside this `else` block, is run _another_ `if` check:
+
+```js
+if (!Object.keys(current(state.squares)[0]).map(square => current(state.squares)[0][square].status).includes(settled))
+```
+
+Remember that `current(state.squares)` is our current game board, so running `Object.keys(current(state.squares)[0])` simply returns the keys for the top row of our game board.
+
+Unless the width of the game board changes, this is always going to be:
+
+```js
+['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+```
+
+We then map over these squares, and return an array of their statuses, so
+
+<!-- prettier-ignore -->
+```js
+['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].map(square => current(state.squares)[0][square].status)
+```
+
+is going to return something like:
+
+```js
+['dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead', 'dead'];
+```
+
+We then check if this array includes `settled`:
+
+```js
+.includes(settled)
+```
+
+And don't forget the `!` at the beginning of the `if` statement. That means that we will run the code returned within the `if` block if the statement is **not** true; so if the top row of our game board does **not** include a settled block.
+
+Why? What on earth is going on?
+
+Well we've already established in our `canAddBlock()` check that we cannot add a new block to our game board. The problem is that our dead row might still be empty.
+
+The reason that we might not be able to add a new block, is that the space we need in row `1` (the second row) is not available. However, visually it looks very bad to end the game, when there is an empty row at the top of the game board.
+
+It looks like we ended the game prematurely, because there's still a little bit of space up there. And if I was a player, that would piss me off.
+
+So instead of ending the game with an empty row at the top, instead within this `if` block we run:
+
+<!-- prettier-ignore -->
+```js
+state.squares = mergeNestedObjects(current(state.squares), { 0: { ...newBlockShape(newBlock)[1] }, });
+```
+
+We've been over `mergeNestedObjects()` already; this is the function that returns our updated game board. But why are we calling it here, when we already know that we can't add a new block?
+
+Let's take a look at what we're passing-in as the second argument here:
+
+```js
+{ 0: { ...newBlockShape(newBlock)[1] }, }
+```
+
+Remember that the second argument that we pass-into `mergeNestedObjects()` is our `newObject` argument. It's an object of what we want to amend in our current game board object.
+
+`...newBlockShape(newBlock)[1]` is our new block's `1` row, yet we're passing it in here with a key of `0`. Why would we do that?
+
+Let's continue to use a `J` block as our example, so this would be the return from `newBlockShape(newBlock)`:
+
+```js
+{
+  0: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+`{ ...newBlockShape(newBlock)[1] }` is going to be equal to
+
+```js
+{
+  4: {
+    status: 'live',
+    block: 'j-block',
+  }
+  5: {
+    status: 'live',
+    block: 'j-block',
+  }
+  6: {
+    status: 'live',
+    block: 'j-block',
+  }
+}
+```
+
+which is the _bottom_ row of our new block.
+
+But we can't assign it to row `1` of our game board, because there is no space, so instead we assign it to row `0`; we assign what would otherwise go into row `1`, into row `0`, for example:
+
+![Half block](/images/projects/blocks-falling/half-block.png)
+
+What you see at the very top of the game board here; the very top piece, is the bottom half of an `S` block.
+
+There wasn't space to have it on row `1`, because there's a `Z` block already there. But if we'd thrown a 'game over' while there was still an empty row at the top, visually it is very poor.
+
+So instead, we add _half_ of this `S` block onto row `0`, so that they player can see that their stack of blocks actually _did_ make it to the top of the game board.
+
+That's what
+
+```js
+{ 0: { ...newBlockShape(newBlock)[1] }, }
+```
+
+does. It passes-in row `1` of our new block to `mergeNestedObjects()`, as row `0`.
+
+Still within the `else` block of if `canAddBlock()` returns false, the very last line of the `nextBlock()` action is simply:
+
+```js
+state.status = gameOver;
+```
+
+The `gameOver` variable is simply the string `'game-over'` to prevent typos, so nothing too exciting here. And updating the `status` to `gameOver` does a couple of things.
+
+Firstly, within our `GameBoard` component, each square has its own `<div>`:
+
+```js
+<div
+  key={`square-${row}-${column}`}
+  className={`${styles.square} ${styles[squares[row][column].status]} ${
+    styles[squares[row][column].block] || ''
+  } ${status === gameOver ? styles['game-over'] : ''}`}
+/>
+```
+
+I won't go over everything that's happening here, but if you look at that bottom line, when our status is `gameOver`, it adds the `game-over` CSS class to this `<div>`.
+
+And if you look in our `GameBoard` component styling:
+
+```css
+/* src/components/Gameboard.module.css */
+
+.i-block.game-over,
+.j-block.game-over,
+.l-block.game-over,
+.o-block.game-over,
+.s-block.game-over,
+.t-block.game-over,
+.z-block.game-over {
+  background-color: gray;
+  transition: background-color 1s;
+}
+
+.i-block {
+  background-color: red;
+}
+
+.j-block {
+  background-color: gold;
+}
+
+.l-block {
+  background-color: blue;
+}
+
+.o-block {
+  background-color: green;
+}
+
+.s-block {
+  background-color: chocolate;
+}
+
+.t-block {
+  background-color: orange;
+}
+
+.z-block {
+  background-color: fuchsia;
+}
+```
+
+When there is no `game-over` class, each of the blocks has a different background color. However, once the `game-over` class is added, thanks to CSS specificity rules, all of these individual background colors are overwritten with
+
+```css
+.i-block.game-over,
+.j-block.game-over,
+.l-block.game-over,
+.o-block.game-over,
+.s-block.game-over,
+.t-block.game-over,
+.z-block.game-over {
+  background-color: gray;
+  transition: background-color 1s;
+}
+```
+
+which transitions all of the squares within our game board that have a block, to be gray, for example:
+
+![Game over](/images/projects/blocks-falling/game-over.png)
+_Game over_
+
+Within our `App.js` component, there's also the following `useEffect` block:
+
+```js
+useEffect(() => {
+  if (status === gameOver) {
+    if ((topScore && clearedRows > topScore) || (!topScore && clearedRows > 0)) {
+      setTopScoreState(clearedRows);
+      localStorage.setItem('blocks-falling.top-score', clearedRows);
+    }
+  }
+}, [status]);
+```
+
+`clearedRows` is a state within our game board state slice, which counts how many lines the user cleared while playing, and determines their overall score (more on that later):
+
+```js
+const initialState = {
+  squares: initialSquares(),
+  speed: 1000,
+  liveBlock: blocks[Math.floor(Math.random() * blocks.length)],
+  blockCounter: 0,
+  timer: { isLive: true },
+  status: preGame,
+  clearedRows: 0,
+  backgroundOne: backgrounds[Math.floor(Math.random() * backgrounds.length)],
+  backgroundTwo: backgrounds[Math.floor(Math.random() * backgrounds.length)],
+  liveBackground: 'one',
+};
+```
+
+`topScore` comes from our `topScoreSlice`, which is the only other state slice in this app.
+
+Within `App.js` is another `useEffect` block:
+
+```js
+import useSetTopScoreState from './hooks/use-set-top-score-state';
+
+const App = () => {
+  const setTopScoreState = useSetTopScoreState();
+
+  useEffect(() => {
+    if (localStorage.getItem('blocks-falling.top-score'))
+      setTopScoreState(localStorage.getItem('blocks-falling.top-score'));
+  }, [setTopScoreState]);
+};
+```
+
+`setTopScoreState` is just the function returned from the `useSetTopScoreState` hook, so even though that has been added as a dependecy to to `useEffect` here, as it never changes, this `useEffect` block will only ever be called as the page loads.
+
+We score the player's top score in their local storage with the key `blocks-falling.top-score`, which if you zoom-in, you can see here:
+
+![Local storage](/images/projects/blocks-falling/local-storage.png)
+_Top score stored in local storage_
+
+So after checking that a top-score exists with `if (localStorage.getItem('blocks-falling.top-score'))`, then `setTopScoreState(localStorage.getItem('blocks-falling.top-score'));` calls the `useSetTopScoreState` hook, passing-in the current top score as an argument.
+
+This is a very simple hook that does exactly what it says on the tin, I just separated it into a hook to keep my code as concise as possible. But all it does is call `dispatch(topScoreActions.setTopScore(score));`, which runs an action in our top-score slice, to update our `topScore` state:
+
+```js
+// src/hooks/use-set-top-score-state.js
+
+import { useDispatch } from 'react-redux';
+
+import { topScoreActions } from '../store/top-score';
+
+const useSetTopScoreState = () => {
+  const dispatch = useDispatch();
+
+  const setTopScoreState = score => {
+    dispatch(topScoreActions.setTopScore(score));
+  };
+
+  return setTopScoreState;
+};
+
+export default useSetTopScoreState;
+```
+
+The `setTopScore` action is simply:
+
+```js
+setTopScore(state, action) {
+  state.topScore = action.payload;
+},
+```
+
+So with this, when our app loads, we check local storage for an existing top score, and set it to `topScore`.
+
+Then, at the end of the game, when `status` is updated to `'game-over'`, the other `useEffect` block is run:
+
+```js
+useEffect(() => {
+  if (status === gameOver) {
+    if ((topScore && clearedRows > topScore) || (!topScore && clearedRows > 0)) {
+      setTopScoreState(clearedRows);
+      localStorage.setItem('blocks-falling.top-score', clearedRows);
+    }
+  }
+}, [status]);
+```
+
+We now firstly check that there is an existing `topScore`, and that `clearedRows` is higher than this current `topScore`,
+
+```js
+topScore && clearedRows > topScore;
+```
+
+or that there is no `topScore` but the number of `clearedRows` is greater than `0`:
+
+```js
+!topScore && clearedRows > 0;
+```
+
+And if either of those things are true, then we do two things.
+
+Firstly, we update our `topScore` state to the number of `clearedRows`. And secondly, we update our local storage _to this_ new `topScore` (meaning that if the user closes their browser, this score is persisted):
+
+```js
+setTopScoreState(clearedRows);
+localStorage.setItem('blocks-falling.top-score', clearedRows);
+```
+
+And with that, we have finally... finally, got to the end of our `nextBlock()` action. And thankfully, that's the most complicated action that have in this app, so hopefully the other ones will be a bit quicker to go over.
+
+But after what must now feel like a lifetime to you, we now have one block on our game board. At the very top. And it hasn't even moved yet.
+
+Why did I decide to write this article?
 
 ## Useful links
 

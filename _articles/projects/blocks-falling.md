@@ -3049,6 +3049,8 @@ But after what must now feel like a lifetime to you, we now have one block on ou
 
 Given the eventual name of this app, it seems appropriate that the first direction for moving a block that we look at, is down.
 
+### Down
+
 Unlike left and right, moving a block down can happen in two ways.
 
 Not only can the user move the block down, but the block will move down automatically at timed intervals, hence the blocks... falling. And if you remember, we've already been over the code in the `GameBoard` component where we call the `moveBlock(down)` function:
@@ -3239,6 +3241,1290 @@ const useMoveBlockDown = () => {
 
 export default useMoveBlockDown;
 ```
+
+The first thing that this hook does within the `moveBlockDown` function is call:
+
+```js
+dispatch(gameBoardActions.stopTimer());
+```
+
+This calls an action within our game board slice which, as you might be able to guess, stops the timer:
+
+```js
+stopTimer(state) {
+  state.timer = { isLive: false };
+},
+```
+
+It changes `state.timer` to `{ isLive: false }`, and if you remember in our `GameBoard` component, we only make the `moveBlock(down)` function call _if_ `timer.isLive` is true:
+
+```js
+if (timer.isLive) {
+  timeOut = setTimeout(() => {
+    moveBlock(down);
+  }, speed);
+}
+```
+
+So the first thing we've done, is stop our timer. At this point, `moveBlock(down)` isn't going to automatically called again.
+
+Next in our `moveBlockDown()` function we run an `if` check:
+
+```js
+if (canMove(down)) {
+  const initialShape = liveBlockShape();
+  let movedBlock = {};
+
+  Object.keys(initialShape).forEach(rowKey => {
+    movedBlock[parseInt(rowKey) + 1] = {};
+    Object.keys(initialShape[rowKey]).forEach(columnKey => {
+      movedBlock[parseInt(rowKey) + 1][columnKey] = initialShape[rowKey][columnKey];
+    });
+  });
+
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+} else {
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+  dispatch(gameBoardActions.updateClearedRows());
+  dispatch(gameBoardActions.clearCompletedRows());
+  dispatch(gameBoardActions.nextBlock());
+}
+```
+
+We run `if (canMove(down)) {` which, as the name suggests, checks whether or not we can actually move our block down.
+
+What am I talking about?
+
+Well, we don't want to move our 'live' block down under two circumstances:
+
+- If it's already at the bottom of the game board
+- If there's another block beneath it
+
+The `canMove(down)` call simple calls the `useCanMoveBlock` hook and passes-in the string `'down'`:
+
+```js
+import useCanMoveBlock from './use-can-move-block';
+
+const useMoveBlockDown = () => {
+  const canMove = useCanMoveBlock();
+};
+```
+
+And guess what?
+
+Yep, the `useCanMoveBlock` imports five more hooks:
+
+```js
+// src/hooks/use-can-move-block.js
+
+import useIsTouchingBottom from './use-is-touching-bottom';
+import useIsTouchingWall from './use-is-touching-wall';
+import useIsBlockBelow from './use-is-block-below';
+import useIsBlockToSide from './use-is-block-to-side';
+import useGameIsInProgress from './use-game-is-in-progress';
+import { down, left, right } from '../store/game-board';
+
+const useCanMoveBlock = () => {
+  const isTouchingBottom = useIsTouchingBottom();
+  const isTouchingWall = useIsTouchingWall();
+  const isBlockBelow = useIsBlockBelow();
+  const isBlockToSide = useIsBlockToSide();
+  const gameIsInProgress = useGameIsInProgress();
+
+  const canMoveDown = () => {
+    return !isTouchingBottom() && !isBlockBelow();
+  };
+
+  const canMoveLeft = () => {
+    return !isTouchingWall(left) && !isBlockToSide(left);
+  };
+
+  const canMoveRight = () => {
+    return !isTouchingWall(right) && !isBlockToSide(right);
+  };
+
+  const canMove = direction => {
+    if (!gameIsInProgress()) return false;
+
+    switch (direction) {
+      case down:
+        return canMoveDown();
+      case left:
+        return canMoveLeft();
+      case right:
+        return canMoveRight();
+      default:
+        return;
+    }
+  };
+
+  return canMove;
+};
+
+export default useCanMoveBlock;
+```
+
+We might be here all night.
+
+Only two of these hooks are relevant here, however.
+
+Within the `canMove` function we check the `direction` that was passed-in:
+
+```js
+switch (direction) {
+  case down:
+    return canMoveDown();
+  case left:
+    return canMoveLeft();
+  case right:
+    return canMoveRight();
+  default:
+    return;
+}
+```
+
+As we passed-in `'down'`, we run the `canMoveDown()` function, which calls two hooks:
+
+```js
+const canMoveDown = () => {
+  return !isTouchingBottom() && !isBlockBelow();
+};
+```
+
+`isTouchingBottom()` calls the `useIsTouchingBottom` hook and `isBlockBelow()` calls the `useIsBlockBelow` hook.
+
+Let's go over both of these. First off, this is the `useIsTouchingBottom` hook:
+
+```js
+// src/hooks/use-is-touching-bottom.js
+
+import { squaresRef } from '../components/GameBoard';
+import { live } from '../store/game-board';
+
+const useIsTouchingBottom = () => {
+  const isTouchingBottom = () => {
+    return Object.keys(squaresRef.current[20])
+      .map(square => squaresRef.current[20][square].status)
+      .includes(live);
+  };
+
+  return isTouchingBottom;
+};
+
+export default useIsTouchingBottom;
+```
+
+Look... it doesn't call any more hooks!
+
+Now, if you remember, our game board has 21 rows, going from `0` to `20`. `squaresRef.current[20]` is the bottom row of our game board, so when we run `Object.keys(squaresRef.current[20])` it simply returns all the columns in the bottom row.
+
+Just like with the top row, unless something changes in the future, this will always be `['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']`.
+
+So we map over this array, getting the `status` of each of the squares on the bottom row of our game board and storing it in an array, as we did earlier for the top row:
+
+<!-- prettier-ignore -->
+```js
+['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].map(square => squaresRef.current[20][square].status);
+```
+
+We then check if this array includes the status `'live'`:
+
+```js
+.includes(live);
+```
+
+If any of the squares on the bottom row of our game board _do_ have the `status` of `live`, then we know that our `live` block has reached the bottom of the game board, in which case we return `true` from our `useIsTouchingBottom` hook, because it _is_ touching the bottom.
+
+However, if none of the squares on the bottom row of our game board have a status of `live`, then we return `false` from `useIsTouchingBottom`, because we know that our live block is **not** touching the bottom.
+
+We also need to check if there is a block _below_ our live block. and that's where our `useIsBlockBelow` hook comes in:
+
+```js
+// src/hooks/use-is-block-below.js
+
+import { squaresRef } from '../components/GameBoard';
+import { live, settled } from '../store/game-board';
+
+const useIsBlockBelow = () => {
+  const isBlockBelow = () => {
+    let belowSquaresStatusArray = [];
+
+    Object.keys(squaresRef.current).forEach(rowKey =>
+      Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
+        if (squaresRef.current[rowKey][columnKey].status === live) {
+          belowSquaresStatusArray.push(squaresRef.current[parseInt(rowKey) + 1][columnKey].status);
+        }
+      })
+    );
+
+    return belowSquaresStatusArray.includes(settled);
+  };
+
+  return isBlockBelow;
+};
+
+export default useIsBlockBelow;
+```
+
+And look, this one doesn't import any other hooks either. The nightmare is over!
+
+So what on earth is this hook doing?
+
+Remember that `squaresRef.current` is our current game board. Well as we've done before, the first thing we do is fetch all of our row keys:
+
+```js
+Object.keys(squaresRef.current);
+```
+
+We then enter a loopception, firstly looping-over all of these keys, and then the squares/columns within each of these rows:
+
+```js
+Object.keys(squaresRef.current).forEach(rowKey =>
+  Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
+```
+
+This very unelegantly allows us to loop-over every square of our game board. We then do an `if` check to find and only continue _if_ that square is `'live'`:
+
+```js
+if (squaresRef.current[rowKey][columnKey].status === live) {
+```
+
+_If_ a square _is_ `'live'`, we then run:
+
+```js
+belowSquaresStatusArray.push(squaresRef.current[parseInt(rowKey) + 1][columnKey].status);
+```
+
+`belowSquaresStatusArray` started off this function as an empty array:
+
+```js
+let belowSquaresStatusArray = [];
+```
+
+What we're then doing here, is getting the square _below_ our current `'live'` square:
+
+```js
+squaresRef.current[parseInt(rowKey) + 1][columnKey];
+```
+
+If you notice the `+ 1` in `parseInt(rowKey) + 1`, that means that we get the row _below_ our current row, which we've have already checked is `'live'`. We then push the `status` of this square that is _below_ our `'live'` square to our `belowSquaresStatusArray`.
+
+In the last line of this function, we check if the `belowSquaresStatusArray` includes `'settled'`. If it does, we know that there's a `'settled'` block below our current block, if it doesn't we know that there's not.
+
+So we return `true` from our `useIsBlockBelow` hook, if there is a `'settled'` block below our `'live'` block, and we return `false` if there's not:
+
+```js
+return belowSquaresStatusArray.includes(settled);
+```
+
+If you remember back to our `useCanMoveBlock` hook, these two hooks that we've just been over, checked if we could move our live block down:
+
+```js
+const canMoveDown = () => {
+  return !isTouchingBottom() && !isBlockBelow();
+};
+```
+
+And if `isTouchingBottom()` returns `false`, and `isBlockBelow()` returns false, then `canMoveDown()` returns `true` (note the `!`).
+
+So going back to our `useMoveBlockDown` hook, we now know how our `if (canMove(down)) {` check works:
+
+```js
+if (canMove(down)) {
+  const initialShape = liveBlockShape();
+  let movedBlock = {};
+
+  Object.keys(initialShape).forEach(rowKey => {
+    movedBlock[parseInt(rowKey) + 1] = {};
+    Object.keys(initialShape[rowKey]).forEach(columnKey => {
+      movedBlock[parseInt(rowKey) + 1][columnKey] = initialShape[rowKey][columnKey];
+    });
+  });
+
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+} else {
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+  dispatch(gameBoardActions.updateClearedRows());
+  dispatch(gameBoardActions.clearCompletedRows());
+  dispatch(gameBoardActions.nextBlock());
+}
+```
+
+So next let's look at what we do in each scenario.
+
+Firstly, if we _can_ move a block down.
+
+Unsurprisingly, the first thing we do is call another hook; this time the `useLiveBlockShape` hook:
+
+```js
+const initialShape = liveBlockShape();
+```
+
+The `useLiveBlockShape` hook is as follows:
+
+```js
+// src/hooks/use-live-block-shape.js
+
+import { squaresRef } from '../components/GameBoard';
+import { live } from '../store/game-board';
+
+const useLiveBlockShape = () => {
+  const liveBlockShape = () => {
+    let returnObject = {};
+
+    Object.keys(squaresRef.current).forEach(rowKey =>
+      Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
+        if (squaresRef.current[rowKey][columnKey].status === live) {
+          if (!returnObject[rowKey]) returnObject[rowKey] = {};
+          if (!returnObject[rowKey][columnKey]) returnObject[rowKey][columnKey] = {};
+          returnObject[rowKey][columnKey].status = live;
+          returnObject[rowKey][columnKey].block = squaresRef.current[rowKey][columnKey].block;
+        }
+      })
+    );
+
+    return returnObject;
+  };
+
+  return liveBlockShape;
+};
+
+export default useLiveBlockShape;
+```
+
+What this hook does, is fetch our current `'live'` block from within our game board.
+
+We have a `returnObject` that starts its life as an empty object (`{}`).
+
+Then, as we've done so many times already, we enter a loopception where we firstly loop over all the rows of our game board
+
+```js
+Object.keys(squaresRef.current).forEach(rowKey =>
+```
+
+and then over the columns within each of these rows:
+
+```js
+Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
+```
+
+This, as I'm sure you've gathered by this point, loops over all of the squares in our game board.
+
+As we're only interested in finding our `'live'` block within our game board, the first thing we do is check whether the current square in our loopception is `'live'`:
+
+```js
+if (squaresRef.current[rowKey][columnKey].status === live) {
+```
+
+If its not `'live'`, we ignore it and move onto the next loop. However, if it is... well the first thing we need to do, is create an object within our `returnObject` object for that object if no object exists.
+
+I just said object five times in eleven words. Beat that!
+
+```js
+if (!returnObject[rowKey]) returnObject[rowKey] = {};
+```
+
+`if (!returnObject[rowKey])` checks if an object for the current row of our loopception exists, and if it doesn't (note the `!`), we create an empty object with `returnObject[rowKey] = {}`.
+
+We then do the same thing for that particular square within the row:
+
+```js
+if (!returnObject[rowKey][columnKey]) returnObject[rowKey][columnKey] = {};
+```
+
+I'm not sure why I added the `if` check here, because as we only loop over each square once, no such square should exist here, but whatever.
+
+Because we know we're looping over a `'live'` square, we also add an empty object here.
+
+And now that we have our 'row' and our 'square' (column) objects, we just need to populate them:
+
+```js
+returnObject[rowKey][columnKey].status = live;
+returnObject[rowKey][columnKey].block = squaresRef.current[rowKey][columnKey].block;
+```
+
+As we already know that this square's `status` is `'live'`, then we simply set it to `'live'`. As for the `block`, we check within our game board (`squaresRef.current`) and set the block within `returnObject` to match the corresponding block of our game board.
+
+Then, by the time we get to the end of our loopception, we're left with an object, set to the `returnObject` variable, which contains just our `'live'` block.
+
+Obviously this will look different depending on where on our game board the block is, and what kind of block it is, but going back to our `'J'` block example from earlier, if the block is on the top row of our game board and hasn't been moved yet, then the return from `useLiveBlockShape` would be:
+
+```js
+{
+  0: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+Going back to `useMoveBlockDown`, now that we know our current block, we need to move it:
+
+```js
+if (canMove(down)) {
+  const initialShape = liveBlockShape();
+  let movedBlock = {};
+
+  Object.keys(initialShape).forEach(rowKey => {
+    movedBlock[parseInt(rowKey) + 1] = {};
+    Object.keys(initialShape[rowKey]).forEach(columnKey => {
+      movedBlock[parseInt(rowKey) + 1][columnKey] = initialShape[rowKey][columnKey];
+    });
+  });
+
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+} else {
+```
+
+So the first thing we do, is create a `movedBlock` variable that is an empty object:
+
+```js
+let movedBlock = {};
+```
+
+This is where we'll store our moved block... surprisingly.
+
+Remembering that `initialShape` is the object of our current live block, we then loop over `initialShape`:
+
+```js
+Object.keys(initialShape).forEach(rowKey => {
+```
+
+And the first thing we want to do, is create a new row within our `movedBlock` object, one row **below** the rows that exist in our `initialShape`:
+
+```js
+movedBlock[parseInt(rowKey) + 1] = {};
+```
+
+So if our `initialShape` has a row of `0`, then here we create a new row with the key of `1`.
+
+We then go into a loopception, where we loop over the columns within this row of our `initialShape`:
+
+```js
+Object.keys(initialShape[rowKey]).forEach(columnKey => {
+```
+
+As we're moving the block down, and not left or right, we have no interest in changing the columns of the block, so we simply copy the contents of this square to our new row, that is one row below where it exists in `initialShape`:
+
+```js
+movedBlock[parseInt(rowKey) + 1][columnKey] = initialShape[rowKey][columnKey];
+```
+
+Once our loopception has finished, what we're left with in our `movedBlock` variable, is an exact copy of our `initialShape` variable, except the block has been moved down one row.
+
+So for example, if `initialShape` was
+
+```js
+{
+  0: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+then `movedBlock` would be:
+
+```js
+{
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  2: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+And now that we know how we want updated `'live'` block to look, all we need to do is update our state, which we do by calling:
+
+```js
+dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+```
+
+The `updatedGameBoard()` function call (not to be confused with the `updateGameBoard()` action) calls the `useUpdatedGameBoard` hook (dammit!).
+
+When you pass-in a block that has been moved, in this case the aptly named `movedBlock`, then the `useUpdatedGameBoard` hook will return the entire game board, updated with this `movedBlock`.
+
+Exciting.
+
+Let's take a look:
+
+```js
+// src/hooks/use-updated-game-board.js
+
+import { squaresRef } from '../components/GameBoard';
+import { live, dead, empty } from '../store/game-board';
+
+const useUpdatedGameBoard = () => {
+  const updatedGameBoard = movedBlock => {
+    let existingObject = JSON.parse(JSON.stringify(squaresRef.current));
+    let newObject = JSON.parse(JSON.stringify(existingObject));
+
+    Object.keys(existingObject).forEach(rowKey =>
+      Object.keys(existingObject[rowKey]).forEach(columnKey => {
+        if (existingObject[rowKey][columnKey].status === live) {
+          newObject[rowKey][columnKey] = { status: rowKey === '0' ? dead : empty, block: '' };
+        }
+        if (movedBlock[rowKey] && movedBlock[rowKey][columnKey]) {
+          newObject[rowKey][columnKey] = { ...movedBlock[rowKey][columnKey] };
+        }
+      })
+    );
+
+    return newObject;
+  };
+
+  return updatedGameBoard;
+};
+
+export default useUpdatedGameBoard;
+```
+
+`JSON.parse(JSON.stringify(squaresRef.current))` simply 'clones' `squaresRef.current` (our game board), meaning that it makes a copy of it. We then assign it to the `existingObject` variable.
+
+`JSON.parse(JSON.stringify(existingObject))` does exactly the same thing, but on `existingObject`, and assigns it to the `newObject` variable.
+
+```js
+let existingObject = JSON.parse(JSON.stringify(squaresRef.current));
+let newObject = JSON.parse(JSON.stringify(existingObject));
+```
+
+At this point, `existingObject` and `newObject` are identical copies of each other. However, as you might be able to tell, `newObject` is going to get updated to how we want our updated game board object to look.
+
+We're once again going to go into a loopception, where we loop over the rows and columns of our game board:
+
+```js
+Object.keys(existingObject).forEach(rowKey =>
+  Object.keys(existingObject[rowKey]).forEach(columnKey => {
+```
+
+And within our loopception, the first thing that we're going to do is check if a square is `'live'`, and if it is, 'clear' this square in our `newObject`:
+
+```js
+if (existingObject[rowKey][columnKey].status === live) {
+  newObject[rowKey][columnKey] = { status: rowKey === '0' ? dead : empty, block: '' };
+}
+```
+
+`status: rowKey === '0' ? dead : empty` simply checks whether this is the top row of our game board. If it is, the `status` is changed to `'dead'`, if it's not, the `status` is changed to `'empty'`.
+
+Then _once_ this square has been cleared (if it's `'live'`), we check our `movedBlock` (remember, that's our block in its new position), and _if_ this square exists in our `movedBlock` object, we update the corresponding square of `newObject` to match it:
+
+```js
+if (movedBlock[rowKey] && movedBlock[rowKey][columnKey]) {
+  newObject[rowKey][columnKey] = { ...movedBlock[rowKey][columnKey] };
+}
+```
+
+Once we've finished our loopception, `newObject` has been updated so that the previous `'live'` squares were changed to `'empty'` or `'dead'`, and the new `'live'` squares have been copied over from `movedBlock`.
+
+That means that `newObject` _is_ what we want to update our game board to.
+
+We return `newObject` from the `useUpdatedGameBoard` hook:
+
+```js
+return newObject;
+```
+
+Now remember where we're up to in our `useMoveBlockDown` hook:
+
+```js
+dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+```
+
+We now know that the return from `updatedGameBoard(movedBlock)` _is_ our new game board.
+
+We then call the `updateGameBoard()` action, passing-in this updated game board as the argument.
+
+And the `updateGameBoard()` action is very simple:
+
+```js
+updateGameBoard(state, action) {
+  state.squares = action.payload;
+},
+```
+
+It simply updates our `squares` state to be our updated game board. So at this point, we've successfully moved our block down, and the updated game board is being displayed to our player.
+
+What about if we can't move our block down though?
+
+```js
+if (canMove(down)) {
+  // Stuff we've already been over here
+} else {
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+  dispatch(gameBoardActions.updateClearedRows());
+  dispatch(gameBoardActions.clearCompletedRows());
+  dispatch(gameBoardActions.nextBlock());
+}
+```
+
+Well... the good news is that we don't call any new hooks here.
+
+I'm just joking, of course we do. `settledBlock()` calls the `useSettledBlock()` hook:
+
+```js
+// src/hooks/use-settled-block.js
+
+import { settled } from '../store/game-board';
+import useLiveBlockShape from './use-live-block-shape';
+
+const useSettledBlock = () => {
+  const liveBlockShape = useLiveBlockShape();
+
+  const settledBlock = () => {
+    const initialShape = liveBlockShape();
+    let returnBlock = {};
+
+    Object.keys(initialShape).forEach(rowKey => {
+      returnBlock[rowKey] = {};
+      Object.keys(initialShape[rowKey]).forEach(columnKey => {
+        returnBlock[rowKey][columnKey] = {
+          status: settled,
+          block: initialShape[rowKey][columnKey].block,
+        };
+      });
+    });
+
+    return returnBlock;
+  };
+
+  return settledBlock;
+};
+
+export default useSettledBlock;
+```
+
+Luckily, the only hook called in this hook, we have already been over. It just calls `useLiveBlockShape`, which you'll remember with a feeling of despondence returns the current `'live'` block.
+
+So in this hook, `initialShape` is our current `'live'` block. `returnBlock` is the object that we're going to return.
+
+```js
+const initialShape = liveBlockShape();
+let returnBlock = {};
+```
+
+This should all be starting to look quite familiar, but this hook _also_ runs a loopception where loop over the rows and the columns within then, this time of `initialShape`:
+
+```js
+Object.keys(initialShape).forEach(rowKey => {
+  returnBlock[rowKey] = {};
+  Object.keys(initialShape[rowKey]).forEach(columnKey => {
+```
+
+`returnBlock[rowKey] = {};` creates a row within our `returnBlock` for each row of `initialShape`.
+
+Then all we do, is add a square within `returnBlock` which matches the corresponding square within `initialShape`, _except_ that we update the `status` to `'settled'`:
+
+```js
+returnBlock[rowKey][columnKey] = {
+  status: settled,
+  block: initialShape[rowKey][columnKey].block,
+};
+```
+
+So for example, if `initialShape` was
+
+```js
+{
+  1: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    },
+  },
+  2: {
+    4: {
+      status: 'live',
+      block: 'j-block',
+    }
+    5: {
+      status: 'live',
+      block: 'j-block',
+    }
+    6: {
+      status: 'live',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+then `returnBlock` would be
+
+```js
+{
+  1: {
+    4: {
+      status: 'settled',
+      block: 'j-block',
+    },
+  },
+  2: {
+    4: {
+      status: 'settled',
+      block: 'j-block',
+    }
+    5: {
+      status: 'settled',
+      block: 'j-block',
+    }
+    6: {
+      status: 'settled',
+      block: 'j-block',
+    }
+  },
+};
+```
+
+Going back to our `useMoveBlockDown` hook, the first action we call in the `else` block when `canMove(down)` returns `false`, is:
+
+```js
+dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+```
+
+We now know that `settledBlock()` returns our `'live'` block, except the `status` for each of its squares has been updated to `'settled'`.
+
+We've already been over that `updatedGameBoard()` calls our `useUpdatedGameBoard` hook and returns our updated game board, and that the `updateGameBoard()` action simply updates `squares` state to be this updated game board. So what this entire line does, is update the game board to "settle" our block.
+
+After this, we call three more actions:
+
+```js
+if (canMove(down)) {
+  // Stuff we've already been over here
+} else {
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+  dispatch(gameBoardActions.updateClearedRows());
+  dispatch(gameBoardActions.clearCompletedRows());
+  dispatch(gameBoardActions.nextBlock());
+}
+```
+
+The first one is the `updateClearedRows()` action, which is as follows:
+
+```js
+updateClearedRows(state) {
+  if (isCompletedRows(current(state.squares))) {
+    state.clearedRows = state.clearedRows + numberOfCompletedRows(current(state.squares));
+    state.speed = Math.max(initialState.speed - state.clearedRows * 25, 100);
+  }
+},
+```
+
+Both `isCompletedRows()` and `numberOfCompletedRows()` are functions within our game board slice.
+
+`isCompletedRows()` checks, unsurprisingly, if there are any completed rows.
+
+If you're unfamiliar with the game 'Blocks Falling', which you should be because it's completely unique and hasn't been based on anything else in the world, then once a player "completes" a row (meaning that every square on that row is `'settled'`), then the row clears.
+
+Yep, everything on that row just disappears. And any blocks above it move down a row.
+
+Your score in 'Blocks Falling' is also determined by the number of rows that you clear.
+
+So the first thing we need to know, is _if_ the user has completed any rows. That's where `isCompletedRows()` comes in:
+
+```js
+const isCompletedRows = currentGrid => {
+  let returnBool = false;
+  let statusArray = [];
+
+  Object.keys(currentGrid).forEach(rowKey => {
+    if (!returnBool) {
+      statusArray = [];
+      Object.keys(currentGrid[rowKey]).forEach(columnKey => {
+        statusArray.push(currentGrid[rowKey][columnKey].status);
+      });
+      if (statusArray.every(status => status === settled)) returnBool = true;
+    }
+  });
+
+  return returnBool;
+};
+```
+
+This function is going to return one of two values: `true` or `false`, so we start by setting the `returnBool` to `false`.
+
+The `currentGrid` was passed-in when we called this function, and is simmply our current game board:
+
+```js
+if (isCompletedRows(current(state.squares))) {
+```
+
+So what we do is loop over our current game board with:
+
+```js
+Object.keys(currentGrid).forEach(rowKey => {
+```
+
+Next we check the value of `returnBool`. If it is `true`, then we don't need to run anything else, because we only need to know if one row is completed:
+
+```js
+if (!returnBool) {
+```
+
+Assuming that it's false though, we reset the value of `statusArray` to be an empty array, and then loop-over the columns within our row loop:
+
+```js
+Object.keys(currentGrid[rowKey]).forEach(columnKey => {
+```
+
+This should look very familiar by this point.
+
+We then `push` the `status` of every square on this row to our `statusArray`.
+
+```js
+statusArray.push(currentGrid[rowKey][columnKey].status);
+```
+
+And then once we've finished looping over each of the squares on a particular row, we check if every value of this array is `'settled'`. If it is, we update the `returnBool` to `true`, if it's not, it remains `false` and we all go on with our lives:
+
+```js
+if (statusArray.every(status => status === settled)) returnBool = true;
+```
+
+We then return `returnBool`, which will be either `true` or `false` depending on _if_ any rows are completed:
+
+```js
+return returnBool;
+```
+
+Back to our `updateClearedRows()` function:
+
+```js
+updateClearedRows(state) {
+  if (isCompletedRows(current(state.squares))) {
+    state.clearedRows = state.clearedRows + numberOfCompletedRows(current(state.squares));
+    state.speed = Math.max(initialState.speed - state.clearedRows * 25, 100);
+  }
+},
+```
+
+If there are no completed rows, then we do nothing else here. However, if there are completed rows, we need to update `state.clearedRows`.
+
+If you remember back to earlier, `clearedRows` is the state that determines our score, so it not only updates the scoreboard of our game, but it is also the value that we store in local storage to persist our player's top score.
+
+And in order to update `state.clearedRows`, we need to know how many rows have been completed this term. That's where `numberOfCompletedRows(current(state.squares))` comes in.
+
+As with `isCompletedRows`, we pass in the current game board as an argument:
+
+```js
+const numberOfCompletedRows = currentGrid => {
+  let completedRows = [];
+  let statusArray = [];
+
+  Object.keys(currentGrid).forEach(rowKey => {
+    statusArray = [];
+    Object.keys(currentGrid[rowKey]).forEach(columnKey => {
+      statusArray.push(currentGrid[rowKey][columnKey].status);
+    });
+    if (statusArray.every(status => status === settled)) completedRows.push(rowKey);
+  });
+
+  return completedRows.length;
+};
+```
+
+This function is very similar to `isCompletedRows`, so I'll just point-out the differences in a futile attempt to keep this article below two hours.
+
+Instead of having a `returnBool` variable, if every square on a row is `'settled'`, we add this row key to the `completedRows` array.
+
+What we return is then the length of this array:
+
+```js
+return completedRows.length;
+```
+
+Going back to our `updateClearedRows()` action, the value returned here is then added onto the number of cleared rows that exists already, and this total is set as the new `clearedRows` state:
+
+```js
+state.clearedRows = state.clearedRows + numberOfCompletedRows(current(state.squares));
+```
+
+There's one more piece of state that we need to update in this action:
+
+```js
+updateClearedRows(state) {
+  if (isCompletedRows(current(state.squares))) {
+    state.clearedRows = state.clearedRows + numberOfCompletedRows(current(state.squares));
+    state.speed = Math.max(initialState.speed - state.clearedRows * 25, 100);
+  }
+},
+```
+
+If you remember from earlier, the `speed` state is used in our `GameBoard` component to know how long the timeout (set in `setTimeout()`) should be before calling `moveBlock(down)`:
+
+```js
+useEffect(() => {
+  if (status === inProgress) {
+    if (timer.isLive) {
+      timeOut = setTimeout(() => {
+        moveBlock(down);
+      }, speed);
+    }
+  }
+
+  return () => {
+    clearTimeout(timeOut);
+  };
+}, [status, timer]);
+```
+
+`state.speed = Math.max(initialState.speed - state.clearedRows * 25, 100);` is the point that our `speed` state gets updated.
+
+If you remember back to our `initialState` (it feels so long ago now), `speed` was set to `1000`:
+
+```js
+speed: 1000,
+```
+
+As the `speed` state is used in `setTimeout()`, `1000` means 1000 milliseconds (so one second).
+
+So `initialState.speed - state.clearedRows * 25` means that we take our `initialState.speed` of `1000`, then subtract the number of `state.clearedRows` \* `25`.
+
+For example, if we've cleared 10 rows, then `state.clearedRows * 25` would be `250`.
+
+We'd subtract `250` from our `initialState.speed` of `1000`, leaving us with a speed of `750` (or three-quarters of a second).
+
+`Math.max` returns the higher value of the entered values, so with `Math.max(initialState.speed - state.clearedRows * 25, 100);` we return whichever is highest `initialState.speed - state.clearedRows * 25` or `100`.
+
+That is because once you're down to a speed of `100` (one tenth of a second), it's pretty damn fast already, and probably not long until the player reaches a game over, so no need to speed things up even more.
+
+That is the end of our `updateClearedRows()` action:
+
+```js
+updateClearedRows(state) {
+  if (isCompletedRows(current(state.squares))) {
+    state.clearedRows = state.clearedRows + numberOfCompletedRows(current(state.squares));
+    state.speed = Math.max(initialState.speed - state.clearedRows * 25, 100);
+  }
+},
+```
+
+Luckily for us, there are two more actions to go over in this `else` block of `useMoveBlockDown`. Yay!
+
+The next one is `clearCompletedRows()`:
+
+```js
+if (canMove(down)) {
+  // Stuff we've already been over here
+} else {
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+  dispatch(gameBoardActions.updateClearedRows());
+  dispatch(gameBoardActions.clearCompletedRows());
+  dispatch(gameBoardActions.nextBlock());
+}
+```
+
+With `updateClearedRows()` we've identified whether or not there are any cleared row, and updated the score and the game speed accordingly.
+
+We haven't actually cleared the rows yet though. That's what `clearCompletedRows()` does:
+
+```js
+clearCompletedRows(state) {
+  if (isCompletedRows(current(state.squares))) {
+    state.squares = clearCompletedRows(current(state.squares));
+  }
+},
+```
+
+As with `updateClearedRows()` it firstly checks if there are any completed rows, using the `isCompletedRows()` function and passing-in the current game board.
+
+If there aren't any completed rows, then nothing to see here. Go and get a beer.
+
+If there are completed rows, we update `state.squares` to the return of the `clearCompletedRows()` function, where we pass-in the current game board:
+
+```js
+clearCompletedRows(current(state.squares));
+```
+
+The `clearCompletedRows()` function is as follows:
+
+```js
+const clearCompletedRows = currentGrid => {
+  let returnObject = JSON.parse(JSON.stringify(currentGrid));
+  let statusArray = [];
+
+  Object.keys(returnObject).forEach(rowKey => {
+    statusArray = [];
+    Object.keys(returnObject[rowKey]).forEach(columnKey => {
+      statusArray.push(returnObject[rowKey][columnKey].status);
+    });
+    if (statusArray.every(status => status === settled)) {
+      [...Array(parseInt(rowKey)).keys()].reverse().forEach(fallingRowKey => {
+        if (fallingRowKey === 0) {
+          returnObject[fallingRowKey] = deadRow;
+          returnObject[fallingRowKey + 1] = emptyRow;
+        } else {
+          returnObject[fallingRowKey + 1] = returnObject[fallingRowKey];
+        }
+      });
+    }
+  });
+
+  return returnObject;
+};
+```
+
+Much of this function should look familiar, because as I'm realising, I didn't do a very good of following DRY principles.
+
+`let returnObject = JSON.parse(JSON.stringify(currentGrid));` clones our current game board and sets it to the `returnObject` variable. This is what we'll ultimately return from this function.
+
+As I'm sure will be a complete surprise to you, we then loop over the rows in this `returnObject` variable:
+
+```js
+Object.keys(returnObject).forEach(rowKey => {
+```
+
+We again have a `statusArray` variable which we set to an empty array at the beginning of each 'row' loop. We then loop over the columns in each row, and `push` their `status`' to `statusArray`:
+
+```js
+Object.keys(returnObject[rowKey]).forEach(columnKey => {
+  statusArray.push(returnObject[rowKey][columnKey].status);
+});
+```
+
+We're only interested in working with 'completed' rows here, so the next thing we do is check whether every square in this row has a `status` of `'settled'`
+
+```js
+if (statusArray.every(status => status === settled)) {
+```
+
+and if it does...
+
+```js
+[...Array(parseInt(rowKey)).keys()].reverse().forEach(fallingRowKey => {
+  if (fallingRowKey === 0) {
+    returnObject[fallingRowKey] = deadRow;
+    returnObject[fallingRowKey + 1] = emptyRow;
+  } else {
+    returnObject[fallingRowKey + 1] = returnObject[fallingRowKey];
+  }
+});
+```
+
+😢🔫
+
+Remembering that we're in a loop over the rows of our game board (for a change), `rowKey` will be the current row in our iteration.
+
+```js
+[...Array(parseInt(rowKey)).keys()];
+```
+
+When you run, for example `Array(5)`, what you'll get is an array of `5` empty elements, for example `[...Array(5)]` returns:
+
+```js
+[undefined, undefined, undefined, undefined, undefined];
+```
+
+Not too useful yet.
+
+However, when you run `keys()` on an array, what is returned is a new array containing all the indexes of the elements within the array, for example `[...Array(5).keys()]` returns:
+
+```js
+[0, 1, 2, 3, 4];
+```
+
+So when we run `[...Array(parseInt(rowKey)).keys()]`, what we're doing is returning an array of integers up to but **not** including our current `rowKey`.
+
+A very important thing to notice is that we then `.reverse()` this array:
+
+```js
+[...Array(parseInt(rowKey)).keys()].reverse();
+```
+
+Why is that important?
+
+`[...Array(parseInt(rowKey)).keys()]` returns all the rows up to but **not** including our current row; that means it includes all of the rows _above_ our current row.
+
+What we're about to now do, is move all of these rows down one row, one at a time.
+
+If we moved down starting with the top row, we'd have overwritten the row below, _before_ we'd moved it. So we move down the row _above_ the row that we're clearning. Then we move down the row above that, then the one above that, etc.
+
+So in our `[...Array(parseInt(rowKey)).keys()].reverse().forEach(fallingRowKey => {` loop, in our first iteration, the `fallingRowKey` will be the row _above_ the row that we're clearing. In our second iteration, the `fallingRowKey` will be the row above that row. In our third iteration, the `fallingRowKey` will be the row above that.
+
+You get the idea.
+
+And within this loop, we run one more check:
+
+```js
+if (fallingRowKey === 0) {
+  returnObject[fallingRowKey] = deadRow;
+  returnObject[fallingRowKey + 1] = emptyRow;
+} else {
+  returnObject[fallingRowKey + 1] = returnObject[fallingRowKey];
+}
+```
+
+The `if (fallingRowKey === 0) {` checks if the row we're moving down is the very top row of our game board.
+
+As we already know, if a block becomes `'settled'` in row `0` (the top/dead row), then the game is over. That means that we'll never get here if there's a block in the top row. So we can safely assume that our top row is a `deadRow`, and the row below it, now that all the `'settled'` blocks have moved down, is an `emptyRow`:
+
+```js
+returnObject[fallingRowKey] = deadRow;
+returnObject[fallingRowKey + 1] = emptyRow;
+```
+
+For all other rows, we want to move the row down.
+
+```js
+returnObject[fallingRowKey + 1] = returnObject[fallingRowKey];
+```
+
+By using the key of `fallingRowKey + 1`, we set the value of `returnObject[fallingRowKey]` to the row below it.
+
+Once we've finished our loops, `returnObject` will therefore be our game board, with all the rows _above_ our 'cleared' row moved down.
+
+The row that we've 'cleared' no longer exists either, because it has been overwritten by the row above it moving down and replacing it.
+
+Going back to our `clearCompletedRows()` action:
+
+```js
+clearCompletedRows(state) {
+  if (isCompletedRows(current(state.squares))) {
+    state.squares = clearCompletedRows(current(state.squares));
+  }
+},
+```
+
+Now that I look at it, having a `clearCompletedRows()` action, and a `clearCompletedRows()` function probably wasn't the best naming I could have come up with.
+
+However, ignoring my ineptitude, we now know that the return from the FUNCTION `clearCompletedRows()` is our updated game board, so in our `clearCompletedRows()` ACTION, we update `state.squares` to be this updated game board.
+
+The last action we need to run in this `else` block our `useMoveBlockDown` hook, is `nextBlock()`.
+
+```js
+if (canMove(down)) {
+  // Stuff we've already been over here
+} else {
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+  dispatch(gameBoardActions.updateClearedRows());
+  dispatch(gameBoardActions.clearCompletedRows());
+  dispatch(gameBoardActions.nextBlock());
+}
+```
+
+Thankfully we went over that earlier, which will save us all a lot of pain now.
+
+As a reminder, it checks whether we can add a new block. If it can, we add a new block, if we can't... "Game over!" (I wrote that in Jigsaw's voice).
+
+Looking back at `useMoveBlockDown` in its entirety:
+
+```js
+// src/hooks/use-move-block-down.js
+
+import { useDispatch } from 'react-redux';
+
+import { down, gameBoardActions } from '../store/game-board';
+import useCanMoveBlock from './use-can-move-block';
+import useLiveBlockShape from './use-live-block-shape';
+import useUpdatedGameBoard from './use-updated-game-board';
+import useSettledBlock from './use-settled-block';
+
+const useMoveBlockDown = () => {
+  const dispatch = useDispatch();
+  const canMove = useCanMoveBlock();
+  const liveBlockShape = useLiveBlockShape();
+  const updatedGameBoard = useUpdatedGameBoard();
+  const settledBlock = useSettledBlock();
+
+  const moveBlockDown = () => {
+    dispatch(gameBoardActions.stopTimer());
+
+    if (canMove(down)) {
+      const initialShape = liveBlockShape();
+      let movedBlock = {};
+
+      Object.keys(initialShape).forEach(rowKey => {
+        movedBlock[parseInt(rowKey) + 1] = {};
+        Object.keys(initialShape[rowKey]).forEach(columnKey => {
+          movedBlock[parseInt(rowKey) + 1][columnKey] = initialShape[rowKey][columnKey];
+        });
+      });
+
+      dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+    } else {
+      dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+      dispatch(gameBoardActions.updateClearedRows());
+      dispatch(gameBoardActions.clearCompletedRows());
+      dispatch(gameBoardActions.nextBlock());
+    }
+    dispatch(gameBoardActions.startTimer());
+  };
+
+  return moveBlockDown;
+};
+
+export default useMoveBlockDown;
+```
+
+The last thing we do is call the `startTimer()` action.
+
+This, if you couldn't guess, starts the timer:
+
+```js
+startTimer(state) {
+  state.timer = { isLive: true };
+},
+```
+
+So what we've done here in the `useMoveBlockDown` hook, is firstly check if the block _can_ move down. If it can, we update our game board to show the block as moved. If it can't we then settle the block, clear any completed rows, and add the next block.
+
+Next we have to be able to move our block left and right 😲.
+
+### Left and right
+
+Although there are obvious differences between left and right (like the direction), the code to do both actions is so similar, that it makes sense to go over them together.
+
+In fact, let's just look at 'left'.
+
+The code to move a block right is pretty much the same, just replace any instance of `left` with `right`.
 
 ## Useful links
 

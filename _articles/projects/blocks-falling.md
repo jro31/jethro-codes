@@ -169,7 +169,7 @@ Now let's go back to the code that we're using to generate our game board, and l
 export const emptyRow = arrayOfNumbers().reduce((acc, curr) => ((acc[curr] = { status: empty, block: '' }), acc), {});
 ```
 
-In this instance, `{}` is our initial value. On the first iteration, we're setting `acc` to an empty object.
+In this instance, `{}` is our initial value, so on the first iteration `acc` is set to an empty object.
 
 Let me change this code slightly to make it easier to go over:
 
@@ -491,7 +491,7 @@ Each square within our grid can be one of four statuses:
 
 Does that last one seem complicated and unnecessary? It wasn't included in the early iterations of this game. However, I quickly realised that it was a necessary addition, so the dead row lives... if you know what I mean.
 
-In order for the square to know what color it needs to be, the value of `block` (if the square is not `empty` or `dead`) will be one of the seven block names.
+In order for the square to know what color it needs to be, the value of `block` (if the square is not `empty` or `dead`) will be one of seven block names.
 
 So that is it; that is our game board. It's 210 squares, organised by row, where each square has a `status` and a `block` attribute. And in order for the game to work, all we have to do is keep track of all 210 squares, and update them based on the player's actions, and automated actions.
 
@@ -655,7 +655,7 @@ statusRef = useRef(status);
 statusRef.current = status;
 ```
 
-Good question. And it's just taken me half a day looking back over my commit history and my Google search history to figure it out.
+Good question, and it's just taken me half a day looking back over my commit history and my Google search history to figure it out.
 
 Within the `GameBoard` component, we also have:
 
@@ -708,7 +708,7 @@ const GameBoard = () => {
 };
 ```
 
-And when we call `setTimeout()` here, we set the timer to call `moveBlock(down)` _after_ the `speed` interval; so anything up to one second into the future.
+When we call `setTimeout()` here, we set it to call `moveBlock(down)` _after_ the `speed` interval; so anything up to one second into the future.
 
 We'll go over the code of the `useMoveBlock` hook a little later, but what it essentially does, is take the existing game board, update it with our block moved into its new position, and then call the Redux Toolkit action to update the game board, passing-in the updated game board as an argument.
 
@@ -812,7 +812,7 @@ export default useBeginGame;
 
 `statusRef` we've already been over, so we don't have to go over it again (thank God), then in this hook we just call three of our game board slice's actions.
 
-`resetGame()` I'll ignore for now, because that's for when starting after a game over, _not_ when starting the first game of the session.
+`resetGame()` I'll ignore for now, because that's for when starting after a game over, _not_ when starting a game for the first time.
 
 So we only have to concern ourselves with two actions: `startGame()` and `nextBlock()`.
 
@@ -924,9 +924,7 @@ Now, I know exactly what you're thinking.
 
 _"Kill me. Kill me now."_
 
-And yes, at this point that would be a mercy.
-
-But why do that, when instead you could spend the next 15 minutes of your life going over this action line-by-line with me?
+And yes, at this point that would be a mercy. But why do that, when instead you could spend the next 15 minutes of your life going over this action line-by-line with me?
 
 I knew that would convince you to stay.
 
@@ -1263,7 +1261,7 @@ Let's go back to our stylesheet again:
 }
 ```
 
-Our `<div>` has a `::before` pseudo-element. This element is positioned absolutely with the `top`, `right`, `bottom` and `left` properties all set to `0`. This means that this pseudo-element takes up the entire screen.
+Our `<div>` has a `::before` pseudo-element. This pseudo-element is positioned absolutely with the `top`, `right`, `bottom` and `left` properties all set to `0`. That means that this pseudo-element takes up the entire screen.
 
 It also has a `z-index` of `1`.
 
@@ -1319,7 +1317,7 @@ Our `liveBackground` state can be one of two values: `'one'` or `'two'`. And whe
 
 So if it's `'one'`, then it'll change to `'two'`, and if it's `'two'`, it'll change to `'one'`.
 
-If you remember back to our `backgroundClasses()` function in `App.js`, this change in `liveBackground` is what determines whether our `<div>` has a `'before-is-hidden'` or a `'before-is-visible'` class:
+If you remember back to our `backgroundClasses()` function in `App.js`, this change in `liveBackground` is what determines whether our `<div>` has the `'before-is-hidden'` or the `'before-is-visible'` class:
 
 <!-- prettier-ignore -->
 ```js
@@ -1646,12 +1644,14 @@ The relevant classes in our stylesheet are:
 }
 ```
 
-Our `::before` pseudo-element is now opaque again, so we can no longer see our `.sunrise` background, with the exception that the transition to this `opacity` takes ten seconds, again giving the illusion of the linear-gradient background transitioning slowly, until we can only see `.mango`.
+Our `::before` pseudo-element is now transparent again, so we can no longer see our `.sunrise` background, with the exception that the transition to this `opacity` takes ten seconds, again giving the illusion of the linear-gradient background transitioning slowly, until we can only see `.mango`.
 
 ![Mango](/images/projects/blocks-falling/mango.png)
 _Mango_
 
 And that's how I hacked my way around the restriction of being able to transition linear gradients.
+
+### Adding a new block
 
 Now let's continue down our `nextBlock()` action:
 
@@ -1900,7 +1900,7 @@ The `jBlock` variable is simply the string `'j-block'`, and the `live` variable 
 
 The return from `blockObject()` is an object (surprisingly). This is the object that's going to be nested into one of the squares of our game board (did it look familiar?).
 
-Previously, in our `initialState`, the status of all our squares had been set to `'empty'` or `'dead'`, but now as we're adding a block, it's going to become `'live'`.
+Previously, in our `initialState`, the status of all our squares had been set to `'empty'` or `'dead'`, but now as we're adding a block, we're also going to add `'live'`.
 
 So in this instance, where the new block that we randomly selected was `'J'`, the return from `blockObject()` is going to be:
 
@@ -2155,7 +2155,7 @@ As these keys represent that our new block wants to join our game board at squar
 
 So `currentGrid[1]` returns row `1` of our current game board. `[square]` represents the squares needed by our new block (`4`, `5` and `6`). So what we return from our map function, is an array of the `status` of the squares on row `1` of our current game board, that we need for our new block.
 
-In most instances this will be something like `['empty', 'empty', 'empty']` (although the length of the array will change, depending on which block we want to add to our game board).
+In most instances this will be something like `['empty', 'empty', 'empty']` (although the length of the array will change depending on which block we want to add to our game board).
 
 If we go back to our full `if` statement
 
@@ -2170,7 +2170,7 @@ is therefore equivalent to, for example:
 if (['empty', 'empty', 'empty'].includes('settled')) return false;
 ```
 
-In this instance, our `if` statement returns `false`, so we do **not** return false from our `canAddBlock()`.
+In this instance, our `if` statement returns `false`, so we do **not** return false from `canAddBlock()`.
 
 If on the other hand, there _is_ a block that's "settled" in one of the squares that we need for our new block, our `if` statement would instead be something like:
 
@@ -2284,7 +2284,7 @@ We run a `forEach` loop over these values, giving them the name `rowKey`, as the
 Object.keys(newObject).forEach(rowKey =>
 ```
 
-Within each iteration of this loop, we then fetch the child keys of each row with `Object.keys(newObject[rowKey])`. Each of these child keys represents that square, or column within that row that we want to update.
+Within each iteration of this loop, we then fetch the child keys of each row with `Object.keys(newObject[rowKey])`. Each of these child keys represents the square, or column within that row that we want to update.
 
 Continuing our example of the `J` block, `Object.keys(newObject[rowKey])` where `rowKey` is `0` would return `['4']`, and `Object.keys(newObject[rowKey])` where `rowKey` is `1`, would return `['4', '5', '6']`.
 
@@ -2627,9 +2627,9 @@ The problem with this, is that we don't _always_ want to call `moveBlock(down)` 
 
 The most obvious example is if the user has paused the game, we certainly don't want to still move the block down. But also, what if the user has manually moved the block down?
 
-If `speed` was set to 1 second, but the user has moved the block down with the down arrow after 0.9 seconds, so we still want to move the block down 0.1 second later?
+If `speed` was set to 1 second, but the user has moved the block down with the down arrow after 0.9 seconds, do we still want to move the block down 0.1 second later?
 
-No. In this case we want to reset the time to 1 second again. That's what's happening in this `useEffect` function.
+No. In this case we want to reset the timer to 1 second again. That's what's happening in this `useEffect` function.
 
 It has two dependencies:
 
@@ -2673,7 +2673,7 @@ Contrary to this, if `state.timer` is `{ isLive: true }`, and in our game board 
 
 To you and me, nothing changed.
 
-However, this object is stored in memory as a _different_ object, so to react, `timer` was just updated. And because `timer` is a dependency of our `useEffect` function, it then runs our clean-up function, cancelling our timer, and it re-runs `useEffect`.
+However, this object is stored in memory as a _different_ object, so to React, `timer` was just updated. And because `timer` is a dependency of our `useEffect` function, it then runs our clean-up function, cancelling our timer, and it re-runs `useEffect`.
 
 So in our `nextBlock()` action, when we run `state.timer = { isLive: true };`, even if `state.timer` is already equal to `{ isLive: true }`, it resets the timer for how long it is until `moveBlock(down)` is called in our `GameBoard` component.
 
@@ -2821,7 +2821,7 @@ What you see at the very top of the game board here; the very top piece, is the 
 
 There wasn't space to have it on row `1`, because there's a `Z` block already there. But if we'd thrown a 'game over' while there was still an empty row at the top, visually it is very poor.
 
-So instead, we add _half_ of this `S` block onto row `0`, so that they player can see that their stack of blocks actually _did_ make it to the top of the game board.
+So instead, we add _half_ of this `S` block onto row `0`, so that the player can see that their stack of blocks actually _did_ make it to the top of the game board.
 
 That's what
 
@@ -2830,6 +2830,8 @@ That's what
 ```
 
 does. It passes-in row `1` of our new block to `mergeNestedObjects()`, as row `0`.
+
+### Game over
 
 Still within the `else` block of if `canAddBlock()` returns false, the very last line of the `nextBlock()` action is simply:
 
@@ -2850,7 +2852,7 @@ Firstly, within our `GameBoard` component, each square has its own `<div>`:
 />
 ```
 
-I won't go over everything that's happening here, but if you look at that bottom line, when our status is `gameOver`, it adds the `game-over` CSS class to this `<div>`.
+I won't go over everything that's happening here, but if you look at that bottom line, when our status is `gameOver`, it adds the `'game-over'` CSS class to this `<div>`.
 
 And if you look in our `GameBoard` component styling:
 
@@ -2947,7 +2949,7 @@ const initialState = {
 };
 ```
 
-`topScore` comes from our `topScoreSlice`, which is the only other state slice in this app.
+`topScore` comes from our `topScoreSlice`, which is the only _other_ state slice in this app (apart from our game board slice).
 
 Within `App.js` is another `useEffect` block:
 
@@ -2964,9 +2966,9 @@ const App = () => {
 };
 ```
 
-`setTopScoreState` is just the function returned from the `useSetTopScoreState` hook, so even though that has been added as a dependecy to to `useEffect` here, as it never changes, this `useEffect` block will only ever be called as the page loads.
+`setTopScoreState` is just the function returned from the `useSetTopScoreState` hook, so even though that has been added as a dependecy to `useEffect` here, as it never changes, this `useEffect` block will only ever be called as the page loads.
 
-We score the player's top score in their local storage with the key `blocks-falling.top-score`, which if you zoom-in, you can see here:
+We store the player's top score in their local storage with the key `blocks-falling.top-score`, which if you zoom-in, you can see here:
 
 ![Local storage](/images/projects/blocks-falling/local-storage.png)
 _Top score stored in local storage_
@@ -3039,11 +3041,204 @@ setTopScoreState(clearedRows);
 localStorage.setItem('blocks-falling.top-score', clearedRows);
 ```
 
-And with that, we have finally... finally, got to the end of our `nextBlock()` action. And thankfully, that's the most complicated action that have in this app, so hopefully the other ones will be a bit quicker to go over.
+And with that, we have finally... finally, got to the end of our `nextBlock()` action. And thankfully, that's the most complicated action that we have in this app, so hopefully the other ones will be a bit quicker to go over.
 
-But after what must now feel like a lifetime to you, we now have one block on our game board. At the very top. And it hasn't even moved yet.
+But after what must now feel like a lifetime to you, we now have one block on our game board. At the very top. And it hasn't even moved yet. So strap-in, because things are about to get wild.
 
-Why did I decide to write this article?
+## Moving blocks
+
+Given the eventual name of this app, it seems appropriate that the first direction for moving a block that we look at, is down.
+
+Unlike left and right, moving a block down can happen in two ways.
+
+Not only can the user move the block down, but the block will move down automatically at timed intervals, hence the blocks... falling. And if you remember, we've already been over the code in the `GameBoard` component where we call the `moveBlock(down)` function:
+
+```js
+useEffect(() => {
+  if (status === inProgress) {
+    if (timer.isLive) {
+      timeOut = setTimeout(() => {
+        moveBlock(down);
+      }, speed);
+    }
+  }
+
+  return () => {
+    clearTimeout(timeOut);
+  };
+}, [status, timer]);
+```
+
+We've been over _when_ this `useEffect` block gets called (whenever `status` or `timer` gets updated). However, we haven't yet been over what `moveBlock(down)` actually does.
+
+And firstly, the `moveBlock()` function call simply calls the `useMoveBlock` hook;
+
+```js
+import useMoveBlock from '../hooks/use-move-block';
+
+const GameBoard = () => {
+  const moveBlock = useMoveBlock();
+};
+```
+
+The `down` variable is simply the string `'down'`.
+
+So when we call `moveBlock(down)`, we're simply calling the `useMoveBlock` hook, passing-in the `direction` as `'down'`.
+
+The `useMoveBlock` is as follows:
+
+```js
+// src/hooks/use-move-block.js
+
+import useGameIsInProgress from './use-game-is-in-progress';
+import useMoveBlockDown from './use-move-block-down';
+import useMoveBlockLeft from './use-move-block-left';
+import useMoveBlockRight from './use-move-block-right';
+import { down, left, right } from '../store/game-board';
+
+const useMoveBlock = () => {
+  const gameIsInProgress = useGameIsInProgress();
+  const moveBlockDown = useMoveBlockDown();
+  const moveBlockLeft = useMoveBlockLeft();
+  const moveBlockRight = useMoveBlockRight();
+
+  const moveBlock = direction => {
+    if (!gameIsInProgress()) return;
+
+    switch (direction) {
+      case down:
+        moveBlockDown();
+        break;
+      case left:
+        moveBlockLeft();
+        break;
+      case right:
+        moveBlockRight();
+        break;
+      default:
+        throw new Error('Incorrect direction passed to useMoveBlock');
+    }
+  };
+
+  return moveBlock;
+};
+
+export default useMoveBlock;
+```
+
+It does very little. Firstly it checks that the game is in progress by calling the `useGameIsInProgress` hook:
+
+```js
+import useGameIsInProgress from './use-game-is-in-progress';
+
+const useMoveBlock = () => {
+  const gameIsInProgress = useGameIsInProgress();
+
+  const moveBlock = direction => {
+    if (!gameIsInProgress()) return;
+  };
+};
+```
+
+The `useGameIsInProgress` hooks is as simple as they come; it simply checks whether `statusRef.current` (remember that?) is equal to `in-progress`:
+
+```js
+// src/hooks/use-game-is-in-progress.js
+
+import { statusRef } from '../components/GameBoard';
+import { inProgress } from '../store/game-board';
+
+const useGameIsInProgress = () => {
+  const gameIsInProgress = () => statusRef.current === inProgress;
+
+  return gameIsInProgress;
+};
+
+export default useGameIsInProgress;
+```
+
+So when we call `if (!gameIsInProgress()) return;` in `useMoveBlock`, we're saying to `return` if the game is **not** in progress. So, for example, a user cannot pause the game and then start moving blocks around.
+
+However, if the game _is_ in progress, then all that `useMoveBlock` does is call _another_ hook, depending on which `direction` the was passed-in.
+
+In this example, we passed-in `'down'` as the `direction` argument, so we will now call the `useMoveBlockDown` hook:
+
+```js
+import useMoveBlockDown from './use-move-block-down';
+import { down } from '../store/game-board';
+
+const useMoveBlock = () => {
+  const moveBlockDown = useMoveBlockDown();
+
+  const moveBlock = direction => {
+    switch (direction) {
+      case down:
+        moveBlockDown();
+        break;
+    }
+  };
+
+  return moveBlock;
+};
+
+export default useMoveBlock;
+```
+
+This is the part of the article where things become a little... hooky.
+
+For better or for worse, I love to break my code down into tiny pieces of logic to be re-used as needed. So hooks get called within hooks within hooks. And if you don't like hooks, you're probably not going to have a good time.
+
+With that in mind, let us continue.
+
+This is the `useMoveBlockDown` hook:
+
+```js
+// src/hooks/use-move-block-down.js
+
+import { useDispatch } from 'react-redux';
+
+import { down, gameBoardActions } from '../store/game-board';
+import useCanMoveBlock from './use-can-move-block';
+import useLiveBlockShape from './use-live-block-shape';
+import useUpdatedGameBoard from './use-updated-game-board';
+import useSettledBlock from './use-settled-block';
+
+const useMoveBlockDown = () => {
+  const dispatch = useDispatch();
+  const canMove = useCanMoveBlock();
+  const liveBlockShape = useLiveBlockShape();
+  const updatedGameBoard = useUpdatedGameBoard();
+  const settledBlock = useSettledBlock();
+
+  const moveBlockDown = () => {
+    dispatch(gameBoardActions.stopTimer());
+
+    if (canMove(down)) {
+      const initialShape = liveBlockShape();
+      let movedBlock = {};
+
+      Object.keys(initialShape).forEach(rowKey => {
+        movedBlock[parseInt(rowKey) + 1] = {};
+        Object.keys(initialShape[rowKey]).forEach(columnKey => {
+          movedBlock[parseInt(rowKey) + 1][columnKey] = initialShape[rowKey][columnKey];
+        });
+      });
+
+      dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+    } else {
+      dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(settledBlock())));
+      dispatch(gameBoardActions.updateClearedRows());
+      dispatch(gameBoardActions.clearCompletedRows());
+      dispatch(gameBoardActions.nextBlock());
+    }
+    dispatch(gameBoardActions.startTimer());
+  };
+
+  return moveBlockDown;
+};
+
+export default useMoveBlockDown;
+```
 
 ## Useful links
 

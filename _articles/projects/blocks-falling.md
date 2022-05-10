@@ -4516,7 +4516,7 @@ startTimer(state) {
 
 So what we've done here in the `useMoveBlockDown` hook, is firstly check if the block _can_ move down. If it can, we update our game board to show the block as moved. If it can't we then settle the block, clear any completed rows, and add the next block.
 
-Next we have to be able to move our block left and right 😲.
+Next we have to be able to move our block left and right 😲
 
 ### Left and right
 
@@ -4525,6 +4525,330 @@ Although there are obvious differences between left and right (like the directio
 In fact, let's just look at 'left'.
 
 The code to move a block right is pretty much the same, just replace any instance of `left` with `right`.
+
+And unlike moving a block down, there is no automated left or right movements; only the user will make them.
+
+They can either use the left/right arrow keys on their keyboard, or they can use the on-screen left and right buttons.
+
+As we've looked at it already, let's go back to the `handleKeyPress()` function in the `GameBoard` component:
+
+```js
+const handleKeyPress = event => {
+  switch (event.key) {
+    case 'ArrowDown':
+      event.preventDefault();
+      moveBlock(down);
+      break;
+    case 'ArrowLeft':
+      event.preventDefault();
+      moveBlock(left);
+      break;
+    case 'ArrowRight':
+      event.preventDefault();
+      moveBlock(right);
+      break;
+    case 'z':
+      ...
+    case 'x':
+      ...
+    case ' ':
+      ...
+    default:
+      return;
+  }
+};
+```
+
+Just like moving a block down, moving left or right starts with the `useMoveBlock` hook, only passing-in `'left'` or `'right'` instead.
+
+And again, in the `useMoveBlock` hook, we call _another_ hook; this time either `useMoveBlockLeft` or `useMoveBlockRight`:
+
+```js
+// src/hooks/use-move-block.js
+
+import useGameIsInProgress from './use-game-is-in-progress';
+import useMoveBlockDown from './use-move-block-down';
+import useMoveBlockLeft from './use-move-block-left';
+import useMoveBlockRight from './use-move-block-right';
+import { down, left, right } from '../store/game-board';
+
+const useMoveBlock = () => {
+  const gameIsInProgress = useGameIsInProgress();
+  const moveBlockDown = useMoveBlockDown();
+  const moveBlockLeft = useMoveBlockLeft();
+  const moveBlockRight = useMoveBlockRight();
+
+  const moveBlock = direction => {
+    if (!gameIsInProgress()) return;
+
+    switch (direction) {
+      case down:
+        moveBlockDown();
+        break;
+      case left:
+        moveBlockLeft();
+        break;
+      case right:
+        moveBlockRight();
+        break;
+      default:
+        throw new Error('Incorrect direction passed to useMoveBlock');
+    }
+  };
+
+  return moveBlock;
+};
+
+export default useMoveBlock;
+```
+
+And yet again, in the `useMoveBlockLeft` hook (kill me), the first thing that we do is call the `useCanMoveBlock` hook, this time passing-in the argument `'left'`:
+
+```js
+// src/hooks/use-move-block-left.js
+
+import { useDispatch } from 'react-redux';
+
+import { gameBoardActions, left } from '../store/game-board';
+import useCanMoveBlock from './use-can-move-block';
+import useLiveBlockShape from './use-live-block-shape';
+import useUpdatedGameBoard from './use-updated-game-board';
+
+const useMoveBlockLeft = () => {
+  const dispatch = useDispatch();
+  const canMove = useCanMoveBlock();
+  const liveBlockShape = useLiveBlockShape();
+  const updatedGameBoard = useUpdatedGameBoard();
+
+  const moveBlockLeft = () => {
+    if (!canMove(left)) return;
+
+    const initialShape = liveBlockShape();
+    let movedBlock = {};
+
+    Object.keys(initialShape).forEach(rowKey => {
+      movedBlock[rowKey] = {};
+      Object.keys(initialShape[rowKey]).forEach(columnKey => {
+        movedBlock[rowKey][parseInt(columnKey) - 1] = initialShape[rowKey][columnKey];
+      });
+    });
+
+    dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+  };
+
+  return moveBlockLeft;
+};
+
+export default useMoveBlockLeft;
+```
+
+I pasted this entire hook earlier; I won't do it again. They key part is that passing-in a `direction` of `'left'`, we call the `canMoveLeft()` function:
+
+```js
+const canMoveLeft = () => {
+  return !isTouchingWall(left) && !isBlockToSide(left);
+};
+```
+
+This calls two hooks that we haven't seen yet: `useIsTouchingWall` and `useIsBlockToSide`. I bet you can't guess what they do.
+
+Starting with `useIsTouchingWall`:
+
+```js
+// src/hooks/use-is-touching-wall.js
+
+import { squaresRef } from '../components/GameBoard';
+import { left, live, right } from '../store/game-board';
+
+const useIsTouchingWall = () => {
+  const isTouchingWall = direction => {
+    if (direction !== left && direction !== right)
+      throw new Error('Incorrect direction passed to useIsTouchingWall');
+
+    let statusArray = [];
+
+    Object.keys(squaresRef.current).forEach(rowKey => {
+      statusArray.push(squaresRef.current[rowKey][direction === left ? 1 : 10].status);
+    });
+
+    return statusArray.includes(live);
+  };
+
+  return isTouchingWall;
+};
+
+export default useIsTouchingWall;
+```
+
+After a quick check that the `direction` is valid with `if (direction !== left && direction !== right)`, this hook is fairly simple.
+
+We loop-over the rows of our game board. I bet you didn't expect that. And then within this loop, we `push` the `status` of every square in column `1` if `direction` is `'left'`, or every square in column `10` if `direction` is `'right'`, to `statusArray`.
+
+```js
+Object.keys(squaresRef.current).forEach(rowKey => {
+  statusArray.push(squaresRef.current[rowKey][direction === left ? 1 : 10].status);
+});
+```
+
+Rememeber that column `1` is the very left of our game board, and column `10` is the very right of our game board. So the last thing that we do, is check whether our `statusArray` contains a `status` of `'live'`. If it does, then it means that our `'live'` block is touching the side wall of the game board. If it doesn't, then it's not.
+
+```js
+return statusArray.includes(live);
+```
+
+So this hook will return `true` if the `'live'` block is touching the side of the game board in the `direction` passed-in, and `false` otherwise.
+
+The other hook that we call from the `useCanMoveBlock` hook is `useIsBlockToSide`.
+
+We now already know whether or not our `'live'` block is at the side of the game board, but we also need to know whether or not there's a block next to it in the direction that we're trying to move it, and if there is, we need to block this move from happening.
+
+So our `useIsBlockToSide` hook looks as follows:
+
+```js
+// src/hooks/use-is-block-to-side.js
+
+import { squaresRef } from '../components/GameBoard';
+import { left, live } from '../store/game-board';
+
+const useIsBlockToSide = () => {
+  const isBlockToSide = direction => {
+    let besideSquaresStatusArray = [];
+
+    Object.keys(squaresRef.current).forEach(rowKey =>
+      Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
+        if (squaresRef.current[rowKey][columnKey].status === live) {
+          besideSquaresStatusArray.push(
+            squaresRef.current[rowKey][parseInt(columnKey) + (direction === left ? -1 : 1)].status
+          );
+        }
+      })
+    );
+
+    return besideSquaresStatusArray.includes('settled');
+  };
+
+  return isBlockToSide;
+};
+
+export default useIsBlockToSide;
+```
+
+In a break from tradition, this hook starts with a loop over the game board row, and then the columns within them:
+
+```js
+Object.keys(squaresRef.current).forEach(rowKey =>
+  Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
+```
+
+I'm going to go out on a limb, and assume that you understand what that code's doing by now.
+
+Within each iteration, we're then going to check whether or not that square has a `status` of `'live'`:
+
+```js
+if (squaresRef.current[rowKey][columnKey].status === live) {
+```
+
+At the start of this function, we set the aptly named `besideSquaresStatusArray` variable to an empty array.
+
+What we're going to do, is fill this array with the `status` of the squares that are next to our `'live'` block, in the `direction` that was passed-in.
+
+As we're looking at `'left'`, we're going to fill this array with the `status` of the squares to the left of our `'live'` block.
+
+We do that with this line:
+
+```js
+squaresRef.current[rowKey][parseInt(columnKey) + (direction === left ? -1 : 1)].status;
+```
+
+Specifically, `parseInt(columnKey) + (direction === left ? -1 : 1)` fetches the square to the left (`-1`) of our `'live'` square (if `direction` is `'left'`), or to the right (`1`) of our `'live'` square (if `direction` is `'right'`).
+
+We `push` these values to our `besideSquaresStatusArray` array, so once we get out of our loopception, all that we have to do is check whether this array includes `'settled'`. If it does, then there _is_ a block to the left of our current block, so we can't move there. If there's not, then it doesn't, and it's fine to move there.
+
+```js
+return besideSquaresStatusArray.includes('settled');
+```
+
+Looking back to the relevant part of our `useCanMoveBlock` hook:
+
+```js
+const canMoveLeft = () => {
+  return !isTouchingWall(left) && !isBlockToSide(left);
+};
+```
+
+If our `'live'` block is not touching the wall (to the left of it, in this example), and there's no block to the left of it either, then we _can_ move our live block to the left, otherwise, we can't.
+
+That was the first check we run in the `moveBlockLeft()` function of our `useMoveBlockLeft` hook. Assuming that we _can_ move the block, let's continue on through this function:
+
+```js
+const moveBlockLeft = () => {
+  if (!canMove(left)) return;
+
+  const initialShape = liveBlockShape();
+  let movedBlock = {};
+
+  Object.keys(initialShape).forEach(rowKey => {
+    movedBlock[rowKey] = {};
+    Object.keys(initialShape[rowKey]).forEach(columnKey => {
+      movedBlock[rowKey][parseInt(columnKey) - 1] = initialShape[rowKey][columnKey];
+    });
+  });
+
+  dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+};
+```
+
+All of this code should look _very_ familiar by now; it's very similar to the code in our `useMoveBlockDown` hook that we went over earlier.
+
+After setting the `'live'` block to the `initialShape` variable, and setting the `movedBlock` variable as an empty object, we loop over the rows of our game board, set an empty object in `movedBlock` at the key of this row, and then loop-over the squares within this row:
+
+```js
+Object.keys(initialShape).forEach(rowKey => {
+  movedBlock[rowKey] = {};
+  Object.keys(initialShape[rowKey]).forEach(columnKey => {
+```
+
+The one difference from `useMoveBlockDown`, is that rather than changing adding to the row (which would move the block down), we instead subtract from the column, in order to move the block left (adding to the column would move it right).
+
+```js
+movedBlock[rowKey][parseInt(columnKey) - 1] = initialShape[rowKey][columnKey];
+```
+
+Once we've finished our loops, the `movedBlock` variable is an object that contains our block, moved one column to the left.
+
+We then call the `updateGameBoard` action, passing-in the return from the `updatedGameBoard` function, to which we pass-in `movedBlock`:
+
+```js
+dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
+```
+
+I won't go over this code again, but to remind you, this will update our `state.squares` in our game board slice (which is our game board). So after running this line, our game board is updated with our moved block.
+
+And with that, we have a pretty good game.
+
+We can move our blocks left, right and down, they automatically move down after an increasingly shorter period of time, any lines that are completed clear, and we keep score of how many lines are cleared and store it in local storage in our browser.
+
+At this point, it's a decent game.
+
+The one thing that I really wanted to add to this unique and original game though, was to be able to rotate the blocks.
+
+I know, I'm a genius for coming up with that idea all on my own.
+
+And this was the part of the development process that had me stumped for the longest time. I was convinced that there was a generic formula I could come up with, that would work on all seven block types to rotate them. So I spent a long time trying to think of one. And I did. It was just a bit buggy.
+
+The problem was really finding the pivot point within the various block shapes and sizes, and there really was nothing generic.
+
+![Blocks](/images/projects/blocks-falling/blocks.jpeg)
+
+An `I` block on it's side pivots at a different point to an `I` block that's vertical, for example. You want to rotate a `T` block from the top of the 'T', but a `Z` and an `S` block from the center.
+
+Also, updating the game board while _rotating_ the `'live'` block was an absolute ball ache.
+
+So what I ultimate ended up doing, was having a _different_ hook, to rotate each of the seven blocks.
+
+Well six. The `O` block doesn't get rotates, because it's just a 2x2 block.
+
+## Rotating blocks
 
 ## Useful links
 

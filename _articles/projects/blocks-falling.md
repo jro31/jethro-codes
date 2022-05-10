@@ -4850,6 +4850,238 @@ Well six. The `O` block doesn't get rotates, because it's just a 2x2 block.
 
 ## Rotating blocks
 
+As with other actions in this game, rotating the blocks can be done in one of two way; either with the keyboard, or with the on-screen buttons.
+
+Assuming that we're using the keyboard, then within the `handleKeyPress()` function of our `GameBoard` component we call the `useRotateBlock` hook:
+
+```js
+const handleKeyPress = event => {
+  switch (event.key) {
+    case 'z':
+      event.preventDefault();
+      rotateBlock(antiClockwise);
+      break;
+    case 'x':
+      event.preventDefault();
+      rotateBlock(clockwise);
+      break;
+  }
+};
+```
+
+Welcome to our next hookception.
+
+`clockwise` is simply the string `'clockwise'`, and `antiCLockwise` is `'anti-clockwise'`, so we pass this into our `useRotateBlock` hook, which is as follows:
+
+```js
+// src/hooks/use-rotate-block.js
+
+import { useDispatch } from 'react-redux';
+
+import { statusRef, liveBlockRef } from '../components/GameBoard';
+import { inProgress, gameBoardActions } from '../store/game-board';
+import useRotateIBlock from './use-rotate-i-block';
+import useRotateJBlock from './use-rotate-j-block';
+import useRotateLBlock from './use-rotate-l-block';
+import useRotateSBlock from './use-rotate-s-block';
+import useRotateTBlock from './use-rotate-t-block';
+import useRotateZBlock from './use-rotate-z-block';
+import useUpdatedGameBoard from './use-updated-game-board';
+
+const useRotateBlock = () => {
+  const dispatch = useDispatch();
+  const rotateIBlock = useRotateIBlock();
+  const rotateJBlock = useRotateJBlock();
+  const rotateLBlock = useRotateLBlock();
+  const rotateSBlock = useRotateSBlock();
+  const rotateTBlock = useRotateTBlock();
+  const rotateZBlock = useRotateZBlock();
+  const updatedGameBoard = useUpdatedGameBoard();
+  let rotatedBlock;
+
+  const rotateBlock = (direction = null) => {
+    rotatedBlock = null;
+
+    if (statusRef.current === inProgress) {
+      if (liveBlockRef.current === 'I') rotatedBlock = rotateIBlock();
+      if (liveBlockRef.current === 'J') rotatedBlock = rotateJBlock(direction);
+      if (liveBlockRef.current === 'L') rotatedBlock = rotateLBlock(direction);
+      if (liveBlockRef.current === 'O') return;
+      if (liveBlockRef.current === 'S') rotatedBlock = rotateSBlock();
+      if (liveBlockRef.current === 'T') rotatedBlock = rotateTBlock(direction);
+      if (liveBlockRef.current === 'Z') rotatedBlock = rotateZBlock();
+      if (!rotatedBlock) return;
+
+      dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(rotatedBlock)));
+    }
+  };
+
+  return rotateBlock;
+};
+
+export default useRotateBlock;
+```
+
+As you can probably tell from this, each block has its own 'rotate' hook. `useRotateIBlock`, `useRotateJBlock`, `useRotateLBlock` etc. And don't worry, I'm _not_ going to go over each of them.
+
+If you understand one of them, then the rest are fairly similar, so let's stick with what we did earlier, and assume that our `'live'` block is a `J` block.
+
+That means that we hit this line:
+
+```js
+if (liveBlockRef.current === 'J') rotatedBlock = rotateJBlock(direction);
+```
+
+We then set the return of `rotateJBlock` to the `rotatedBlock` variable.
+
+Just to clarify why for _some_ blocks we pass-in a rotation `direction`, and for others we don't, the `I`, `S` and `Z` blocks only have two positions.
+
+If you rotate either of these blocks 180°, they're back where they started. So whether or not the player rotates these blocks clockwise or anti-clockwise, it's going to end up the same. So no need to check.
+
+With the `J`, `L` and `T` blocks, we don't have this luxury. Rotating them clockwise and anti-clockwise _does_ matter, and returns a different result.
+
+As we're focussing on a `J` block, we end up calling the `useRotateJBlock` hook, and...
+
+Well this isn't a pretty one:
+
+```js
+// src/hooks/use-rotate-j-block.js
+
+import useLiveBlockShape from './use-live-block-shape';
+import useBlockTopRowKey from './use-block-top-row-key';
+import useBlockFirstColumnKey from './use-block-first-column-key';
+import useRowKeyIntegers from './use-row-key-integers';
+import useOffsetPosition from './use-offset-position';
+
+import { clockwise, live, jBlock } from '../store/game-board';
+
+const useRotateJBlock = () => {
+  const liveBlockShape = useLiveBlockShape();
+  const blockTopRowKey = useBlockTopRowKey();
+  const blockFirstColumnKey = useBlockFirstColumnKey();
+  const rowKeyIntegers = useRowKeyIntegers();
+  const offsetPosition = useOffsetPosition();
+
+  let returnBlock = {};
+
+  const rotateJBlock = direction => {
+    const initialShape = liveBlockShape();
+
+    returnBlock = {};
+    const jSquare = { status: live, block: jBlock };
+
+    const topRowKey = blockTopRowKey(initialShape);
+    const firstColumnKey = blockFirstColumnKey(initialShape);
+
+    const position = () => {
+      if (rowKeyIntegers(initialShape).length === 3) {
+        return Object.keys(initialShape[topRowKey]).length === 1 ? '1-1-2' : '2-1-1';
+      } else {
+        return Object.keys(initialShape[topRowKey]).length === 3 ? '3-1' : '1-3';
+      }
+    };
+
+    const build1_1_2Block = (firstRow, firstColumn) => {
+      [...Array(3)].forEach((_, index) => {
+        returnBlock[firstRow + index] = {};
+        if (index === 0) returnBlock[firstRow][firstColumn + 1] = jSquare;
+        if (index === 1) returnBlock[firstRow + index][firstColumn + 1] = jSquare;
+        if (index === 2) {
+          returnBlock[firstRow + index][firstColumn] = jSquare;
+          returnBlock[firstRow + index][firstColumn + 1] = jSquare;
+        }
+      });
+    };
+
+    const build2_1_1Block = (firstRow, firstColumn) => {
+      [...Array(3)].forEach((_, index) => {
+        returnBlock[firstRow + index] = {};
+        if (index === 0) {
+          returnBlock[firstRow][firstColumn] = jSquare;
+          returnBlock[firstRow][firstColumn + 1] = jSquare;
+        }
+        if (index === 1) returnBlock[firstRow + index][firstColumn] = jSquare;
+        if (index === 2) returnBlock[firstRow + index][firstColumn] = jSquare;
+      });
+    };
+
+    const build3_1Block = (firstRow, firstColumn) => {
+      [...Array(2)].forEach((_, index) => {
+        returnBlock[firstRow + index] = {};
+        if (index === 0) {
+          returnBlock[firstRow][firstColumn] = jSquare;
+          returnBlock[firstRow][firstColumn + 1] = jSquare;
+          returnBlock[firstRow][firstColumn + 2] = jSquare;
+        }
+        if (index === 1) returnBlock[firstRow + index][firstColumn + 2] = jSquare;
+      });
+    };
+
+    const build1_3Block = (firstRow, firstColumn) => {
+      [...Array(2)].forEach((_, index) => {
+        returnBlock[firstRow + index] = {};
+        if (index === 0) returnBlock[firstRow][firstColumn] = jSquare;
+        if (index === 1) {
+          returnBlock[firstRow + index][firstColumn] = jSquare;
+          returnBlock[firstRow + index][firstColumn + 1] = jSquare;
+          returnBlock[firstRow + index][firstColumn + 2] = jSquare;
+        }
+      });
+    };
+
+    if (position() === '1-1-2') {
+      direction === clockwise
+        ? build1_3Block(topRowKey, firstColumnKey)
+        : build3_1Block(topRowKey + 1, firstColumnKey);
+    } else if (position() === '2-1-1') {
+      direction === clockwise
+        ? build3_1Block(topRowKey + 1, firstColumnKey - 1)
+        : build1_3Block(topRowKey, firstColumnKey - 1);
+    } else if (position() === '3-1') {
+      direction === clockwise
+        ? build1_1_2Block(topRowKey - 1, firstColumnKey)
+        : build2_1_1Block(topRowKey - 1, firstColumnKey + 1);
+    } else {
+      direction === clockwise
+        ? build2_1_1Block(topRowKey, firstColumnKey + 1)
+        : build1_1_2Block(topRowKey, firstColumnKey);
+    }
+
+    if (offsetPosition(returnBlock)) {
+      return returnBlock;
+    }
+
+    return false;
+  };
+
+  return rotateJBlock;
+};
+
+export default useRotateJBlock;
+```
+
+It doesn't look that fun at first glance, but once you've got a grasp of what's going on here, this hook is actually fairly simple.
+
+And the sooner we start, the sooner we finish, so let's get it over with.
+
+The first three lines should look familiar:
+
+```js
+const initialShape = liveBlockShape();
+
+returnBlock = {};
+const jSquare = { status: live, block: jBlock };
+```
+
+As we already know, `liveBlockShape()` sets our current `'live'` block to the `initialShape` variable. Then `live` is simply the string `'live'`, and `jBlock` is simply the string `'j-block'`, so our `jSquare` variable is set to:
+
+```js
+{
+  status: `live`,
+  block: 'j-block',
+}
+```
+
 ## Useful links
 
 <!-- TODO -->

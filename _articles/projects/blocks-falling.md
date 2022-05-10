@@ -4844,13 +4844,13 @@ An `I` block on it's side pivots at a different point to an `I` block that's ver
 
 Also, updating the game board while _rotating_ the `'live'` block was an absolute ball ache.
 
-So what I ultimate ended up doing, was having a _different_ hook, to rotate each of the seven blocks.
+So what I ultimately ended up doing, was having a _different_ hook, to rotate each of the seven blocks.
 
-Well six. The `O` block doesn't get rotates, because it's just a 2x2 block.
+Well six. The `O` block doesn't get rotated, because it's just a 2x2 block.
 
 ## Rotating blocks
 
-As with other actions in this game, rotating the blocks can be done in one of two way; either with the keyboard, or with the on-screen buttons.
+As with other actions in this game, rotating the blocks can be done in one of two ways; either with the keyboard, or with the on-screen buttons.
 
 Assuming that we're using the keyboard, then within the `handleKeyPress()` function of our `GameBoard` component we call the `useRotateBlock` hook:
 
@@ -4932,15 +4932,15 @@ That means that we hit this line:
 if (liveBlockRef.current === 'J') rotatedBlock = rotateJBlock(direction);
 ```
 
-We then set the return of `rotateJBlock` to the `rotatedBlock` variable.
+We then set the return of `rotateJBlock()` to the `rotatedBlock` variable.
 
 Just to clarify why for _some_ blocks we pass-in a rotation `direction`, and for others we don't, the `I`, `S` and `Z` blocks only have two positions.
 
-If you rotate either of these blocks 180°, they're back where they started. So whether or not the player rotates these blocks clockwise or anti-clockwise, it's going to end up the same. So no need to check.
+If you rotate either of these blocks 180°, they're back where they started. So whether or not the player rotates these blocks clockwise or anti-clockwise, it's going to end up the same, so there's no need to check.
 
 With the `J`, `L` and `T` blocks, we don't have this luxury. Rotating them clockwise and anti-clockwise _does_ matter, and returns a different result.
 
-As we're focussing on a `J` block, we end up calling the `useRotateJBlock` hook, and...
+As we're focussing on a `J` block, we call the `useRotateJBlock` hook, and...
 
 Well this isn't a pretty one:
 
@@ -5062,7 +5062,7 @@ export default useRotateJBlock;
 
 It doesn't look that fun at first glance, but once you've got a grasp of what's going on here, this hook is actually fairly simple.
 
-And the sooner we start, the sooner we finish, so let's get it over with.
+And the sooner we start, the sooner we'll finish, so let's get it over with.
 
 The first three lines should look familiar:
 
@@ -5080,6 +5080,677 @@ As we already know, `liveBlockShape()` sets our current `'live'` block to the `i
   status: `live`,
   block: 'j-block',
 }
+```
+
+On the next line, we get to `const topRowKey = blockTopRowKey(initialShape);`, which calls our `useBlockTopRowKey` hook.
+
+And guess what? This hook doesn't actually call any other hooks, so that's a nice surprise. In fact, `useBlockTopRowKey` is pretty simple:
+
+```js
+// src/hooks/use-block-top-row-key.js
+
+const useBlockTopRowKey = () => {
+  const blockTopRowKey = block => parseInt(Object.keys(block)[0]);
+
+  return blockTopRowKey;
+};
+
+export default useBlockTopRowKey;
+```
+
+We pass-in our `initialShape` variable to this hook, and name it `block`. Then all we do, is fetch the first key from this block with `Object.keys(block)[0]`, make it an integer with `parseInt` and return it.
+
+So going back to our `useRotateJBlock` hook, when we have
+
+```js
+const topRowKey = blockTopRowKey(initialShape);
+```
+
+`topRowKey` is going to be set to an integer that is the top row of our `'live'` block.
+
+On the next line, we call another hook; this time the `useBlockFirstColumnKey` hook:
+
+```js
+const firstColumnKey = blockFirstColumnKey(initialShape);
+```
+
+And guess what? This hook doesn't call any other hooks either.
+
+Just kidding, that would be way too easy, but it only calls one, so it could be worse:
+
+```js
+// src/hooks/use-block-first-column-key.js
+
+import useColumnKeyIntegers from './use-column-key-integers';
+
+const useBlockFirstColumnKey = () => {
+  const columnKeyIntegers = useColumnKeyIntegers();
+
+  const blockFirstColumnKey = block => Math.min(...columnKeyIntegers(block));
+
+  return blockFirstColumnKey;
+};
+
+export default useBlockFirstColumnKey;
+```
+
+The `useColumnKeyIntegers` hook does exactly what it says on the tin, and returns the column keys of the block that we pass it; in this case our current block:
+
+```js
+// src/hooks/use-column-key-integers.js
+
+const useColumnKeyIntegers = () => {
+  const columnKeyIntegers = block => {
+    let columnsArray = [];
+
+    Object.keys(block).forEach(rowKey => columnsArray.push(Object.keys(block[rowKey])));
+
+    return [...new Set(columnsArray.flat().map(column => parseInt(column)))];
+  };
+
+  return columnKeyIntegers;
+};
+
+export default useColumnKeyIntegers;
+```
+
+In this hook, the `Object.keys(block).forEach(rowKey => columnsArray.push(Object.keys(block[rowKey])));` line loops over all the rows in our block, then within each loop, we `push` the return of `Object.keys(block[rowKey])` (which is all of the column keys within each row) to our `columnsArray` variable.
+
+Assuming that we have a `J` block that's horizonal and with the curve of the 'J' pointing upwards, then `columnsArray` will be:
+
+```js
+[['4'], ['4', '5', '6']];
+```
+
+On the next line, we run `columnsArray.flat().map(column => parseInt(column))`, which firstly flattens `columnsArray` (so it becomes `['4', '4', '5', '6']`), then map-over this array, changing the string values to integers with `parseInt` (so it becomes `[4, 4, 5, 6]`).
+
+The `Set` function ensures that each value is unique, so when we pass `[4, 4, 5, 6]` to `Set`, it becomes `[4, 5, 6]` (set requires the `new`).
+
+So what we end up returning here, is a unique array of integers, for the columns that our `'live'` block currently occupies; in our example, we return `[4, 5, 6]`:
+
+```js
+return [...new Set(columnsArray.flat().map(column => parseInt(column)))];
+```
+
+Back in our `useBlockFirstColumnKey`, this return value is set to the `columnKeyIntegers` variable:
+
+```js
+const columnKeyIntegers = useColumnKeyIntegers();
+```
+
+We then use `Math.min` to fetch the _lowest_ of these integers, and set it to the `blockFirstColumnKey` variable, which is what we return from our `useBlockFirstColumnKey` hook:
+
+```js
+const blockFirstColumnKey = block => Math.min(...columnKeyIntegers(block));
+```
+
+In our example from above where the `useColumnKeyIntegers` returns `[4, 5, 6]`, then `useBlockFirstColumnKey` returns `4`.
+
+If I was being clearer with the name of this hook, it would be called something like `useBlockFurthestLeftColumnKey`, but that's kind of ugly, so I just used 'first' here to mean furthest left.
+
+Back in our `useRotateJBlock` hook, the return from `useBlockFirstColumnKey` (so `4`) is set to the `firstColumnKey` variable:
+
+```js
+const firstColumnKey = blockFirstColumnKey(initialShape);
+```
+
+So remember that at this point, `topRowKey` is set to the highest row that our `'live'` block occupies, and `firstColumnKey` is set to the furthese left column that our `'live'` block occupies.
+
+The next part of our `useRotateJBlock` hook that we hit is this sexy `if` statement:
+
+```js
+if (position() === '1-1-2') {
+  direction === clockwise
+    ? build1_3Block(topRowKey, firstColumnKey)
+    : build3_1Block(topRowKey + 1, firstColumnKey);
+} else if (position() === '2-1-1') {
+  direction === clockwise
+    ? build3_1Block(topRowKey + 1, firstColumnKey - 1)
+    : build1_3Block(topRowKey, firstColumnKey - 1);
+} else if (position() === '3-1') {
+  direction === clockwise
+    ? build1_1_2Block(topRowKey - 1, firstColumnKey)
+    : build2_1_1Block(topRowKey - 1, firstColumnKey + 1);
+} else {
+  direction === clockwise
+    ? build2_1_1Block(topRowKey, firstColumnKey + 1)
+    : build1_1_2Block(topRowKey, firstColumnKey);
+}
+```
+
+Isn't she gorgeous?
+
+And the first thing we do here is call our `position()` function.
+
+What this function does, is return a string that represents the current _rotation_ position of our `'live'` block:
+
+```js
+const position = () => {
+  if (rowKeyIntegers(initialShape).length === 3) {
+    return Object.keys(initialShape[topRowKey]).length === 1 ? '1-1-2' : '2-1-1';
+  } else {
+    return Object.keys(initialShape[topRowKey]).length === 3 ? '3-1' : '1-3';
+  }
+};
+```
+
+We return one of four values from this function: `'1-1-2'`, `'2-1-1'`, `'3-1'` or `'1-3'`. And yes, you may be wondering what on earth is going on.
+
+This is a system that I devised to identify a block's rotation. And how it works, is that each number in this string represents a row of the block, going from top to bottom.
+
+So for example, in `1-1-2`, the first `1` represents the top row of our block, the second `1` represents the second row of our block, and `2` represents the third row of our block.
+
+The value of the number says how many squares on that row the block occupies. So again using `1-1-2`, on the first row there is 1 square, on the second row there is 1 square, and on the third row there are 2 squares.
+
+Based on this being the `J` block, we can therefore deduce that the blocks rotational position is:
+
+![1-1-2](/images/projects/blocks-falling/1-1-2.png)
+_1-1-2_
+
+Now that we know what the possible returns from `position()` mean, then all we've got to do is figure-out which of those four positions our block is in:
+
+```js
+const position = () => {
+  if (rowKeyIntegers(initialShape).length === 3) {
+    return Object.keys(initialShape[topRowKey]).length === 1 ? '1-1-2' : '2-1-1';
+  } else {
+    return Object.keys(initialShape[topRowKey]).length === 3 ? '3-1' : '1-3';
+  }
+};
+```
+
+We use another hook here: `useRowKeyIntegers`, passing-in our block.
+
+The `useRowKeyIntegers` hook is pretty simple:
+
+```js
+// src/hooks/use-row-key-integers.js
+
+const useRowKeyIntegers = () => {
+  const rowKeyIntegers = block => Object.keys(block).map(rowKey => parseInt(rowKey));
+
+  return rowKeyIntegers;
+};
+
+export default useRowKeyIntegers;
+```
+
+It takes our block, maps over the rows, and returns them as an array integers.
+
+Back in the `position()` function, we firstly check if the `length` of the return from our `useRowKeyIntegers` hook is `3`:
+
+```js
+if (rowKeyIntegers(initialShape).length === 3) {
+```
+
+We do this because if the block has three rows, then we know that the `J` is vertical (so will be either `'1-1-2'` or `'2-1-1'`), if it doesn't have three rows (in which case, it'll have two), we know that it's horizontal (so will be either `'3-1'` or `'1-3`).
+
+In both cases, to determine which string to return, we use `Object.keys(initialShape[topRowKey]).length`. This gives us the number of keys (so the number of columns) in the top row of our block.
+
+If our block is vertical and it has one column in the top row, then we know it's `'1-1-2'`, if not then it _has to_ be `'2-1-1'`. If it's vertical and it has three columns in the top row, then we know it's `3-1`, if not then it _has to_ be `'1-3'`.
+
+So by calling `position()`, we're able to determine the current rotational position of our `'live'` block.
+
+And if you remember back to the `if` statement where we called `position()`, we take different actions depending on which position our block is in, and which direction we want to rotate it:
+
+```js
+if (position() === '1-1-2') {
+  direction === clockwise
+    ? build1_3Block(topRowKey, firstColumnKey)
+    : build3_1Block(topRowKey + 1, firstColumnKey);
+} else if (position() === '2-1-1') {
+  direction === clockwise
+    ? build3_1Block(topRowKey + 1, firstColumnKey - 1)
+    : build1_3Block(topRowKey, firstColumnKey - 1);
+} else if (position() === '3-1') {
+  direction === clockwise
+    ? build1_1_2Block(topRowKey - 1, firstColumnKey)
+    : build2_1_1Block(topRowKey - 1, firstColumnKey + 1);
+} else {
+  direction === clockwise
+    ? build2_1_1Block(topRowKey, firstColumnKey + 1)
+    : build1_1_2Block(topRowKey, firstColumnKey);
+}
+```
+
+Let's assume here, that the current `position()` of our `'live'` block is `'1-1-2'`, and that the player wants to rotate the block `clockwise`, then based on this `if` statement, we're going to call the `build1_3Block()` function.
+
+What does that mean?
+
+Well it's no coincidence that these function names use the same `1-1-2`, `2-1-1`, `3-1` and `1-3` system that we use to identify the rotational position of our blocks.
+
+Our block is currently in the `'1-1-2'` position:
+
+![1-1-2](/images/projects/blocks-falling/1-1-2.png)
+_1-1-2_
+
+But if we rotate it clockwise, then it's going to move into the `'1-3'` position:
+
+![1-3](/images/projects/blocks-falling/1-3.png)
+_1-3_
+
+And yes, before you say it that is the same screenshot at a 90° angle to save me having to take another one.
+
+So what the `build1_3Block()` function does is build a block in the `'1-3'` position, and it does this taking-in two arguments; `firstRow` and `firstColumn`:
+
+```js
+const build1_3Block = (firstRow, firstColumn) => {
+  [...Array(2)].forEach((_, index) => {
+    returnBlock[firstRow + index] = {};
+    if (index === 0) returnBlock[firstRow][firstColumn] = jSquare;
+    if (index === 1) {
+      returnBlock[firstRow + index][firstColumn] = jSquare;
+      returnBlock[firstRow + index][firstColumn + 1] = jSquare;
+      returnBlock[firstRow + index][firstColumn + 2] = jSquare;
+    }
+  });
+};
+```
+
+`firstRow` and `firstColumn` state, for our newly rotated block, which the top row will be, and which the column furthest to the left will be.
+
+In the current method call that we're looking at, where our current block is `'1-1-2'`, then we keep the same `firstRow` and `firstColumn` values that we currently have:
+
+```js
+build1_3Block(topRowKey, firstColumnKey);
+```
+
+(remember how we set `topRowKey` and `firstColumnKey` earlier?)
+
+However, in some instances, depending on the point on which we want to pivot our block, these values are offset slightly, for example:
+
+```js
+} else if (position() === '3-1') {
+  direction === clockwise
+    ? build1_1_2Block(topRowKey - 1, firstColumnKey)
+    : build2_1_1Block(topRowKey - 1, firstColumnKey + 1);
+```
+
+In the case of rotating anti-clockwise from a `'3-1'` block, we want the top row of our block to be one higher than our current row, and the first column to be one further to the right:
+
+```js
+build2_1_1Block(topRowKey - 1, firstColumnKey + 1);
+```
+
+This is because the pivot point I chose for the `J` block was the middle square in the stalk of the 'J'. And going from a `'3-1'` position to a `'2-1-1'` position while using _this_ pivot point, the top row has to be one higher, and the first column one to the right.
+
+For our example of the `'1-1-2'` block rotating clockwise to the `'1-3'` position however, rotating on this pivot point, the top row and first column remain the same.
+
+So by the time we get to the `build1_3Block()` function, we know the placement of our rotated block in our grid, as we pass it in as `firstRow` and `firstColumn` arguments, so all we have to do now, is rotate the block and put it in the correct place:
+
+```js
+const build1_3Block = (firstRow, firstColumn) => {
+  [...Array(2)].forEach((_, index) => {
+    returnBlock[firstRow + index] = {};
+    if (index === 0) returnBlock[firstRow][firstColumn] = jSquare;
+    if (index === 1) {
+      returnBlock[firstRow + index][firstColumn] = jSquare;
+      returnBlock[firstRow + index][firstColumn + 1] = jSquare;
+      returnBlock[firstRow + index][firstColumn + 2] = jSquare;
+    }
+  });
+};
+```
+
+All the `[...Array(2)]` does, is return an array with two `undefined` elements, for example:
+
+```js
+[undefined, undefined];
+```
+
+We do this, because as we know that we're building a `'1-3'` block, then we need to build two rows, so want to run our `forEach` loop two times.
+
+It's worth remembering at this point that `returnBlock` was set to an empty object, earlier in this hook:
+
+```js
+let returnBlock = {};
+```
+
+So when we run `returnBlock[firstRow + index] = {};`, we're just setting the row key.
+
+`if (index === 0)` checks if we're building the first row of our rotated block. If we are, then we simply set the square at `firstColumn` to equal `jSquare`.
+
+```js
+if (index === 0) returnBlock[firstRow][firstColumn] = jSquare;
+```
+
+Remember that this is the block we're building:
+
+![1-3](/images/projects/blocks-falling/1-3.png)
+_1-3_
+
+On both rows, the column furthest to the left is occupied, which is why we can just use `firstColumn` without any additions.
+
+Once we get onto the second row of our new block, we have three squares that we want occupied, so for this row we run:
+
+```js
+if (index === 1) {
+  returnBlock[firstRow + index][firstColumn] = jSquare;
+  returnBlock[firstRow + index][firstColumn + 1] = jSquare;
+  returnBlock[firstRow + index][firstColumn + 2] = jSquare;
+}
+```
+
+So at this point what we have, is our `returnBlock` object set with how we want our rotated block to be.
+
+All done, right?
+
+Yeah, not so fast.
+
+Sadly, there are several scenrios where it's not possible to rotate a block. The rotated block may be outside of the game board, or it may be in a position that already has a `'settled'` block, so what do we do then?
+
+Well glad you asked. Things are about to get quite hooky again.
+
+There's this very inconspicuous code at the bottom of the `useRotateJBlock` hook:
+
+```js
+if (offsetPosition(returnBlock)) {
+  return returnBlock;
+}
+
+return false;
+```
+
+That can't be so bad, can it?
+
+These are the two values that it's possible to return from `useRotateJBlock`. Either we return `returnBlock` from within this `if` check, otherwise we return `false`.
+
+Returning `false` simply means that there's no possible way that we can rotate this block. For example, if a vertical `J` block is in this situation:
+
+![Trapped J](/images/projects/blocks-falling/trapped-j.png)
+
+There is no way that the (yellow) `J` block can rotate here, because to rotate it needs to take up three columns. However, in its current position, there is nowhere it can move to have three columns.
+
+In this situation, we would simply return `false` from `useRotateJBlock`, meaning we cannot rotate this block, so don't even bother trying.
+
+We will only do this, _after_ trying all several remedies though. And they're all handled by the `useOffsetPosition` hook, which we call here:
+
+```js
+if (offsetPosition(returnBlock)) {
+  return returnBlock;
+}
+```
+
+And you remember how I said it was going to get a bit hooky?
+
+```js
+// src/hooks/use-offset-position.js
+
+import useOffsetForTopOfGameBoard from './use-offset-for-top-of-game-board';
+import useOffsetForBottomOfGameBoard from './use-offset-for-bottom-of-game-board';
+import useOffsetForLeftOfGameBoard from './use-offset-for-left-of-game-board';
+import useOffsetForRightOfGameBoard from './use-offset-for-right-of-game-board';
+import useOffsetForOtherBlocks from './use-offset-for-other-blocks';
+
+const useOffsetPosition = () => {
+  const offsetForTopOfGameBoard = useOffsetForTopOfGameBoard();
+  const offsetForBottomOfGameBoard = useOffsetForBottomOfGameBoard();
+  const offsetForLeftOfGameBoard = useOffsetForLeftOfGameBoard();
+  const offsetForRightOfGameBoard = useOffsetForRightOfGameBoard();
+  const offsetForOtherBlocks = useOffsetForOtherBlocks();
+
+  const offsetForGameBoard = block => {
+    offsetForTopOfGameBoard(block);
+    offsetForBottomOfGameBoard(block);
+    offsetForLeftOfGameBoard(block);
+    offsetForRightOfGameBoard(block);
+  };
+
+  const offsetPosition = block => {
+    offsetForGameBoard(block);
+    return offsetForOtherBlocks(block);
+  };
+
+  return offsetPosition;
+};
+
+export default useOffsetPosition;
+```
+
+Everything that the `useOffsetPosition` hook does, involves other hooks, so if you thought we were getting to the end...
+
+Remember that the `block` argument here is the `returnBlock` variable from our `useRotateJBlock` hook; it is the position that we _want_ to put our rotated block.
+
+The first thing that we do in this hook is call the `offsetForGameBoard();` function, which in turns calls four hooks:
+
+```js
+const offsetForGameBoard = block => {
+  offsetForTopOfGameBoard(block);
+  offsetForBottomOfGameBoard(block);
+  offsetForLeftOfGameBoard(block);
+  offsetForRightOfGameBoard(block);
+};
+```
+
+As you can probably tell by the names, these four hooks check whether `block` will be outside of the game board, and if it will, it shifts the block down/up/right/left accordingly.
+
+These four hooks are all _fairly_ similar, and each one calls three more hooks. So for all our benefits, I'll just go over one of them: `useOffsetForLeftOfGameBoard`.
+
+```js
+// src/hooks/use-offset-for-left-of-game-board.js
+
+import useColumnIsLeftOfGameBoard from './use-column-is-left-of-game-board';
+import useBlockFirstColumnKey from './use-block-first-column-key';
+import useShiftBlockRight from './use-shift-block-right';
+
+const useOffsetForLeftOfGameBoard = () => {
+  const columnIsLeftOfGameBoard = useColumnIsLeftOfGameBoard();
+  const blockFirstColumnKey = useBlockFirstColumnKey();
+  const shiftBlockRight = useShiftBlockRight();
+
+  const offsetForLeftOfGameBoard = block => {
+    if (!columnIsLeftOfGameBoard(block)) return;
+
+    const amountToShift = 0 - blockFirstColumnKey(block) + 1;
+
+    shiftBlockRight(block, amountToShift);
+  };
+
+  return offsetForLeftOfGameBoard;
+};
+
+export default useOffsetForLeftOfGameBoard;
+```
+
+And the first thing we do in this hook, is obviously call another hook: `useColumnIsLeftOfGameBoard`.
+
+As the name suggests, this simply returns `true` or `false`, depending on if the block is off to the left of the game board or not.
+
+```js
+// src/hooks/use-column-is-left-of-game-board.js
+
+import useBlockFirstColumnKey from './use-block-first-column-key';
+
+const useColumnIsLeftOfGameBoard = () => {
+  const blockFirstColumnKey = useBlockFirstColumnKey();
+
+  const columnIsLeftOfGameBoard = block => blockFirstColumnKey(block) < 1;
+
+  return columnIsLeftOfGameBoard;
+};
+
+export default useColumnIsLeftOfGameBoard;
+```
+
+And guess what? The first thing it does is call another hook. Thankfully, we've already been over the `useBlockFirstColumnKey` hook. That was the one that gets the first (furthest left) column in the block that we pass-into it.
+
+So we fetch this column, and simply check whether it is less than `1`.
+
+```js
+blockFirstColumnKey(block) < 1;
+```
+
+If it is less than one, we return `true`, as in the column _is_ left of the game board, otherwise we call false.
+
+Back in `useOffsetForLeftOfGameBoard`, if the new block is not to the left of the game board, we simply return:
+
+```js
+if (!columnIsLeftOfGameBoard(block)) return;
+```
+
+However, if it is outside the left boundary, we continue and the next line we run is:
+
+```js
+const amountToShift = 0 - blockFirstColumnKey(block) + 1;
+```
+
+The `useBlockFirstColumnKey` hook we went over about 10 seconds ago, so don't even ask. Here, because the block is off to the left of the game board, it is going to return `0` or a negative number. So when we run `0 - blockFirstColumnKey(block)`, it gives us the distance that our new block is _outside_ of our game board boundaries.
+
+We then take this value and `+ 1`, meaning that `amountToShift` is the amount that we have to move our block to the right so that it is within our game board boundaries.
+
+Lastly in the `useOffsetForLeftOfGameBoard` hook, we call `shiftBlockRight(block, amountToShift);`, which I'm sure you'll be surprised to hear, is another hook. Which calls more hooks:
+
+```js
+// src/hooks/use-shift-block-right.js
+
+import useRowKeyIntegers from './use-row-key-integers';
+import useRenameColumnKey from './use-rename-column-key';
+
+const useShiftBlockRight = () => {
+  const rowKeyIntegers = useRowKeyIntegers();
+  const renameColumnKey = useRenameColumnKey();
+
+  const shiftBlockRight = (block, amount = 1) => {
+    rowKeyIntegers(block).forEach(rowKey =>
+      Object.keys(block[rowKey])
+        .reverse()
+        .forEach(columnKey => {
+          renameColumnKey(block, rowKey, parseInt(columnKey), parseInt(columnKey) + amount);
+        })
+    );
+  };
+
+  return shiftBlockRight;
+};
+
+export default useShiftBlockRight;
+```
+
+The `useRowKeyIntegers` hook we've been over already. It's the one that returns the `block` rows as an array of integers.
+
+`useRenameColumnKey` is new.
+
+And what we're doing here, just for a change, is looping-over the rows of our `block` with:
+
+```js
+rowKeyIntegers(block).forEach(rowKey =>
+```
+
+Within this loop, we then get the column keys for each row:
+
+```js
+Object.keys(block[rowKey]);
+```
+
+Crucially though, we `.reverse()` them. This is because, as we're shifting the block to the right, we need to move the squares from the right first. If we moved them from the left, then in the next iteration, we'd be looking as squares which we'd already moved, and would just end up with a massive block that went on forever. And that's not as cool as it sounds.
+
+We then run a loop on all of the squares, and for _each_ square call the `useRenameColumnKey` hook:
+
+```js
+renameColumnKey(block, rowKey, parseInt(columnKey), parseInt(columnKey) + amount);
+```
+
+As you may be able to tell from the name, `useRenameColumnKey` renames the columns in the `block` that you pass it.
+
+```js
+// src/hooks/use-rename-column-key.js
+
+const useRenameColumnKey = () => {
+  const renameColumnKey = (block, rowKey, oldKey, newKey) => {
+    delete Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] })[oldKey];
+  };
+
+  return renameColumnKey;
+};
+
+export default useRenameColumnKey;
+```
+
+It's a slightly confusing one to look at, so let me try and explain exactly what's going on here.
+
+Firstly, `Object.assign` copies all the properties from multiple objects and merges them into one object, for example:
+
+```js
+let obj1 = { name: 'Jethro' };
+let obj2 = { age: 21 };
+
+console.log(Object.assign(obj1, obj2)); // { name: 'Jethro', age: 21 }
+```
+
+So when we look at this line within `useRenameColumnKey`
+
+```js
+Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] });
+```
+
+we can see that we're passing it two different objects: `block[rowKey]` and `{ [newKey]: block[rowKey][oldKey] }`. `Object.assign()` will then merge them together.
+
+Remember that `block` here is our rotated block; the block that we _want_ to return. We also passed-in the `rowKey` that we're looking at here. So `block[rowKey]` is an object of all the columns on this row of the block.
+
+`{ [newKey]: block[rowKey][oldKey] }` is the specific square that we're looking at. The key is the `newKey` (column) that we want to move this square to, and the value is equal to the square on the same row, but at `oldKey`.
+
+So what we do by passing these two objects to `Object.assign()`, is pass-in the old row, but overwrite the value at `newKey` _with_ what we want there once the block has shifted.
+
+This is where `delete` comes into play:
+
+```js
+delete Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] })[oldKey];
+```
+
+At this point, we still need to `delete` the key/value of our `oldKey` that we've now moved to a different square, and that's exactly what `delete` does; it removes a key/value from an object.
+
+Specifically, we `delete` the value at `[oldKey]` in our `Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] })`.
+
+Now remember that we're calling `useRenameColumnKey` as part of a loop over each of the squares in our block:
+
+```js
+const shiftBlockRight = (block, amount = 1) => {
+  rowKeyIntegers(block).forEach(rowKey =>
+    Object.keys(block[rowKey])
+      .reverse()
+      .forEach(columnKey => {
+        renameColumnKey(block, rowKey, parseInt(columnKey), parseInt(columnKey) + amount);
+      })
+  );
+};
+```
+
+Each time we call `renameColumnKey()` we're moving one square over to the right, and deleting the old square from `block`, so once we've finished this loop, our entire block has moved to _within_ our game board.
+
+Calling the `useShiftBlockRight` hook was the last action of our `useOffsetForLeftOfGameBoard` hook, which takes us back to `useOffsetPosition`:
+
+```js
+// src/hooks/use-offset-position.js
+
+import useOffsetForTopOfGameBoard from './use-offset-for-top-of-game-board';
+import useOffsetForBottomOfGameBoard from './use-offset-for-bottom-of-game-board';
+import useOffsetForLeftOfGameBoard from './use-offset-for-left-of-game-board';
+import useOffsetForRightOfGameBoard from './use-offset-for-right-of-game-board';
+import useOffsetForOtherBlocks from './use-offset-for-other-blocks';
+
+const useOffsetPosition = () => {
+  const offsetForTopOfGameBoard = useOffsetForTopOfGameBoard();
+  const offsetForBottomOfGameBoard = useOffsetForBottomOfGameBoard();
+  const offsetForLeftOfGameBoard = useOffsetForLeftOfGameBoard();
+  const offsetForRightOfGameBoard = useOffsetForRightOfGameBoard();
+  const offsetForOtherBlocks = useOffsetForOtherBlocks();
+
+  const offsetForGameBoard = block => {
+    offsetForTopOfGameBoard(block);
+    offsetForBottomOfGameBoard(block);
+    offsetForLeftOfGameBoard(block);
+    offsetForRightOfGameBoard(block);
+  };
+
+  const offsetPosition = block => {
+    offsetForGameBoard(block);
+    return offsetForOtherBlocks(block);
+  };
+
+  return offsetPosition;
+};
+
+export default useOffsetPosition;
 ```
 
 ## Useful links

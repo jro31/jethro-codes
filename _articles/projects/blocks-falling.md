@@ -2,7 +2,7 @@
 title: 'Blocks Falling'
 description: 'A deep-dive into the code of this game where players must rotate falling blocks and fit them together into lines.'
 coverImage: '/images/projects/blocks-falling/hero-screenshot.png'
-published: '2022-05-07' # TODO - Update this
+published: '2022-05-10'
 tags: 'React, Redux Toolkit, Firebase'
 ---
 
@@ -5753,6 +5753,530 @@ const useOffsetPosition = () => {
 export default useOffsetPosition;
 ```
 
+As I said earlier, all of the hooks called in `offsetForGameBoard` are fairly similar, so I won't go over the others. In each one though, we run checks to see whether the rotated block is outside of our game board, and _if_ it is, we "shift" the block back into play.
+
+That's one problem handled, but we still haven't checked for other blocks. This is where we call the `useOffsetForOtherBlocks` hook:
+
+```js
+// src/hooks/use-offset-for-other-blocks.js
+
+import useOverlapsOtherBlock from './use-overlaps-other-block';
+import useBlockCanBeHere from './use-block-can-be-here';
+import useShiftBlockUp from './use-shift-block-up';
+import useShiftBlockDown from './use-shift-block-down';
+import useShiftBlockLeft from './use-shift-block-left';
+import useShiftBlockRight from './use-shift-block-right';
+
+const useOffsetForOtherBlocks = () => {
+  const overlapsOtherBlock = useOverlapsOtherBlock();
+  const blockCanBeHere = useBlockCanBeHere();
+  const shiftBlockUp = useShiftBlockUp();
+  const shiftBlockDown = useShiftBlockDown();
+  const shiftBlockLeft = useShiftBlockLeft();
+  const shiftBlockRight = useShiftBlockRight();
+
+  const offsetForOtherBlocks = block => {
+    if (!overlapsOtherBlock(block)) return true;
+
+    let shiftedBlock;
+
+    const clearBlock = () => Object.keys(block).forEach(rowKey => delete block[rowKey]);
+
+    const updateBlock = () => {
+      clearBlock();
+
+      Object.keys(shiftedBlock).forEach(rowKey => {
+        block[rowKey] = {};
+        Object.keys(shiftedBlock[rowKey]).forEach(columnKey => {
+          block[rowKey][columnKey] = shiftedBlock[rowKey][columnKey];
+        });
+      });
+    };
+
+    const resetShiftedBlock = () => (shiftedBlock = JSON.parse(JSON.stringify(block)));
+
+    resetShiftedBlock();
+    shiftBlockDown(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    resetShiftedBlock();
+    shiftBlockUp(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    resetShiftedBlock();
+    shiftBlockLeft(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    resetShiftedBlock();
+    shiftBlockRight(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    resetShiftedBlock();
+    shiftBlockDown(shiftedBlock);
+    shiftBlockLeft(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    resetShiftedBlock();
+    shiftBlockDown(shiftedBlock);
+    shiftBlockRight(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    resetShiftedBlock();
+    shiftBlockUp(shiftedBlock);
+    shiftBlockLeft(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    resetShiftedBlock();
+    shiftBlockUp(shiftedBlock);
+    shiftBlockRight(shiftedBlock);
+    if (blockCanBeHere(shiftedBlock)) {
+      updateBlock();
+      return true;
+    }
+
+    return false;
+  };
+
+  return offsetForOtherBlocks;
+};
+
+export default useOffsetForOtherBlocks;
+```
+
+If you've read this far, you must be starting to feel like you're falling into a deep, dark hole, and looking at this hook made it all so much worse.
+
+The good news is that not only a lot of the code here replicated, so we don't need to go over all of it. But also, it's the last thing that we really need to go over.
+
+Right now we can add new blocks, move them left, right and down, keep score, and now rotate blocks, even ensuring that the rotated blocks don't stray outside of the game board.
+
+The last piece of this puzzle is to make sure that when we rotate blocks, we take into account the `'settled'` blocks.
+
+Although we won't have touched on _every_ part of this app, we'll have gone over all of the key concepts for how I made this unique and original game. So just hold your breath until you make it to the end of this article, and one way or another, it'll all be over soon.
+
+So the first thing that we do in this hook, is check whether or not our rotated block is overlapping with any other blocks:
+
+```js
+if (!overlapsOtherBlock(block)) return true;
+```
+
+And if it's not, we can all go home.
+
+The `useOverlapsOtherBlock` hook is going to look very familiar:
+
+```js
+// src/hooks/use-overlaps-other-block.js
+
+import { squaresRef } from '../components/GameBoard';
+import { settled } from '../store/game-board';
+
+const useOverlapsOtherBlock = () => {
+  const overlapsOtherBlock = block => {
+    let statusArray = [];
+
+    Object.keys(block).forEach(rowKey =>
+      Object.keys(block[rowKey]).forEach(columnKey => {
+        statusArray.push(squaresRef.current[rowKey][columnKey].status);
+      })
+    );
+
+    return statusArray.includes(settled);
+  };
+
+  return overlapsOtherBlock;
+};
+
+export default useOverlapsOtherBlock;
+```
+
+I feel like there should be no code in here that doesn't make sense at this stage, but to explain very simply, we loop over the rows and columns of our rotated block. We then `push` the `status` of all squares in our current game board at _these_ positions to our `statusArray`, and we check if this array includes `'settled'`. If it does, then there's a block in the way of our rotate, otherwise, there's not.
+
+Assuming that there is a block in the way, back in `useOffsetForOtherBlocks`, we set the `shiftedBlock` variable,
+
+```js
+let shiftedBlock;
+```
+
+before running a series of function calls in order:
+
+```js
+resetShiftedBlock();
+shiftBlockDown(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockUp(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockLeft(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockRight(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockDown(shiftedBlock);
+shiftBlockLeft(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockDown(shiftedBlock);
+shiftBlockRight(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockUp(shiftedBlock);
+shiftBlockLeft(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockUp(shiftedBlock);
+shiftBlockRight(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+return false;
+```
+
+The first function that we call, is `resetShiftedBlock()`:
+
+```js
+const resetShiftedBlock = () => (shiftedBlock = JSON.parse(JSON.stringify(block)));
+```
+
+This sets our `shiftedBlock` variable to be a copy of where we _want_ to rotate our block.
+
+The reason we do this, is that we're going to be trying to move our block to different places, before checking whether or not we _can_ move it there, and if we can't, then we want to be able to return to our original block. So by copying our rotated block to `shiftedBlock`, our `block` variable doesn't get edited.
+
+The next line that we call is:
+
+```js
+shiftBlockDown(shiftedBlock);
+```
+
+`useShiftBlockDown` is a hook which... shifts the block down.
+
+If we're unable to rotate our block because other blocks are in the way, then the first thing that we try to do with it is move it down one row from its intended position.
+
+The `useShiftBlockDown` hook is as follows:
+
+```js
+// src/hooks/use-shift-block-down.js
+
+import useRowKeyIntegers from './use-row-key-integers';
+import useRenameRowKey from './use-rename-row-key';
+
+const useShiftBlockDown = () => {
+  const rowKeyIntegers = useRowKeyIntegers();
+  const renameRowKey = useRenameRowKey();
+
+  const shiftBlockDown = (block, amount = 1) => {
+    rowKeyIntegers(block)
+      .reverse()
+      .forEach(rowKey => renameRowKey(block, rowKey, rowKey + amount));
+  };
+
+  return shiftBlockDown;
+};
+
+export default useShiftBlockDown;
+```
+
+`useRowKeyIntegers` you know by now.
+
+`useRenameRowKey` we haven't seen yet, but it's the same as `useRenameColumnKey` (which we went over a little while ago), with the exception that it renames the row rather than the column.
+
+You remember using `delete` and `Object.assign`?
+
+Well this is `useRenameRowKey`:
+
+```js
+// src/hooks/use-rename-row-key.js
+
+const useRenameRowKey = () => {
+  const renameRowKey = (block, oldKey, newKey) => {
+    delete Object.assign(block, { [newKey]: block[oldKey] })[oldKey];
+  };
+
+  return renameRowKey;
+};
+
+export default useRenameRowKey;
+```
+
+You pass-in the block, we add the new row (the old row moved to its new position), then `delete` the old row.
+
+So when we run the `shiftBlockDown()` function, all we're doing is our new block down one row:
+
+```js
+const shiftBlockDown = (block, amount = 1) => {
+  rowKeyIntegers(block)
+    .reverse()
+    .forEach(rowKey => renameRowKey(block, rowKey, rowKey + amount));
+};
+```
+
+Back in our `useOffsetForOtherBlocks` hook, we then need to check whether or not this is an acceptable position for our new block, by calling:
+
+```js
+if (blockCanBeHere(shiftedBlock)) {
+```
+
+This calls the `useBlockCanBeHere` hook:
+
+```js
+// src/hooks/use-block-can-be-here.js
+
+import useRowIsAboveGameBoard from './use-row-is-above-game-board';
+import useRowIsBeneathGameBoard from './use-row-is-beneath-game-board';
+import useColumnIsLeftOfGameBoard from './use-column-is-left-of-game-board';
+import useColumnIsRightOfGameBoard from './use-column-is-right-of-game-board';
+import useOverlapsOtherBlock from './use-overlaps-other-block';
+
+const useBlockCanBeHere = () => {
+  const rowIsAboveGameBoard = useRowIsAboveGameBoard();
+  const rowIsBeneathGameBoard = useRowIsBeneathGameBoard();
+  const columnIsLeftOfGameBoard = useColumnIsLeftOfGameBoard();
+  const columnIsRightOfGameBoard = useColumnIsRightOfGameBoard();
+  const overlapsOtherBlock = useOverlapsOtherBlock();
+
+  const blockCanBeHere = block => {
+    return (
+      !rowIsAboveGameBoard(block) &&
+      !rowIsBeneathGameBoard(block) &&
+      !columnIsLeftOfGameBoard(block) &&
+      !columnIsRightOfGameBoard(block) &&
+      !overlapsOtherBlock(block)
+    );
+  };
+
+  return blockCanBeHere;
+};
+
+export default useBlockCanBeHere;
+```
+
+There's nothing new here. All this hook does is call some other hooks that we've been over previously. Passing-in our `shiftedBlock`, we run:
+
+```js
+return (
+  !rowIsAboveGameBoard(block) &&
+  !rowIsBeneathGameBoard(block) &&
+  !columnIsLeftOfGameBoard(block) &&
+  !columnIsRightOfGameBoard(block) &&
+  !overlapsOtherBlock(block)
+);
+```
+
+The first four of these hooks check that our `shiftedBlock` is within our game board boundaries, and the last one checks whether it's overlapping with any `'settled'` blocks.
+
+If any of these hooks return `true`, then we return `false` from `useBlockCanBeHere` because the block is in a position either outside of the game board, or occupied by another block.
+
+Back in `useOffsetForOtherBlocks`, this check runs as follows:
+
+```js
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+```
+
+If the block _can_ be here, we run `updateBlock()` and `return true` from this hook. Otherwise, we continue down to the next line.
+
+And the remaining lines do exactly the same thing, except we try shifting the block in different directions:
+
+```js
+resetShiftedBlock();
+shiftBlockUp(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockLeft(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockRight(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockDown(shiftedBlock);
+shiftBlockLeft(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockDown(shiftedBlock);
+shiftBlockRight(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockUp(shiftedBlock);
+shiftBlockLeft(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+resetShiftedBlock();
+shiftBlockUp(shiftedBlock);
+shiftBlockRight(shiftedBlock);
+if (blockCanBeHere(shiftedBlock)) {
+  updateBlock();
+  return true;
+}
+
+return false;
+```
+
+If we can't shift the block down, we try shifting it up. If that doesn't work, we try left, and if that doesn't work, we try right.
+
+At that point we're getting desparate, so we try down _and_ left. If that doesn't work, we try down and right. Next we try up and left, and lastly we try up and right.
+
+If `blockCanBeHere()` returns `false` for all eight of these shifts, then we just give up and return `false` from this hook, meaning that the block doesn't move.
+
+What about if `if (blockCanBeHere(shiftedBlock)) {` returns `true` though?
+
+Well in every case, we call the `updateBlock()` function:
+
+```js
+const clearBlock = () => Object.keys(block).forEach(rowKey => delete block[rowKey]);
+
+const updateBlock = () => {
+  clearBlock();
+
+  Object.keys(shiftedBlock).forEach(rowKey => {
+    block[rowKey] = {};
+    Object.keys(shiftedBlock[rowKey]).forEach(columnKey => {
+      block[rowKey][columnKey] = shiftedBlock[rowKey][columnKey];
+    });
+  });
+};
+```
+
+Do you remember back in the `useRotateJBlock` that we called the `useOffsetPosition` hook like this?
+
+```js
+if (offsetPosition(returnBlock)) {
+  return returnBlock;
+}
+```
+
+We aren't actually returning the return from `useOffsetPosition` here, we're returning `returnBlock`. And in `useOffsetForOtherBlocks`, `returnBlock` _is_ `block`.
+
+`block` is not a copy of `returnBlock`, `block` **is** `returnBlock`. So what we need to do, is update `block` to how we want our game board to be updated.
+
+That's why it's the `updateBlock()` function.
+
+`shiftedBlock` _is_ just a copy. And at this moment, `shiftedBlock` is equal to the block that we want to return, so what we need to do, is copy the `shiftedBlock` object, to `block`.
+
+And the first stage of doing that, is to clear `block`... by calling `clearBlock()`.
+
+```js
+const clearBlock = () => Object.keys(block).forEach(rowKey => delete block[rowKey]);
+```
+
+This function is fairly self-explanatory; it just loops over each of the rows in `block` and deletes them. So after running `clearBlock()`, `block` will be an empty object (`{}`).
+
+Then we do a loopception of `shiftedBlock` and copy all of its values to `block`:
+
+```js
+Object.keys(shiftedBlock).forEach(rowKey => {
+  block[rowKey] = {};
+  Object.keys(shiftedBlock[rowKey]).forEach(columnKey => {
+    block[rowKey][columnKey] = shiftedBlock[rowKey][columnKey];
+  });
+});
+```
+
+Back in our `useRotateBlock` hook, we assign the return from `useRotateJBlock` to the `rotatedBlock` variable:
+
+```js
+if (liveBlockRef.current === 'I') rotatedBlock = rotateIBlock();
+if (liveBlockRef.current === 'J') rotatedBlock = rotateJBlock(direction);
+if (liveBlockRef.current === 'L') rotatedBlock = rotateLBlock(direction);
+if (liveBlockRef.current === 'O') return;
+if (liveBlockRef.current === 'S') rotatedBlock = rotateSBlock();
+if (liveBlockRef.current === 'T') rotatedBlock = rotateTBlock(direction);
+if (liveBlockRef.current === 'Z') rotatedBlock = rotateZBlock();
+if (!rotatedBlock) return;
+
+dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(rotatedBlock)));
+```
+
+And after checking that a `rotatedBlock` exists (if it doesn't, it means that we cannot rotate the block), we call our `updateGameBoard()` action (which we've been over earlier), passing-in the return from `updatedGameBoard(rotatedBlock)` (which we've been over earlier), and update our game board with our rotated block.
+
+And with that, we can add blocks to our game board, they move down automatically at increasingly shorter periods, we can move our blocks down, left and right, we can clear rows and keep score of how many rows are cleared, and finally we can also rotate blocks.
+
+With that, we have all key components of our unique and original game.
+
+Within the repo you'll find _some_ code that we haven't been over yet, such as the on screen buttons and the game styling. But I think in this article, we've been able to cover all the key concepts for how to make this game.
+
+If you've made it this far, then that is quite an effort, because this article wasn't a short read.
+
+I'd love to receive any feedback on both the code and the article; things that could have been done better, any concepts that are hard to understand, or any other feedback, so feel free to message me from the [contact](/contact) form.
+
+If not, then I hope that you found this article useful and learned something!
+
 ## Useful links
 
-<!-- TODO -->
+- Blocks Falling - [https://blocksfalling.com/](https://blocksfalling.com/)
+- Blocks Falling GitHub repo - [https://github.com/jro31/blocks-falling](https://github.com/jro31/blocks-falling)

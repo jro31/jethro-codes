@@ -2,7 +2,7 @@
 title: 'Blocks Falling'
 description: 'A deep-dive into the code of this game where players must rotate falling blocks and fit them together into lines.'
 coverImage: '/images/projects/blocks-falling/hero-screenshot.png'
-published: '2022-05-10'
+published: '2022-05-11'
 tags: 'React, Redux Toolkit, Firebase'
 ---
 

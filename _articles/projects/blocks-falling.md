@@ -221,7 +221,7 @@ Going back to `(acc[curr] = { status: 'empty' }), acc)`, the `acc[curr] = { stat
 
 To go back to this line again, on our first iteration, `acc` is set to the initial value of `{}`. `curr` is set to `1`.
 
-`acc[curr] = { status: 'empty' }` sets a key of `1` in our object, and gives it the value of another object `{ status: 'empty' }`. We then return `acc`.
+`acc[curr] = { status: 'empty' }` sets a key of `1` in our object, and gives it the value of another object: `{ status: 'empty' }`. We then return `acc`.
 
 So after one iteration, what we have returned is `{ '1': { status: 'empty' } }`.
 
@@ -231,7 +231,7 @@ With `acc[curr] = { status: 'empty' }` we therefore set a key of `2`, and give i
 
 In our third iteration, `acc` is therefore set to `{ '1': { status: 'empty' }, '2': { status: 'empty' } }`, and `curr` is set to `3`, so from this iteration we return `{ '1': { status: 'empty' }, '2': { status: 'empty' }, '3': { status: 'empty' } }`.
 
-On our final iteration, `acc` is set to `{ '1': { status: 'empty' }, '2': { status: 'empty' }, '3': { status: 'empty' } }`, with `curr` being set to `4`.
+In our final iteration, `acc` is set to `{ '1': { status: 'empty' }, '2': { status: 'empty' }, '3': { status: 'empty' } }`, with `curr` being set to `4`.
 
 After this final iteration, what we return from this function is `{ '1': { status: 'empty' }, '2': { status: 'empty' }, '3': { status: 'empty' }, '4': { status: 'empty' } }`.
 
@@ -1328,7 +1328,7 @@ const backgroundClasses = () => {
 };
 ```
 
-So as `liveBackground` changes from `one` to `two` (or vice-versa) with every fifth block, the `'before-is-hidden'` and `'before-is-visible'` classes also toggle with every fifth block.
+So as `liveBackground` changes from `'one'` to `'two'` (or vice-versa) with every fifth block, the `'before-is-hidden'` and `'before-is-visible'` classes also toggle with every fifth block.
 
 And that means that every fifth block, our `::before` pseudo-element has an `opacity` of `1`, then an `opacity` of `0`, then an `opacity` of `1`, then an `opacity` of `0` etc.
 
@@ -1686,7 +1686,7 @@ const canAddBlock = (nextBlock, currentGrid) => {
 
 Obviously, as we're just starting the game, we should return `true` here. This check becomes more relevant later in the game when we need to know whether we can add another block, or whether the user has stacked their blocks to the top of the game board and it's time for 'Game Over'. But seeing as we're here already, let's go over this logic now.
 
-So our call to `canAddBlock()` passes in two arguments:
+So our call to `canAddBlock()` passes-in two arguments:
 
 ```js
 canAddBlock(newBlockShape(newBlock), current(state.squares));
@@ -2051,7 +2051,7 @@ Now that we know what the two arguments we're passing-in represent, it's a littl
 
 `currentGrid` is our current game board, so in the first `if` check, we run `Object.keys(currentGrid[0])`. This simply returns us the keys from the top row of our game board.
 
-These keys are the same on all rows of the game board, and will almost certainly never change, so we could instead just replace `Object.keys(currentGrid[0])` with `['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']` and it would work just the same way. But just in case I one day, in my infinite wisdom decide... I think the game board needs to have 11 columns, then we're fetching the keys for the top row programatically, so it won't cause any issue.
+These keys are the same on all rows of the game board, and will almost certainly never change, so we could instead just replace `Object.keys(currentGrid[0])` with `['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']` and it would work in just the same way. But just in case I one day, in my infinite wisdom decide... I think the game board needs to have 11 columns, then we're fetching the keys for the top row programatically, so it won't cause any issues.
 
 We then take this array of keys and map over it, so
 
@@ -2096,7 +2096,7 @@ And because this `if` check returns `false`, then we do **not** return `false` f
 if (Object.keys(currentGrid[0]).map(square => currentGrid[0][square].status).includes(settled)) return false
 ```
 
-_If_ however, the `if` check returned `true`, for example
+_If_ however, the `if` check returns `true`, for example
 
 <!-- prettier-ignore -->
 ```js
@@ -2288,7 +2288,7 @@ Within each iteration of this loop, we then fetch the child keys of each row wit
 
 Continuing our example of the `J` block, `Object.keys(newObject[rowKey])` where `rowKey` is `0` would return `['4']`, and `Object.keys(newObject[rowKey])` where `rowKey` is `1`, would return `['4', '5', '6']`.
 
-We then do a `forEach` loop over each of these values, so we're not in a bit of a loopception. And in this instance, I gave the keys the name `columnKey`.
+We then do a `forEach` loop over each of these values, so we're now in a bit of a loopception. And in this instance, I gave the keys the name `columnKey`:
 
 ```js
 Object.keys(newObject[rowKey]).forEach(columnKey =>
@@ -2619,7 +2619,7 @@ const GameBoard = () => {
 
 We've seen this code already, but let me just go over exactly what the `timer` state is doing here.
 
-And first it's necessary to understand _why_ we need to know if the time is `live` or not.
+And first it's necessary to understand _why_ we need to know if the time `isLive` or not.
 
 In this `useEffect` block, we're calling `setTimeout`, and then after the interval determined by `speed`, we call our `moveBlock(down)` hook.
 
@@ -2833,7 +2833,7 @@ does. It passes-in row `1` of our new block to `mergeNestedObjects()`, as row `0
 
 ### Game over
 
-Still within the `else` block of if `canAddBlock()` returns false, the very last line of the `nextBlock()` action is simply:
+Still within the `else` block for when `canAddBlock()` returns false, the very last line of the `nextBlock()` action is simply:
 
 ```js
 state.status = gameOver;
@@ -3005,7 +3005,7 @@ setTopScore(state, action) {
 },
 ```
 
-So with this, when our app loads, we check local storage for an existing top score, and set it to `topScore`.
+So with this, when our app loads, we check local storage for an existing top score, and set it to `state.topScore`.
 
 Then, at the end of the game, when `status` is updated to `'game-over'`, the other `useEffect` block is run:
 
@@ -3087,7 +3087,7 @@ The `down` variable is simply the string `'down'`.
 
 So when we call `moveBlock(down)`, we're simply calling the `useMoveBlock` hook, passing-in the `direction` as `'down'`.
 
-The `useMoveBlock` is as follows:
+The `useMoveBlock` hook is as follows:
 
 ```js
 // src/hooks/use-move-block.js
@@ -3416,11 +3416,11 @@ export default useIsTouchingBottom;
 
 Look... it doesn't call any more hooks!
 
-Now, if you remember, our game board has 21 rows, going from `0` to `20`. `squaresRef.current[20]` is the bottom row of our game board, so when we run `Object.keys(squaresRef.current[20])` it simply returns all the columns in the bottom row.
+Remember that our game board has 21 rows, going from `0` to `20`. `squaresRef.current[20]` is the bottom row of our game board, so when we run `Object.keys(squaresRef.current[20])` it simply returns all the columns in the bottom row.
 
 Just like with the top row, unless something changes in the future, this will always be `['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']`.
 
-So we map over this array, getting the `status` of each of the squares on the bottom row of our game board and storing it in an array, as we did earlier for the top row:
+So we map over this array, getting the `status` of each of the squares on the bottom row of our game board and storing them in an array, as we did earlier for the top row:
 
 <!-- prettier-ignore -->
 ```js
@@ -3433,11 +3433,11 @@ We then check if this array includes the status `'live'`:
 .includes(live);
 ```
 
-If any of the squares on the bottom row of our game board _do_ have the `status` of `live`, then we know that our `live` block has reached the bottom of the game board, in which case we return `true` from our `useIsTouchingBottom` hook, because it _is_ touching the bottom.
+If any of the squares on the bottom row of our game board _do_ have the `status` of `live`, then we know that our `live` block has reached the bottom of the game board, in which case we return `true` from our `useIsTouchingBottom` hook, because our block _is_ touching the bottom.
 
 However, if none of the squares on the bottom row of our game board have a status of `live`, then we return `false` from `useIsTouchingBottom`, because we know that our live block is **not** touching the bottom.
 
-We also need to check if there is a block _below_ our live block. and that's where our `useIsBlockBelow` hook comes in:
+We also need to check if there is a block _below_ our live block, and that's where our `useIsBlockBelow` hook comes in:
 
 ```js
 // src/hooks/use-is-block-below.js
@@ -3483,7 +3483,7 @@ Object.keys(squaresRef.current).forEach(rowKey =>
   Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
 ```
 
-This very unelegantly allows us to loop-over every square of our game board. We then do an `if` check to find and only continue _if_ that square is `'live'`:
+This very unelegantly allows us to loop-over every square of our game board. We then do an `if` check and only continue _if_ that square is `'live'`:
 
 ```js
 if (squaresRef.current[rowKey][columnKey].status === live) {
@@ -3527,7 +3527,7 @@ const canMoveDown = () => {
 
 And if `isTouchingBottom()` returns `false`, and `isBlockBelow()` returns false, then `canMoveDown()` returns `true` (note the `!`).
 
-So going back to our `useMoveBlockDown` hook, we now know how our `if (canMove(down)) {` check works:
+So going back to our `useMoveBlockDown` hook, we now know how our `if (canMove(down))` check works:
 
 ```js
 if (canMove(down)) {
@@ -3632,8 +3632,6 @@ We then do the same thing for that particular square within the row:
 if (!returnObject[rowKey][columnKey]) returnObject[rowKey][columnKey] = {};
 ```
 
-I'm not sure why I added the `if` check here, because as we only loop over each square once, no such square should exist here, but whatever.
-
 Because we know we're looping over a `'live'` square, we also add an empty object here.
 
 And now that we have our 'row' and our 'square' (column) objects, we just need to populate them:
@@ -3698,7 +3696,7 @@ So the first thing we do, is create a `movedBlock` variable that is an empty obj
 let movedBlock = {};
 ```
 
-This is where we'll store our moved block... surprisingly.
+This is where we'll eventually store our moved block.
 
 Remembering that `initialShape` is the object of our current live block, we then loop over `initialShape`:
 
@@ -3782,7 +3780,7 @@ then `movedBlock` would be:
 };
 ```
 
-And now that we know how we want updated `'live'` block to look, all we need to do is update our state, which we do by calling:
+And now that we know how we want our updated `'live'` block to look, all we need to do is update our game board state, which we do by calling:
 
 ```js
 dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
@@ -3836,7 +3834,7 @@ let existingObject = JSON.parse(JSON.stringify(squaresRef.current));
 let newObject = JSON.parse(JSON.stringify(existingObject));
 ```
 
-At this point, `existingObject` and `newObject` are identical copies of each other. However, as you might be able to tell, `newObject` is going to get updated to how we want our updated game board object to look.
+At this point, `existingObject` and `newObject` are identical copies of each other, and identical copies of our current game board. However, as you might be able to tell, `newObject` is going to get updated to how we want our updated game board object to look.
 
 We're once again going to go into a loopception, where we loop over the rows and columns of our game board:
 
@@ -3942,7 +3940,7 @@ const useSettledBlock = () => {
 export default useSettledBlock;
 ```
 
-Luckily, the only hook called in this hook, we have already been over. It just calls `useLiveBlockShape`, which you'll remember with a feeling of despondence returns the current `'live'` block.
+Luckily, the only hook called in this hook, we have already been over. It just calls `useLiveBlockShape`, which you'll remember with a feeling of despondence, returns the current `'live'` block.
 
 So in this hook, `initialShape` is our current `'live'` block. `returnBlock` is the object that we're going to return.
 
@@ -4062,7 +4060,7 @@ Both `isCompletedRows()` and `numberOfCompletedRows()` are functions within our 
 
 `isCompletedRows()` checks, unsurprisingly, if there are any completed rows.
 
-If you're unfamiliar with the game 'Blocks Falling', which you should be because it's completely unique and hasn't been based on anything else in the world, then once a player "completes" a row (meaning that every square on that row is `'settled'`), then the row clears.
+If you're unfamiliar with the game 'Blocks Falling', which you should be because it's completely unique and isn't based on anything else in the world, then once a player "completes" a row (meaning that every square on that row is `'settled'`), then the row clears.
 
 Yep, everything on that row just disappears. And any blocks above it move down a row.
 
@@ -4123,7 +4121,7 @@ We then `push` the `status` of every square on this row to our `statusArray`.
 statusArray.push(currentGrid[rowKey][columnKey].status);
 ```
 
-And then once we've finished looping over each of the squares on a particular row, we check if every value of this array is `'settled'`. If it is, we update the `returnBool` to `true`, if it's not, it remains `false` and we all go on with our lives:
+And then once we've finished looping over each of the squares on a particular row, we check if every value of this array is `'settled'`. If it is, then we know that this row has been completed, so we update the `returnBool` to `true`, if it's not, it remains `false` and we all go on with our lives:
 
 ```js
 if (statusArray.every(status => status === settled)) returnBool = true;
@@ -4150,7 +4148,7 @@ If there are no completed rows, then we do nothing else here. However, if there 
 
 If you remember back to earlier, `clearedRows` is the state that determines our score, so it not only updates the scoreboard of our game, but it is also the value that we store in local storage to persist our player's top score.
 
-And in order to update `state.clearedRows`, we need to know how many rows have been completed this term. That's where `numberOfCompletedRows(current(state.squares))` comes in.
+And in order to update `state.clearedRows`, we need to know how many rows have been completed this turn. That's where `numberOfCompletedRows(current(state.squares))` comes in.
 
 As with `isCompletedRows`, we pass in the current game board as an argument:
 
@@ -4232,7 +4230,7 @@ For example, if we've cleared 10 rows, then `state.clearedRows * 25` would be `2
 
 We'd subtract `250` from our `initialState.speed` of `1000`, leaving us with a speed of `750` (or three-quarters of a second).
 
-`Math.max` returns the higher value of the entered values, so with `Math.max(initialState.speed - state.clearedRows * 25, 100);` we return whichever is highest `initialState.speed - state.clearedRows * 25` or `100`.
+`Math.max` returns the higher value of the entered values, so with `Math.max(initialState.speed - state.clearedRows * 25, 100);` we return whichever is highest, `initialState.speed - state.clearedRows * 25` or `100`.
 
 That is because once you're down to a speed of `100` (one tenth of a second), it's pretty damn fast already, and probably not long until the player reaches a game over, so no need to speed things up even more.
 
@@ -4351,13 +4349,13 @@ and if it does...
 
 😢🔫
 
-Remembering that we're in a loop over the rows of our game board (for a change), `rowKey` will be the current row in our iteration.
+Remembering that we're in a loop over the rows of our game board (for a change), `rowKey` will be the current row in our iteration. To explain
 
 ```js
 [...Array(parseInt(rowKey)).keys()];
 ```
 
-When you run, for example `Array(5)`, what you'll get is an array of `5` empty elements, for example `[...Array(5)]` returns:
+when you run, for example `Array(5)`, what you'll get is an array of `5` empty elements, for example `[...Array(5)]` returns:
 
 ```js
 [undefined, undefined, undefined, undefined, undefined];
@@ -4514,7 +4512,7 @@ startTimer(state) {
 },
 ```
 
-So what we've done here in the `useMoveBlockDown` hook, is firstly check if the block _can_ move down. If it can, we update our game board to show the block as moved. If it can't we then settle the block, clear any completed rows, and add the next block.
+So what we've done here in the `useMoveBlockDown` hook, is firstly check if the block _can_ move down. If it can, we update our game board to show the block as moved. If it can't we then 'settle' the block, clear any completed rows, and add the next block.
 
 Next we have to be able to move our block left and right 😲
 
@@ -4642,7 +4640,7 @@ const useMoveBlockLeft = () => {
 export default useMoveBlockLeft;
 ```
 
-I pasted this entire hook earlier; I won't do it again. They key part is that passing-in a `direction` of `'left'`, we call the `canMoveLeft()` function:
+I pasted the entire `useCanMoveBlock` hook earlier; I won't do it again. The key part is that passing-in a `direction` of `'left'`, we call the `canMoveLeft()` function:
 
 ```js
 const canMoveLeft = () => {
@@ -4740,7 +4738,7 @@ Object.keys(squaresRef.current).forEach(rowKey =>
   Object.keys(squaresRef.current[rowKey]).forEach(columnKey => {
 ```
 
-I'm going to go out on a limb, and assume that you understand what that code's doing by now.
+I'm going to go out on a limb and assume that you understand what that code's doing by now.
 
 Within each iteration, we're then going to check whether or not that square has a `status` of `'live'`:
 
@@ -4762,7 +4760,7 @@ squaresRef.current[rowKey][parseInt(columnKey) + (direction === left ? -1 : 1)].
 
 Specifically, `parseInt(columnKey) + (direction === left ? -1 : 1)` fetches the square to the left (`-1`) of our `'live'` square (if `direction` is `'left'`), or to the right (`1`) of our `'live'` square (if `direction` is `'right'`).
 
-We `push` these values to our `besideSquaresStatusArray` array, so once we get out of our loopception, all that we have to do is check whether this array includes `'settled'`. If it does, then there _is_ a block to the left of our current block, so we can't move there. If there's not, then it doesn't, and it's fine to move there.
+We `push` the `status` of these squares to our `besideSquaresStatusArray` array, so once we get out of our loopception, all that we have to do is check whether this array includes `'settled'`. If it does, then there _is_ a block to the left of our current block, so we can't move there. And if it doesn't include `'settled'` then it's fine to move there.
 
 ```js
 return besideSquaresStatusArray.includes('settled');
@@ -4808,7 +4806,7 @@ Object.keys(initialShape).forEach(rowKey => {
   Object.keys(initialShape[rowKey]).forEach(columnKey => {
 ```
 
-The one difference from `useMoveBlockDown`, is that rather than changing adding to the row (which would move the block down), we instead subtract from the column, in order to move the block left (adding to the column would move it right).
+The one difference from `useMoveBlockDown`, is that rather than adding to the row (which would move the block down), we instead subtract from the column, in order to move the block left (adding to the column would move it right).
 
 ```js
 movedBlock[rowKey][parseInt(columnKey) - 1] = initialShape[rowKey][columnKey];
@@ -4822,11 +4820,11 @@ We then call the `updateGameBoard` action, passing-in the return from the `updat
 dispatch(gameBoardActions.updateGameBoard(updatedGameBoard(movedBlock)));
 ```
 
-I won't go over this code again, but to remind you, this will update our `state.squares` in our game board slice (which is our game board). So after running this line, our game board is updated with our moved block.
+I won't go over this code again, but to remind you, this will update `state.squares` in our game board slice (which is our game board). So after running this line, our game board is updated with our moved block.
 
 And with that, we have a pretty good game.
 
-We can move our blocks left, right and down, they automatically move down after an increasingly shorter period of time, any lines that are completed clear, and we keep score of how many lines are cleared and store it in local storage in our browser.
+We can move our blocks left, right and down, they automatically move down after an increasingly shorter period of time, any lines that are completed cleared, and we keep score of how many lines are cleared and store it in local storage in our browser.
 
 At this point, it's a decent game.
 
@@ -5082,7 +5080,13 @@ As we already know, `liveBlockShape()` sets our current `'live'` block to the `i
 }
 ```
 
-On the next line, we get to `const topRowKey = blockTopRowKey(initialShape);`, which calls our `useBlockTopRowKey` hook.
+On the next line, we get to
+
+```js
+const topRowKey = blockTopRowKey(initialShape);
+```
+
+which calls our `useBlockTopRowKey` hook.
 
 And guess what? This hook doesn't actually call any other hooks, so that's a nice surprise. In fact, `useBlockTopRowKey` is pretty simple:
 
@@ -5166,7 +5170,7 @@ On the next line, we run `columnsArray.flat().map(column => parseInt(column))`, 
 
 The `Set` function ensures that each value is unique, so when we pass `[4, 4, 5, 6]` to `Set`, it becomes `[4, 5, 6]` (set requires the `new`).
 
-So what we end up returning here, is a unique array of integers, for the columns that our `'live'` block currently occupies; in our example, we return `[4, 5, 6]`:
+So what we end up returning here, is an array of unique integers, for the columns that our `'live'` block currently occupies; in our example, we return `[4, 5, 6]`:
 
 ```js
 return [...new Set(columnsArray.flat().map(column => parseInt(column)))];
@@ -5194,7 +5198,7 @@ Back in our `useRotateJBlock` hook, the return from `useBlockFirstColumnKey` (so
 const firstColumnKey = blockFirstColumnKey(initialShape);
 ```
 
-So remember that at this point, `topRowKey` is set to the highest row that our `'live'` block occupies, and `firstColumnKey` is set to the furthese left column that our `'live'` block occupies.
+So remember that at this point, `topRowKey` is set to the highest row that our `'live'` block occupies, and `firstColumnKey` is set to the furthest left column that our `'live'` block occupies.
 
 The next part of our `useRotateJBlock` hook that we hit is this sexy `if` statement:
 
@@ -5285,9 +5289,19 @@ if (rowKeyIntegers(initialShape).length === 3) {
 
 We do this because if the block has three rows, then we know that the `J` is vertical (so will be either `'1-1-2'` or `'2-1-1'`), if it doesn't have three rows (in which case, it'll have two), we know that it's horizontal (so will be either `'3-1'` or `'1-3`).
 
-In both cases, to determine which string to return, we use `Object.keys(initialShape[topRowKey]).length`. This gives us the number of keys (so the number of columns) in the top row of our block.
+In both cases, to determine _which_ string to return, we use `Object.keys(initialShape[topRowKey]).length`. This gives us the number of keys (so the number of columns) in the top row of our block.
 
-If our block is vertical and it has one column in the top row, then we know it's `'1-1-2'`, if not then it _has to_ be `'2-1-1'`. If it's vertical and it has three columns in the top row, then we know it's `3-1`, if not then it _has to_ be `'1-3'`.
+```js
+const position = () => {
+  if (rowKeyIntegers(initialShape).length === 3) {
+    return Object.keys(initialShape[topRowKey]).length === 1 ? '1-1-2' : '2-1-1';
+  } else {
+    return Object.keys(initialShape[topRowKey]).length === 3 ? '3-1' : '1-3';
+  }
+};
+```
+
+If our block is vertical and it has one column in the top row, then we know it's `'1-1-2'`, if not then it _has to_ be `'2-1-1'`. If it's horizontal and it has three columns in the top row, then we know it's `3-1`, if not then it _has to_ be `'1-3'`.
 
 So by calling `position()`, we're able to determine the current rotational position of our `'live'` block.
 
@@ -5392,7 +5406,7 @@ const build1_3Block = (firstRow, firstColumn) => {
 };
 ```
 
-All the `[...Array(2)]` does, is return an array with two `undefined` elements, for example:
+All that `[...Array(2)]` does, is return an array with two `undefined` elements, for example:
 
 ```js
 [undefined, undefined];
@@ -5400,7 +5414,7 @@ All the `[...Array(2)]` does, is return an array with two `undefined` elements, 
 
 We do this, because as we know that we're building a `'1-3'` block, then we need to build two rows, so want to run our `forEach` loop two times.
 
-It's worth remembering at this point that `returnBlock` was set to an empty object, earlier in this hook:
+It's worth remembering at this point that `returnBlock` was set to an empty object earlier in this hook:
 
 ```js
 let returnBlock = {};
@@ -5437,7 +5451,7 @@ All done, right?
 
 Yeah, not so fast.
 
-Sadly, there are several scenrios where it's not possible to rotate a block. The rotated block may be outside of the game board, or it may be in a position that already has a `'settled'` block, so what do we do then?
+Sadly, there are several scenrios where it's not possible to rotate a block. The newly rotated block may be outside of the game board, or it may be in a position that already has a `'settled'` block, so what do we do then?
 
 Well glad you asked. Things are about to get quite hooky again.
 
@@ -5463,7 +5477,7 @@ There is no way that the (yellow) `J` block can rotate here, because to rotate i
 
 In this situation, we would simply return `false` from `useRotateJBlock`, meaning we cannot rotate this block, so don't even bother trying.
 
-We will only do this, _after_ trying all several remedies though. And they're all handled by the `useOffsetPosition` hook, which we call here:
+We will only do this, _after_ trying several remedies though. And they're all handled by the `useOffsetPosition` hook, which we call here:
 
 ```js
 if (offsetPosition(returnBlock)) {
@@ -5509,7 +5523,7 @@ export default useOffsetPosition;
 
 Everything that the `useOffsetPosition` hook does, involves other hooks, so if you thought we were getting to the end...
 
-Remember that the `block` argument here is the `returnBlock` variable from our `useRotateJBlock` hook; it is the position that we _want_ to put our rotated block.
+Remember that the `block` argument here is the `returnBlock` variable from our `useRotateJBlock` hook; it is the position that we _want_ to have our rotated block.
 
 The first thing that we do in this hook is call the `offsetForGameBoard();` function, which in turns calls four hooks:
 
@@ -5580,7 +5594,7 @@ So we fetch this column, and simply check whether it is less than `1`.
 blockFirstColumnKey(block) < 1;
 ```
 
-If it is less than one, we return `true`, as in the column _is_ left of the game board, otherwise we call false.
+If it is less than one, we return `true`, as in the column _is_ left of the game board, otherwise we return `false`.
 
 Back in `useOffsetForLeftOfGameBoard`, if the new block is not to the left of the game board, we simply return:
 
@@ -5683,13 +5697,15 @@ So when we look at this line within `useRenameColumnKey`
 Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] });
 ```
 
-we can see that we're passing it two different objects: `block[rowKey]` and `{ [newKey]: block[rowKey][oldKey] }`. `Object.assign()` will then merge them together.
+we can see that we're passing it two different objects: `block[rowKey]` and `{ [newKey]: block[rowKey][oldKey] }`.
+
+`Object.assign()` will merge them together.
 
 Remember that `block` here is our rotated block; the block that we _want_ to return. We also passed-in the `rowKey` that we're looking at here. So `block[rowKey]` is an object of all the columns on this row of the block.
 
-`{ [newKey]: block[rowKey][oldKey] }` is the specific square that we're looking at. The key is the `newKey` (column) that we want to move this square to, and the value is equal to the square on the same row, but at `oldKey`.
+`{ [newKey]: block[rowKey][oldKey] }` is the specific square that we're looking at. The key is the `newKey` (column) that we want to move this square to, and the value is equal to the square on the same row, but at the `oldKey`.
 
-So what we do by passing these two objects to `Object.assign()`, is pass-in the old row, but overwrite the value at `newKey` _with_ what we want there once the block has shifted.
+So what we do by passing these two objects to `Object.assign()`, is pass-in the old row, but overwrite the value at `newKey` _with_ what we want to be there once the block has shifted.
 
 This is where `delete` comes into play:
 
@@ -5699,7 +5715,7 @@ delete Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] })[oldKey]
 
 At this point, we still need to `delete` the key/value of our `oldKey` that we've now moved to a different square, and that's exactly what `delete` does; it removes a key/value from an object.
 
-Specifically, we `delete` the value at `[oldKey]` in our `Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] })`.
+Specifically, we `delete` the value at `[oldKey]` in `Object.assign(block[rowKey], { [newKey]: block[rowKey][oldKey] })`.
 
 Now remember that we're calling `useRenameColumnKey` as part of a loop over each of the squares in our block:
 
@@ -5866,7 +5882,7 @@ export default useOffsetForOtherBlocks;
 
 If you've read this far, you must be starting to feel like you're falling into a deep, dark hole, and looking at this hook made it all so much worse.
 
-The good news is that not only a lot of the code here replicated, so we don't need to go over all of it. But also, it's the last thing that we really need to go over.
+The good news is that not only is a lot of the code here replicated, so we don't need to go over all of it. But also, it's the last thing that we really need to go over.
 
 Right now we can add new blocks, move them left, right and down, keep score, and now rotate blocks, even ensuring that the rotated blocks don't stray outside of the game board.
 
@@ -6051,7 +6067,7 @@ export default useRenameRowKey;
 
 You pass-in the block, we add the new row (the old row moved to its new position), then `delete` the old row.
 
-So when we run the `shiftBlockDown()` function, all we're doing is our new block down one row:
+So when we run the `shiftBlockDown()` function, all we're doing is moving our new block down one row:
 
 ```js
 const shiftBlockDown = (block, amount = 1) => {
@@ -6191,9 +6207,9 @@ If we can't shift the block down, we try shifting it up. If that doesn't work, w
 
 At that point we're getting desparate, so we try down _and_ left. If that doesn't work, we try down and right. Next we try up and left, and lastly we try up and right.
 
-If `blockCanBeHere()` returns `false` for all eight of these shifts, then we just give up and return `false` from this hook, meaning that the block doesn't move.
+If `blockCanBeHere()` returns `false` for all eight of these shifts, then we just give up and return `false` from this hook, meaning that the block doesn't rotate.
 
-What about if `if (blockCanBeHere(shiftedBlock)) {` returns `true` though?
+What about if `if (blockCanBeHere(shiftedBlock))` returns `true` though?
 
 Well in every case, we call the `updateBlock()` function:
 
@@ -6226,7 +6242,7 @@ We aren't actually returning the return from `useOffsetPosition` here, we're ret
 
 That's why it's the `updateBlock()` function.
 
-`shiftedBlock` _is_ just a copy. And at this moment, `shiftedBlock` is equal to the block that we want to return, so what we need to do, is copy the `shiftedBlock` object, to `block`.
+`shiftedBlock` is just a copy. And at this moment, `shiftedBlock` is positioned how we want `block` to be, so what we need to do, is copy the `shiftedBlock` object, to `block`.
 
 And the first stage of doing that, is to clear `block`... by calling `clearBlock()`.
 
@@ -6247,7 +6263,7 @@ Object.keys(shiftedBlock).forEach(rowKey => {
 });
 ```
 
-Back in our `useRotateBlock` hook, we assign the return from `useRotateJBlock` to the `rotatedBlock` variable:
+Back in our `useRotateBlock` hook, we assign the return from `useRotateJBlock` (which the `block` that we updated in the code above) to the `rotatedBlock` variable:
 
 ```js
 if (liveBlockRef.current === 'I') rotatedBlock = rotateIBlock();

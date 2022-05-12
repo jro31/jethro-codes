@@ -90,7 +90,7 @@ Although I used multiple sources to help me understand how to do this, I have to
 
 Starting with the Rails API, the first step is adding `rack-cors` to the Gemfile and running `bundle`.
 
-```
+```rb
 # Gemfile
 
 ...
@@ -148,7 +148,7 @@ You should see a cookie with the 'Name' `_meals_of_change` (as we set the `key:`
 
 With the config now set, it was necessary to add another gem, `bcrypt`, so I updated the Gemfile as below and ran `bundle`.
 
-```
+```rb
 # Gemfile
 
 ...

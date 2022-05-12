@@ -39,6 +39,8 @@ const ArticleContainer = ({ article }) => {
         <meta name='twitter:description' content={article.description} />
         <meta name='twitter:image' content={socialMediaImagePath} />
         <meta name='twitter:card' content='summary_large_image' />
+
+        <link href='https://unpkg.com/prismjs@0.0.1/themes/prism-okaidia.css' rel='stylesheet' />
       </Head>
       <ArticleHeader
         title={article.title}

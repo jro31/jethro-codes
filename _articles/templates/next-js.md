@@ -5,11 +5,11 @@ published: '2022-04-28'
 tags: 'Next JS, React, Redux Toolkit, Tailwind CSS'
 ---
 
-## Repo
+## Repo {#repo}
 
 This template is a public repo on GitHub, and can be found [here](https://github.com/jro31/next-js-template).
 
-## Specifications
+## Specifications {#specifications}
 
 This project is setup with **Next.js 12.1.4** and **React 17.0.2**.
 
@@ -28,7 +28,7 @@ These can be used with classes just like the standard breakpoints, for example `
 
 Note that I have **not** installed the Tailwind [typography plugin](https://tailwindcss.com/docs/typography-plugin) or the Tailwind [aspect-ratio plugin](https://github.com/tailwindlabs/tailwindcss-aspect-ratio). These are required for _some_ Tailwind UI components, so should be installed as needed.
 
-## Setup
+## Setup {#setup}
 
 Feel free to clone this template or use it any way you see fit. However, the simplest way to get started is to:
 
@@ -74,7 +74,7 @@ Feel free to clone this template or use it any way you see fit. However, the sim
 
 If all of that is working, then you're setup and ready to go!
 
-## To do after setup
+## To do after setup {#to-do-after-setup}
 
 There are a couple more to-dos to do to get this project setup as your own. They are marked within the code with `TODO` tags.
 

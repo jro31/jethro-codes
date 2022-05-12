@@ -14,7 +14,7 @@ This package returns an array of integers, based on three optional arguments:
 - amountOfNumbers (default is 10)
 - increment (default is 1)
 
-## Code
+## Code {#code}
 
 The code to do this is very simple, but it took me a minute to figure out, so here it is to save you having to think:
 
@@ -24,7 +24,7 @@ const arrayOfNumbers = (startingNumber = 1, amountOfNumbers = 10, increment = 1)
   Array.from(new Array(amountOfNumbers), (_, i) => (i + startingNumber) + (i * (increment - 1)))
 ```
 
-## Setup
+## Setup {#setup}
 
 Alternatively, it can be installed as an npm package with:
 
@@ -38,7 +38,7 @@ You can then import it into your project with:
 import arrayOfNumbers from 'array-of-numbers';
 ```
 
-## Examples
+## Examples {#examples}
 
 The `startingNumber` and `increment` arguments can be any integer. `amountOfNumbers` must be a positive integer (if a negative integer is passed-in, it will throw an error).
 
@@ -61,7 +61,7 @@ console.log(arrayOfNumbers(-8, 12, 10)); // [ -8, 2, 12, 22, 32, 42, 52, 62, 72,
 console.log(arrayOfNumbers(100, 10, -5)); // [ 100, 95, 90, 85, 80, 75, 70, 65, 60, 55 ]
 ```
 
-## Useful links
+## Useful links {#useful-links}
 
 - array-of-numbers GitHub repo - [https://github.com/jro31/array-of-numbers](https://github.com/jro31/array-of-numbers)
 - array-of-numbers npm page - [https://www.npmjs.com/package/array-of-numbers](https://www.npmjs.com/package/array-of-numbers)

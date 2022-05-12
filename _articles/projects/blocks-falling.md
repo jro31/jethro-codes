@@ -14,7 +14,7 @@ Turns out some that some people do care. And they have lawyers. So I had to do a
 
 So based on this [completely unrelated video game trailer](https://youtu.be/Mr8fVT_Ds4Q) (which just so happens to be the greatest trailer in video game history), I rebranded and '[Blocks Falling](https://blocksfalling.com/)' was born.
 
-## Background
+## Background {#background}
 
 Based on the above, I want to stress that this app has no relation to any existing video game, ever, and any resemblance is purely coincidental.
 
@@ -30,13 +30,13 @@ Luckily it was, otherwise this experiment would have turned into a huge waste of
 
 So now let's take a deeper dive into the code, and how I built this completely original and unique game.
 
-## Tools
+## Tools {#tools}
 
 The stack for this app is incredibly simple. It started from [create-react-app](https://github.com/facebook/create-react-app), with **React 17.0.2**. I added **Redux Toolkit 1.7.2** (as well as react-redux), and that is it.
 
 The only other package you'll find is [array-of-numbers](/packages/array-of-numbers), which is a package I wrote _after_ building this app, and I needed to test that it actually worked, so I imported it in this project. It wasn't really necessary.
 
-## The game board
+## The game board {#game-board}
 
 The first question I needed to answer when creating this app, was what on earth do I use for the game board?
 
@@ -497,7 +497,7 @@ So that is it; that is our game board. It's 210 squares, organised by row, where
 
 Simple, right?
 
-## Redux Toolkit
+## Redux Toolkit {#redux-toolkit}
 
 So how do we keep track of the status of our game board? Well that's where Redux Toolkit comes into the equation.
 
@@ -556,7 +556,7 @@ But what is a game board without any pieces?
 
 Well it's not a very fun game, so let's fix that.
 
-## The blocks
+## The blocks {#blocks}
 
 In Blocks Falling, there are seven different kinds of blocks.
 
@@ -568,7 +568,7 @@ I gave these seven blocks that I invented on my own, unique and original letter-
 
 Reading from left to right and top to bottom, these are `I`, `J`, `L`, `O`, `S`, `T` and `Z`.
 
-## Adding blocks to the game board
+## Adding blocks to the game board {#adding-blocks}
 
 First off, adding a block to our game board. What does that actually mean?
 
@@ -1029,7 +1029,7 @@ And good question. Well done.
 
 Now strap-in, because we're about to go on an adrenaline-filled roller-coaster that is... changing the game's background.
 
-### Backgrounds
+### Backgrounds {#backgrounds}
 
 The next part of our `nextBlock` action is:
 
@@ -1651,7 +1651,7 @@ _Mango_
 
 And that's how I hacked my way around the restriction of being able to transition linear gradients.
 
-### Adding a new block
+### Adding a new block {#adding-a-new-block}
 
 Now let's continue down our `nextBlock()` action:
 
@@ -2831,7 +2831,7 @@ That's what
 
 does. It passes-in row `1` of our new block to `mergeNestedObjects()`, as row `0`.
 
-### Game over
+### Game over {#game-over}
 
 Still within the `else` block for when `canAddBlock()` returns false, the very last line of the `nextBlock()` action is simply:
 
@@ -3045,11 +3045,11 @@ And with that, we have finally... finally, got to the end of our `nextBlock()` a
 
 But after what must now feel like a lifetime to you, we now have one block on our game board. At the very top. And it hasn't even moved yet. So strap-in, because things are about to get wild.
 
-## Moving blocks
+## Moving blocks {#moving-blocks}
 
 Given the eventual name of this app, it seems appropriate that the first direction for moving a block that we look at, is down.
 
-### Down
+### Down {#moving-blocks-down}
 
 Unlike left and right, moving a block down can happen in two ways.
 
@@ -4516,7 +4516,7 @@ So what we've done here in the `useMoveBlockDown` hook, is firstly check if the 
 
 Next we have to be able to move our block left and right 😲
 
-### Left and right
+### Left and right {#moving-blocks-left-and-right}
 
 Although there are obvious differences between left and right (like the direction), the code to do both actions is so similar, that it makes sense to go over them together.
 
@@ -4846,7 +4846,7 @@ So what I ultimately ended up doing, was having a _different_ hook, to rotate ea
 
 Well six. The `O` block doesn't get rotated, because it's just a 2x2 block.
 
-## Rotating blocks
+## Rotating blocks {#rotating-blocks}
 
 As with other actions in this game, rotating the blocks can be done in one of two ways; either with the keyboard, or with the on-screen buttons.
 
@@ -6292,7 +6292,7 @@ I'd love to receive any feedback on both the code and the article; things that c
 
 If not, then I hope that you found this article useful and learned something!
 
-## Useful links
+## Useful links {#useful-links}
 
 - Blocks Falling - [https://blocksfalling.com/](https://blocksfalling.com/)
 - Blocks Falling GitHub repo - [https://github.com/jro31/blocks-falling](https://github.com/jro31/blocks-falling)

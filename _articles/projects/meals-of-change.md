@@ -6,7 +6,7 @@ published: '2022-04-21'
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
 ---
 
-## Background
+## Background {#background}
 
 At the time I started [Meals of Change](https://mealsofchange.com/), I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
 
@@ -50,7 +50,7 @@ _"Oh, I get it now."_
 
 And so was spawned, Plant as Usual version 3, although going through a rebrand, Meals of Change was born.
 
-## Tools
+## Tools {#tools}
 
 Given my skillset at this point, there were only really two options for building this app. Either it would be a Rails monolith that included a React frontend. Or it would be two separate services, with a Rails API as the backend, and a React frontend.
 
@@ -58,7 +58,7 @@ I opted for the latter of these, partly for the technical challenge. This projec
 
 At a later date, if I wanted to, I could build a completely new front-end, or I could build an iOS app, or an Android app, and all would be able to work with this backend right away. Building a monolith you don't have that flexibility, so I knew that going forward, this would be the direction I'd want to take.
 
-### Frontend
+### Front-end {#front-end-tools}
 
 This was to be my first time working with React, where I actually had any knowledge of React. And based on the tools I'd found to be most intuitive whilst learning, I opted to use **Next.js** rather than pure React. I'd been turned onto Next.js by this point because of it's intuitive routing, and for its search engine friendliness.
 
@@ -68,17 +68,17 @@ For styling, I started off with CSS modules, but at some point in the early stag
 
 After spending a day learning about it and playing around with it, I jumped right onto the Tailwind bandwagon, and spent another day converting what styling existed in Meals of Change by then, to Tailwind CSS.
 
-### API
+### API {#api-tools}
 
 Having worked with Rails for three years at this point, my Rails stack was far more established:
 
 PostgreSQL database, RSpec for testing, Pundit for authorization (I'll go into authentication below).
 
-## Build process
+## Build process #{build-process}
 
 Being my first time building an app made of two serparate services, there were two issues that I anticipated being stumbling blocks, so I'll go over those first.
 
-### Authentication
+### Authentication #{authentication}
 
 Authentication while working on a Rails monolith is fairly straight forward. Often it involves the Devise gem, but regardless, having the user login in the same place that you verify them makes things simple. Having these two parts in serparate services adds some complexity.
 
@@ -86,7 +86,7 @@ Fighting my instinct to again use Devise, I ultimately decided to use Rails' bui
 
 Although I used multiple sources to help me understand how to do this, I have to give props to edutechional (try saying that quickly) for posting [this tutorial playlist](https://youtube.com/playlist?list=PLgYiyoyNPrv_yNp5Pzsx0A3gQ8-tfg66j) on YouTube, as it helped immensely.
 
-#### API
+#### API {#api-authentication}
 
 Starting with the Rails API, the first step is adding `rack-cors` to the Gemfile and running `bundle`.
 
@@ -590,7 +590,7 @@ module Api
 end
 ```
 
-#### Front-end
+#### Front-end {#front-end-authentication}
 
 With authentication working on the API, it's time to set up the front-end to utilise these endpoints.
 
@@ -821,7 +821,7 @@ const logoutHandler = async () => {
 
 And with this, we have both the front-end and the back-end in place to allow our users to sign-up, login, and logout, and we are able to check their login status from anywhere within the app, and display content depending on this.
 
-### Photo uploading
+### Photo uploading {#photo-uploading}
 
 The other issue which exceeded my knowledge at the start of this project, was allowing users to upload photos of their recipes, and subsequently fetching these.
 
@@ -850,7 +850,7 @@ So I reluctanty went back to using S3.
 
 I'll skip the part of setting-up S3 in this article, and just focus on the code I used, starting with the Rails API.
 
-#### API
+#### API {#api-photo-uploading}
 
 The first step here was to install Active Storage by running `rails active_storage:install`, and then running `rails db:migrate` to create and run the following migration:
 
@@ -1066,7 +1066,7 @@ end
 
 And if that's all working, the back-end is done, so time to move onto the front-end.
 
-#### Front-end
+#### Front-end {#front-end-photo-uploading}
 
 The point where this process gets slightly mind-boggling, is that S3 requires a checksum in order to verify that it received an uncorrupted file.
 
@@ -1443,7 +1443,7 @@ export default RecipePhoto;
 
 `props.photo` here is `recipe.large_photo` as returned from the API.
 
-### Database
+### Database {#database}
 
 The two issues covered so far (authentication and photo uploading) were the two areas that I really felt a deficit in knowledge heading into this project. But with both resolved, the rest of the process of building this app went fairly smoothly.
 
@@ -1469,7 +1469,7 @@ That's it.
 
 As I was intending to host the API on Heroku, I used PostgreSQL.
 
-### Returning the recipes
+### Returning the recipes {#returning-the-recipes}
 
 Having such a simple database allowed me to keep the backend code incredibly simple as well.
 
@@ -1938,7 +1938,7 @@ end
 
 `filter_recipes` sets the `@recipes` variable, then `recipes_return` decides whether to return the recipes based on the `RecipesRepresenter`, or whether to just return the recipe IDs.
 
-### Adding a recipe
+### Adding a recipe {#adding-a-recipe}
 
 As with the API, in the name of simplicity I won't go over every single part of the front-end. If you've made it this far, then I commend you, and I assume that your React knowledge is sufficient to understand what's going on from the code.
 
@@ -2020,7 +2020,7 @@ On mobile there sadly isn't the luxury of having the recipe form and preview sid
 
 As on desktop, clicking 'Preview' takes the user to an exact replica of their recipe (with the exception of the invasive banner at the bottom), again allowing them to visualise exactly how their recipe will be seen, and switch back to the form and make updates before submitting.
 
-### Hosting
+### Hosting {#hosting}
 
 I think at this point, I've touched on all the main parts of the app.
 
@@ -2040,7 +2040,7 @@ If not, then I hope you gained something from it.
 
 Happy coding!
 
-## Useful links
+## Useful links {#useful-links}
 
 - Meals of Change - [https://mealsofchange.com/](https://mealsofchange.com/)
 - Meals of Change front-end GitHub repo - [https://github.com/jro31/meals-of-change-front-end](https://github.com/jro31/meals-of-change-front-end)

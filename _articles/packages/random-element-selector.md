@@ -14,7 +14,7 @@ In the simplest... and most complicated terms, this package returns _one_ elemen
 
 If you don't pass it an array, or pass it something that's not an array, it'll throw an error.
 
-## Code
+## Code {#code}
 
 <!-- prettier-ignore -->
 ```js
@@ -63,7 +63,7 @@ const randomElementSelector = (array) => array[Math.floor(Math.random() * array.
 console.log(randomElementSelector(myArray)) // 3
 ```
 
-## Setup
+## Setup {#setup}
 
 This code is simple enough it can be copied directly into your project, but to use it as a package, install it with
 
@@ -77,7 +77,7 @@ and then import it into your project, for example:
 import randomElement from 'random-element-selector';
 ```
 
-## Examples
+## Examples {#examples}
 
 ```js
 import randomElement from 'random-element-selector';
@@ -92,7 +92,7 @@ console.log(randomElement(myArray)); // 3
 console.log(randomElement(myArray)); // 'cat'
 ```
 
-## Useful links
+## Useful links {#useful-links}
 
 - random-element-selector GitHub repo - [https://github.com/jro31/random-element-selector](https://github.com/jro31/random-element-selector)
 - random-element-selector npm page - [https://www.npmjs.com/package/random-element-selector](https://www.npmjs.com/package/random-element-selector)

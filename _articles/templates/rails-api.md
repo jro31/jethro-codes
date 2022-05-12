@@ -5,11 +5,11 @@ published: '2022-04-22'
 tags: 'Ruby on Rails, PostgreSQL, RSpec, Pundit'
 ---
 
-## Repo
+## Repo {#repo}
 
 This template is a public repo on GitHub, and can be found [here](https://github.com/jro31/rails-api-template).
 
-## Specifications
+## Specifications {#specifications}
 
 This project template is setup with **Ruby 3.1.0** and **Rails 7.0.1**, the [**Pundit**](https://github.com/varvet/pundit) authorization gem, and has a **PostgreSQL** database.
 
@@ -17,7 +17,7 @@ Testing has been setup with **RSpec**, including [**factory_bot**](https://githu
 
 It includes authentication setup with Rails' `has_secure_password` (see 'Authentication' and 'Endpoints' sections below).
 
-## Setup
+## Setup {#setup}
 
 Feel free to clone this template or use it any way you see fit. However, the simplest way to get started is to:
 
@@ -47,9 +47,9 @@ Feel free to clone this template or use it any way you see fit. However, the sim
 
   ![It's working!](/images/templates/rails-api/its-working.png)
 
-### Notes
+### Notes {#notes}
 
-#### Development
+#### Development {#development-notes}
 
 - Run the development server with `rails s`.
 - The default port is 3001.
@@ -57,12 +57,12 @@ Feel free to clone this template or use it any way you see fit. However, the sim
 - Update the `origins "http://localhost:3000"` line of `config/initializers/cors.rb` with the development URL of your frontend.
 - Update both `key` values of `config/initializers/session_store.rb` with the name of your app.
 
-#### Production
+#### Production {#production-notes}
 
 - Update the `origins "https://myappurl.com"` line of `config/initializers/cors.rb` with the production URL of your frontend.
 - Update the `domain` value of `config/initializers/session_store.rb` with the production URL of your API.
 
-## Authentication
+## Authentication {#authentication}
 
 This template includes authentication setup using `has_secure_password`. This includes:
 
@@ -85,13 +85,13 @@ This template includes authentication setup using `has_secure_password`. This in
 
   - All actions have [**request specs**](https://github.com/jro31/rails-api-template/blob/master/spec/requests/api/v1/sessions_spec.rb).
 
-## Endpoints
+## Endpoints {#endpoints}
 
-### `GET` `http://localhost:3001/`
+### `GET` `http://localhost:3001/` {#root-endpoint}
 
 - Root, to check that the API is working.
 
-### `POST` `http://localhost:3001/api/v1/registrations`
+### `POST` `http://localhost:3001/api/v1/registrations` {#registrations-create-endpoint}
 
 - To register a user.
 - Requires a `user` param containing an `email`, `password` and `password_confirmation`, for example:
@@ -113,7 +113,7 @@ fetch('http://localhost:3001/api/v1/registrations', {
 });
 ```
 
-### `POST` `http://localhost:3001/api/v1/sessions`
+### `POST` `http://localhost:3001/api/v1/sessions` {#sessions-create-endpoint}
 
 - To create a session (login a user).
 - Requires a `user` param containing an `email` and `password`, for example:
@@ -134,7 +134,7 @@ fetch('http://localhost:3001/api/v1/sessions', {
 });
 ```
 
-### `GET` `http://localhost:3001/api/v1/logged_in`
+### `GET` `http://localhost:3001/api/v1/logged_in` {#logged-in-endpoint}
 
 - To check if a user is logged-in.
 - Example request:
@@ -145,7 +145,7 @@ fetch('http://localhost:3001/api/v1/logged_in', {
 });
 ```
 
-### `DELETE` `http://localhost:3001/api/v1/logout`
+### `DELETE` `http://localhost:3001/api/v1/logout` {#logout-endpoint}
 
 - To logout a user.
 - Example request:

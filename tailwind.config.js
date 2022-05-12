@@ -31,7 +31,7 @@ module.exports = {
             },
             pre: {
               code: {
-                backgroundColor: '#1f2937',
+                backgroundColor: 'transparent',
                 color: '#e5e7eb',
                 padding: 0,
                 overflowWrap: 'normal',

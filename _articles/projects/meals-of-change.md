@@ -6,7 +6,7 @@ published: '2022-04-21'
 tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Vercel, S3, PostgreSQL'
 ---
 
-## Background
+## Background {#background}
 
 At the time I started [Meals of Change](https://mealsofchange.com/), I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
 

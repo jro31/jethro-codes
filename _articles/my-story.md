@@ -5,7 +5,7 @@ coverImage: '/images/my-story/litang.jpeg'
 published: '2022-04-19'
 ---
 
-## The pre-coding years
+## The pre-coding years {#the-pre-coding-years}
 
 Throughout my teenage years, I'd been very into video games, so it seemed logical that when it came to choosing my subjects for sixth-form college, that computing was one of them.
 
@@ -825,7 +825,7 @@ And after weeks of contemplating and researching, I went down to this shopping c
 
 Well... at least I've got a nice computer to plan my lessons on now.
 
-## Time is Swift
+## Time is Swift {#time-is-swift}
 
 As my dream was to create these iPhone apps that I wanted to exist, the logical choice was that I'd learn to code in Swift. So my introduction to coding was a Swift course on Udemy. And you know what?
 
@@ -952,7 +952,7 @@ Do I really want three hours per day sat on a train during this bootcamp, where 
 
 Seeing as I had to go back to Bangkok anyway, I ultimately decided to do this bootcamp in Bali.
 
-## The bootcamp
+## The bootcamp {#the-bootcamp}
 
 ![Le Wagon, Bali campus](/images/my-story/le-wagon.jpeg)
 _Le Wagon, Bali campus, October 2018_
@@ -1015,7 +1015,7 @@ As I'll continue to say, you don't improve at anything by being comfortable. You
 
 But when I looked back over it, where my goal had been to come here and to learn as much as possible, I couldn't help but think... _'well it worked.'_
 
-## The job hunt
+## The job hunt {#the-job-hunt}
 
 As a group who two months earlier, had little to no coding knowledge, and who knew little to nothing of Ruby on Rails, we'd been able to build this fully-functional Rails application.
 
@@ -1141,7 +1141,7 @@ I'd given up my entire life in Bangkok, based on a dream, an idea that I might b
 
 I was finally going to make my living through coding.
 
-## The software engineer
+## The software engineer {#the-software-engineer}
 
 I didn't consider that the bootcamp had ever really ended for me.
 
@@ -1215,7 +1215,7 @@ I stayed in the role for a year, but after 12 months I found myself wanting a ch
 
 The world was opening-up now, and it seemed the right time to start pursuing the life that had attracted me to coding in the first place.
 
-## The future
+## The future {#the-future}
 
 When I look back from where I am today, to the guy at 16 who gave up on an A-level computing course after one class, I can't help but wonder what could have been had I stuck with it.
 
@@ -1245,7 +1245,7 @@ Dedicating so much time to learning React, I almost consider myself a React deve
 
 And although I'll never close myself off to learning new things, in the immediate future, that's how I hope I can earn a living.
 
-## Why I code
+## Why I code {#why-i-code}
 
 When I'd come back to the UK in November 2018, the loose plan I had was to stay here for 2 years.
 

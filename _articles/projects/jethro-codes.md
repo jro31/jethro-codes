@@ -18,7 +18,7 @@ I had a rough idea how I could achieve this, but then I found that [Vercel](http
 
 I added this article as a Markdown file, and by doing nothing else, as if by magic it appears on the homepage, the projects page, and in the sitemap.
 
-## Background
+## Background {#background}
 
 My reasoning for creating this app was fairly simple.
 
@@ -36,7 +36,7 @@ So I figured, for £3 I’ll buy it for a year. If I think of something to do wi
 
 And I don’t drink coffee, so I had nothing to spend that money on anyway.
 
-## Styling
+## Styling {#styling}
 
 Before I get onto the technical side of this app, a quick word about styling.
 
@@ -54,7 +54,7 @@ The Tailwind docs are some of the best I've ever come across, and do a far bette
 
 What I instead want to focus on is fetching the Markdown articles, and updating the app accordingly.
 
-## Structure
+## Structure {#structure}
 
 Before getting into the API and fetching the articles, it's worth mentioning the stucture of the app to make everything a little clearer.
 
@@ -94,7 +94,7 @@ If you're used to working on MVC apps, then the `api.js` file is very much the c
 
 If you understand how the API works, then the rest of the app is fairly rudimentary, so let's start by going over that.
 
-## API
+## API {#api}
 
 The API is based on [the API from this Vercel demo project](https://github.com/vercel/next.js/blob/canary/examples/blog-starter/lib/api.js).
 
@@ -104,7 +104,7 @@ It exports three functions needed by the various pages within the app:
 - `getArticleBySlug`
 - `allContainingFolders`
 
-### `allContainingFolders`
+### `allContainingFolders` {#all-containing-folders}
 
 I'll start with the simplest of these: `allContainingFolders`.
 
@@ -136,7 +136,7 @@ However, because there _is_ a Markdown article within the `_articles` folder its
 
 Therefore, given the file tree above, `allContainingFolders()` will return `[ '', 'projects', 'templates' ]`.
 
-### `getArticleBySlug`
+### `getArticleBySlug` {#get-articles-by-slug}
 
 The next exportable function in the API is `getArticleBySlug`. This returns one article, based on the slug passed-into it.
 
@@ -293,7 +293,7 @@ That's the more conservative end of the spectrum of reading speed (per multiple 
 
 And with that, we've set all the data that we need, so return `items`.
 
-## `getArticles`
+### `getArticles` {#get-articles}
 
 The last exportable function is `getArticles`.
 
@@ -504,7 +504,7 @@ export const getArticles = (fields = [], containingFolder = '') => {
 };
 ```
 
-## Updating the app
+## Updating the app {#updating-the-app}
 
 With the API done, we now need to make use of it in a way that the app automatically updates in every way we want it to, simply by adding a Markdown file. And this is where Next.js really comes into its own.
 
@@ -522,7 +522,7 @@ Ignoring the sitemap for now, based on the file tree that I added earlier, we ne
 
 Let's start with the 'My story' page, because this is the simplest of the four.
 
-### My story
+### My story {#my-story}
 
 Being a static page, we don't even need to fetch the paths from the API. We already know the slug that we want to use is `my-story`.
 
@@ -718,7 +718,7 @@ However, as the only HTML being rendered here comes from the Markdown articles t
 
 And with that, in our most simple case of displaying the 'My story' article, we are done.
 
-### [slug].js
+### [slug].js {#slug-js}
 
 Next let's look at `[slug].js`. This does exactly the same thing as `my-story`, with the exception that the page name is dynamic.
 
@@ -991,7 +991,7 @@ export const getStaticPaths = () => {
 };
 ```
 
-### [section]/index.js
+### [section]/index.js {#section-index-js}
 
 So far what we've been able to achieve, is dynamically fetching and displaying the articles, simply by adding a Markdown file.
 
@@ -1144,7 +1144,7 @@ That means that, just by adding a Markdown article within the correct sub-folder
  ┗ 📜 my-story.md
 ```
 
-### Homepage
+### Homepage {#homepage}
 
 The last place that we want to display our new article is the homepage. If you were to take a look at the homepage now, you'll see that it displays the six most recently published articles.
 
@@ -1248,7 +1248,7 @@ As with other pages, our homepage will update at build time, so now by simply ad
 
 All that's left therefore, is to update our sitemap so that search engines know that the article is there.
 
-## Updating the sitemap
+## Updating the sitemap {#updating-the-sitemap}
 
 ```
 📦 _articles
@@ -1471,7 +1471,7 @@ export const getServerSideProps = ({ req, res }) => {
 
 To see the page that we generated here, go to [jethro.codes/sitemap.xml](https://jethro.codes/sitemap.xml).
 
-## Wrap-up
+## Wrap-up {#wrap-up}
 
 By automatically updating the sitemap, we've successfully got our app working so that by simply adding a new Markdown article, the article gets hosted, the homepage and the section page get updated, and the sitemap updates to let Google and other search engines know that our article is there.
 
@@ -1481,6 +1481,6 @@ If anything wasn't clear, or if there's anything else in this app that you think
 
 Otherwise, happy hacking!
 
-## Useful links
+## Useful links {#useful-links}
 
 - jethro.codes GitHub repo - [https://github.com/jro31/jethro-codes](https://github.com/jro31/jethro-codes)

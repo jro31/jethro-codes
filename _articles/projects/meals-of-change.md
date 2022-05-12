@@ -74,11 +74,11 @@ Having worked with Rails for three years at this point, my Rails stack was far m
 
 PostgreSQL database, RSpec for testing, Pundit for authorization (I'll go into authentication below).
 
-## Build process #{build-process}
+## Build process {#build-process}
 
 Being my first time building an app made of two serparate services, there were two issues that I anticipated being stumbling blocks, so I'll go over those first.
 
-### Authentication #{authentication}
+### Authentication {#authentication}
 
 Authentication while working on a Rails monolith is fairly straight forward. Often it involves the Devise gem, but regardless, having the user login in the same place that you verify them makes things simple. Having these two parts in serparate services adds some complexity.
 

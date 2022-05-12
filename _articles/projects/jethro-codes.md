@@ -61,27 +61,27 @@ Before getting into the API and fetching the articles, it's worth mentioning the
 Below is a file tree of all the files/folders relevant to what we're going to cover in this article.
 
 ```
-📦_articles
- ┣ 📂projects
- ┃ ┣ 📜jethro-codes.md
- ┃ ┗ 📜meals-of-change.md
- ┣ 📂templates
- ┃ ┗ 📜rails-api.md
- ┗ 📜my-story.md
-📦lib
- ┣ 📜api.js
- ┗ 📜markdownToHtml.js
-📦pages
- ┣ 📂[section]
- ┃ ┗ 📜[slug].js
- ┃ ┗ 📜index.js
- ┣ 📂contact
- ┃ ┗ 📜index.js
- ┣ 📂my-story
- ┃ ┗ 📜index.js
- ┣ 📜_app.js
- ┣ 📜index.js
- ┗ 📜sitemap.xml.js
+📦 _articles
+ ┣ 📂 projects
+ ┃ ┣ 📜 jethro-codes.md
+ ┃ ┗ 📜 meals-of-change.md
+ ┣ 📂 templates
+ ┃ ┗ 📜 rails-api.md
+ ┗ 📜 my-story.md
+📦 lib
+ ┣ 📜 api.js
+ ┗ 📜 markdownToHtml.js
+📦 pages
+ ┣ 📂 [section]
+ ┃ ┗ 📜 [slug].js
+ ┃ ┗ 📜 index.js
+ ┣ 📂 contact
+ ┃ ┗ 📜 index.js
+ ┣ 📂 my-story
+ ┃ ┗ 📜 index.js
+ ┣ 📜 _app.js
+ ┣ 📜 index.js
+ ┗ 📜 sitemap.xml.js
 ```
 
 To start with, the `_articles` folder is where the articles are added as Markdown files.
@@ -511,13 +511,13 @@ With the API done, we now need to make use of it in a way that the app automatic
 Ignoring the sitemap for now, based on the file tree that I added earlier, we need to call the API in four different places:
 
 ```
-📦pages
- ┣ 📂[section]
- ┃ ┗ 📜[slug].js
- ┃ ┗ 📜index.js
- ┣ 📂my-story
- ┃ ┗ 📜index.js
- ┣ 📜index.js
+📦 pages
+ ┣ 📂 [section]
+ ┃ ┗ 📜 [slug].js
+ ┃ ┗ 📜 index.js
+ ┣ 📂 my-story
+ ┃ ┗ 📜 index.js
+ ┣ 📜 index.js
 ```
 
 Let's start with the 'My story' page, because this is the simplest of the four.
@@ -565,6 +565,7 @@ The `article` variable from the above code block, would be:
     '\n' + ...,
   minsToRead: 87,
   coverImage: '/images/my-story/litang.jpeg',
+}
 ```
 
 I won't paste all of `content`, but you get the idea. It's not very nice to look at. It's Markdown as we write it, but even worse.
@@ -835,9 +836,9 @@ At this stage, as we're only establishing the `paths` of these articles, we're o
 So with all articles now set to `articles`, we can loop over them, and set the `section` and the `slug`.
 
 ```
-📦pages
- ┣ 📂[section]
- ┃ ┗ 📜[slug].js
+📦 pages
+ ┣ 📂 [section]
+ ┃ ┗ 📜 [slug].js
 ```
 
 So our full `getStaticPaths` function becomes:
@@ -999,13 +1000,13 @@ So far what we've been able to achieve, is dynamically fetching and displaying t
 However, at this stage although the articles will be hosted within the app, no one will have any way of finding them or knowing that they're there, because so far we haven't updated the homepage or the section page. So let's take care of that next.
 
 ```
-📦pages
- ┣ 📂[section]
- ┃ ┗ 📜[slug].js
- ┃ ┗ 📜index.js
- ┣ 📂my-story
- ┃ ┗ 📜index.js
- ┣ 📜index.js
+📦 pages
+ ┣ 📂 [section]
+ ┃ ┗ 📜 [slug].js
+ ┃ ┗ 📜 index.js
+ ┣ 📂 my-story
+ ┃ ┗ 📜 index.js
+ ┣ 📜 index.js
 ```
 
 Like `[slug].js`, `[section]/index.js` is a dynamic file where we have to tell it its name by using `getStaticPaths`.
@@ -1134,13 +1135,13 @@ And with that, at build time our `[section]/index.js` page will create a page fo
 That means that, just by adding a Markdown article within the correct sub-folder of our `_articles` folder, the article will be automatically fetched and made available to our readers.
 
 ```
-📦_articles
- ┣ 📂projects
- ┃ ┣ 📜jethro-codes.md
- ┃ ┗ 📜meals-of-change.md
- ┣ 📂templates
- ┃ ┗ 📜rails-api.md
- ┗ 📜my-story.md
+📦 _articles
+ ┣ 📂 projects
+ ┃ ┣ 📜 jethro-codes.md
+ ┃ ┗ 📜 meals-of-change.md
+ ┣ 📂 templates
+ ┃ ┗ 📜 rails-api.md
+ ┗ 📜 my-story.md
 ```
 
 ### Homepage
@@ -1250,27 +1251,27 @@ All that's left therefore, is to update our sitemap so that search engines know 
 ## Updating the sitemap
 
 ```
-📦_articles
- ┣ 📂projects
- ┃ ┣ 📜jethro-codes.md
- ┃ ┗ 📜meals-of-change.md
- ┣ 📂templates
- ┃ ┗ 📜rails-api.md
- ┗ 📜my-story.md
-📦lib
- ┣ 📜api.js
- ┗ 📜markdownToHtml.js
-📦pages
- ┣ 📂[section]
- ┃ ┗ 📜[slug].js
- ┃ ┗ 📜index.js
- ┣ 📂contact
- ┃ ┗ 📜index.js
- ┣ 📂my-story
- ┃ ┗ 📜index.js
- ┣ 📜_app.js
- ┣ 📜index.js
- ┗ 📜sitemap.xml.js
+📦 _articles
+ ┣ 📂 projects
+ ┃ ┣ 📜 jethro-codes.md
+ ┃ ┗ 📜 meals-of-change.md
+ ┣ 📂 templates
+ ┃ ┗ 📜 rails-api.md
+ ┗ 📜 my-story.md
+📦 lib
+ ┣ 📜 api.js
+ ┗ 📜 markdownToHtml.js
+📦 pages
+ ┣ 📂 [section]
+ ┃ ┗ 📜 [slug].js
+ ┃ ┗ 📜 index.js
+ ┣ 📂 contact
+ ┃ ┗ 📜 index.js
+ ┣ 📂 my-story
+ ┃ ┗ 📜 index.js
+ ┣ 📜 _app.js
+ ┣ 📜 index.js
+ ┗ 📜 sitemap.xml.js
 ```
 
 This is the file tree that I showed you back at the beginning of this article. And the last part that we need to cover is the `sitemap.xml.js` file at the bottom.

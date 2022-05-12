@@ -1,4 +1,3 @@
-// TODO - Add 'Blocks falling' article
 // TODO - Add 'Where's Jethro' article
 // TODO - Add 'jethrowilliams.com' article
 

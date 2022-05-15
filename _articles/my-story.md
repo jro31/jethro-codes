@@ -279,7 +279,7 @@ I made it up to Dawson City, and then back down again. I made it all the way ove
 
 If you don't mind the whole murdering hitchhikers thing, it's a great way to travel.
 
-But alas, all good things must come to an end, and my 12 month visa in Canada was nearning its expiration.
+But alas, all good things must come to an end, and my 12 month visa in Canada was nearing its expiration.
 
 Now this was not the end. It was not even the beginning of the end. But it was, perhaps, the end of the beginning.
 
@@ -477,7 +477,7 @@ Having a map is being pretty prepared for me, so off I wandered into the jungle 
 
 Turns-out there's a lot of leeches in the jungle, and they can smell you coming.
 
-No matter how diligent you were in swiping them away, you would constantly find them climbing up, and sometimes falling into your shoes. But you can't stop and take your shoes off, because there are so many of them, coming at you from all angles.
+No matter how diligent you are in swiping them away, you constantly find them climbing up, and sometimes falling into your shoes. But you can't stop and take your shoes off, because there are so many of them, coming at you from all angles.
 
 It was like a zombie apocalpse, with really, really small worm-like zombies.
 
@@ -683,11 +683,11 @@ That's not a reflection on me in any way, rather that the number of people willi
 
 Outside of the main cities, China is the opposite, and I wanted that.
 
-I ended up accepting a job in the city of Changsha, which I'd never heard of. Although as I heard many times when I was there, the university's alumni included Chairman Mao, so... well that's one claim to fame.
+I ended up accepting a job in the city of Changsha, which I'd never heard of. Although as I heard many times when I was there, the university's alumni includes Chairman Mao, so... well that's one claim to fame.
 
 I lived on the university campus, which was right on the outskirts of the city.
 
-Leave the campus and turn right, you can take a couple of buses and be in the city centre. Leave the campus and turn left, after within two minutes of walking, you're among fields.
+Leave the campus and turn right, you can take a couple of buses and be in the city centre. Leave the campus and turn left, and within two minutes of walking, you're among fields.
 
 There were a couple of other foreigners working at this university as well, but beyond that you had to travel miles to find the next westerner.
 
@@ -759,7 +759,7 @@ There were definitely moments where I would start to envision my life in Bangkok
 
 And while these were a sign that I was now more settled than I had been in my adult life, they also came with a problem.
 
-I loved my job here. The students were really fun, the managers were always fair, and there was enough time off that I could have a life outside of work
+I loved my job there. The students were really fun, the managers were always fair, and there was enough time off that I could have a life outside of work
 
 Other people felt the same, and when I looked around the staffroom, we had multiple teachers who'd worked at this school for over 20 years, many who had worked here more than 10. And I could look at these teachers, each of whom had started at this school under similar circumstances to my own, and really see my future.
 

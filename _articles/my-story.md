@@ -521,7 +521,7 @@ At one point I took a route through some rural villages that took about a week. 
 
 This was a stop for the bus mid-route, so when I got on, I was the only person at this stop, and the bus was already full.
 
-It felt a bit like that scene from Forest Gump, where I walked down the aisle of the bus, with everyone staring at me, but instead of saying _"seat's taken,_, there was only one free seat on the bus.
+It felt a bit like that scene from Forest Gump, where I walked down the aisle of the bus with everyone staring at me, but instead of saying _"seat's taken"_ there was only one free seat on the bus.
 
 In the back row. In the middle. With no seats in front of it, so in full view of everyone.
 

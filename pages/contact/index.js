@@ -46,10 +46,11 @@ const Contact = () => {
 
   const formSubmitHandler = async event => {
     event.preventDefault();
-    setIsSubmitting(true);
     setSendStatus('');
 
     if (!formIsValid()) return;
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetch('/api/sendgrid', {

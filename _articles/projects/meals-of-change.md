@@ -60,7 +60,7 @@ At a later date, if I wanted to, I could build a completely new front-end, or I 
 
 ### Front-end {#front-end-tools}
 
-This was to be my first time working with React, where I actually had any knowledge of React. And based on the tools I'd found to be most intuitive whilst learning, I opted to use **Next.js** rather than pure React. I'd been turned onto Next.js by this point because of it's intuitive routing, and for its search engine friendliness.
+This was to be my first time working with React, where I actually had any knowledge of React. And based on the tools I'd found to be most intuitive whilst learning, I opted to use **Next.js** rather than pure React. I'd been turned onto Next.js by this point because of its intuitive routing, and for its search engine friendliness.
 
 I knew the app had the potential to grow, so wanted some app-wide state management, and of the tools I'd used so far, found **Redux Toolkit** to be the best to work with.
 

@@ -58,6 +58,8 @@ What I instead want to focus on is fetching the Markdown articles, and updating 
 
 Before getting into the API and fetching the articles, it's worth mentioning the stucture of the app to make everything a little clearer.
 
+This is a fairly standard **Next.js** app. It was started from my own [next-js-template](https://github.com/jro31/next-js-template) project, which in turn was started from [create-next-app](https://nextjs.org/docs/api-reference/create-next-app). I won't go into any more detail about what Next.js is, or how to start a next project in this article; I'll assume that you know the basics.
+
 Below is a file tree of all the files/folders relevant to what we're going to cover in this article.
 
 ```

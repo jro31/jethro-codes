@@ -17,7 +17,7 @@ Testing has been setup with **RSpec**, including [**factory_bot**](https://githu
 
 It includes authentication setup with Rails' `has_secure_password` (see 'Authentication' and 'Endpoints' sections below).
 
-It also includes linting with a custom setup of Rubocop, and a GitHub workflow which run two checks, tests and linting, on each push or pull request to `master`.
+It also includes linting with a custom setup of **Rubocop**, and a GitHub workflow which run two checks, tests and linting, on each push or pull request to `master`.
 
 ## Setup {#setup}
 

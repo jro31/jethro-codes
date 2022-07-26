@@ -805,7 +805,7 @@ I like to play Sudoku and Tetris, and I thought that my mind was naturally suite
 
 It was also because there were iPhone apps that I thought ought to exist, but didn't.
 
-Mostly related to health, and the amount of health data that our various devices collect on us, I thought then, and still think to this day, that it could be uitlised so much better. It's such an amazing trove of data on how our actions impact our health, and it's served by the likes of Apple as nothing more than some useless graphs.
+Mostly related to health, and the amount of health data that our various devices collect on us, I thought then, and still think to this day, that it could be utilised so much better. It's such an amazing trove of data on how our actions impact our health, and it's served by the likes of Apple as nothing more than some useless graphs.
 
 Even by this point, I'd felt this for years, and I'd posted my ideas on 'app idea' forums, where people post their ideas for an app, in the hope that someone picks it up.
 

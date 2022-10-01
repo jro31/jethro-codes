@@ -8,7 +8,7 @@ tags: 'Ruby on Rails, Next JS, React, Redux Toolkit, Tailwind CSS, Heroku, Verce
 
 ## Background {#background}
 
-At the time I started [Meals of Change](https://mealsofchange.com/), I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
+At the time I started [Meals of Change](#) (temporarily unavailable), I'd been coding for around three years. I'd worked almost solely as a Rails dev during that time, only ever using React somewhat reluctantly.
 
 I'd never had the time to learn React at this point, and in my first job, it was the era of React, pre-hooks, with Redux, pre-Redux Toolkit. With zero React learning behind me, I couldn't make head nor tail of what most of the code meant. I got by, looking at and trying to replicate the existing code, but not really understanding what was going on.
 
@@ -138,7 +138,7 @@ end
 
 `Rails.application.config.session_store` says that for our sessions, we are going to use cookies (`:cookie_store`). The `key:` is the name of the cookie. This can be anything, but convention says to use the name of your app, starting with an underscore: `"_meals_of_change"`. The `domain:` is the domain where this API is hosted.
 
-To see the cookie created here in action, go to [mealsofchange.com](https://mealsofchange.com/) and sign-up/login.
+To see the cookie created here in action, go to [mealsofchange.com](#) (temporarily unavailable) and sign-up/login.
 
 Then open up the inspector (on Chrome it's `right click -> Inspect`, or press `option + command + I` on a mac), navigate to `Application`, then in the left pane go to `Storage -> Cookies -> https://mealsofchange.com`.
 
@@ -1519,7 +1519,7 @@ Because of how routing works in Next.js.
 
 The major benefit of Next.js over pure React, for me at least, is `getStaticProps`, which pre-renders a page a build time, meaning that the data within the rendered 'props' is visible to search engine crawlers. So where as with pure React, if Googlebot had come along and seen my app, it would see a nearly empty page, with Next.js I can include my recipe within `getStaticProps` and Googlebot will be able to see it.
 
-When using a dynamic route, such as [https://mealsofchange.com/recipes/1](https://mealsofchange.com/recipes/1) (where the '1' is dynamic based on the ID of the recipe), you need to use `getStaticPaths`, and at built time, Next.js will pre-render all of the paths that you return.
+When using a dynamic route, such as [https://mealsofchange.com/recipes/1](#) (temporarily unavailable) (where the '1' is dynamic based on the ID of the recipe), you need to use `getStaticPaths`, and at built time, Next.js will pre-render all of the paths that you return.
 
 For example, in the recipes show page on the front-end, I have the following:
 
@@ -2030,7 +2030,7 @@ The last thing to mention therefore, is how the app is hosted.
 
 The front-end is hosted by Vercel. As the makers of Next.js, it just makes sense to host the app with them. Their app is incredibly user-friendly, and free.
 
-Obviously the front-end gets to use the main domain, so the front-end of the app can be accessed at [https://mealsofchange.com/](https://mealsofchange.com/).
+Obviously the front-end gets to use the main domain, so the front-end of the app can be accessed at [https://mealsofchange.com/](#) (temporarily unavailable).
 
 My personal preference for hosting Rails apps, so who I've gone with here, is Heroku. My only reservation with Heroku is their free tier is pretty useless for anything other than testing, so I reluctantly give them $7/month to make sure the app is always awake.
 
@@ -2042,6 +2042,6 @@ Happy coding!
 
 ## Useful links {#useful-links}
 
-- Meals of Change - [https://mealsofchange.com/](https://mealsofchange.com/)
+- Meals of Change - [https://mealsofchange.com/](#) (temporarily unavailable)
 - Meals of Change front-end GitHub repo - [https://github.com/jro31/meals-of-change-front-end](https://github.com/jro31/meals-of-change-front-end)
 - Meals of Change API GitHub repo - [https://github.com/jro31/meals-of-change-api](https://github.com/jro31/meals-of-change-api)

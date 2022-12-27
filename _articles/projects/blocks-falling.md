@@ -130,7 +130,7 @@ The `reduce` function is a bit of a sticky one to get your head around, particul
 
 Confused?
 
-Yeah, I have that affect on people.
+Yeah, I have that effect on people.
 
 Let's look at a simpler example:
 

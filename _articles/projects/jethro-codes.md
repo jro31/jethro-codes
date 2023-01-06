@@ -6,6 +6,8 @@ published: '2022-04-27'
 tags: 'Next JS, React, Tailwind CSS, Vercel'
 ---
 
+_Note: At the time of writing the below article, this app was hosted at 'jethro.codes'. Subsequent to hosting it there, the price of the domain increased about 1,500%, so I have since moved it to 'code.jethrowilliams.com'._
+
 I wasn’t going to write an article about this app, because I thought it’d be a bit weird to write about an app within the app. Some kind of appception.
 
 I imagine that’s what the people who make Git go through everyday.
@@ -1471,7 +1473,7 @@ export const getServerSideProps = ({ req, res }) => {
 };
 ```
 
-To see the page that we generated here, go to [jethro.codes/sitemap.xml](https://jethro.codes/sitemap.xml).
+To see the page that we generated here, go to [jethro.codes/sitemap.xml](https://code.jethrowilliams.com/sitemap.xml).
 
 ## Wrap-up {#wrap-up}
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jethro.codes/sitemap.xml
+Sitemap: https://code.jethrowilliams.com/sitemap.xml

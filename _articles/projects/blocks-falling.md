@@ -6,13 +6,15 @@ published: '2022-05-11'
 tags: 'React, Redux Toolkit, Firebase'
 ---
 
+_Note: At the time of writing the below article, Blocks Falling was hosted at 'blocksfalling.com'. It has since been moved to 'blocks.jethrowilliams.com'._
+
 At one point in time, this app went by a different name.
 
 I didn't really think anyone would care. Building it was a personal challenge, and another app to add to my portfolio. I didn't think more than about three people would ever play it.
 
 Turns out some that some people do care. And they have lawyers. So I had to do a complete rebrand.
 
-So based on this [completely unrelated video game trailer](https://youtu.be/Mr8fVT_Ds4Q) (which just so happens to be the greatest trailer in video game history), I rebranded and '[Blocks Falling](https://blocksfalling.com/)' was born.
+So based on this [completely unrelated video game trailer](https://youtu.be/Mr8fVT_Ds4Q) (which just so happens to be the greatest trailer in video game history), I rebranded and '[Blocks Falling](https://blocks.jethrowilliams.com/)' was born.
 
 ## Background {#background}
 
@@ -6294,5 +6296,5 @@ If not, then I hope that you found this article useful and learned something!
 
 ## Useful links {#useful-links}
 
-- Blocks Falling - [https://blocksfalling.com/](https://blocksfalling.com/)
+- Blocks Falling - [https://blocks.jethrowilliams.com/](https://blocks.jethrowilliams.com/)
 - Blocks Falling GitHub repo - [https://github.com/jro31/blocks-falling](https://github.com/jro31/blocks-falling)

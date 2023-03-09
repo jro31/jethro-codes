@@ -6,7 +6,7 @@ published: '2022-04-29'
 tags: 'npm, JavaScript'
 ---
 
-Whilst writing the code for [Blocks Falling](https://blocksfalling.com/), I needed some arrays of integers. I found the syntax to create them to be a little unclean, and that there was no uniform way to create an array of integers with varying starting numbers and increments, so I created [this package](https://www.npmjs.com/package/array-of-numbers) to do exactly that.
+Whilst writing the code for [Blocks Falling](https://blocks.jethrowilliams.com/), I needed some arrays of integers. I found the syntax to create them to be a little unclean, and that there was no uniform way to create an array of integers with varying starting numbers and increments, so I created [this package](https://www.npmjs.com/package/array-of-numbers) to do exactly that.
 
 This package returns an array of integers, based on three optional arguments:
 

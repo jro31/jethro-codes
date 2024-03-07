@@ -11,7 +11,7 @@ This template is a public repo on GitHub, and can be found [here](https://github
 
 ## Specifications {#specifications}
 
-This project template is setup with **Ruby 3.1.0** and **Rails 7.0.1**, the [**Pundit**](https://github.com/varvet/pundit) authorization gem, and has a **PostgreSQL** database.
+This project template is setup with **Ruby 3.3.0** and **Rails 7.1.3.2**, the [**Pundit**](https://github.com/varvet/pundit) authorization gem, and has a **PostgreSQL** database.
 
 Testing has been setup with **RSpec**, including [**factory_bot**](https://github.com/thoughtbot/factory_bot/blob/main/GETTING_STARTED.md), [**Faker**](https://github.com/faker-ruby/faker) and [**Database Cleaner Adapter for ActiveRecord**](https://github.com/DatabaseCleaner/database_cleaner-active_record).
 
